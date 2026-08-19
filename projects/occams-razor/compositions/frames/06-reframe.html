@@ -1,0 +1,112 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+    .frame {
+      position: absolute;
+      inset: 0;
+      padding: 140px 100px 100px;
+      color: #F2F1EC;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .setup {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 62px;
+      font-weight: 400;
+      color: #8A8A8A;
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+    }
+    .punch {
+      font-family: "Playfair Display", serif;
+      font-size: 168px;
+      font-weight: 700;
+      line-height: 1.05;
+      margin-top: 96px;
+      max-width: 900px;
+      letter-spacing: -0.03em;
+    }
+    .accent {
+      color: #F2D24B;
+    }
+    .sig {
+      position: absolute;
+      bottom: 70px;
+      left: 100px;
+      color: #8A8A8A;
+      font-family: "Inter", sans-serif;
+      font-size: 36px;
+    }
+    .sig::after {
+      content: "";
+      display: inline-block;
+      width: 260px;
+      height: 2px;
+      background: #8A8A8A;
+      margin-left: 24px;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-h22a" id="root" data-composition-id="06-reframe" data-width="1080" data-height="1920" data-duration="6.5">
+    <div data-hf-id="hf-1mm0" class="clip ground" id="f06_reframe_ground" data-start="0" data-duration="6.5" data-track-index="1"></div>
+    <div data-hf-id="hf-3n1l" class="clip frame" id="f06_reframe_frame" data-start="0" data-duration="6.5" data-track-index="2">
+      <div data-hf-id="hf-o5ua" class="setup">So the razor isn't about "simple."</div>
+      <div data-hf-id="hf-qpvg" class="punch">It's about <span data-hf-id="hf-jivh" id="focal" class="accent">fewer</span>.</div>
+      <div data-hf-id="hf-xpk4" class="sig" data-layout-allow-overlap>anujb.sh</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["06-reframe"] = tl;
+
+    tl.fromTo(
+      ".setup",
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" },
+      0.4
+    );
+
+    tl.set(".punch", { autoAlpha: 0 }, 0);
+    tl.set(".punch", { autoAlpha: 1 }, 1.6);
+
+    const phase = { p: 0 };
+    tl.to(phase, {
+      p: Math.PI * 2 * 0.6,
+      duration: 1.6,
+      ease: "none",
+      onUpdate: () => {
+        const el = document.getElementById("focal");
+        if (el) el.style.transform = "translateY(" + Math.sin(phase.p) * 2 + "px)";
+      }
+    }, 4.0);
+
+    tl.to({}, { duration: 6 }, 0);
+  </script>
+</template>

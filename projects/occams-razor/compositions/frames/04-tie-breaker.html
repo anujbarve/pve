@@ -1,0 +1,189 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+    .tb-ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+    .tb-frame {
+      position: absolute;
+      inset: 0;
+      padding: 160px 100px 0;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+    .tb-lead {
+      font-size: 64px;
+      font-weight: 400;
+      line-height: 1.32;
+      color: #F2F1EC;
+      max-width: 760px;
+    }
+    .tb-split {
+      position: absolute;
+      left: 100px;
+      right: 100px;
+      top: 480px;
+      height: 1010px;
+      display: flex;
+      flex-direction: column;
+      perspective: 1400px;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .tb-panel {
+      flex: 1;
+      transform-style: preserve-3d;
+      will-change: transform;
+      padding-top: 140px;
+    }
+    .tb-panel-a {
+      border-top: 1px solid #8A8A8A;
+    }
+    .tb-panel-b {
+      border-top: 1px solid #8A8A8A;
+    }
+    .tb-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 400;
+      font-size: 30px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8A8A8A;
+    }
+    .tb-panel-b .tb-label {
+      color: #F2F1EC;
+    }
+    .tb-desc {
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 60px;
+      line-height: 1.28;
+      margin-top: 28px;
+      color: #8A8A8A;
+    }
+    .tb-panel-b .tb-desc {
+      color: #F2F1EC;
+    }
+    .tb-badge {
+      position: absolute;
+      right: 0;
+      top: calc(50% - 42px);
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 700;
+      font-size: 30px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #000000;
+      background: #F2D24B;
+      border-radius: 999px;
+      padding: 20px 44px;
+      will-change: transform;
+    }
+    .tb-sig {
+      position: absolute;
+      top: 1520px;
+      left: 100px;
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 36px;
+      color: #8A8A8A;
+    }
+    .tb-sig::after {
+      content: "";
+      display: inline-block;
+      width: 260px;
+      height: 2px;
+      background: #8A8A8A;
+      margin-left: 24px;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-kcfn" id="root" data-composition-id="04-tie-breaker" data-width="1080" data-height="1920" data-duration="7.5">
+    <div data-hf-id="hf-elje" class="clip tb-ground" id="f04_tie_breaker_ground" data-start="0" data-duration="7.5" data-track-index="1"></div>
+    <div data-hf-id="hf-gagl" class="clip tb-frame" id="f04_tie_breaker_frame" data-start="0" data-duration="7.5" data-track-index="2">
+      <div data-hf-id="hf-vaf0" class="tb-lead">Both fit the facts. Which one do you keep?</div>
+      <div data-hf-id="hf-usvt" class="tb-split">
+        <div data-hf-id="hf-xpak" class="tb-panel tb-panel-a">
+          <div data-hf-id="hf-ddgt" class="tb-label">Explanation A</div>
+          <div data-hf-id="hf-t55v" class="tb-desc">Fits, with lots of extra assumptions.</div>
+        </div>
+        <div data-hf-id="hf-8ks7" class="tb-panel tb-panel-b">
+          <div data-hf-id="hf-ekdw" class="tb-label">Explanation B</div>
+          <div data-hf-id="hf-wrxp" class="tb-desc">Fits, with fewer assumptions.</div>
+        </div>
+        <div data-hf-id="hf-2hq9" class="tb-badge">FEWER</div>
+      </div>
+      <div data-hf-id="hf-andt" class="tb-sig" data-layout-allow-overlap>anujb.sh</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // Scene 1 (0.0-1.2): lead question fades in, top band — "keep" stays off-white, no accent
+    tl.fromTo(".tb-lead", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0);
+
+    // Scene 2 (1.2-2.8): split-tilt entry — stacked portrait, mirrored rotateX, settling flat
+    tl.fromTo(
+      ".tb-panel-a",
+      { opacity: 0, y: -50, rotateX: -18 },
+      { opacity: 1, y: 0, rotateX: 0, duration: 0.7, ease: "power3.out" },
+      1.2
+    );
+    tl.fromTo(
+      ".tb-panel-b",
+      { opacity: 0, y: 50, rotateX: 18 },
+      { opacity: 1, y: 0, rotateX: 0, duration: 0.7, ease: "power3.out" },
+      1.4
+    );
+
+    // Copy fades up during each panel's settle, not after
+    tl.fromTo(
+      ".tb-panel-a .tb-label, .tb-panel-a .tb-desc",
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.08 },
+      1.45
+    );
+    tl.fromTo(
+      ".tb-panel-b .tb-label, .tb-panel-b .tb-desc",
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.08 },
+      1.65
+    );
+
+    // Scene 3 (2.8-5.2): badge spring-pops on Panel B's inner edge — the frame's one overshoot
+    tl.fromTo(
+      ".tb-badge",
+      { scale: 0, opacity: 0, rotation: -6 },
+      { scale: 1, opacity: 1, rotation: 0, duration: 0.5, ease: "back.out(2)" },
+      2.8
+    );
+
+    // Scene 4 (5.2-7.0): hold the resolved spread — opposite-phase subtle jitter on the two panels
+    tl.to(".tb-panel-a", { y: 2, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 1 }, 5.2);
+    tl.to(".tb-panel-b", { y: -2, duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 1 }, 5.2);
+
+    window.__timelines["04-tie-breaker"] = tl;
+  </script>
+</template>

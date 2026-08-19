@@ -1,0 +1,125 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+    .frame {
+      position: absolute;
+      inset: 0;
+      padding: 140px 100px 100px;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 44px;
+      font-weight: 400;
+      color: #8A8A8A;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+    .name {
+      font-family: "Playfair Display", serif;
+      font-size: 200px;
+      font-weight: 700;
+      line-height: 1.02;
+      margin-top: 48px;
+    }
+    .accent {
+      color: #F2D24B;
+    }
+    .attribution {
+      font-family: "Inter", sans-serif;
+      font-size: 56px;
+      font-weight: 400;
+      color: #8A8A8A;
+      margin-top: 56px;
+    }
+    .principle {
+      position: relative;
+      font-family: "Playfair Display", serif;
+      font-size: 52px;
+      font-weight: 400;
+      font-style: italic;
+      color: #8A8A8A;
+      margin-top: 32px;
+      max-width: 780px;
+      line-height: 1.4;
+    }
+    .principle-rule {
+      position: relative;
+      width: 100%;
+      height: 1px;
+      background: #8A8A8A;
+      transform-origin: left center;
+      margin-top: 48px;
+    }
+    .sig {
+      position: absolute;
+      bottom: 70px;
+      left: 100px;
+      color: #8A8A8A;
+      font-family: "Inter", sans-serif;
+      font-size: 36px;
+    }
+    .sig::after {
+      content: "";
+      display: inline-block;
+      width: 260px;
+      height: 2px;
+      background: #8A8A8A;
+      margin-left: 24px;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-brmm" id="root" data-composition-id="03-name" data-width="1080" data-height="1920" data-duration="6.5">
+    <div data-hf-id="hf-zv9w" class="clip ground" id="f03_name_ground" data-start="0" data-duration="6.5" data-track-index="1"></div>
+    <div data-hf-id="hf-q4g5" class="clip frame" id="f03_name_frame" data-start="0" data-duration="6.5" data-track-index="2">
+      <div data-hf-id="hf-va4c" class="kicker">It has a name</div>
+      <div data-hf-id="hf-1684" class="name">Occam's<br data-hf-id="hf-x5px"><span data-hf-id="hf-ganx" class="accent">Razor</span></div>
+      <div data-hf-id="hf-a2ex" class="attribution">William of Ockham, 14th century</div>
+      <div data-hf-id="hf-n7m7" class="principle-rule"></div>
+      <div data-hf-id="hf-8t1t" class="principle" data-frame-el="principle">"Entities must not be multiplied beyond necessity."</div>
+      <div data-hf-id="hf-xpk4" class="sig" data-layout-allow-overlap>anujb.sh</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["03-name"] = gsap.timeline({ paused: true });
+    (function () {
+      var root = document.querySelector('[data-composition-id="03-name"]');
+      var q = gsap.utils.selector(root);
+      var tl = window.__timelines["03-name"];
+      tl.fromTo(q(".kicker"), { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power2.out" }, 0.15);
+      tl.fromTo(q(".name"), { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 0.65, ease: "power2.out" }, 1.2);
+      tl.fromTo(q(".attribution"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 2.0);
+      tl.fromTo(q(".principle-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut", transformOrigin: "left center" }, 2.8);
+      tl.fromTo(q(".principle"), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 3.1);
+    })();
+  </script>
+</template>

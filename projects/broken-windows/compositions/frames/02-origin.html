@@ -1,0 +1,39 @@
+<template>
+  <style>
+    @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2"); }
+    @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2"); }
+    #root { width: 2160px; height: 3840px; position: relative; overflow: hidden; background: #000; }
+    .ground { position: absolute; inset: 0; background: #000; }
+    .frame { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .setup { font-family: "Playfair Display", serif; font-size: 240px; font-weight: 700; color: #EAE6DF; letter-spacing: -0.02em; text-align: center; opacity: 0; }
+    .divider { width: 640px; height: 4px; background: rgba(234,230,223,0.15); margin: 80px 0; }
+    .punch { font-family: "Inter", sans-serif; font-size: 84px; font-weight: 500; color: #EAE6DF; letter-spacing: 0.06em; text-align: center; opacity: 0; }
+    .accent { font-family: "Playfair Display", serif; font-size: 76px; font-style: italic; color: #D4622B; letter-spacing: 0.02em; text-align: center; margin-top: 40px; opacity: 0; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-02" id="root" data-composition-id="02-origin" data-width="2160" data-height="3840" data-duration="9.66">
+    <div data-hf-id="hf-02-g" class="clip ground" data-start="0" data-duration="9.66" data-track-index="0"></div>
+    <div data-hf-id="hf-02-f" class="clip frame" data-start="0" data-duration="9.66" data-track-index="1">
+      <div data-hf-id="hf-02-s" id="setup-02" class="setup">1982</div>
+      <div data-hf-id="hf-02-d" id="divider-02" class="divider"></div>
+      <div data-hf-id="hf-02-p" id="punch-02" class="punch">WILSON &amp; KELLING</div>
+      <div data-hf-id="hf-02-a" id="accent-02" class="accent">The Broken Windows Theory</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["02-origin"] = tl;
+
+    const setup = document.getElementById("setup-02");
+    const divider = document.getElementById("divider-02");
+    const punch = document.getElementById("punch-02");
+    const accent = document.getElementById("accent-02");
+
+    gsap.set(divider, { scaleX: 0 });
+    tl.to(setup, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.2);
+    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.2);
+    tl.to(punch, { opacity: 1, duration: 0.6, ease: "power2.out" }, 2.0);
+    tl.to(accent, { opacity: 1, duration: 0.8, ease: "power2.out" }, 7.0);
+  </script>
+</template>

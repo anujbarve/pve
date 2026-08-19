@@ -1,0 +1,39 @@
+<template>
+  <style>
+    @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2"); }
+    @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2"); }
+    #root { width: 2160px; height: 3840px; position: relative; overflow: hidden; background: #000; }
+    .ground { position: absolute; inset: 0; background: #000; }
+    .frame { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .setup { font-family: "Inter", sans-serif; font-size: 72px; color: rgba(234,230,223,0.55); letter-spacing: 0.06em; text-align: center; opacity: 0; }
+    .divider { width: 640px; height: 4px; background: rgba(234,230,223,0.15); margin: 80px 0; }
+    .punch { font-family: "Playfair Display", serif; font-size: 120px; font-weight: 700; color: #EAE6DF; line-height: 1.2; text-align: center; opacity: 0; }
+    .accent { font-family: "Playfair Display", serif; font-size: 104px; font-weight: 700; color: #D4622B; line-height: 1.2; text-align: center; margin-top: 40px; opacity: 0; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-05" id="root" data-composition-id="05-reframe" data-width="2160" data-height="3840" data-duration="7.1">
+    <div data-hf-id="hf-05-g" class="clip ground" data-start="0" data-duration="7.1" data-track-index="0"></div>
+    <div data-hf-id="hf-05-f" class="clip frame" data-start="0" data-duration="7.1" data-track-index="1">
+      <div data-hf-id="hf-05-s" id="setup-05" class="setup">But here's the thing.</div>
+      <div data-hf-id="hf-05-d" id="divider-05" class="divider"></div>
+      <div data-hf-id="hf-05-p" id="punch-05" class="punch">It was never<br>about the window.</div>
+      <div data-hf-id="hf-05-a" id="accent-05" class="accent">It's about the signal.</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["05-reframe"] = tl;
+
+    const setup = document.getElementById("setup-05");
+    const divider = document.getElementById("divider-05");
+    const punch = document.getElementById("punch-05");
+    const accent = document.getElementById("accent-05");
+
+    gsap.set(divider, { scaleX: 0 });
+    tl.to(setup, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.2);
+    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.0);
+    tl.to(punch, { opacity: 1, duration: 0.6, ease: "power2.out" }, 1.8);
+    tl.to(accent, { opacity: 1, duration: 0.8, ease: "power2.out" }, 5.0);
+  </script>
+</template>

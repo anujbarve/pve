@@ -1,0 +1,134 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+    .frame {
+      position: absolute;
+      inset: 0;
+      padding: 140px 100px 100px;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .rule {
+      width: 720px;
+      height: 1px;
+      background: #F2F1EC;
+    }
+    .kicker {
+      font-family: "Playfair Display", serif;
+      font-style: italic;
+      font-size: 56px;
+      font-weight: 400;
+      color: #8A8A8A;
+      line-height: 1.4;
+      margin-top: 48px;
+    }
+    .lesson {
+      font-family: "Playfair Display", serif;
+      font-size: 148px;
+      font-weight: 700;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-top: 96px;
+      max-width: 880px;
+      text-align: center;
+    }
+    .word {
+      display: inline-block;
+    }
+    .closer {
+      font-family: "Inter", sans-serif;
+      font-size: 64px;
+      font-weight: 400;
+      color: #8A8A8A;
+      margin-top: 120px;
+      max-width: 760px;
+      line-height: 1.4;
+      text-align: center;
+    }
+    .sig {
+      position: absolute;
+      bottom: 70px;
+      left: 100px;
+      color: #8A8A8A;
+      font-family: "Inter", sans-serif;
+      font-size: 36px;
+    }
+    .sig::after {
+      content: "";
+      display: inline-block;
+      width: 260px;
+      height: 2px;
+      background: #8A8A8A;
+      margin-left: 24px;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-id2o" id="root" data-composition-id="07-bigger-lesson" data-width="1080" data-height="1920">
+    <div data-hf-id="hf-1mm0" class="clip ground" id="f07_bigger_lesson_ground" data-start="0" data-duration="6" data-track-index="1"></div>
+    <div data-hf-id="hf-3n1l" class="clip frame" id="f07_bigger_lesson_frame" data-start="0" data-duration="6" data-track-index="2">
+      <div data-hf-id="hf-a46i" class="rule"></div>
+      <div data-hf-id="hf-yjgq" class="kicker">The bigger lesson</div>
+      <div data-hf-id="hf-qwr8" class="lesson"><span data-hf-id="hf-xdgt" class="word">When</span> <span data-hf-id="hf-4bbp" class="word">two</span> <span data-hf-id="hf-24ts" class="word">answers</span> <span data-hf-id="hf-3s5g" class="word">fit,</span> <span data-hf-id="hf-m9k4" class="word">keep</span> <span data-hf-id="hf-o034" class="word">the</span> <span data-hf-id="hf-786z" class="word">one</span> <span data-hf-id="hf-pbdx" class="word">with</span> <span data-hf-id="hf-n7m7" class="word focal">fewer</span> <span data-hf-id="hf-k64r" class="word">assumptions.</span></div>
+      <div data-hf-id="hf-bbqe" class="closer">It's how you think sharper, decide faster, and stay right.</div>
+      <div data-hf-id="hf-xpk4" class="sig" data-layout-allow-overlap>anujb.sh</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // Scene 1 (0.0-1.2s): top 1px hairline draws left-to-right; frame otherwise bare.
+    tl.fromTo(".rule", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.out", transformOrigin: "left center" }, 0.05);
+
+    // Scene 2 (1.2-2.4s): kicker fades in italic, muted, centered under the rule.
+    tl.fromTo(".kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 1.25);
+
+    // Scene 3 (2.4-4.4s): payoff builds word-by-word. Content-driven cadence is
+    // precomputed ONCE at build (longer words earn more screen time) —
+    // no per-frame timing logic, deterministic and seek-safe.
+    const words = gsap.utils.toArray(".lesson .word");
+    let t = 2.45;
+    words.forEach((w) => {
+      const pace = 0.08 + w.textContent.length * 0.008;
+      tl.fromTo(w, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, t);
+      if (w.classList.contains("focal")) {
+        tl.fromTo(w, { color: "#8A8A8A" }, { color: "#F2D24B", duration: 0.3, ease: "none" }, t + 0.2);
+      }
+      t += pace;
+    });
+
+    // Scene 4 (4.4-6.0s): closer fades in muted beneath the payoff, then
+    // allocated stillness to the final frame.
+    tl.fromTo(".closer", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }, 4.45);
+
+    window.__timelines["07-bigger-lesson"] = tl;
+  </script>
+</template>

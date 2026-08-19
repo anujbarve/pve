@@ -1,0 +1,101 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+    .frame {
+      position: absolute;
+      inset: 0;
+      padding: 140px 100px 100px;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+    .setup {
+      font-family: "Inter", sans-serif;
+      font-size: 56px;
+      font-weight: 400;
+      color: #8A8A8A;
+      margin-top: 480px;
+    }
+    .divider {
+      width: 540px;
+      height: 1px;
+      background: #D9D9D7;
+      margin-top: 26px;
+      transform-origin: left center;
+    }
+    .punch {
+      font-size: 132px;
+      font-weight: 700;
+      line-height: 1.08;
+      margin-top: 48px;
+      max-width: 880px;
+      font-family: "Playfair Display", serif;
+      color: #F2F1EC;
+      letter-spacing: -0.02em;
+    }
+    .w { display: inline-block; }
+    .sig {
+      position: absolute;
+      bottom: 70px;
+      left: 100px;
+      color: #8A8A8A;
+      font-family: "Inter", sans-serif;
+      font-size: 36px;
+    }
+    .sig::after {
+      content: "";
+      display: inline-block;
+      width: 260px;
+      height: 2px;
+      background: #8A8A8A;
+      margin-left: 24px;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-01" id="root" data-composition-id="01-example" data-width="1080" data-height="1920" data-duration="6">
+    <div data-hf-id="hf-01g" class="clip ground" id="f01_ground" data-start="0" data-duration="6" data-track-index="1"></div>
+    <div data-hf-id="hf-01f" class="clip frame" id="f01_frame" data-start="0" data-duration="6" data-track-index="2">
+      <div data-hf-id="hf-01s" class="setup" id="f01_setup">SETUP TEXT HERE</div>
+      <div data-hf-id="hf-01d" class="divider" id="f01_divider"></div>
+      <div data-hf-id="hf-01p" class="punch" data-layout-allow-overlap>
+        <span data-hf-id="hf-01w1" class="w">PUNCH</span>
+        <span data-hf-id="hf-01w2" class="w accent" id="focal">TEXT</span>
+      </div>
+      <div data-hf-id="hf-01sig" class="sig" data-layout-allow-overlap>anujb.sh</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["01-example"] = tl;
+
+    // Animations timed to match narration — see SOP §6
+    tl.fromTo("#f01_setup", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+    tl.fromTo("#f01_divider", { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power3.out" }, 0.8);
+    tl.fromTo(".punch .w", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.2 }, 1.5);
+    tl.set("#focal", { color: "#F2D24B", immediateRender: false }, 3.5);
+  </script>
+</template>

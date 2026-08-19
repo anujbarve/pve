@@ -1,0 +1,48 @@
+<template>
+  <style>
+    @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2"); }
+    @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2"); }
+    #root { width: 2160px; height: 3840px; position: relative; overflow: hidden; background: #000; }
+    .ground { position: absolute; inset: 0; background: #000; }
+    .frame { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .setup { font-family: "Inter", sans-serif; font-size: 72px; color: rgba(234,230,223,0.55); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; opacity: 0; }
+    .divider { width: 640px; height: 4px; background: rgba(234,230,223,0.15); margin: 80px 0; }
+    .punch-row { display: flex; gap: 60px; justify-content: center; margin: 40px 0; }
+    .punch-num { font-family: "Playfair Display", serif; font-size: 280px; font-weight: 700; color: #EAE6DF; opacity: 0; }
+    .accent { font-family: "Playfair Display", serif; font-size: 104px; font-weight: 700; color: #D4622B; line-height: 1.2; text-align: center; margin-top: 80px; opacity: 0; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="hf-04" id="root" data-composition-id="04-cascade" data-width="2160" data-height="3840" data-duration="13.98">
+    <div data-hf-id="hf-04-g" class="clip ground" data-start="0" data-duration="13.98" data-track-index="0"></div>
+    <div data-hf-id="hf-04-f" class="clip frame" data-start="0" data-duration="13.98" data-track-index="1">
+      <div data-hf-id="hf-04-s" id="setup-04" class="setup">And once that signal goes out</div>
+      <div data-hf-id="hf-04-d" id="divider-04" class="divider"></div>
+      <div data-hf-id="hf-04-row" class="punch-row">
+        <div data-hf-id="hf-04-p1" id="punch-04-1" class="punch-num">One</div>
+        <div data-hf-id="hf-04-p2" id="punch-04-2" class="punch-num">Two</div>
+        <div data-hf-id="hf-04-p3" id="punch-04-3" class="punch-num">Ten</div>
+      </div>
+      <div data-hf-id="hf-04-a" id="accent-04" class="accent">Then the whole block<br>falls apart.</div>
+    </div>
+  </div>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["04-cascade"] = tl;
+
+    const setup = document.getElementById("setup-04");
+    const divider = document.getElementById("divider-04");
+    const p1 = document.getElementById("punch-04-1");
+    const p2 = document.getElementById("punch-04-2");
+    const p3 = document.getElementById("punch-04-3");
+    const accent = document.getElementById("accent-04");
+
+    gsap.set(divider, { scaleX: 0 });
+    tl.to(setup, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.2);
+    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.5);
+    tl.to(p1, { opacity: 1, duration: 0.4, ease: "power2.out" }, 3.0);
+    tl.to(p2, { opacity: 1, duration: 0.4, ease: "power2.out" }, 5.0);
+    tl.to(p3, { opacity: 1, duration: 0.4, ease: "power2.out" }, 7.0);
+    tl.to(accent, { opacity: 1, duration: 0.8, ease: "power2.out" }, 10.5);
+  </script>
+</template>
