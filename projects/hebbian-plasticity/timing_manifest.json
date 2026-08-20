@@ -1,0 +1,59 @@
+{
+  "master_duration": 68.98,
+  "frames": [
+    {
+      "id": "01-hook",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/hebbian-plasticity/.temp_audio/01-hook_raw.wav",
+      "tts_dur": 11.96,
+      "reveal_offset": 0.5,
+      "duration": 14.06,
+      "start": 0.0,
+      "text": "Every thought, every skill, and every obsession physically changes the cellular architecture of your brain. How does an abstract idea turn into solid biological circuitry?"
+    },
+    {
+      "id": "02-origin",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/hebbian-plasticity/.temp_audio/02-origin_raw.wav",
+      "tts_dur": 8.76,
+      "reveal_offset": 0.5,
+      "duration": 10.86,
+      "start": 13.56,
+      "text": "In nineteen forty-nine, Canadian psychologist Donald Hebb proposed a revolutionary biological law that redefined neuroscience forever."
+    },
+    {
+      "id": "03-mechanism",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/hebbian-plasticity/.temp_audio/03-mechanism_raw.wav",
+      "tts_dur": 11.24,
+      "reveal_offset": 0.5,
+      "duration": 13.34,
+      "start": 23.92,
+      "text": "Neurons that fire together, wire together. When two neurons repeatedly activate at the exact same moment, their synaptic connection strengthens and forms a permanent highway."
+    },
+    {
+      "id": "04-cascade",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/hebbian-plasticity/.temp_audio/04-cascade_raw.wav",
+      "tts_dur": 11.0,
+      "reveal_offset": 0.5,
+      "duration": 13.1,
+      "start": 36.760000000000005,
+      "text": "The flip side is brutal. Neurons out of sync fail to link. The brain aggressively prunes away unused neural pathways to conserve vital metabolic energy."
+    },
+    {
+      "id": "05-reframe",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/hebbian-plasticity/.temp_audio/05-reframe_raw.wav",
+      "tts_dur": 9.64,
+      "reveal_offset": 0.5,
+      "duration": 11.74,
+      "start": 49.36000000000001,
+      "text": "You are not stuck with the brain you were born with. Repetition acts like a physical chisel, carving permanent grooves into your neural landscape."
+    },
+    {
+      "id": "06-lesson",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/hebbian-plasticity/.temp_audio/06-lesson_raw.wav",
+      "tts_dur": 7.88,
+      "reveal_offset": 0.5,
+      "duration": 9.979999999999999,
+      "start": 60.60000000000001,
+      "text": "Your habits are literally building physical brain circuits right now. Feed what you want to grow. Starve what you want to prune."
+    }
+  ]
+}

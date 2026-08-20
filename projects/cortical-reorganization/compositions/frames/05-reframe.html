@@ -1,0 +1,286 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 140px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Duality Reframe Comparison Stack */
+    .duality-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      width: 100%;
+      max-width: 1760px;
+      margin-bottom: 40px;
+    }
+
+    .myth-card {
+      background: rgba(212, 98, 43, 0.05);
+      border: 2px dashed rgba(212, 98, 43, 0.4);
+      border-radius: 28px;
+      padding: 34px 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .laser-strike {
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      height: 4px;
+      background: #D4622B;
+      box-shadow: 0 0 16px #D4622B;
+    }
+
+    .myth-title {
+      font-size: 34px;
+      font-weight: 700;
+      color: #A0A09C;
+      text-decoration: line-through;
+    }
+
+    .myth-badge {
+      background: rgba(212, 98, 43, 0.2);
+      color: #D4622B;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 22px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .reality-card {
+      background: rgba(242, 210, 75, 0.06);
+      border: 3px solid rgba(242, 210, 75, 0.5);
+      border-radius: 32px;
+      padding: 40px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(242, 210, 75, 0.15);
+    }
+
+    .reality-kicker {
+      font-size: 26px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .reality-title {
+      font-family: "Playfair Display", serif;
+      font-size: 52px;
+      font-weight: 700;
+      color: #F2F1EC;
+      line-height: 1.2;
+    }
+
+    /* Content block */
+    .content-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+      margin: 0 auto;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 20px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 110px;
+      font-weight: 700;
+      line-height: 1.18;
+      color: #F2F1EC;
+      margin-bottom: 24px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    /* Dynamic Captions Pill */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 45px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 22px 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 50px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-05-root" id="root" data-composition-id="05-reframe" data-width="2160" data-height="3840" data-duration="11.34">
+    <div data-hf-id="hf-05-ground" id="f05-ground" class="clip ground" data-start="0" data-duration="11.34" data-track-index="0">
+      <div data-hf-id="hf-05-grid" id="f05-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-05-frame" id="f05-frame" class="clip frame-container" data-start="0" data-duration="11.34" data-track-index="1">
+      <div data-hf-id="hf-05-szone" class="safe-zone">
+        
+        <!-- Duality Comparison -->
+        <div data-hf-id="hf-05-duality" id="f05-duality" class="duality-stack">
+          <div data-hf-id="hf-0j5l" id="f05-myth" class="myth-card">
+            <span data-hf-id="hf-ow0d" class="myth-title" data-layout-allow-occlusion="">Hardwired Static Machine</span>
+            <div data-hf-id="hf-6560" class="laser-strike"></div>
+            <span data-hf-id="hf-jzlb" class="myth-badge" data-layout-allow-occlusion="">DEBUNKED</span>
+          </div>
+
+          <div data-hf-id="hf-wd23" id="f05-reality" class="reality-card">
+            <span data-hf-id="hf-fxx0" class="reality-kicker">LIVING NEURO-CARTOGRAPHY</span>
+            <div data-hf-id="hf-zg19" class="reality-title">Dynamic biological software that continuously reshapes hardware upon demand.</div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div data-hf-id="hf-05-content" class="content-block">
+          <div data-hf-id="hf-05-kicker" id="f05-kicker" class="kicker">THE TRUE REALITY</div>
+          <h2 data-hf-id="hf-05-hl" id="f05-headline" class="headline">
+            The brain is a <span data-hf-id="hf-glss" class="highlight">living map</span> that constantly redraws itself.
+          </h2>
+        </div>
+
+        <!-- Dynamic Subtitle Pill -->
+        <div data-hf-id="hf-05-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+          <div data-hf-id="hf-05-pill" id="f05-pill" class="caption-pill">
+            <span data-hf-id="hf-05-cap" id="f05-caption" class="caption-text">The brain is not a static machine with fixed hardware.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["05-reframe"] = tl;
+
+    const myth = document.getElementById("f05-myth");
+    const reality = document.getElementById("f05-reality");
+    const kicker = document.getElementById("f05-kicker");
+    const headline = document.getElementById("f05-headline");
+    const capPill = document.getElementById("f05-pill");
+    const capText = document.getElementById("f05-caption");
+
+    // Initial states
+    gsap.set(myth, { opacity: 0, y: -20 });
+    gsap.set(reality, { opacity: 0, scale: 0.95, y: 20 });
+    gsap.set(kicker, { opacity: 0, y: -15 });
+    gsap.set(headline, { opacity: 0, y: 25 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // 0.5 - 4.5s: "The brain is not a static machine with fixed hardware."
+    tl.to(myth, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.3);
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.5);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+    tl.call(() => {
+      capText.innerHTML = 'The brain is <span class="cap-hl">not a static machine</span> with fixed hardware.';
+    }, null, 0.5);
+
+    // 4.5 - 9.5s: "It is dynamic, living neuro-cartography that constantly remaps itself..."
+    tl.to(reality, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.2)" }, 4.3);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.1);
+    tl.call(() => {
+      capText.innerHTML = 'It is living <span class="cap-hl">neuro-cartography</span> that constantly remaps on demand.';
+    }, null, 4.35);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.35);
+  </script>
+</template>

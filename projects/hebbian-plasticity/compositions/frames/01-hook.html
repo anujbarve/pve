@@ -1,0 +1,360 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 140px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Visual Media & Neural Circuit Hero Prop */
+    .hero-media-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      margin-bottom: 45px;
+    }
+
+    .image-card {
+      width: 540px;
+      height: 540px;
+      border-radius: 36px;
+      overflow: hidden;
+      border: 3px solid rgba(242, 210, 75, 0.35);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(242, 210, 75, 0.15);
+      position: relative;
+      background: #111111;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-tag {
+      position: absolute;
+      bottom: 24px;
+      left: 24px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Synaptic Pulse Prop */
+    .neural-prop-card {
+      width: 680px;
+      height: 540px;
+      background: rgba(242, 241, 236, 0.03);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 36px;
+      padding: 36px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .prop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 16px #F2D24B;
+    }
+
+    .synapse-svg-canvas {
+      width: 100%;
+      height: 280px;
+    }
+
+    .prop-footer {
+      font-size: 26px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.04em;
+    }
+
+    /* Content block */
+    .content-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+      margin: 0 auto;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 20px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 110px;
+      font-weight: 700;
+      line-height: 1.18;
+      color: #F2F1EC;
+      margin-bottom: 24px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    /* Dynamic Subtitle Captions Pill */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 45px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 22px 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 50px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-01-root" id="root" data-composition-id="01-hook" data-width="2160" data-height="3840" data-duration="14.06">
+    <div data-hf-id="hf-01-ground" id="f01-ground" class="clip ground" data-start="0" data-duration="14.06" data-track-index="0">
+      <div data-hf-id="hf-01-grid" id="f01-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-01-frame" id="f01-frame" class="clip frame-container" data-start="0" data-duration="14.06" data-track-index="1">
+      <div data-hf-id="hf-01-szone" class="safe-zone">
+        
+        <!-- Media + Interactive SVG Circuit Prop -->
+        <div data-hf-id="hf-01-hero" id="f01-hero" class="hero-media-wrap">
+          <div data-hf-id="hf-01-imgcard" id="f01-imgcard" class="image-card">
+            <img data-hf-id="hf-4z1w" src="assets/01_neuron.jpg" alt="Golgi Stained Pyramidal Neuron">
+            <div data-hf-id="hf-jx45" class="image-tag">GOLGI STAIN · PYRAMIDAL CELL</div>
+          </div>
+
+          <div data-hf-id="hf-01-propcard" id="f01-propcard" class="neural-prop-card">
+            <div data-hf-id="hf-ehpf" class="prop-header">
+              <div data-hf-id="hf-aoig" class="status-badge">
+                <span data-hf-id="hf-i0ip" class="status-dot"></span>
+                <span data-hf-id="hf-hmvd">NEURAL REWIRING</span>
+              </div>
+              <span data-hf-id="hf-9880" style="color: #F2D24B; font-weight: 700; font-size: 24px;">ACT-99</span>
+            </div>
+
+            <!-- SVG Synapse Bridge with Animated Impulse Wave -->
+            <svg data-hf-id="hf-colm" class="synapse-svg-canvas" viewBox="0 0 560 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Neuron A -->
+              <circle data-hf-id="hf-d3z3" cx="80" cy="110" r="36" fill="rgba(242, 210, 75, 0.15)" stroke="#F2D24B" stroke-width="4" />
+              <text data-hf-id="hf-497i" x="80" y="118" text-anchor="middle" fill="#F2D24B" font-size="20" font-weight="700">N-A</text>
+              
+              <!-- Pathway line -->
+              <line data-hf-id="hf-6ty4" x1="120" y1="110" x2="440" y2="110" stroke="rgba(242, 241, 236, 0.2)" stroke-width="6" stroke-dasharray="10 10" />
+              <line data-hf-id="hf-s32f" id="f01-axon-trace" x1="120" y1="110" x2="440" y2="110" stroke="#F2D24B" stroke-width="6" stroke-dasharray="320" stroke-dashoffset="320" />
+
+              <!-- Firing pulse -->
+              <circle data-hf-id="hf-znf8" id="f01-pulse-dot" cx="120" cy="110" r="14" fill="#F2D24B" filter="drop-shadow(0 0 12px #F2D24B)" />
+
+              <!-- Neuron B -->
+              <circle data-hf-id="hf-kxhj" cx="480" cy="110" r="36" fill="rgba(212, 98, 43, 0.15)" stroke="#D4622B" stroke-width="4" />
+              <text data-hf-id="hf-gmfz" x="480" y="118" text-anchor="middle" fill="#D4622B" font-size="20" font-weight="700">N-B</text>
+            </svg>
+
+            <div data-hf-id="hf-oa81" class="prop-footer">Physical Synaptic Remodeling Active</div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div data-hf-id="hf-01-content" class="content-block">
+          <div data-hf-id="hf-01-kicker" id="f01-kicker" class="kicker">THE NEUROPLASTIC REALITY</div>
+          <h1 data-hf-id="hf-01-hl" id="f01-headline" class="headline">
+            Every thought physically changes the <span data-hf-id="hf-lyt8" class="highlight">architecture</span> of your brain.
+          </h1>
+        </div>
+
+        <!-- Subtitle pill -->
+        <div data-hf-id="hf-01-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+          <div data-hf-id="hf-01-pill" id="f01-pill" class="caption-pill">
+            <span data-hf-id="hf-01-cap" id="f01-caption" class="caption-text">Every thought, every skill, and every obsession...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["01-hook"] = tl;
+
+    const imgCard = document.getElementById("f01-imgcard");
+    const propCard = document.getElementById("f01-propcard");
+    const kicker = document.getElementById("f01-kicker");
+    const headline = document.getElementById("f01-headline");
+    const axonTrace = document.getElementById("f01-axon-trace");
+    const pulseDot = document.getElementById("f01-pulse-dot");
+    const capPill = document.getElementById("f01-pill");
+    const capText = document.getElementById("f01-caption");
+
+    // Initial setup
+    gsap.set(imgCard, { opacity: 0, scale: 0.9, y: 20 });
+    gsap.set(propCard, { opacity: 0, scale: 0.9, y: 20 });
+    gsap.set(kicker, { opacity: 0, y: -15 });
+    gsap.set(headline, { opacity: 0, y: 25 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // 0.0 - 1.0s: Reveal visual props
+    tl.to(imgCard, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+    tl.to(propCard, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.35);
+
+    // Continuous synaptic pulse loop
+    tl.to(pulseDot, {
+      cx: 480,
+      duration: 1.2,
+      ease: "power2.inOut",
+      repeat: 8,
+      yoyo: false
+    }, 0.5);
+    tl.to(axonTrace, {
+      strokeDashoffset: 0,
+      duration: 1.2,
+      ease: "power2.out"
+    }, 0.5);
+
+    // Narration syncing
+    // 0.5s: "Every thought, every skill, and every obsession..."
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+    tl.call(() => {
+      capText.innerHTML = 'Every thought, every skill, and every obsession...';
+    }, null, 0.5);
+
+    // 3.8s: "...physically changes the cellular architecture of your brain."
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 3.8);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 3.6);
+    tl.call(() => {
+      capText.innerHTML = '...physically changes the <span class="cap-hl">cellular architecture</span> of your brain.';
+    }, null, 3.85);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 3.85);
+
+    // 7.8s: "How does an abstract idea turn into solid biological circuitry?"
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 7.6);
+    tl.call(() => {
+      capText.innerHTML = 'How does an abstract idea turn into <span class="cap-hl">solid biological circuitry</span>?';
+    }, null, 7.85);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 7.85);
+
+    // Subtle drift
+    tl.to(imgCard, { y: -8, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.0);
+    tl.to(propCard, { y: 8, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.2);
+  </script>
+</template>

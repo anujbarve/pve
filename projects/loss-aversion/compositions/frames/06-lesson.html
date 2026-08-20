@@ -100,16 +100,16 @@
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #F2D24B;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
 
     .quote-lead {
       font-family: "Playfair Display", serif;
-      font-size: 96px;
+      font-size: 92px;
       font-weight: 700;
       line-height: 1.22;
       color: #F2F1EC;
-      margin-bottom: 40px;
+      margin-bottom: 36px;
     }
 
     .quote-lead .gold-quote {
@@ -124,7 +124,7 @@
       width: 440px;
       height: 3px;
       background: rgba(242, 241, 236, 0.2);
-      margin: 10px 0 50px;
+      margin: 10px 0 46px;
     }
 
     /* Action Lockup Duo */
@@ -163,12 +163,12 @@
       text-transform: uppercase;
     }
 
-    /* Captions Pill (Centered directly below content) */
+    /* Captions Pill */
     .caption-wrapper {
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 60px;
+      margin-top: 50px;
     }
 
     .caption-pill {
@@ -201,34 +201,34 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 
-  <div data-hf-id="hf-06-root" id="root" data-composition-id="06-lesson" data-width="2160" data-height="3840" data-duration="10.76">
-    <div data-hf-id="hf-06-ground" id="f06-ground" class="clip ground" data-start="0" data-duration="10.76" data-track-index="0">
-      <div data-hf-id="hf-06-grid" id="f06-grid" class="bg-grid"></div>
+  <div data-hf-id="hf-la06-root" id="root" data-composition-id="06-lesson" data-width="2160" data-height="3840" data-duration="12.86">
+    <div data-hf-id="hf-la06-ground" id="fla06-ground" class="clip ground" data-start="0" data-duration="12.86" data-track-index="0">
+      <div data-hf-id="hf-la06-grid" id="fla06-grid" class="bg-grid"></div>
     </div>
 
-    <div data-hf-id="hf-06-frame" id="f06-frame" class="clip frame-container" data-start="0" data-duration="10.76" data-track-index="1">
+    <div data-hf-id="hf-la06-frame" id="fla06-frame" class="clip frame-container" data-start="0" data-duration="12.86" data-track-index="1">
       
-      <div data-hf-id="hf-06-szone" class="safe-zone">
+      <div data-hf-id="hf-la06-szone" class="safe-zone">
         
         <!-- Main Stage -->
-        <div data-hf-id="hf-06-stage" id="f06-stage" class="lesson-stage">
+        <div data-hf-id="hf-la06-stage" id="fla06-stage" class="lesson-stage">
           
-          <div data-hf-id="hf-06-box" id="f06-manifesto" class="manifesto-box">
+          <div data-hf-id="hf-la06-box" id="fla06-manifesto" class="manifesto-box">
             
-            <div data-hf-id="hf-06-bk" id="f06-bkicker" class="box-kicker">THE BIGGER LESSON</div>
+            <div data-hf-id="hf-la06-bk" id="fla06-bkicker" class="box-kicker">THE GREATER REALITY</div>
 
-            <div data-hf-id="hf-06-ql" id="f06-quote" class="quote-lead">
-              The small things you ignore are telling everyone <br data-hf-id="hf-x5px"><span data-hf-id="hf-6yo0" class="gold-quote">what you'll tolerate.</span>
+            <div data-hf-id="hf-la06-ql" id="fla06-quote" class="quote-lead">
+              Stop protecting what you have at the expense of <br><span class="gold-quote">what you could become.</span>
             </div>
 
-            <div data-hf-id="hf-06-div" id="f06-bdiv" class="box-divider"></div>
+            <div data-hf-id="hf-la06-div" id="fla06-bdiv" class="box-divider"></div>
 
-            <div data-hf-id="hf-06-actions" id="f06-actions" class="actions-duo">
-              <div data-hf-id="hf-06-a1" id="f06-act1" class="action-btn-primary">
-                Fix The Signal
+            <div data-hf-id="hf-la06-actions" id="fla06-actions" class="actions-duo">
+              <div data-hf-id="hf-la06-a1" id="fla06-act1" class="action-btn-primary">
+                Accept The Downside
               </div>
-              <div data-hf-id="hf-06-a2" id="f06-act2" class="action-btn-secondary">
-                Change The Story
+              <div data-hf-id="hf-la06-a2" id="fla06-act2" class="action-btn-secondary">
+                Play To Win
               </div>
             </div>
 
@@ -237,9 +237,9 @@
         </div>
 
         <!-- Captions Pill -->
-        <div data-hf-id="hf-06-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
-          <div data-hf-id="hf-06-pill" id="f06-pill" class="caption-pill">
-            <span data-hf-id="hf-06-cap" id="f06-caption" class="caption-text">The bigger lesson?</span>
+        <div data-hf-id="hf-la06-capwrap" class="caption-wrapper" data-layout-allow-overlap>
+          <div data-hf-id="hf-la06-pill" id="fla06-pill" class="caption-pill">
+            <span data-hf-id="hf-la06-cap" id="fla06-caption" class="caption-text">The real lesson?</span>
           </div>
         </div>
 
@@ -253,14 +253,14 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["06-lesson"] = tl;
 
-    const manifesto = document.getElementById("f06-manifesto");
-    const bkicker = document.getElementById("f06-bkicker");
-    const quote = document.getElementById("f06-quote");
-    const divider = document.getElementById("f06-bdiv");
-    const act1 = document.getElementById("f06-act1");
-    const act2 = document.getElementById("f06-act2");
-    const capPill = document.getElementById("f06-pill");
-    const capText = document.getElementById("f06-caption");
+    const manifesto = document.getElementById("fla06-manifesto");
+    const bkicker = document.getElementById("fla06-bkicker");
+    const quote = document.getElementById("fla06-quote");
+    const divider = document.getElementById("fla06-bdiv");
+    const act1 = document.getElementById("fla06-act1");
+    const act2 = document.getElementById("fla06-act2");
+    const capPill = document.getElementById("fla06-pill");
+    const capText = document.getElementById("fla06-caption");
 
     // Initial states
     gsap.set(manifesto, { opacity: 0, scale: 0.9, y: 30 });
@@ -274,35 +274,35 @@
     tl.to(manifesto, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2);
     tl.to(bkicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
 
-    // Caption 1
+    // Caption 1 (0.5 - 2.4s)
     tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
     tl.call(() => {
-      capText.innerHTML = "The bigger lesson?";
+      capText.innerHTML = "The real lesson?";
     }, null, 0.4);
 
-    // 1.0 - 6.5s: Narration: "The small things you ignore are telling everyone what you'll tolerate."
+    // 1.0 - 7.5s: "Stop protecting what you have at the expense of what you could become."
     tl.to(quote, { opacity: 1, y: 0, duration: 0.9, ease: "power3.out" }, 1.2);
     tl.to(divider, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 2.0);
 
     // Caption 2
-    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 2.0);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 2.2);
     tl.call(() => {
-      capText.innerHTML = 'The small things you ignore tell everyone <span class="cap-hl">what you\'ll tolerate.</span>';
-    }, null, 2.25);
-    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.25);
+      capText.innerHTML = 'Stop protecting what you have at the expense of <span class="cap-hl">what you could become.</span>';
+    }, null, 2.45);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.45);
 
-    // 7.0 - 10.5s: Narration: "Fix the signal. Change the story."
-    tl.to(act1, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 7.2);
-    tl.to(act2, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 8.0);
+    // 7.8 - 12.2s: "Take the asymmetry. Play to win."
+    tl.to(act1, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 7.8);
+    tl.to(act2, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 8.6);
 
     // Caption 3
-    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 6.6);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 7.4);
     tl.call(() => {
-      capText.innerHTML = '<span class="cap-hl">Fix the signal. Change the story.</span>';
-    }, null, 6.85);
-    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 6.85);
+      capText.innerHTML = '<span class="cap-hl">Take the asymmetry. Play to win.</span>';
+    }, null, 7.65);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 7.65);
 
-    // Final subtle breathing scale on action buttons
-    tl.to(act1, { scale: 1.04, duration: 1.0, yoyo: true, repeat: 2, ease: "sine.inOut" }, 9.0);
+    // Subtle breathing pulse on buttons
+    tl.to(act1, { scale: 1.04, duration: 1.0, yoyo: true, repeat: 2, ease: "sine.inOut" }, 9.8);
   </script>
 </template>

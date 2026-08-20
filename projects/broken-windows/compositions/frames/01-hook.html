@@ -1,45 +1,308 @@
 <template>
   <style>
-    @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2"); }
-    @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2"); }
-    #root { width: 2160px; height: 3840px; position: relative; overflow: hidden; background: #000; }
-    .ground { position: absolute; inset: 0; background: #000; }
-    .frame { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .setup { font-family: "Playfair Display", serif; font-size: 164px; font-weight: 700; color: #EAE6DF; line-height: 1.15; text-align: center; opacity: 0; }
-    .divider { width: 640px; height: 4px; background: rgba(234,230,223,0.15); margin: 80px 0; }
-    .punch { font-family: "Inter", sans-serif; font-size: 72px; color: rgba(234,230,223,0.55); letter-spacing: 0.04em; text-align: center; opacity: 0; }
-    .accent { font-family: "Inter", sans-serif; font-size: 88px; font-weight: 600; color: #D4622B; letter-spacing: 0.02em; text-align: center; margin-top: 40px; opacity: 0; }
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    /* Centered Safe Zone container (avoids top/bottom Reels overlay) */
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 160px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Visual stage */
+    .visual-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .window-prop {
+      width: 640px;
+      height: 640px;
+      position: relative;
+      margin-bottom: 70px;
+    }
+
+    .window-frame-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 20px 50px rgba(0,0,0,0.9));
+    }
+
+    .crack-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+    }
+
+    /* Content block */
+    .content-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+      margin: 0 auto;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 28px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 140px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #F2F1EC;
+      margin-bottom: 36px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .divider-line {
+      width: 440px;
+      height: 3px;
+      background: rgba(242, 241, 236, 0.2);
+      margin: 20px 0 40px;
+      transform-origin: center;
+    }
+
+    /* Climax callout */
+    .callout-card {
+      background: rgba(242, 210, 75, 0.08);
+      border: 2px solid rgba(242, 210, 75, 0.4);
+      border-radius: 28px;
+      padding: 36px 64px;
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .callout-icon {
+      width: 44px;
+      height: 44px;
+      fill: #F2D24B;
+    }
+
+    .callout-text {
+      font-family: "Inter", sans-serif;
+      font-size: 50px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.04em;
+    }
+
+    /* Smooth Captions Subtitle Pill (Centered directly below content) */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 70px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.88);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 24px 60px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 54px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
   </style>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-  <div data-hf-id="hf-01" id="root" data-composition-id="01-hook" data-width="2160" data-height="3840" data-duration="9.5">
-    <div data-hf-id="hf-01-g" class="clip ground" data-start="0" data-duration="9.5" data-track-index="0"></div>
-    <div data-hf-id="hf-01-f" class="clip frame" data-start="0" data-duration="9.5" data-track-index="1">
-      <div data-hf-id="hf-01-s" id="setup-01" class="setup">
-        You walk past<br>a broken window<br>every day.
+
+  <div data-hf-id="hf-01-root" id="root" data-composition-id="01-hook" data-width="2160" data-height="3840" data-duration="9.5">
+    <div data-hf-id="hf-01-ground" id="f01-ground" class="clip ground" data-start="0" data-duration="9.5" data-track-index="0">
+      <div data-hf-id="hf-01-grid" id="f01-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-01-frame" id="f01-frame" class="clip frame-container" data-start="0" data-duration="9.5" data-track-index="1">
+      
+      <div data-hf-id="hf-01-szone" class="safe-zone">
+        
+        <!-- Main Visual & Typography block -->
+        <div data-hf-id="hf-01-stage" id="f01-stage" class="visual-stage">
+          
+          <!-- SVG Window Pane Illustration -->
+          <div data-hf-id="hf-01-win" id="f01-window" class="window-prop">
+            <svg data-hf-id="hf-ml6z" class="window-frame-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect data-hf-id="hf-das4" x="10" y="10" width="380" height="380" rx="16" stroke="#F2F1EC" stroke-width="8" stroke-opacity="0.3" fill="rgba(242,241,236,0.02)" />
+              <line data-hf-id="hf-e4nm" x1="200" y1="10" x2="200" y2="390" stroke="#F2F1EC" stroke-width="6" stroke-opacity="0.3" />
+              <line data-hf-id="hf-pnhq" x1="10" y1="200" x2="390" y2="200" stroke="#F2F1EC" stroke-width="6" stroke-opacity="0.3" />
+              <path data-hf-id="hf-uu6y" d="M40 40 L160 40 L40 160 Z" fill="rgba(255,255,255,0.04)" />
+              <path data-hf-id="hf-7agr" d="M230 40 L350 40 L230 160 Z" fill="rgba(255,255,255,0.04)" />
+              <path data-hf-id="hf-z1ip" id="f01-crack-line" class="crack-path" d="M200 110 L260 90 L290 140 L370 120 M260 90 L280 40 M290 140 L330 190 M290 140 L250 170" stroke="#F2D24B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" filter="drop-shadow(0 0 12px #F2D24B)" />
+            </svg>
+          </div>
+
+          <div data-hf-id="hf-01-content" class="content-block">
+            <div data-hf-id="hf-01-kicker" id="f01-kicker" class="kicker">THE DAILY COMMUTE</div>
+            <h1 data-hf-id="hf-01-hl" id="f01-headline" class="headline">
+              You walk past a <br data-hf-id="hf-x5px"><span data-hf-id="hf-6fc6" class="highlight">broken window</span> every day.
+            </h1>
+            <div data-hf-id="hf-01-div" id="f01-divider" class="divider-line"></div>
+
+            <div data-hf-id="hf-01-call" id="f01-callout" class="callout-card">
+              <svg data-hf-id="hf-y81u" class="callout-icon" viewBox="0 0 24 24">
+                <path data-hf-id="hf-fabt" d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z" />
+              </svg>
+              <span data-hf-id="hf-fwyd" class="callout-text">What if one crack could change everything?</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Smooth Dynamic Captions Pill -->
+        <div data-hf-id="hf-01-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+          <div data-hf-id="hf-01-pill" id="f01-pill" class="caption-pill">
+            <span data-hf-id="hf-01-cap" id="f01-caption" class="caption-text">You walk past a broken window every day.</span>
+          </div>
+        </div>
+
       </div>
-      <div data-hf-id="hf-01-d" id="divider-01" class="divider"></div>
-      <div data-hf-id="hf-01-p" id="punch-01" class="punch">
-        You don't even notice it.
-      </div>
-      <div data-hf-id="hf-01-a" id="accent-01" class="accent">
-        But what if it could change everything?
-      </div>
+
     </div>
   </div>
+
   <script>
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
     window.__timelines["01-hook"] = tl;
 
-    const setup = document.getElementById("setup-01");
-    const divider = document.getElementById("divider-01");
-    const punch = document.getElementById("punch-01");
-    const accent = document.getElementById("accent-01");
+    const windowProp = document.getElementById("f01-window");
+    const crackLine = document.getElementById("f01-crack-line");
+    const kicker = document.getElementById("f01-kicker");
+    const headline = document.getElementById("f01-headline");
+    const divider = document.getElementById("f01-divider");
+    const callout = document.getElementById("f01-callout");
+    const capPill = document.getElementById("f01-pill");
+    const capText = document.getElementById("f01-caption");
 
-    gsap.set(divider, { scaleX: 0 });
-    tl.to(setup, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.2);
-    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.8);
-    tl.to(punch, { opacity: 1, duration: 0.6, ease: "power2.out" }, 1.5);
-    tl.to(accent, { opacity: 1, duration: 0.8, ease: "power2.out" }, 7.0);
+    // Initial states
+    gsap.set(windowProp, { opacity: 0, scale: 0.85, y: 30 });
+    gsap.set(crackLine, { strokeDashoffset: 600, opacity: 0 });
+    gsap.set(kicker, { opacity: 0, y: -20 });
+    gsap.set(headline, { opacity: 0, y: 30 });
+    gsap.set(divider, { scaleX: 0, opacity: 0 });
+    gsap.set(callout, { opacity: 0, scale: 0.9, y: 30 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // Scene animation choreography
+    // 0.0 - 0.8s: Intro visual setup
+    tl.to(windowProp, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.1);
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.3);
+
+    // 0.5 - 2.8s: Narration: "You walk past a broken window every day."
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.5);
+    tl.to(crackLine, { opacity: 1, strokeDashoffset: 0, duration: 0.9, ease: "power2.inOut" }, 1.2);
+    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.5);
+    
+    // Caption 1 entrance
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+    tl.call(() => {
+      capText.innerHTML = 'You walk past a <span class="cap-hl">broken window</span> every day.';
+    }, null, 0.5);
+
+    // 2.8 - 4.8s: Narration: "You never think twice about it."
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 2.6);
+    tl.call(() => {
+      capText.innerHTML = 'You <span class="cap-hl">never</span> think twice about it.';
+    }, null, 2.85);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.85);
+
+    // 4.8 - 8.5s: Narration: "What if one crack could change everything?"
+    tl.to(callout, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.4)" }, 5.0);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.8);
+    tl.call(() => {
+      capText.innerHTML = 'What if one crack could <span class="cap-hl">change everything?</span>';
+    }, null, 5.05);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 5.05);
+
+    // Subtle breathing drift on window
+    tl.to(windowProp, { y: -12, duration: 2.5, ease: "sine.inOut", yoyo: true, repeat: 2 }, 2.0);
   </script>
 </template>

@@ -1,0 +1,59 @@
+{
+  "master_duration": 71.058958,
+  "frames": [
+    {
+      "id": "01-hook",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/cortical-reorganization/.temp_audio/01-hook_raw.wav",
+      "tts_dur": 9.8,
+      "reveal_offset": 0.5,
+      "duration": 11.9,
+      "start": 0.0,
+      "text": "For over a century, the greatest scientists believed the adult brain was completely hardwired, immutable, and incapable of physical repair."
+    },
+    {
+      "id": "02-origin",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/cortical-reorganization/.temp_audio/02-origin_raw.wav",
+      "tts_dur": 10.92,
+      "reveal_offset": 0.5,
+      "duration": 13.02,
+      "start": 11.4,
+      "text": "Then came Edward Taub and Michael Merzenich. In groundbreaking primate experiments, they discovered something the medical establishment considered impossible."
+    },
+    {
+      "id": "03-mechanism",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/cortical-reorganization/.temp_audio/03-mechanism_raw.wav",
+      "tts_dur": 10.52,
+      "reveal_offset": 0.5,
+      "duration": 12.62,
+      "start": 23.92,
+      "text": "When a limb is immobilized or injured, the brain does not leave that cortical real estate empty. Neighboring areas physically expand and colonize the silent territory."
+    },
+    {
+      "id": "04-cascade",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/cortical-reorganization/.temp_audio/04-cascade_raw.wav",
+      "tts_dur": 11.48,
+      "reveal_offset": 0.5,
+      "duration": 13.58,
+      "start": 36.04,
+      "text": "This gave birth to Constraint Induced Movement Therapy. By forcing patients to repeatedly use damaged limbs, they forced the adult brain to completely rewire its motor cortex."
+    },
+    {
+      "id": "05-reframe",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/cortical-reorganization/.temp_audio/05-reframe_raw.wav",
+      "tts_dur": 9.24,
+      "reveal_offset": 0.5,
+      "duration": 11.34,
+      "start": 49.12,
+      "text": "The brain is not a static machine with fixed hardware. It is dynamic, living neuro-cartography that constantly remaps itself based on demand."
+    },
+    {
+      "id": "06-lesson",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/cortical-reorganization/.temp_audio/06-lesson_raw.wav",
+      "tts_dur": 10.6,
+      "reveal_offset": 0.5,
+      "duration": 12.7,
+      "start": 59.959999999999994,
+      "text": "The takeaway? Your capacity is not fixed. Force the demand, and the biological hardware will reshape itself to meet you."
+    }
+  ]
+}

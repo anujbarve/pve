@@ -1,39 +1,370 @@
 <template>
   <style>
-    @font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2"); }
-    @font-face { font-family: "Inter"; font-style: normal; font-weight: 100 900; src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2"); }
-    #root { width: 2160px; height: 3840px; position: relative; overflow: hidden; background: #000; }
-    .ground { position: absolute; inset: 0; background: #000; }
-    .frame { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-    .setup { font-family: "Playfair Display", serif; font-size: 156px; font-weight: 700; color: #EAE6DF; line-height: 1.2; text-align: center; opacity: 0; }
-    .divider { width: 640px; height: 4px; background: rgba(234,230,223,0.15); margin: 80px 0; }
-    .punch { font-family: "Inter", sans-serif; font-size: 76px; color: rgba(234,230,223,0.55); letter-spacing: 0.04em; text-align: center; opacity: 0; }
-    .accent { font-family: "Playfair Display", serif; font-size: 128px; font-weight: 700; color: #D4622B; line-height: 1.2; text-align: center; margin-top: 40px; opacity: 0; }
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    /* Centered Safe Zone container */
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 160px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Stage */
+    .mechanism-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 24px;
+    }
+
+    .pre-punch {
+      font-family: "Playfair Display", serif;
+      font-size: 88px;
+      font-weight: 700;
+      color: #EAE6DF;
+      margin-bottom: 30px;
+    }
+
+    /* Radar Beacon SVG */
+    .radar-container {
+      width: 460px;
+      height: 460px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0 20px;
+      overflow: visible;
+    }
+
+    .radar-svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: visible;
+    }
+
+    .radar-center-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 40px #F2D24B, 0 0 80px rgba(242, 210, 75, 0.8);
+      z-index: 2;
+    }
+
+    /* Main Statement */
+    .main-statement {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .signal-hero-text {
+      font-family: "Playfair Display", serif;
+      font-size: 140px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: #F2F1EC;
+      margin-bottom: 20px;
+    }
+
+    .signal-badge {
+      display: inline-block;
+      background: #F2D24B;
+      color: #000000;
+      padding: 8px 44px;
+      border-radius: 20px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 50px rgba(242, 210, 75, 0.4);
+    }
+
+    /* Broadcast Cards */
+    .broadcast-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+      max-width: 1560px;
+      margin-top: 36px;
+    }
+
+    .broadcast-card {
+      background: rgba(242, 241, 236, 0.04);
+      border: 2px solid rgba(242, 241, 236, 0.2);
+      border-left: 8px solid #F2D24B;
+      border-radius: 24px;
+      padding: 32px 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .b-label {
+      font-family: "Inter", monospace;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #F2D24B;
+      text-transform: uppercase;
+    }
+
+    .b-msg {
+      font-family: "Playfair Display", serif;
+      font-size: 50px;
+      font-weight: 700;
+      color: #F2F1EC;
+    }
+
+    /* Captions Pill (Centered directly below content) */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 60px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.88);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 24px 60px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 54px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
   </style>
+
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-  <div data-hf-id="hf-03" id="root" data-composition-id="03-mechanism" data-width="2160" data-height="3840" data-duration="12.14">
-    <div data-hf-id="hf-03-g" class="clip ground" data-start="0" data-duration="12.14" data-track-index="0"></div>
-    <div data-hf-id="hf-03-f" class="clip frame" data-start="0" data-duration="12.14" data-track-index="1">
-      <div data-hf-id="hf-03-s" id="setup-03" class="setup">Here's the idea.</div>
-      <div data-hf-id="hf-03-d" id="divider-03" class="divider"></div>
-      <div data-hf-id="hf-03-p" id="punch-03" class="punch">A broken window isn't just damage.</div>
-      <div data-hf-id="hf-03-a" id="accent-03" class="accent">It's a signal.<br>It says nobody's watching.</div>
+
+  <div data-hf-id="hf-03-root" id="root" data-composition-id="03-mechanism" data-width="2160" data-height="3840" data-duration="12.14">
+    <div data-hf-id="hf-03-ground" id="f03-ground" class="clip ground" data-start="0" data-duration="12.14" data-track-index="0">
+      <div data-hf-id="hf-03-grid" id="f03-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-03-frame" id="f03-frame" class="clip frame-container" data-start="0" data-duration="12.14" data-track-index="1">
+      
+      <div data-hf-id="hf-03-szone" class="safe-zone">
+        
+        <!-- Main Stage -->
+        <div data-hf-id="hf-03-stage" id="f03-stage" class="mechanism-stage">
+          
+          <div data-hf-id="hf-03-kicker" id="f03-kicker" class="kicker" data-layout-allow-overlap="">HERE'S THE CORE INSIGHT</div>
+
+          <div data-hf-id="hf-03-prepunch" id="f03-prepunch" class="pre-punch">
+            A broken window isn't just damage.
+          </div>
+
+          <!-- Radar Pulse Graphic -->
+          <div data-hf-id="hf-03-radar" id="f03-radar" class="radar-container" data-layout-allow-overflow="">
+            <svg data-hf-id="hf-kxxa" class="radar-svg" viewBox="0 0 300 300" fill="none" data-layout-allow-overflow="">
+              <circle data-hf-id="hf-tzda" id="f03-ring1" cx="150" cy="150" r="45" stroke="#F2D24B" stroke-width="3" stroke-opacity="0.6" />
+              <circle data-hf-id="hf-edde" id="f03-ring2" cx="150" cy="150" r="80" stroke="#F2D24B" stroke-width="2.5" stroke-opacity="0.4" />
+              <circle data-hf-id="hf-qq9p" id="f03-ring3" cx="150" cy="150" r="115" stroke="#F2D24B" stroke-width="2" stroke-opacity="0.2" />
+            </svg>
+            <div data-hf-id="hf-03-beacon" id="f03-beacon" class="radar-center-dot"></div>
+          </div>
+
+          <div data-hf-id="hf-03-stmt" id="f03-stmt" class="main-statement">
+            <div data-hf-id="hf-03-hero" id="f03-hero" class="signal-hero-text">
+              It is a <span data-hf-id="hf-zlrf" class="signal-badge">SIGNAL.</span>
+            </div>
+          </div>
+
+          <!-- Broadcast Callouts -->
+          <div data-hf-id="hf-03-bgrid" id="f03-bgrid" class="broadcast-grid">
+            <div data-hf-id="hf-03-bc1" id="f03-bc1" class="broadcast-card">
+              <div data-hf-id="hf-03-lbl1" class="b-label">[ BROADCAST 01 ]</div>
+              <div data-hf-id="hf-03-msg1" class="b-msg">“Nobody is watching.”</div>
+            </div>
+            <div data-hf-id="hf-03-bc2" id="f03-bc2" class="broadcast-card">
+              <div data-hf-id="hf-03-lbl2" class="b-label">[ BROADCAST 02 ]</div>
+              <div data-hf-id="hf-03-msg2" class="b-msg">“Nobody cares.”</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Captions Pill -->
+        <div data-hf-id="hf-03-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+          <div data-hf-id="hf-03-pill" id="f03-pill" class="caption-pill">
+            <span data-hf-id="hf-03-cap" id="f03-caption" class="caption-text">Here's the idea.</span>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </div>
+
   <script>
     window.__timelines = window.__timelines || {};
     const tl = gsap.timeline({ paused: true });
     window.__timelines["03-mechanism"] = tl;
 
-    const setup = document.getElementById("setup-03");
-    const divider = document.getElementById("divider-03");
-    const punch = document.getElementById("punch-03");
-    const accent = document.getElementById("accent-03");
+    const kicker = document.getElementById("f03-kicker");
+    const prepunch = document.getElementById("f03-prepunch");
+    const radar = document.getElementById("f03-radar");
+    const ring1 = document.getElementById("f03-ring1");
+    const ring2 = document.getElementById("f03-ring2");
+    const ring3 = document.getElementById("f03-ring3");
+    const beacon = document.getElementById("f03-beacon");
+    const hero = document.getElementById("f03-hero");
+    const bc1 = document.getElementById("f03-bc1");
+    const bc2 = document.getElementById("f03-bc2");
+    const capPill = document.getElementById("f03-pill");
+    const capText = document.getElementById("f03-caption");
 
-    gsap.set(divider, { scaleX: 0 });
-    tl.to(setup, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.2);
-    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.5);
-    tl.to(punch, { opacity: 1, duration: 0.6, ease: "power2.out" }, 3.0);
-    tl.to(accent, { opacity: 1, duration: 0.8, ease: "power2.out" }, 8.5);
+    // Initial states
+    gsap.set(kicker, { opacity: 0, y: -20 });
+    gsap.set(prepunch, { opacity: 0, y: 20 });
+    gsap.set(radar, { opacity: 0, scale: 0.6 });
+    gsap.set([ring1, ring2, ring3], { scale: 0.8, transformOrigin: "center center" });
+    gsap.set(hero, { opacity: 0, scale: 0.85, y: 30 });
+    gsap.set(bc1, { opacity: 0, x: -50 });
+    gsap.set(bc2, { opacity: 0, x: 50 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // Choreography
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+
+    // 0.5 - 2.8s: Narration: "Here's the idea."
+    tl.to(prepunch, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.6);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+    tl.call(() => {
+      capText.innerHTML = "Here's the idea.";
+    }, null, 0.4);
+
+    // 2.8 - 5.5s: Narration: "A broken window isn't just damage."
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 2.4);
+    tl.call(() => {
+      capText.innerHTML = "A broken window isn't just damage.";
+    }, null, 2.65);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 2.65);
+
+    // 5.5 - 8.0s: Narration: "It's a signal."
+    tl.to(radar, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)" }, 2.8);
+    tl.to(hero, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 3.4);
+
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 5.0);
+    tl.call(() => {
+      capText.innerHTML = 'It is a <span class="cap-hl">signal.</span>';
+    }, null, 5.25);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 5.25);
+
+    // Continuous pulsating radar rings
+    tl.to([ring1, ring2, ring3], {
+      scale: 1.3,
+      opacity: 0.15,
+      duration: 1.8,
+      stagger: 0.3,
+      repeat: 3,
+      yoyo: true,
+      ease: "sine.inOut"
+    }, 3.0);
+
+    // 8.0 - 11.5s: Narration: "It tells everyone that nobody is watching. Nobody cares."
+    tl.to(bc1, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 6.8);
+    tl.to(bc2, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 8.5);
+
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 7.8);
+    tl.call(() => {
+      capText.innerHTML = 'It tells everyone that <span class="cap-hl">nobody is watching.</span>';
+    }, null, 8.05);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 8.05);
+
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 9.8);
+    tl.call(() => {
+      capText.innerHTML = '<span class="cap-hl">Nobody cares.</span>';
+    }, null, 10.05);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 10.05);
+
+    // Clean exit before scene crossfade
+    tl.to([hero, bc1, bc2, radar, capPill], { opacity: 0, duration: 0.4, ease: "power2.in" }, 11.4);
   </script>
 </template>

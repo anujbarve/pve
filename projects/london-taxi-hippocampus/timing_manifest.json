@@ -1,0 +1,59 @@
+{
+  "master_duration": 66.98,
+  "frames": [
+    {
+      "id": "01-hook",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/london-taxi-hippocampus/.temp_audio/01-hook_raw.wav",
+      "tts_dur": 10.84,
+      "reveal_offset": 0.5,
+      "duration": 12.94,
+      "start": 0.0,
+      "text": "To become a licensed London black cab driver, you must memorize twenty-five thousand streets and one hundred thousand landmarks. It is known simply as The Knowledge."
+    },
+    {
+      "id": "02-origin",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/london-taxi-hippocampus/.temp_audio/02-origin_raw.wav",
+      "tts_dur": 8.52,
+      "reveal_offset": 0.5,
+      "duration": 10.62,
+      "start": 12.44,
+      "text": "In the year two thousand, neuroscientist Eleanor Maguire scanned the brains of London cabbies using high resolution MRI technology."
+    },
+    {
+      "id": "03-mechanism",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/london-taxi-hippocampus/.temp_audio/03-mechanism_raw.wav",
+      "tts_dur": 11.72,
+      "reveal_offset": 0.5,
+      "duration": 13.82,
+      "start": 22.56,
+      "text": "The results shocked the scientific world. The posterior hippocampus, the brain's spatial navigation center, was significantly larger in drivers than in the general public."
+    },
+    {
+      "id": "04-cascade",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/london-taxi-hippocampus/.temp_audio/04-cascade_raw.wav",
+      "tts_dur": 8.6,
+      "reveal_offset": 0.5,
+      "duration": 10.7,
+      "start": 35.879999999999995,
+      "text": "Even more astonishing, the size of their hippocampus grew in direct proportion to the number of years they had spent navigating the complex London streets."
+    },
+    {
+      "id": "05-reframe",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/london-taxi-hippocampus/.temp_audio/05-reframe_raw.wav",
+      "tts_dur": 9.48,
+      "reveal_offset": 0.5,
+      "duration": 11.58,
+      "start": 46.08,
+      "text": "Intensive mental training does not just make you smarter. It physically expands the gray matter volume of targeted brain regions in real biological time."
+    },
+    {
+      "id": "06-lesson",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/london-taxi-hippocampus/.temp_audio/06-lesson_raw.wav",
+      "tts_dur": 9.32,
+      "reveal_offset": 0.5,
+      "duration": 11.42,
+      "start": 57.16,
+      "text": "The mind is a muscle of staggering physical elasticity. Massive deliberate practice literally grows the brain you need."
+    }
+  ]
+}

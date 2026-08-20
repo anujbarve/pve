@@ -1,119 +1,154 @@
 # Content Style Guide
-### "Editorial Dark Mode" — reel/carousel visual system
+### "Editorial Dark Mode" — Explainer Reel & Motion Graphics Visual System
 
-This is the reusable spec for the visual identity seen across the Miller's Law series, One Percent Rule reel, and future pieces. Treat this as the source of truth when designing new frames.
-
----
-
-## 1. Canvas & Format
-
-- **Aspect ratio:** 9:16 (vertical, Reels/Shorts native) — e.g. `1080x1920`, video export at `1920x1080`→ letterboxed or native vertical depending on platform
-- **Background:** `#000000` pure black, edge to edge, always
-- **Safe margins:** keep text ~80–100px in from left/right edges; don't let type touch the frame edge
-- **One idea per frame.** Never stack two punchlines on one screen.
+This is the reusable design and motion spec for the Editorial Dark Mode series (Broken Windows Theory, The 1% Rule, Miller's Law, and future projects). Treat this as the canonical source of truth for video and motion graphics authoring.
 
 ---
 
-## 2. Typography
+## 1. Canvas & Safe Zones (Vertical Reels / Shorts)
 
-### Primary typeface — Playfair Display
-- **Playfair Display Bold** — the "big idea" font. Used for:
-  - Headlines / titles ("The One Percent Rule")
-  - The punchline or key term on any given slide ("Miller's Law", "That's chunking.")
-  - The final "quotable" takeaway line at the end
-- **Playfair Display Bold Italic** — used for setup/emotional lines that lead into the punch ("Your brain doesn't have a '7-item' memory.") — italic = "voice," upright bold = "the fact"
-- Never use Playfair for long body copy — it's a display face, only for short punchy lines (≤ 8–10 words per line)
+- **Native Resolution:** `2160×3840` (4K vertical 9:16) or `1080×1920` (FHD vertical).
+- **Background:** `#000000` pure black, edge-to-edge, with subtle background grid (`rgba(242, 241, 236, 0.03)` 120px cells).
+- **Platform Safe Zone Clearance:**
+  - **Top Unsafe Zone (0 – 600px):** Platform search bars, audio pills, camera buttons, status bars.
+  - **Bottom Unsafe Zone (2900 – 3840px):** User handles, captions, sound tickers, right-rail actions (like/comment/share/remix).
+  - **The Golden Safe Window:** All core graphics, typography, and subtitle pills MUST live comfortably between **Y = 650px and Y = 2850px**.
+- **Layout Rule:** NEVER use `justify-content: space-between` to spread elements from top to bottom of the 3840px canvas. Always use a vertically centered `.frame-container` holding an inner `.safe-zone` wrapper (`max-width: 1840px`).
 
-### Secondary typeface — clean grotesk sans-serif
-- (Matches Inter / Helvetica Neue / SF Pro territory)
-- Used for:
-  - Setup/context lines ("You've probably heard")
-  - Supporting/explainer text ("is more interesting than that.")
-  - Small captions, labels, the signature line
-- Regular or Medium weight — never bold, so it stays visually subordinate to the Playfair lines
-- This is the "narrator's voice" font — quieter, more neutral
+```css
+.frame-container {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 160px;
+}
 
-### Hierarchy rule of thumb
-1. Sans-serif regular = setup / narration
-2. Playfair Bold Italic = transitional or emphatic line
-3. Playfair Bold (largest size on the frame) = the one thing you want remembered
-4. Sans-serif small/gray = footnotes, captions, source credit, signature
+.safe-zone {
+  width: 100%;
+  max-width: 1840px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+```
+
+---
+
+## 2. Typography Hierarchy
+
+### Primary Typeface — Playfair Display
+- **Playfair Display Bold (700 / 900):** The hero concept font.
+  - Giant Display / Year figures (`280px – 340px`)
+  - Scene Headlines (`110px – 160px`)
+  - Stamped theory titles & punchlines
+- **Playfair Display Bold Italic:** Used for voice, quotes, and emotional lead-ins (`90px – 120px`).
+- **Emphasis rule:** Never use Playfair for dense body text; reserve it for high-impact headlines and quotable statements.
+
+### Secondary Typeface — Inter (Grotesk Sans-Serif)
+- **Inter Semi-Bold / Bold (600 / 700):** Kicker badges, category tags, step numbers, and CTA button text (`32px – 54px`, `letter-spacing: 0.12em – 0.24em`, uppercase).
+- **Inter Regular / Medium (400 / 500):** Sub-leads, author titles, footnotes, and dynamic subtitle captions (`44px – 60px`).
 
 ---
 
 ## 3. Color Palette
 
-| Role | Hex (approx) | Usage |
+| Role | Hex Code | Usage |
 |---|---|---|
-| Background | `#000000` | Always full-bleed black |
-| Primary text | `#F2F1EC` (off-white, not pure white) | Setup lines, body/explainer text |
-| Accent / key term | `#F2D24B` (warm mustard yellow) | The ONE thing per frame you want to pop — never more than 1–2 accent elements per screen |
-| Muted / secondary | `#8A8A8A` (mid-gray) | Signature text, dividers, de-emphasized words in progressive reveals |
-
-**Rule:** Yellow is scarce. It marks the single most important word, number, or phrase on screen. If everything is yellow, nothing is.
-
----
-
-## 4. Layout Patterns (Page Types)
-
-Every frame in the series falls into one of these templates:
-
-### A. Title/Hook Frame
-- Large mixed-weight title (e.g. "The **One Percent Rule**")
-- Small sans-serif word above ("The") and below ("Rule") the bold Playfair centerpiece — creates scale contrast on one line-group
-- Supporting image(s) layered behind/beside at low opacity or partial-frame crop (historical photo, diagram thumbnail) — always secondary to type
-- Subtle animated background texture (thin jagged lines) for movement in video
-
-### B. Setup → Punch Frame
-- Top: sans-serif line, left- or right-aligned (asymmetric, never centered)
-- Below: Playfair Bold Italic line continuing the thought
-- Below that: Playfair Bold (yellow) — the term/concept, largest text on the frame
-- Optional: sans-serif closer line beneath in white ("is more interesting than that.")
-
-### C. Data-as-Graphic Frame
-- A number, sequence, or stat rendered AS the visual — huge Playfair Bold, yellow, often with em-dashes or slashes as separators (e.g. `7—2—9—4—1—8—6—3`, `729 / 418 / 63`)
-- No chart/graph needed — the typography of the number IS the diagram
-- Small sans-serif caption above or below for context
-
-### D. Reference/Proof Frame
-- Embeds an external diagram or image (hand-drawn sketch, chart, screenshot) in a bordered card, drop-shadowed, slightly rotated or offset — never edge-to-edge
-- Caption in sans-serif below or beside, continuing the sentence started on the previous frame ("is not a little bit of...")
-- Attribution preserved if visible (e.g. "JamesClear.com") — keep sources honest
-
-### E. Closing/Lesson Frame
-- Vertically centered block, tightly stacked
-- White Playfair Italic setup ("The bigger lesson:")
-- Yellow Playfair Bold payoff, largest text of the whole sequence ("Organize information better.")
-- Thin horizontal rule lines above and below the block for isolation/emphasis
-- This is the frame most likely to be screenshotted — make it stand alone
+| Background | `#000000` | Full-bleed pure black |
+| Primary Text | `#F2F1EC` / `#EAE6DF` | Headlines, punchlines, active text |
+| Key Accent | `#F2D24B` (Mustard Gold) | The ONE hero idea/word per frame, active subtitles, glowing badges |
+| Warning / Critical Accent | `#D4622B` (Amber Orange) | Critical thresholds, strike-through bars, collapse cards |
+| Muted Secondary | `#A0A09C` / `#8A8A8A` | Category kickers, supporting details, inactive states |
+| Card Surface | `rgba(242, 241, 236, 0.03)` | Card containers with `2px solid rgba(242, 241, 236, 0.15)` border |
 
 ---
 
-## 5. Recurring UI/Brand Elements
+## 4. Motion Graphics Architecture (No "Glorified PPT")
 
-- **Top-right swipe arrow:** small black pill with a white right-arrow (→), consistent position across every frame — signals "more" / next slide
-- **Bottom-left signature:** `anujb.sh` in small gray sans-serif, paired with a thin horizontal rule extending right — quiet, consistent, never resized
-- **Divider rules:** 1px light-gray horizontal lines used to separate sections within a frame or mark a "breath" before the next beat — not decorative, always load-bearing (signals a shift in thought)
-- **Progressive text reveal (video only):** within one line, words fade from gray → white/yellow as they're "spoken," creating emphasis without cutting to a new frame
+Avoid repetitive slide templates across consecutive scenes. Every scene must have a distinct narrative-driven graphic prop:
+
+1. **Frame 1 — Hook / Prop Frame:**
+   - Visual SVG Prop (e.g. window pane with animated `stroke-dashoffset` fracture crack lines).
+   - Headline with gold italic highlight + curiosity callout card (`What if one crack could change everything?`).
+2. **Frame 2 — Archival / Origin Frame:**
+   - 3D oversized year digits (`1982`) with floating drift.
+   - Dual researcher cards with `rotateY` perspective tilt.
+   - Gold-stamped theory seal.
+3. **Frame 3 — Mechanism / Insight Frame:**
+   - Radar shockwave beacon with concentric pulsating SVG circles + glowing amber center dot.
+   - High-contrast broadcast cards (`[ BROADCAST 01 ] "Nobody is watching"`).
+4. **Frame 4 — Escalation / Cascade Frame:**
+   - Progressive domino staircase (`01` → `02` → `10`) stepping in on vocal cues.
+   - Full-width amber critical threshold warning banner (`Then the whole block falls apart`).
+5. **Frame 5 — Reframe / Duality Frame:**
+   - Struck-through dashed card with red laser bar (`The Physical Glass [ NOT THE PROBLEM ]`).
+   - Luminous gold hero card (`THE REAL PHENOMENON: It's about the signal it sends`).
+6. **Frame 6 — Manifesto / Closer Frame:**
+   - Luxury double-bordered manifesto box with gold quote text.
+   - Dual actionable pill buttons (`01 · Fix The Signal`, `02 · Change The Story`).
 
 ---
 
-## 6. Copywriting Rules (so design and words stay in sync)
+## 5. Smooth Dynamic Captions System
 
-- **One claim per frame.** If a frame needs a comma to explain itself, split it.
-- **Hook → Myth-bust → Reframe → Bigger Lesson** is the default arc. Every piece should be reducible to this shape.
-- Address the viewer directly ("You've probably heard...") — conversational, teacher-to-friend, not academic
-- End on a reframed principle, not a summary — the last frame should feel quotable on its own, out of context
-- Keep sentence fragments short enough to read in under 2 seconds at a glance
+In vertical video reels, subtitles should be anchored directly below the central content block:
+
+```html
+<div class="caption-wrapper" data-layout-allow-overlap>
+  <div id="f01-pill" class="caption-pill">
+    <span id="f01-caption" class="caption-text">You walk past a broken window every day.</span>
+  </div>
+</div>
+```
+
+```css
+.caption-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.caption-pill {
+  background: rgba(18, 18, 18, 0.88);
+  backdrop-filter: blur(20px);
+  border: 2px solid rgba(242, 241, 236, 0.15);
+  border-radius: 999px;
+  padding: 24px 60px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  max-width: 1760px;
+}
+
+.caption-text {
+  font-family: "Inter", sans-serif;
+  font-size: 54px;
+  font-weight: 600;
+  color: #F2F1EC;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.cap-hl {
+  color: #F2D24B;
+  font-weight: 800;
+}
+```
 
 ---
 
-## 7. Quick Build Checklist (per frame)
+## 6. Build Checklist (Before Render)
 
-- [ ] Black background, no exceptions
-- [ ] One dominant idea, ≤ 2 text blocks
-- [ ] Playfair Bold for the "keep this" phrase, sans-serif for everything else
-- [ ] Yellow used on ONE element max
-- [ ] Asymmetric alignment (avoid dead-centering unless it's the closing frame)
-- [ ] Swipe arrow (top-right) + signature (bottom-left) present, unless it's a full-bleed hook/title frame
-- [ ] Text has breathing room — no block touches frame edges
+- [ ] Canvas is vertical (`2160×3840` or `1080×1920`) with full-bleed `#000000` background.
+- [ ] No elements in Top Unsafe Zone (0–600px) or Bottom Unsafe Zone (2900–3840px).
+- [ ] Visual props and typography are centered inside `.safe-zone`.
+- [ ] Subtitle pill sits directly below main content.
+- [ ] No fake header/footer bars that collide with platform feed UI.
+- [ ] Authentic Assets Only: Zero AI-generated images. Strictly real historical, scientific, archival, or documentary visuals.
+- [ ] `npm run check` passes with 0 errors, 0 warnings, and 100% WCAG AA contrast.

@@ -1,0 +1,314 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 140px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Oversized Year Display */
+    .year-display {
+      font-family: "Playfair Display", serif;
+      font-size: 260px;
+      font-weight: 900;
+      line-height: 0.9;
+      color: rgba(242, 210, 75, 0.45);
+      text-shadow: 0 0 80px rgba(242, 210, 75, 0.3);
+      letter-spacing: 0.08em;
+      margin-bottom: -40px;
+      z-index: 1;
+    }
+
+    /* Archival Researcher Card Row */
+    .archival-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      width: 100%;
+      margin-bottom: 40px;
+      z-index: 2;
+    }
+
+    .scholar-photo-card {
+      width: 520px;
+      height: 520px;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 3px solid rgba(242, 241, 236, 0.2);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      background: #111111;
+      position: relative;
+    }
+
+    .scholar-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .scholar-meta-card {
+      background: rgba(242, 241, 236, 0.04);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 28px;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 700px;
+    }
+
+    .meta-tag {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #A0A09C;
+    }
+
+    .scholar-name {
+      font-family: "Playfair Display", serif;
+      font-size: 56px;
+      font-weight: 700;
+      color: #F2F1EC;
+      line-height: 1.15;
+    }
+
+    .scholar-inst {
+      font-size: 32px;
+      font-weight: 600;
+      color: #F2D24B;
+      letter-spacing: 0.04em;
+    }
+
+    .theory-seal {
+      background: rgba(242, 210, 75, 0.1);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 24px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    /* Content block */
+    .content-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+      margin: 0 auto;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 20px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 110px;
+      font-weight: 700;
+      line-height: 1.18;
+      color: #F2F1EC;
+      margin-bottom: 24px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    /* Dynamic Captions Pill */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 45px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 22px 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 50px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-02-root" id="root" data-composition-id="02-origin" data-width="2160" data-height="3840" data-duration="10.86">
+    <div data-hf-id="hf-02-ground" id="f02-ground" class="clip ground" data-start="0" data-duration="10.86" data-track-index="0">
+      <div data-hf-id="hf-02-grid" id="f02-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-02-frame" id="f02-frame" class="clip frame-container" data-start="0" data-duration="10.86" data-track-index="1">
+      <div data-hf-id="hf-02-szone" class="safe-zone">
+        
+        <!-- Oversized Year -->
+        <div data-hf-id="hf-02-year" id="f02-year" class="year-display" data-layout-allow-occlusion="">1949</div>
+
+        <!-- Archival Card Row -->
+        <div data-hf-id="hf-02-row" id="f02-archival-row" class="archival-row">
+          <div data-hf-id="hf-02-photocard" id="f02-photocard" class="scholar-photo-card">
+            <img data-hf-id="hf-9egv" src="assets/02_cajal.jpg" alt="Santiago Ramón y Cajal & Donald Hebb Archival">
+          </div>
+
+          <div data-hf-id="hf-02-metacard" id="f02-metacard" class="scholar-meta-card">
+            <span data-hf-id="hf-eu3h" class="meta-tag">THE FOUNDATIONAL POSTULATE</span>
+            <div data-hf-id="hf-hvac" class="scholar-name">Donald Olding Hebb</div>
+            <div data-hf-id="hf-e1k2" class="scholar-inst">McGill University · Organization of Behavior</div>
+            <div data-hf-id="hf-whzw" class="theory-seal">HEBBIAN SYNAPSE THEORY</div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div data-hf-id="hf-02-content" class="content-block">
+          <div data-hf-id="hf-02-kicker" id="f02-kicker" class="kicker">THE CANADIAN DISCOVERY</div>
+          <h2 data-hf-id="hf-02-hl" id="f02-headline" class="headline">
+            A revolutionary biological law that <span data-hf-id="hf-b65r" class="highlight">redefined</span> neuroscience forever.
+          </h2>
+        </div>
+
+        <!-- Dynamic Subtitle Pill -->
+        <div data-hf-id="hf-02-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+          <div data-hf-id="hf-02-pill" id="f02-pill" class="caption-pill">
+            <span data-hf-id="hf-02-cap" id="f02-caption" class="caption-text">In 1949, Canadian psychologist Donald Hebb...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["02-origin"] = tl;
+
+    const year = document.getElementById("f02-year");
+    const photoCard = document.getElementById("f02-photocard");
+    const metaCard = document.getElementById("f02-metacard");
+    const kicker = document.getElementById("f02-kicker");
+    const headline = document.getElementById("f02-headline");
+    const capPill = document.getElementById("f02-pill");
+    const capText = document.getElementById("f02-caption");
+
+    // Initial states
+    gsap.set(year, { opacity: 0, scale: 0.8, y: -30 });
+    gsap.set(photoCard, { opacity: 0, scale: 0.9, x: -30 });
+    gsap.set(metaCard, { opacity: 0, scale: 0.9, x: 30 });
+    gsap.set(kicker, { opacity: 0, y: -15 });
+    gsap.set(headline, { opacity: 0, y: 25 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // Choreography
+    tl.to(year, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power2.out" }, 0.1);
+    tl.to(photoCard, { opacity: 1, scale: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+    tl.to(metaCard, { opacity: 1, scale: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.4);
+
+    // 0.5 - 4.5s: "In nineteen forty-nine, Canadian psychologist Donald Hebb..."
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+    tl.call(() => {
+      capText.innerHTML = 'In 1949, Canadian psychologist <span class="cap-hl">Donald Hebb</span>...';
+    }, null, 0.5);
+
+    // 4.5 - 8.5s: "...proposed a revolutionary biological law that redefined neuroscience forever."
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 4.2);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.0);
+    tl.call(() => {
+      capText.innerHTML = '...proposed a revolutionary law that <span class="cap-hl">redefined neuroscience</span> forever.';
+    }, null, 4.25);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.25);
+
+    // Subtle drift
+    tl.to(photoCard, { y: -10, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.0);
+    tl.to(metaCard, { y: 10, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.0);
+  </script>
+</template>

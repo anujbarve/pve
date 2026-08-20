@@ -1,0 +1,369 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    /* Centered Safe Zone container */
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 160px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Stage */
+    .mechanism-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 44px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 20px;
+    }
+
+    .pre-punch {
+      font-family: "Playfair Display", serif;
+      font-size: 84px;
+      font-weight: 700;
+      color: #EAE6DF;
+      margin-bottom: 24px;
+    }
+
+    /* Asymmetric Ratio Visual Graphic */
+    .ratio-prop {
+      width: 440px;
+      height: 440px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px 0 20px;
+      overflow: visible;
+    }
+
+    .ratio-svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      overflow: visible;
+    }
+
+    .ratio-center-badge {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 98, 43, 0.4) 0%, rgba(212, 98, 43, 0.05) 100%);
+      border: 3px solid #D4622B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 50px rgba(212, 98, 43, 0.4);
+      z-index: 2;
+    }
+
+    .ratio-num {
+      font-family: "Playfair Display", serif;
+      font-size: 80px;
+      font-weight: 900;
+      color: #F2D24B;
+    }
+
+    /* Hero Statement */
+    .main-statement {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .signal-hero-text {
+      font-family: "Playfair Display", serif;
+      font-size: 120px;
+      font-weight: 900;
+      line-height: 1.15;
+      color: #F2F1EC;
+      margin-bottom: 16px;
+    }
+
+    .signal-badge {
+      display: inline-block;
+      background: #D4622B;
+      color: #FFFFFF;
+      padding: 6px 38px;
+      border-radius: 18px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      box-shadow: 0 0 40px rgba(212, 98, 43, 0.5);
+    }
+
+    /* Broadcast Cards */
+    .broadcast-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 1560px;
+      margin-top: 30px;
+    }
+
+    .broadcast-card {
+      background: rgba(242, 241, 236, 0.04);
+      border: 2px solid rgba(242, 241, 236, 0.2);
+      border-left: 8px solid #F2D24B;
+      border-radius: 24px;
+      padding: 30px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .b-label {
+      font-family: "Inter", monospace;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #F2D24B;
+      text-transform: uppercase;
+    }
+
+    .b-msg {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      font-weight: 700;
+      color: #F2F1EC;
+    }
+
+    /* Captions Pill */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.88);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 24px 60px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 54px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-la03-root" id="root" data-composition-id="03-mechanism" data-width="2160" data-height="3840" data-duration="11.58">
+    <div data-hf-id="hf-la03-ground" id="fla03-ground" class="clip ground" data-start="0" data-duration="11.58" data-track-index="0">
+      <div data-hf-id="hf-la03-grid" id="fla03-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-la03-frame" id="fla03-frame" class="clip frame-container" data-start="0" data-duration="11.58" data-track-index="1">
+      
+      <div data-hf-id="hf-la03-szone" class="safe-zone">
+        
+        <!-- Main Stage -->
+        <div data-hf-id="hf-la03-stage" id="fla03-stage" class="mechanism-stage">
+          
+          <div data-hf-id="hf-la03-kicker" id="fla03-kicker" class="kicker" data-layout-allow-overlap>THE COGNITIVE WIRING</div>
+
+          <div data-hf-id="hf-la03-prepunch" id="fla03-prepunch" class="pre-punch">
+            We aren't wired to maximize gains.
+          </div>
+
+          <!-- Ratio Visual Indicator -->
+          <div data-hf-id="hf-la03-ratio" id="fla03-ratio" class="ratio-prop" data-layout-allow-overflow>
+            <svg class="ratio-svg" viewBox="0 0 300 300" fill="none" data-layout-allow-overflow>
+              <circle id="fla03-ring1" cx="150" cy="150" r="45" stroke="#D4622B" stroke-width="3" stroke-opacity="0.6"/>
+              <circle id="fla03-ring2" cx="150" cy="150" r="85" stroke="#D4622B" stroke-width="2.5" stroke-opacity="0.4"/>
+              <circle id="fla03-ring3" cx="150" cy="150" r="125" stroke="#D4622B" stroke-width="2" stroke-opacity="0.2"/>
+            </svg>
+            <div data-hf-id="hf-la03-cbadge" id="fla03-cbadge" class="ratio-center-badge">
+              <span data-hf-id="hf-la03-rnum" class="ratio-num">2 : 1</span>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-la03-stmt" id="fla03-stmt" class="main-statement">
+            <div data-hf-id="hf-la03-hero" id="fla03-hero" class="signal-hero-text">
+              Pain of Loss is <span class="signal-badge">2X STRONGER.</span>
+            </div>
+          </div>
+
+          <!-- Reality Callouts -->
+          <div data-hf-id="hf-la03-bgrid" id="fla03-bgrid" class="broadcast-grid">
+            <div data-hf-id="hf-la03-bc1" id="fla03-bc1" class="broadcast-card">
+              <div data-hf-id="hf-la03-lbl1" class="b-label">[ HARDWIRED ]</div>
+              <div data-hf-id="hf-la03-msg1" class="b-msg">“Protect against defeat at all costs.”</div>
+            </div>
+            <div data-hf-id="hf-la03-bc2" id="fla03-bc2" class="broadcast-card">
+              <div data-hf-id="hf-la03-lbl2" class="b-label">[ CONSEQUENCE ]</div>
+              <div data-hf-id="hf-la03-msg2" class="b-msg">“We play not to lose, instead of playing to win.”</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Captions Pill -->
+        <div data-hf-id="hf-la03-capwrap" class="caption-wrapper" data-layout-allow-overlap>
+          <div data-hf-id="hf-la03-pill" id="fla03-pill" class="caption-pill">
+            <span data-hf-id="hf-la03-cap" id="fla03-caption" class="caption-text">We aren't wired to maximize gains.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["03-mechanism"] = tl;
+
+    const kicker = document.getElementById("fla03-kicker");
+    const prepunch = document.getElementById("fla03-prepunch");
+    const ratio = document.getElementById("fla03-ratio");
+    const ring1 = document.getElementById("fla03-ring1");
+    const ring2 = document.getElementById("fla03-ring2");
+    const ring3 = document.getElementById("fla03-ring3");
+    const hero = document.getElementById("fla03-hero");
+    const bc1 = document.getElementById("fla03-bc1");
+    const bc2 = document.getElementById("fla03-bc2");
+    const capPill = document.getElementById("fla03-pill");
+    const capText = document.getElementById("fla03-caption");
+
+    // Initial states
+    gsap.set(kicker, { opacity: 0, y: -20 });
+    gsap.set(prepunch, { opacity: 0, y: 20 });
+    gsap.set(ratio, { opacity: 0, scale: 0.6 });
+    gsap.set([ring1, ring2, ring3], { scale: 0.8, transformOrigin: "center center" });
+    gsap.set(hero, { opacity: 0, scale: 0.85, y: 30 });
+    gsap.set(bc1, { opacity: 0, x: -50 });
+    gsap.set(bc2, { opacity: 0, x: 50 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // Choreography
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+
+    // 0.5 - 3.2s: "We aren't wired to maximize gains."
+    tl.to(prepunch, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.5);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+    tl.call(() => {
+      capText.innerHTML = "We aren't wired to maximize gains.";
+    }, null, 0.4);
+
+    // 3.3 - 6.5s: "We are hardwired to protect against defeat."
+    tl.to(ratio, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)" }, 3.0);
+    tl.to(hero, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 3.6);
+
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 2.9);
+    tl.call(() => {
+      capText.innerHTML = 'We are hardwired to <span class="cap-hl">protect against defeat.</span>';
+    }, null, 3.15);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 3.15);
+
+    // Pulsating ratio rings
+    tl.to([ring1, ring2, ring3], {
+      scale: 1.3,
+      opacity: 0.15,
+      duration: 1.8,
+      stagger: 0.3,
+      repeat: 3,
+      yoyo: true,
+      ease: "sine.inOut"
+    }, 3.5);
+
+    // 6.6 - 10.5s: "The pain of losing is twice as strong."
+    tl.to(bc1, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 6.5);
+    tl.to(bc2, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 8.0);
+
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 6.3);
+    tl.call(() => {
+      capText.innerHTML = 'The pain of losing is <span class="cap-hl">twice as strong.</span>';
+    }, null, 6.55);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 6.55);
+
+    // Clean exit before scene crossfade
+    tl.to([hero, bc1, bc2, ratio, capPill], { opacity: 0, duration: 0.4, ease: "power2.in" }, 11.0);
+  </script>
+</template>
