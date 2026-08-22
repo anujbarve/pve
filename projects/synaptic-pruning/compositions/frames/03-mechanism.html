@@ -1,0 +1,322 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 2160px;
+      height: 3840px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 140px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 1840px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mechanism-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    .synapse-card {
+      width: 520px;
+      height: 520px;
+      border-radius: 32px;
+      overflow: hidden;
+      border: 3px solid rgba(242, 210, 75, 0.35);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      background: #111111;
+      position: relative;
+    }
+
+    .synapse-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .synapse-tag {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #F2D24B;
+    }
+
+    .meter-card {
+      width: 720px;
+      height: 520px;
+      background: rgba(242, 241, 236, 0.03);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 32px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+    }
+
+    .meter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.12em;
+    }
+
+    .scale-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .scale-label {
+      font-size: 22px;
+      color: #A0A09C;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .scale-track {
+      width: 100%;
+      height: 16px;
+      background: rgba(242, 241, 236, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .scale-fill-signal {
+      width: 100%;
+      height: 100%;
+      background: #F2D24B;
+      border-radius: 999px;
+    }
+
+    .scale-fill-noise {
+      width: 25%;
+      height: 100%;
+      background: #D4622B;
+      border-radius: 999px;
+    }
+
+    .content-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 1760px;
+    }
+
+    .kicker {
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 20px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 110px;
+      font-weight: 700;
+      line-height: 1.18;
+      color: #F2F1EC;
+      margin-bottom: 24px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 45px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.9);
+      backdrop-filter: blur(20px);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 22px 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      max-width: 1760px;
+    }
+
+    .caption-text {
+      font-size: 50px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-03-root" id="root" data-composition-id="03-mechanism" data-width="2160" data-height="3840" data-duration="13.82">
+    <div data-hf-id="hf-03-ground" id="f03-ground" class="clip ground" data-start="0" data-duration="13.82" data-track-index="0">
+      <div data-hf-id="hf-03-grid" id="f03-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-03-frame" id="f03-frame" class="clip frame-container" data-start="0" data-duration="13.82" data-track-index="1">
+      <div data-hf-id="hf-03-szone" class="safe-zone">
+        
+        <div data-hf-id="hf-03-mech" id="f03-mech" class="mechanism-row">
+          <div data-hf-id="hf-03-scard" id="f03-scard" class="synapse-card">
+            <img data-hf-id="hf-03-img" src="assets/03_synapse.jpg" alt="Synaptic Pruning">
+            <div data-hf-id="hf-03-tag" class="synapse-tag">SLOW-WAVE PRUNING</div>
+          </div>
+
+          <div data-hf-id="hf-03-meter" id="f03-meter" class="meter-card">
+            <div data-hf-id="hf-03-mhead" class="meter-head">
+              <span>SYNAPSE DOWNSIZING</span>
+              <span style="color: #D4622B;">-18% VOLUME</span>
+            </div>
+
+            <div data-hf-id="hf-03-srow1" class="scale-row">
+              <div data-hf-id="hf-03-lbl1" class="scale-label">
+                <span>VITAL SIGNALS (PRESERVED)</span>
+                <span style="color:#F2D24B; font-weight:700;">100%</span>
+              </div>
+              <div data-hf-id="hf-03-trk1" class="scale-track">
+                <div data-hf-id="hf-03-fill1" class="scale-fill-signal"></div>
+              </div>
+            </div>
+
+            <div data-hf-id="hf-03-srow2" class="scale-row">
+              <div data-hf-id="hf-03-lbl2" class="scale-label">
+                <span>NOISE CONNECTIONS (PRUNED)</span>
+                <span style="color:#D4622B; font-weight:700;">-80%</span>
+              </div>
+              <div data-hf-id="hf-03-trk2" class="scale-track">
+                <div data-hf-id="hf-03-fill2" id="f03-noise-fill" class="scale-fill-noise"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-03-content" class="content-block">
+          <span data-hf-id="hf-03-kicker" id="f03-kicker" class="kicker">SELECTIVE PRUNING ALGORITHM</span>
+          <h2 data-hf-id="hf-03-head" id="f03-headline" class="headline">
+            During deep sleep, the brain <span data-hf-id="hf-03-hl" class="highlight">weakens trivial noise</span> while preserving the vital signals.
+          </h2>
+        </div>
+
+        <div data-hf-id="hf-03-capwrap" class="caption-wrapper" data-layout-allow-overlap>
+          <div data-hf-id="hf-03-pill" id="f03-pill" class="caption-pill">
+            <span data-hf-id="hf-03-cap" id="f03-caption" class="caption-text">During deep slow-wave sleep, the brain performs global synaptic downsizing...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["03-mechanism"] = tl;
+
+    const kicker = document.getElementById("f03-kicker");
+    const headline = document.getElementById("f03-headline");
+    const scard = document.getElementById("f03-scard");
+    const meter = document.getElementById("f03-meter");
+    const noiseFill = document.getElementById("f03-noise-fill");
+    const capPill = document.getElementById("f03-pill");
+    const capText = document.getElementById("f03-caption");
+
+    gsap.set([kicker, headline, scard, meter], { opacity: 0, y: 30 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+    gsap.set(noiseFill, { scaleX: 1, transformOrigin: "left center" });
+
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2);
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.to(scard, { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.2)" }, 0.5);
+    tl.to(meter, { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.2)" }, 0.7);
+
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+    tl.call(() => {
+      capText.innerHTML = 'During slow-wave sleep, the brain performs <span class="cap-hl">global synaptic downsizing.</span>';
+    }, null, 0.5);
+
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 5.8);
+    tl.call(() => {
+      capText.innerHTML = 'It systematically prunes trivial noise while <span class="cap-hl">preserving vital signals.</span>';
+    }, null, 6.05);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 6.05);
+    tl.to(noiseFill, { scaleX: 0.2, duration: 2.0, ease: "power2.inOut" }, 6.2);
+  </script>
+</template>

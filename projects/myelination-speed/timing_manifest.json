@@ -1,0 +1,59 @@
+{
+  "master_duration": 67.22,
+  "frames": [
+    {
+      "id": "01-hook",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/myelination-speed/.temp_audio/01-hook_raw.wav",
+      "tts_dur": 9.48,
+      "reveal_offset": 0.5,
+      "duration": 11.58,
+      "start": 0.0,
+      "text": "World-class masters do not just have better ideas. Their brains transmit electrical nerve impulses up to one hundred times faster than average."
+    },
+    {
+      "id": "02-origin",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/myelination-speed/.temp_audio/02-origin_raw.wav",
+      "tts_dur": 11.24,
+      "reveal_offset": 0.5,
+      "duration": 13.34,
+      "start": 11.08,
+      "text": "Neuroscientists discovered that deliberate practice triggers specialized glial cells called oligodendrocytes to wrap nerve fibers in insulating myelin sheaths."
+    },
+    {
+      "id": "03-mechanism",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/myelination-speed/.temp_audio/03-mechanism_raw.wav",
+      "tts_dur": 10.6,
+      "reveal_offset": 0.5,
+      "duration": 12.7,
+      "start": 23.92,
+      "text": "Uninsulated axons leak electrical charge and crawl at barely two miles per hour. Thickly myelinated axons supercharge signals up to two hundred miles per hour."
+    },
+    {
+      "id": "04-cascade",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/myelination-speed/.temp_audio/04-cascade_raw.wav",
+      "tts_dur": 8.6,
+      "reveal_offset": 0.5,
+      "duration": 10.7,
+      "start": 36.120000000000005,
+      "text": "Every time you push to the edge of your ability and correct errors, another microscopic layer of myelin is wrapped around that exact circuit."
+    },
+    {
+      "id": "05-reframe",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/myelination-speed/.temp_audio/05-reframe_raw.wav",
+      "tts_dur": 9.56,
+      "reveal_offset": 0.5,
+      "duration": 11.66,
+      "start": 46.32000000000001,
+      "text": "Talent is not an inborn mystical trait. Talent is the physical accumulation of myelin insulation built through thousands of reps of deliberate focus."
+    },
+    {
+      "id": "06-lesson",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/myelination-speed/.temp_audio/06-lesson_raw.wav",
+      "tts_dur": 9.24,
+      "reveal_offset": 0.5,
+      "duration": 11.34,
+      "start": 57.480000000000004,
+      "text": "Embrace the struggle of difficult practice. Precision and focused repetition are physically wrapping the high-speed cables of mastery."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "master_duration": 71.7,
+  "frames": [
+    {
+      "id": "01-hook",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/ebbinghaus-forgetting-curve/.temp_audio/01-hook_raw.wav",
+      "tts_dur": 9.4,
+      "reveal_offset": 0.5,
+      "duration": 11.5,
+      "start": 0.0,
+      "text": "Within forty-eight hours of learning something new, your brain will silently erase nearly seventy percent of it. Why is human memory so fragile?"
+    },
+    {
+      "id": "02-origin",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/ebbinghaus-forgetting-curve/.temp_audio/02-origin_raw.wav",
+      "tts_dur": 10.68,
+      "reveal_offset": 0.5,
+      "duration": 12.78,
+      "start": 11.0,
+      "text": "In eighteen eighty-five, German psychologist Hermann Ebbinghaus conducted the first rigorous scientific study of memory, discovering the mathematical Forgetting Curve."
+    },
+    {
+      "id": "03-mechanism",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/ebbinghaus-forgetting-curve/.temp_audio/03-mechanism_raw.wav",
+      "tts_dur": 10.52,
+      "reveal_offset": 0.5,
+      "duration": 12.62,
+      "start": 23.28,
+      "text": "Memory decays exponentially over time. But if you actively retrieve the information just before you forget it, the decay curve instantly resets and flattens."
+    },
+    {
+      "id": "04-cascade",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/ebbinghaus-forgetting-curve/.temp_audio/04-cascade_raw.wav",
+      "tts_dur": 11.56,
+      "reveal_offset": 0.5,
+      "duration": 13.66,
+      "start": 35.4,
+      "text": "Passive re-reading tricks your brain into a false illusion of mastery. Spaced retrieval creates desirable difficulty, forcing the brain to reinforce long-term structural storage."
+    },
+    {
+      "id": "05-reframe",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/ebbinghaus-forgetting-curve/.temp_audio/05-reframe_raw.wav",
+      "tts_dur": 11.4,
+      "reveal_offset": 0.5,
+      "duration": 13.5,
+      "start": 48.56,
+      "text": "Forgetting is not a flaw in your biology. It is an intelligent filtering algorithm. Active recall is how you signal what is too important to delete."
+    },
+    {
+      "id": "06-lesson",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/ebbinghaus-forgetting-curve/.temp_audio/06-lesson_raw.wav",
+      "tts_dur": 9.64,
+      "reveal_offset": 0.5,
+      "duration": 11.74,
+      "start": 61.56,
+      "text": "Stop cramming in single marathon sessions. Space out your reviews, test your recall, and lock knowledge into permanent memory."
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "master_duration": 75.46,
+  "frames": [
+    {
+      "id": "01-hook",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/synaptic-pruning/.temp_audio/01-hook_raw.wav",
+      "tts_dur": 13.64,
+      "reveal_offset": 0.5,
+      "duration": 15.74,
+      "start": 0.0,
+      "text": "Every minute you are awake, your brain builds trillions of new synaptic connections. But if this nonstop growth continued unchecked, your neural circuits would literally overheat and burn out."
+    },
+    {
+      "id": "02-origin",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/synaptic-pruning/.temp_audio/02-origin_raw.wav",
+      "tts_dur": 12.2,
+      "reveal_offset": 0.5,
+      "duration": 14.299999999999999,
+      "start": 15.24,
+      "text": "In two thousand and three, neuroscientists Giulio Tononi and Chiara Cirelli formulated the groundbreaking Synaptic Homeostasis Hypothesis."
+    },
+    {
+      "id": "03-mechanism",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/synaptic-pruning/.temp_audio/03-mechanism_raw.wav",
+      "tts_dur": 11.72,
+      "reveal_offset": 0.5,
+      "duration": 13.82,
+      "start": 29.04,
+      "text": "During deep slow-wave sleep, the brain performs global synaptic downsizing. It systematically weakens and prunes away noisy, trivial connections while preserving the vital signals."
+    },
+    {
+      "id": "04-cascade",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/synaptic-pruning/.temp_audio/04-cascade_raw.wav",
+      "tts_dur": 11.72,
+      "reveal_offset": 0.5,
+      "duration": 13.82,
+      "start": 42.36,
+      "text": "Without this nocturnal pruning, neural networks become oversaturated. Memory consolidation fails, cognitive processing drops, and cellular energy depletes rapidly."
+    },
+    {
+      "id": "05-reframe",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/synaptic-pruning/.temp_audio/05-reframe_raw.wav",
+      "tts_dur": 8.6,
+      "reveal_offset": 0.5,
+      "duration": 10.7,
+      "start": 55.68,
+      "text": "Sleep is not wasted downtime. Sleep is the biological price we pay for learning, clearing the canvas so you can think clearly tomorrow."
+    },
+    {
+      "id": "06-lesson",
+      "raw_path": "/Users/anujbarve/Documents/gate-research/explainer-videos/projects/synaptic-pruning/.temp_audio/06-lesson_raw.wav",
+      "tts_dur": 9.08,
+      "reveal_offset": 0.5,
+      "duration": 11.18,
+      "start": 65.88,
+      "text": "Protect your sleep like your brain depends on it. Because without deep restoration, you are operating on a cluttered, oversaturated circuit."
+    }
+  ]
+}
