@@ -83,13 +83,17 @@ Fix all errors before presenting the result. Warnings should be reviewed before 
 
 ## Key Rules
 
-1. Every timed element needs `data-start`, `data-duration`, and `data-track-index`
-2. Elements with timing **MUST** have `class="clip"` — the framework uses this for visibility control
-3. Timelines must be paused and registered on `window.__timelines`:
+1. **Resolution & Canvas**: Default canvas is strictly **1080×1920** (FHD 9:16 vertical, 60 FPS).
+2. **Safe Zones & Large Mobile Elements**: All primary elements, typography, and subtitle pills MUST live in **Y = 325px – 1425px**. Make headings ($56\text{px}\text{–}62\text{px}$), kickers ($20\text{px}\text{–}22\text{px}$), and captions ($28\text{px}$) large and legible for mobile.
+3. **Audio Mastering Standard (-14 LUFS)**: Master narration must achieve **-14.0 LUFS to -16.0 LUFS**. Always use `normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7` on FFmpeg `amix` to prevent automatic -15 dB volume loss.
+4. **Every timed element** needs `data-start`, `data-duration`, and `data-track-index`.
+5. Elements with timing **MUST** have `class="clip"` — the framework uses this for visibility control.
+6. Timelines must be paused and registered on `window.__timelines`:
    ```js
    window.__timelines = window.__timelines || {};
    window.__timelines["composition-id"] = gsap.timeline({ paused: true });
    ```
-4. Videos use `muted` with a separate `<audio>` element for the audio track
-5. Sub-compositions use `data-composition-src="compositions/file.html"` to reference other HTML files
-6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches
+7. Videos use `muted` with a separate `<audio>` element for the audio track.
+8. Sub-compositions use `data-composition-src="compositions/file.html"`.
+9. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches.
+10. **Verification Gate**: Run `npm run check` $\to$ **0 errors, 0 warnings (100% WCAG AA)** before rendering with `npm run render`.

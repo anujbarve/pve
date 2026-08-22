@@ -97,10 +97,10 @@ def build_narration_track():
         clip_path = os.path.join(OUTPUT_DIR, f"{frame['id']}.wav")
         inputs.extend(["-i", clip_path])
         delay_ms = int(frame["start"] * 1000)
-        filter_parts.append(f"[{i}]adelay={delay_ms}|{delay_ms}[d{i}]")
-
     mix_inputs = "".join(f"[d{i}]" for i in range(len(FRAMES)))
-    filter_parts.append(f"{mix_inputs}amix=inputs={len(FRAMES)}:duration=longest:dropout_transition=0[out]")
+    filter_parts.append(
+        f"{mix_inputs}amix=inputs={len(FRAMES)}:duration=longest:dropout_transition=0:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7[out]"
+    )
 
     narration_path = os.path.join(OUTPUT_DIR, "narration_full.wav")
     result = run([

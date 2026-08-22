@@ -7,13 +7,13 @@ This is the reusable design and motion spec for the Editorial Dark Mode series (
 
 ## 1. Canvas & Safe Zones (Vertical Reels / Shorts)
 
-- **Native Resolution:** `2160×3840` (4K vertical 9:16) or `1080×1920` (FHD vertical).
-- **Background:** `#000000` pure black, edge-to-edge, with subtle background grid (`rgba(242, 241, 236, 0.03)` 120px cells).
+- **Native Standard Resolution:** `1080×1920` (FHD vertical 9:16, 60s target length, 60 FPS).
+- **Background:** `#000000` pure black, edge-to-edge, with subtle background grid (`rgba(242, 241, 236, 0.03)` 60px cells).
 - **Platform Safe Zone Clearance:**
-  - **Top Unsafe Zone (0 – 600px):** Platform search bars, audio pills, camera buttons, status bars.
-  - **Bottom Unsafe Zone (2900 – 3840px):** User handles, captions, sound tickers, right-rail actions (like/comment/share/remix).
-  - **The Golden Safe Window:** All core graphics, typography, and subtitle pills MUST live comfortably between **Y = 650px and Y = 2850px**.
-- **Layout Rule:** NEVER use `justify-content: space-between` to spread elements from top to bottom of the 3840px canvas. Always use a vertically centered `.frame-container` holding an inner `.safe-zone` wrapper (`max-width: 1840px`).
+  - **Top Unsafe Zone (0 – 300px):** Platform search bars, audio pills, camera buttons, status bars.
+  - **Bottom Unsafe Zone (1450 – 1920px):** User handles, captions, sound tickers, right-rail actions (like/comment/share/remix).
+  - **The Golden Safe Window:** All core graphics, typography, and subtitle pills MUST live comfortably between **Y = 325px and Y = 1425px**.
+- **Layout Rule:** NEVER use `justify-content: space-between` to spread elements from top to bottom of the 1920px canvas. Always use a vertically centered `.frame-container` holding an inner `.safe-zone` wrapper (`max-width: 920px`).
 
 ```css
 .frame-container {
@@ -23,12 +23,12 @@ This is the reusable design and motion spec for the Editorial Dark Mode series (
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 160px;
+  padding: 0 80px;
 }
 
 .safe-zone {
   width: 100%;
-  max-width: 1840px;
+  max-width: 920px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,15 +42,15 @@ This is the reusable design and motion spec for the Editorial Dark Mode series (
 
 ### Primary Typeface — Playfair Display
 - **Playfair Display Bold (700 / 900):** The hero concept font.
-  - Giant Display / Year figures (`280px – 340px`)
-  - Scene Headlines (`110px – 160px`)
+  - Giant Display / Year figures (`130px – 170px`)
+  - Scene Headlines (`55px – 80px`)
   - Stamped theory titles & punchlines
-- **Playfair Display Bold Italic:** Used for voice, quotes, and emotional lead-ins (`90px – 120px`).
+- **Playfair Display Bold Italic:** Used for voice, quotes, and emotional lead-ins (`45px – 60px`).
 - **Emphasis rule:** Never use Playfair for dense body text; reserve it for high-impact headlines and quotable statements.
 
 ### Secondary Typeface — Inter (Grotesk Sans-Serif)
-- **Inter Semi-Bold / Bold (600 / 700):** Kicker badges, category tags, step numbers, and CTA button text (`32px – 54px`, `letter-spacing: 0.12em – 0.24em`, uppercase).
-- **Inter Regular / Medium (400 / 500):** Sub-leads, author titles, footnotes, and dynamic subtitle captions (`44px – 60px`).
+- **Inter Semi-Bold / Bold (600 / 700):** Kicker badges, category tags, step numbers, and CTA button text (`16px – 26px`, `letter-spacing: 0.12em – 0.24em`, uppercase).
+- **Inter Regular / Medium (400 / 500):** Sub-leads, author titles, footnotes, and dynamic subtitle captions (`22px – 28px`).
 
 ---
 
@@ -110,25 +110,25 @@ In vertical video reels, subtitles should be anchored directly below the central
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
 .caption-pill {
   background: rgba(18, 18, 18, 0.88);
   backdrop-filter: blur(20px);
-  border: 2px solid rgba(242, 241, 236, 0.15);
+  border: 1px solid rgba(242, 241, 236, 0.15);
   border-radius: 999px;
-  padding: 24px 60px;
+  padding: 12px 28px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-  max-width: 1760px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  max-width: 880px;
 }
 
 .caption-text {
   font-family: "Inter", sans-serif;
-  font-size: 54px;
+  font-size: 26px;
   font-weight: 600;
   color: #F2F1EC;
   letter-spacing: 0.02em;
@@ -145,10 +145,11 @@ In vertical video reels, subtitles should be anchored directly below the central
 
 ## 6. Build Checklist (Before Render)
 
-- [ ] Canvas is vertical (`2160×3840` or `1080×1920`) with full-bleed `#000000` background.
-- [ ] No elements in Top Unsafe Zone (0–600px) or Bottom Unsafe Zone (2900–3840px).
-- [ ] Visual props and typography are centered inside `.safe-zone`.
+- [ ] Canvas is standard vertical `1080×1920` (60s target length, 60 FPS) with full-bleed `#000000` background.
+- [ ] No elements in Top Unsafe Zone (0–300px) or Bottom Unsafe Zone (1450–1920px).
+- [ ] Visual props and typography are centered inside `.safe-zone` (Y = 325px – 1425px).
 - [ ] Subtitle pill sits directly below main content.
 - [ ] No fake header/footer bars that collide with platform feed UI.
 - [ ] Authentic Assets Only: Zero AI-generated images. Strictly real historical, scientific, archival, or documentary visuals.
+- [ ] Audio Loudness Standard: Master voiceover narration is mastered at **-14.0 LUFS to -16.0 LUFS** with `normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7` (no muffled / attenuated audio).
 - [ ] `npm run check` passes with 0 errors, 0 warnings, and 100% WCAG AA contrast.

@@ -16,8 +16,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     #root {
-      width: 2160px;
-      height: 3840px;
+      width: 1080px;
+      height: 1920px;
       position: relative;
       overflow: hidden;
       background: #000000;
@@ -35,9 +35,9 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
-      background-size: 120px 120px;
+        linear-gradient(rgba(242, 241, 236, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
       opacity: 0.7;
     }
 
@@ -48,12 +48,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 140px;
+      padding: 0 60px;
     }
 
     .safe-zone {
       width: 100%;
-      max-width: 1840px;
+      max-width: 960px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -63,35 +63,35 @@
     /* Manifesto Luxury Box */
     .manifesto-box {
       width: 100%;
-      max-width: 1760px;
-      background: rgba(242, 241, 236, 0.03);
-      border: 3px solid rgba(242, 210, 75, 0.4);
-      border-radius: 40px;
-      padding: 60px;
+      max-width: 960px;
+      background: rgba(242, 241, 236, 0.04);
+      border: 2px solid rgba(242, 210, 75, 0.4);
+      border-radius: 28px;
+      padding: 36px 32px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(242, 210, 75, 0.12);
-      margin-bottom: 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(242, 210, 75, 0.12);
+      margin-bottom: 24px;
     }
 
     .manifesto-kicker {
-      font-size: 28px;
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #F2D24B;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .manifesto-quote {
       font-family: "Playfair Display", serif;
-      font-size: 68px;
+      font-size: 34px;
       font-weight: 700;
       line-height: 1.25;
       color: #F2F1EC;
-      margin-bottom: 40px;
+      margin-bottom: 26px;
     }
 
     .manifesto-quote .gold-hl {
@@ -102,23 +102,23 @@
     /* Actionable Strategy Pills */
     .action-row {
       display: flex;
-      gap: 30px;
+      gap: 16px;
       width: 100%;
       justify-content: center;
     }
 
     .action-pill {
       background: rgba(242, 241, 236, 0.06);
-      border: 2px solid rgba(242, 241, 236, 0.2);
+      border: 1.5px solid rgba(242, 241, 236, 0.2);
       border-radius: 999px;
-      padding: 20px 48px;
-      font-size: 28px;
+      padding: 12px 28px;
+      font-size: 15px;
       font-weight: 700;
       color: #F2F1EC;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 10px;
     }
 
     .action-pill.muscle {
@@ -136,29 +136,30 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 35px;
+      margin-top: 24px;
     }
 
     .caption-pill {
-      background: rgba(18, 18, 18, 0.9);
+      background: rgba(18, 18, 18, 0.92);
       backdrop-filter: blur(20px);
-      border: 2px solid rgba(242, 241, 236, 0.15);
+      border: 1px solid rgba(242, 241, 236, 0.18);
       border-radius: 999px;
-      padding: 22px 56px;
+      padding: 14px 34px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      max-width: 1760px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      max-width: 920px;
     }
 
     .caption-text {
       font-family: "Inter", sans-serif;
-      font-size: 50px;
+      font-size: 28px;
       font-weight: 600;
       color: #F2F1EC;
       letter-spacing: 0.02em;
       text-align: center;
+      line-height: 1.3;
     }
 
     .cap-hl {
@@ -169,7 +170,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 
-  <div data-hf-id="hf-06-root" id="root" data-composition-id="06-lesson" data-width="2160" data-height="3840" data-duration="11.42">
+  <div data-hf-id="hf-06-root" id="root" data-composition-id="06-lesson" data-width="1080" data-height="1920" data-duration="11.42">
     <div data-hf-id="hf-06-ground" id="f06-ground" class="clip ground" data-start="0" data-duration="11.42" data-track-index="0">
       <div data-hf-id="hf-06-grid" id="f06-grid" class="bg-grid"></div>
     </div>

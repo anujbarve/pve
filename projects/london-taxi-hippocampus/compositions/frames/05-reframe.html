@@ -16,8 +16,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     #root {
-      width: 2160px;
-      height: 3840px;
+      width: 1080px;
+      height: 1920px;
       position: relative;
       overflow: hidden;
       background: #000000;
@@ -35,9 +35,9 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
-      background-size: 120px 120px;
+        linear-gradient(rgba(242, 241, 236, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
       opacity: 0.7;
     }
 
@@ -48,12 +48,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 140px;
+      padding: 0 60px;
     }
 
     .safe-zone {
       width: 100%;
-      max-width: 1840px;
+      max-width: 960px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -64,17 +64,17 @@
     .duality-stack {
       display: flex;
       flex-direction: column;
-      gap: 30px;
+      gap: 16px;
       width: 100%;
-      max-width: 1760px;
-      margin-bottom: 40px;
+      max-width: 960px;
+      margin-bottom: 26px;
     }
 
     .myth-card {
       background: rgba(212, 98, 43, 0.05);
       border: 2px dashed rgba(212, 98, 43, 0.4);
-      border-radius: 28px;
-      padding: 34px 44px;
+      border-radius: 18px;
+      padding: 18px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -83,55 +83,55 @@
 
     .laser-strike {
       position: absolute;
-      left: 30px;
-      right: 30px;
-      height: 4px;
+      left: 20px;
+      right: 20px;
+      height: 3px;
       background: #D4622B;
-      box-shadow: 0 0 16px #D4622B;
+      box-shadow: 0 0 12px #D4622B;
     }
 
     .myth-title {
-      font-size: 34px;
+      font-size: 20px;
       font-weight: 700;
       color: #A0A09C;
       text-decoration: line-through;
     }
 
     .myth-badge {
-      background: rgba(212, 98, 43, 0.2);
-      color: #D4622B;
-      padding: 10px 22px;
+      background: rgba(212, 98, 43, 0.25);
+      color: #FF8A50;
+      padding: 6px 14px;
       border-radius: 999px;
-      font-size: 22px;
+      font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
     }
 
     .reality-card {
       background: rgba(242, 210, 75, 0.06);
-      border: 3px solid rgba(242, 210, 75, 0.5);
-      border-radius: 32px;
-      padding: 40px 48px;
+      border: 2px solid rgba(242, 210, 75, 0.5);
+      border-radius: 22px;
+      padding: 24px 28px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(242, 210, 75, 0.15);
+      gap: 10px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(242, 210, 75, 0.15);
     }
 
     .reality-kicker {
-      font-size: 26px;
+      font-size: 15px;
       font-weight: 800;
       color: #F2D24B;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
     .reality-title {
       font-family: "Playfair Display", serif;
-      font-size: 52px;
+      font-size: 28px;
       font-weight: 700;
       color: #F2F1EC;
-      line-height: 1.2;
+      line-height: 1.25;
     }
 
     /* Content block */
@@ -140,27 +140,27 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      max-width: 1760px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     .kicker {
       font-family: "Inter", sans-serif;
-      font-size: 38px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #A0A09C;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .headline {
       font-family: "Playfair Display", serif;
-      font-size: 110px;
+      font-size: 58px;
       font-weight: 700;
-      line-height: 1.18;
+      line-height: 1.15;
       color: #F2F1EC;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .headline .highlight {
@@ -173,29 +173,30 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 45px;
+      margin-top: 24px;
     }
 
     .caption-pill {
-      background: rgba(18, 18, 18, 0.9);
+      background: rgba(18, 18, 18, 0.92);
       backdrop-filter: blur(20px);
-      border: 2px solid rgba(242, 241, 236, 0.15);
+      border: 1px solid rgba(242, 241, 236, 0.18);
       border-radius: 999px;
-      padding: 22px 56px;
+      padding: 14px 34px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      max-width: 1760px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      max-width: 920px;
     }
 
     .caption-text {
       font-family: "Inter", sans-serif;
-      font-size: 50px;
+      font-size: 28px;
       font-weight: 600;
       color: #F2F1EC;
       letter-spacing: 0.02em;
       text-align: center;
+      line-height: 1.3;
     }
 
     .cap-hl {
@@ -206,7 +207,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 
-  <div data-hf-id="hf-05-root" id="root" data-composition-id="05-reframe" data-width="2160" data-height="3840" data-duration="11.58">
+  <div data-hf-id="hf-05-root" id="root" data-composition-id="05-reframe" data-width="1080" data-height="1920" data-duration="11.58">
     <div data-hf-id="hf-05-ground" id="f05-ground" class="clip ground" data-start="0" data-duration="11.58" data-track-index="0">
       <div data-hf-id="hf-05-grid" id="f05-grid" class="bg-grid"></div>
     </div>
@@ -260,26 +261,28 @@
     const capText = document.getElementById("f05-caption");
 
     // Initial states
-    gsap.set(myth, { opacity: 0, y: -20 });
-    gsap.set(reality, { opacity: 0, scale: 0.95, y: 20 });
+    gsap.set(myth, { opacity: 0, scale: 0.95 });
+    gsap.set(reality, { opacity: 0, scale: 0.95 });
     gsap.set(kicker, { opacity: 0, y: -15 });
     gsap.set(headline, { opacity: 0, y: 25 });
     gsap.set(capPill, { opacity: 0, y: 20 });
 
-    // 0.5 - 4.5s: "Intensive mental training does not just make you smarter."
-    tl.to(myth, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.3);
+    // Reveal myth and reality
+    tl.to(myth, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.to(reality, { opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 0.6);
+
+    // 0.5 - 4.5s: "Intensive mental training does not just make you faster or smarter..."
     tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
-    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.5);
     tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
     tl.call(() => {
-      capText.innerHTML = 'Intensive training does <span class="cap-hl">not just make you smarter</span>.';
+      capText.innerHTML = 'Intensive training does not just <span class="cap-hl">teach you</span>...';
     }, null, 0.5);
 
-    // 4.5 - 9.5s: "It physically expands gray matter volume in real biological time."
-    tl.to(reality, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.2)" }, 4.3);
+    // 4.5 - 10.5s: "...it physically remodels and grows the adult human brain in response to environmental demands."
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 4.3);
     tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.1);
     tl.call(() => {
-      capText.innerHTML = 'It <span class="cap-hl">physically expands gray matter volume</span> in real time.';
+      capText.innerHTML = 'It <span class="cap-hl">physically remodels and grows</span> the adult brain.';
     }, null, 4.35);
     tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.35);
   </script>

@@ -7,7 +7,7 @@ destination: shorts
 aspect: 1080x1920
 language: en
 audience: vertical-feed scroll audience (Reels/Shorts)
-length: 30-45s
+length: 60s
 angle: concept
 narration: yes
 ---

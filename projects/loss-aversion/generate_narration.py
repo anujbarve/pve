@@ -162,7 +162,7 @@ def main():
         filter_parts.append(f"[{i}]adelay={delay_ms}|{delay_ms}[d{i}]")
 
     mix_inputs = "".join(f"[d{i}]" for i in range(len(measurements)))
-    filter_parts.append(f"{mix_inputs}amix=inputs={len(measurements)}:duration=longest:dropout_transition=0[out]")
+    filter_parts.append(f"{mix_inputs}amix=inputs={len(measurements)}:duration=longest:dropout_transition=0:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7[out]")
     filter_str = ";".join(filter_parts)
     narration_path = os.path.join(OUTPUT_DIR, "narration_full.wav")
 

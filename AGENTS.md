@@ -118,9 +118,11 @@ Fix all errors before presenting the result.
 4. Videos use `muted` with a separate `<audio>` element for the audio track.
 5. Sub-compositions use `data-composition-src="compositions/file.html"`.
 6. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches.
-7. **Vertical Safe Zones**: Center content in Y = 650px – 2850px. Never push elements to top/bottom edges.
-8. **No Glorified PPT**: Every frame must have a distinct visual mechanic or SVG graphic device.
-9. **Audio sync**: Root and audio `data-duration` must match `ffprobe` duration of master narration audio.
-10. **NO AI-Generated Images**: Strictly use real, authentic, archival, documentary, or public domain photography/illustrations (e.g. Wikimedia Commons, Library of Congress, museum archives, scientific micrographs/MRIs). Never substitute with synthetic/AI images.
-11. **HyperFrames Motion Graphics Excellence**: Always integrate purposeful vector graphics, animated stroke-dashoffset circuits/graphs, 3D rotating cards, and frosted dynamic subtitle pills while strictly preserving the Editorial Dark Mode visual system.
+7. **Resolution & Duration Standard**: Default canvas is **1080×1920** (FHD 9:16 vertical, 60s target length, 60 FPS).
+8. **Vertical Safe Zones**: Center content in **Y = 325px – 1425px** on 1080×1920 canvas. Never push elements to top/bottom platform chrome.
+9. **No Glorified PPT**: Every frame must have a distinct visual mechanic or SVG graphic device.
+10. **Audio sync**: Root and audio `data-duration` must match `ffprobe` duration of master narration audio.
+11. **NO AI-Generated Images**: Strictly use real, authentic, archival, documentary, or public domain photography/illustrations (e.g. Wikimedia Commons, Library of Congress, museum archives, scientific micrographs/MRIs). Never substitute with synthetic/AI images.
+12. **HyperFrames Motion Graphics Excellence**: Always integrate purposeful vector graphics, animated stroke-dashoffset circuits/graphs, 3D rotating cards, and frosted dynamic subtitle pills while strictly preserving the Editorial Dark Mode visual system.
+13. **Audio Mastering Standard (-14 LUFS)**: Master narration must achieve **-14.0 LUFS to -16.0 LUFS** integrated loudness (Reels/Shorts/TikTok standard). Always set `normalize=0` when mixing with ffmpeg `amix` to prevent automatic -15 dB attenuation, and chain `loudnorm=I=-14:TP=-1.0:LRA=7`.
 

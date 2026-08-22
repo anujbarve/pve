@@ -16,8 +16,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     #root {
-      width: 2160px;
-      height: 3840px;
+      width: 1080px;
+      height: 1920px;
       position: relative;
       overflow: hidden;
       background: #000000;
@@ -35,9 +35,9 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
-      background-size: 120px 120px;
+        linear-gradient(rgba(242, 241, 236, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
       opacity: 0.7;
     }
 
@@ -48,12 +48,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 140px;
+      padding: 0 60px;
     }
 
     .safe-zone {
       width: 100%;
-      max-width: 1840px;
+      max-width: 960px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -63,71 +63,71 @@
     /* Experience Correlation Staircase */
     .experience-stack {
       display: flex;
-      gap: 30px;
+      gap: 16px;
       width: 100%;
-      max-width: 1760px;
-      margin-bottom: 35px;
+      max-width: 960px;
+      margin-bottom: 20px;
     }
 
     .exp-card {
       flex: 1;
       background: rgba(242, 241, 236, 0.03);
       border: 2px solid rgba(242, 241, 236, 0.15);
-      border-radius: 28px;
-      padding: 32px 28px;
+      border-radius: 20px;
+      padding: 20px 18px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 8px;
     }
 
     .exp-card.high {
       border-color: rgba(242, 210, 75, 0.5);
-      background: rgba(242, 210, 75, 0.05);
+      background: rgba(242, 210, 75, 0.06);
     }
 
     .exp-num {
       font-family: "Playfair Display", serif;
-      font-size: 60px;
+      font-size: 34px;
       font-weight: 900;
       color: #F2D24B;
     }
 
     .exp-title {
-      font-size: 30px;
+      font-size: 18px;
       font-weight: 700;
       color: #F2F1EC;
     }
 
     .exp-desc {
-      font-size: 24px;
+      font-size: 13px;
       color: #A0A09C;
-      line-height: 1.35;
+      line-height: 1.3;
     }
 
     /* Correlation Banner */
     .corr-banner {
       width: 100%;
-      max-width: 1760px;
+      max-width: 960px;
       background: rgba(242, 210, 75, 0.1);
       border: 2px solid #F2D24B;
-      border-radius: 24px;
-      padding: 24px 36px;
+      border-radius: 16px;
+      padding: 14px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 35px;
+      margin-bottom: 24px;
     }
 
     .corr-badge {
-      font-size: 26px;
+      font-size: 14px;
       font-weight: 800;
       color: #F2D24B;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
     .corr-text {
-      font-size: 32px;
+      font-size: 18px;
       font-weight: 600;
       color: #F2F1EC;
     }
@@ -138,27 +138,27 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      max-width: 1760px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     .kicker {
       font-family: "Inter", sans-serif;
-      font-size: 38px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #A0A09C;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .headline {
       font-family: "Playfair Display", serif;
-      font-size: 110px;
+      font-size: 58px;
       font-weight: 700;
-      line-height: 1.18;
+      line-height: 1.15;
       color: #F2F1EC;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .headline .highlight {
@@ -171,29 +171,30 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 45px;
+      margin-top: 24px;
     }
 
     .caption-pill {
-      background: rgba(18, 18, 18, 0.9);
+      background: rgba(18, 18, 18, 0.92);
       backdrop-filter: blur(20px);
-      border: 2px solid rgba(242, 241, 236, 0.15);
+      border: 1px solid rgba(242, 241, 236, 0.18);
       border-radius: 999px;
-      padding: 22px 56px;
+      padding: 14px 34px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      max-width: 1760px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      max-width: 920px;
     }
 
     .caption-text {
       font-family: "Inter", sans-serif;
-      font-size: 50px;
+      font-size: 28px;
       font-weight: 600;
       color: #F2F1EC;
       letter-spacing: 0.02em;
       text-align: center;
+      line-height: 1.3;
     }
 
     .cap-hl {
@@ -204,7 +205,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 
-  <div data-hf-id="hf-04-root" id="root" data-composition-id="04-cascade" data-width="2160" data-height="3840" data-duration="10.70">
+  <div data-hf-id="hf-04-root" id="root" data-composition-id="04-cascade" data-width="1080" data-height="1920" data-duration="10.70">
     <div data-hf-id="hf-04-ground" id="f04-ground" class="clip ground" data-start="0" data-duration="10.70" data-track-index="0">
       <div data-hf-id="hf-04-grid" id="f04-grid" class="bg-grid"></div>
     </div>
@@ -248,7 +249,7 @@
         <!-- Subtitle Pill -->
         <div data-hf-id="hf-04-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
           <div data-hf-id="hf-04-pill" id="f04-pill" class="caption-pill">
-            <span data-hf-id="hf-04-cap" id="f04-caption" class="caption-text">Even more astonishing, the size grew in direct proportion...</span>
+            <span data-hf-id="hf-04-cap" id="f04-caption" class="caption-text">More crucially, the longer someone drove...</span>
           </div>
         </div>
 
@@ -271,31 +272,31 @@
     const capText = document.getElementById("f04-caption");
 
     // Initial states
-    gsap.set([e1, e2, e3], { opacity: 0, y: 30 });
+    gsap.set([e1, e2, e3], { opacity: 0, y: 20 });
     gsap.set(banner, { opacity: 0, scale: 0.95 });
     gsap.set(kicker, { opacity: 0, y: -15 });
     gsap.set(headline, { opacity: 0, y: 25 });
     gsap.set(capPill, { opacity: 0, y: 20 });
 
-    // 0.5 - 4.5s: "Even more astonishing, the size of their hippocampus grew in direct proportion..."
+    // Reveal steps
+    tl.to(e1, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+    tl.to(e2, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
+    tl.to(e3, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.8);
+    tl.to(banner, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 1.1);
+
+    // 0.5 - 4.5s: "More crucially, the longer someone had been driving..."
     tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.5);
     tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
     tl.call(() => {
-      capText.innerHTML = 'Hippocampus size grew in <span class="cap-hl">direct proportion</span> to years driven.';
+      capText.innerHTML = 'The longer someone drove a cab, the <span class="cap-hl">larger that region became</span>.';
     }, null, 0.5);
 
-    // Stagger in experience cards
-    tl.to(e1, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.8);
-    tl.to(e2, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 1.8);
-    tl.to(e3, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.8);
-
-    // 4.5 - 9.5s: "...to the number of years they had spent navigating the complex London streets."
-    tl.to(banner, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 4.4);
-    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 4.5);
-    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.3);
+    // 4.5 - 9.5s: "...the greater their gray matter volume—a direct dose-response relationship between practice and brain structure."
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 4.3);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.1);
     tl.call(() => {
-      capText.innerHTML = '...scaling directly with time spent <span class="cap-hl">navigating London streets</span>.';
-    }, null, 4.55);
-    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.55);
+      capText.innerHTML = 'A direct <span class="cap-hl">dose-response proof</span> between practice and anatomy.';
+    }, null, 4.35);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.35);
   </script>
 </template>

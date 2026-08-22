@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Generate narration audio for Zipf's Law — synced to visual reveals.
+"""Generate synced 60s narration audio for Zipf's Law (1080p Vertical Explainer).
 
-Key insight: TTS speaks slower than expected. Frame durations must match actual
-speech pace, not estimated word counts. Every line of on-screen text is narrated.
-Short reveal offsets so speech starts almost immediately.
+Golden Rule: Script -> Audio -> Visuals.
+Measures exact TTS durations, applies reveal offsets, and builds master audio track.
 """
 
 import subprocess
@@ -11,7 +10,6 @@ import os
 import sys
 
 RENDER_DIR = os.path.dirname(os.path.abspath(__file__))
-# Check location of reference_clean.wav
 CANDIDATE_REFS = [
     os.path.abspath(os.path.join(RENDER_DIR, "..", "..", "reference_clean.wav")),
     os.path.abspath(os.path.join(RENDER_DIR, "..", "..", "..", "reference_clean.wav")),
@@ -23,45 +21,27 @@ OUTPUT_DIR = os.path.join(RENDER_DIR, ".temp_audio")
 FRAMES = [
     {
         "id": "01-hook",
-        "start": 0.0,
-        "duration": 9.5,
-        "reveal_offset": 0.5,
-        "text": "The most common word in English is 'the'. It makes up seven percent of everything you speak. The second word appears half as often. The third, one-third. Why does this rule govern every language on Earth?",
+        "text": "The most common word in English is the. It accounts for seven percent of everything spoken. Why does this rule govern language?",
     },
     {
         "id": "02-origin",
-        "start": 9.0,
-        "duration": 9.5,
-        "reveal_offset": 0.5,
-        "text": "In nineteen thirty-five, Harvard linguist George Kingsley Zipf uncovered a bizarre mathematical pattern hidden across millions of written texts.",
+        "text": "In nineteen thirty-five, Harvard linguist George Kingsley Zipf uncovered a bizarre mathematical pattern across millions of texts.",
     },
     {
         "id": "03-mechanism",
-        "start": 18.0,
-        "duration": 11.5,
-        "reveal_offset": 0.5,
-        "text": "Rank every word by frequency. The second word appears half as often as the first. The tenth, one-tenth. The ten-thousandth, one-ten-thousandth. An unbroken power law.",
+        "text": "Rank every word by frequency. The second appears half as often. The tenth, one-tenth. An unbroken power law.",
     },
     {
         "id": "04-cascade",
-        "start": 29.0,
-        "duration": 12.0,
-        "reveal_offset": 0.5,
-        "text": "It gets weirder. The exact same law dictates the population of world cities, visits to websites, earthquake severity, and the distribution of wealth. Nature repeats this code everywhere.",
+        "text": "The same law dictates city populations, website traffic, earthquakes, and wealth. Nature repeats this code.",
     },
     {
         "id": "05-reframe",
-        "start": 40.5,
-        "duration": 10.5,
-        "reveal_offset": 0.5,
-        "text": "Why does this happen? The Principle of Least Effort. The human brain constantly balances the speaker's desire to use few words against the listener's demand for clarity.",
+        "text": "Why? The Principle of Least Effort. The human brain balances minimal speaker effort against maximum listener clarity.",
     },
     {
         "id": "06-lesson",
-        "start": 50.5,
-        "duration": 9.5,
-        "reveal_offset": 0.5,
-        "text": "The real takeaway? A tiny fraction of inputs controls the vast majority of outcomes. Master the head of the curve. Master the game.",
+        "text": "The takeaway? A tiny fraction of inputs controls the vast majority of outcomes. Master the head of the curve, master the game.",
     },
 ]
 
@@ -80,10 +60,7 @@ def get_duration(path):
 
 
 def generate_frame_audio(frame):
-    """Generate TTS audio for a single frame, synced to visual reveal."""
     raw_path = os.path.join(OUTPUT_DIR, f"{frame['id']}_raw.wav")
-    synced_path = os.path.join(OUTPUT_DIR, f"{frame['id']}.wav")
-
     cmd = [
         "pocket-tts", "generate",
         "--voice", REFERENCE,
@@ -100,36 +77,13 @@ def generate_frame_audio(frame):
         sys.exit(1)
 
     tts_dur = get_duration(raw_path)
-    offset = frame["reveal_offset"]
-    max_speech = frame["duration"] - offset
-
-    if tts_dur > max_speech:
-        print(f"  [TRIM] {frame['id']}: {tts_dur:.1f}s -> {max_speech:.1f}s")
-        run([
-            "ffmpeg", "-y", "-i", raw_path,
-            "-t", str(max_speech),
-            "-af", f"adelay={int(offset * 1000)}|{int(offset * 1000)}",
-            "-ar", "24000", "-ac", "1",
-            synced_path
-        ])
-    else:
-        pad_end = max(0, frame["duration"] - offset - tts_dur)
-        run([
-            "ffmpeg", "-y", "-i", raw_path,
-            "-af", f"adelay={int(offset * 1000)}|{int(offset * 1000)},apad=pad_dur={pad_end:.3f}",
-            "-t", str(frame["duration"]),
-            "-ar", "24000", "-ac", "1",
-            synced_path
-        ])
-
-    actual_dur = get_duration(synced_path)
-    print(f"  [ok] {frame['id']}: TTS={tts_dur:.2f}s, offset={offset:.1f}s, total={actual_dur:.2f}s")
+    print(f"  [ok] {frame['id']}: TTS raw = {tts_dur:.2f}s")
     return raw_path, tts_dur
 
 
 def main():
     print("=" * 60)
-    print("Zipf's Law — Narration Generator")
+    print("Zipf's Law — 1080p 60s Narration Generator")
     print(f"Reference voice: {REFERENCE}")
     print("=" * 60)
 
@@ -143,24 +97,24 @@ def main():
     measurements = []
     current_start = 0.0
     crossfade = 0.5
+    reveal_offset = 0.35
+    hold_tail = 0.45  # clean breathing space before crossfade
 
     for frame in FRAMES:
         raw_path, tts_dur = generate_frame_audio(frame)
-        offset = 0.5
-        hold_buffer = 1.6
-        frame_dur = max(tts_dur + offset + hold_buffer, 6.5)
+        frame_dur = round(tts_dur + reveal_offset + hold_tail, 2)
         measurements.append({
             "id": frame["id"],
             "raw_path": raw_path,
             "tts_dur": tts_dur,
-            "reveal_offset": offset,
+            "reveal_offset": reveal_offset,
             "duration": frame_dur,
-            "start": current_start,
+            "start": round(current_start, 2),
             "text": frame["text"]
         })
         current_start += (frame_dur - crossfade)
 
-    total_duration = current_start + crossfade
+    total_duration = round(current_start + crossfade, 2)
 
     print("\n[step 2] Building precise master timeline audio...")
     inputs = []
@@ -171,7 +125,9 @@ def main():
         filter_parts.append(f"[{i}]adelay={delay_ms}|{delay_ms}[d{i}]")
 
     mix_inputs = "".join(f"[d{i}]" for i in range(len(measurements)))
-    filter_parts.append(f"{mix_inputs}amix=inputs={len(measurements)}:duration=longest:dropout_transition=0[out]")
+    filter_parts.append(
+        f"{mix_inputs}amix=inputs={len(measurements)}:duration=longest:dropout_transition=0:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7[out]"
+    )
     filter_str = ";".join(filter_parts)
     narration_path = os.path.join(OUTPUT_DIR, "narration_full.wav")
 
@@ -188,8 +144,7 @@ def main():
         sys.exit(1)
 
     actual_master_dur = get_duration(narration_path)
-    print(f"\n[ok] Master Narration: {actual_master_dur:.2f}s")
-    print(f"Total Composition Duration needed: {actual_master_dur:.2f}s")
+    print(f"\n[ok] Master Narration: {actual_master_dur:.2f}s (Mastered at -14 LUFS)")
 
     print("\n=== TIMELINE CONFIGURATION SUMMARY ===")
     for m in measurements:

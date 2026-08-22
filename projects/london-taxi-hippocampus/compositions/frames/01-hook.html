@@ -16,8 +16,8 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     #root {
-      width: 2160px;
-      height: 3840px;
+      width: 1080px;
+      height: 1920px;
       position: relative;
       overflow: hidden;
       background: #000000;
@@ -35,9 +35,9 @@
       position: absolute;
       inset: 0;
       background-image:
-        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
-        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
-      background-size: 120px 120px;
+        linear-gradient(rgba(242, 241, 236, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
       opacity: 0.7;
     }
 
@@ -48,12 +48,12 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0 140px;
+      padding: 0 60px;
     }
 
     .safe-zone {
       width: 100%;
-      max-width: 1840px;
+      max-width: 960px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -65,17 +65,17 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 50px;
-      margin-bottom: 45px;
+      gap: 24px;
+      margin-bottom: 28px;
     }
 
     .image-card {
-      width: 540px;
-      height: 540px;
-      border-radius: 36px;
+      width: 380px;
+      height: 380px;
+      border-radius: 24px;
       overflow: hidden;
-      border: 3px solid rgba(242, 210, 75, 0.35);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.9), 0 0 40px rgba(242, 210, 75, 0.15);
+      border: 2px solid rgba(242, 210, 75, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(242, 210, 75, 0.15);
       position: relative;
       background: #111111;
     }
@@ -89,14 +89,14 @@
 
     .image-tag {
       position: absolute;
-      bottom: 24px;
-      left: 24px;
-      background: rgba(0, 0, 0, 0.8);
+      bottom: 16px;
+      left: 16px;
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(12px);
       border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 10px 22px;
+      padding: 8px 16px;
       border-radius: 999px;
-      font-size: 24px;
+      font-size: 14px;
       font-weight: 700;
       color: #F2D24B;
       letter-spacing: 0.1em;
@@ -104,16 +104,16 @@
     }
 
     .stats-card {
-      width: 680px;
-      height: 540px;
-      background: rgba(242, 241, 236, 0.03);
+      width: 480px;
+      height: 380px;
+      background: rgba(242, 241, 236, 0.04);
       border: 2px solid rgba(242, 241, 236, 0.15);
-      border-radius: 36px;
-      padding: 36px;
+      border-radius: 24px;
+      padding: 24px 26px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
     }
 
     .prop-header {
@@ -125,8 +125,8 @@
     .status-badge {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: 24px;
+      gap: 8px;
+      font-size: 15px;
       font-weight: 700;
       color: #F2D24B;
       letter-spacing: 0.12em;
@@ -134,17 +134,17 @@
     }
 
     .status-dot {
-      width: 16px;
-      height: 16px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #F2D24B;
-      box-shadow: 0 0 16px #F2D24B;
+      box-shadow: 0 0 12px #F2D24B;
     }
 
     .knowledge-metrics {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 12px;
     }
 
     .metric-row {
@@ -152,26 +152,26 @@
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 1px solid rgba(242, 241, 236, 0.1);
-      padding-bottom: 10px;
+      padding-bottom: 6px;
     }
 
     .metric-val {
       font-family: "Playfair Display", serif;
-      font-size: 48px;
+      font-size: 30px;
       font-weight: 900;
       color: #F2D24B;
     }
 
     .metric-label {
-      font-size: 24px;
+      font-size: 14px;
       color: #A0A09C;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
     }
 
     .prop-footer {
-      font-size: 26px;
+      font-size: 15px;
       font-weight: 500;
       color: #A0A09C;
       letter-spacing: 0.04em;
@@ -183,27 +183,27 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      max-width: 1760px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     .kicker {
       font-family: "Inter", sans-serif;
-      font-size: 38px;
+      font-size: 20px;
       font-weight: 700;
-      letter-spacing: 0.22em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: #A0A09C;
-      margin-bottom: 20px;
+      margin-bottom: 12px;
     }
 
     .headline {
       font-family: "Playfair Display", serif;
-      font-size: 110px;
+      font-size: 58px;
       font-weight: 700;
-      line-height: 1.18;
+      line-height: 1.15;
       color: #F2F1EC;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .headline .highlight {
@@ -216,29 +216,30 @@
       width: 100%;
       display: flex;
       justify-content: center;
-      margin-top: 45px;
+      margin-top: 24px;
     }
 
     .caption-pill {
-      background: rgba(18, 18, 18, 0.9);
+      background: rgba(18, 18, 18, 0.92);
       backdrop-filter: blur(20px);
-      border: 2px solid rgba(242, 241, 236, 0.15);
+      border: 1px solid rgba(242, 241, 236, 0.18);
       border-radius: 999px;
-      padding: 22px 56px;
+      padding: 14px 34px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-      max-width: 1760px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      max-width: 920px;
     }
 
     .caption-text {
       font-family: "Inter", sans-serif;
-      font-size: 50px;
+      font-size: 28px;
       font-weight: 600;
       color: #F2F1EC;
       letter-spacing: 0.02em;
       text-align: center;
+      line-height: 1.3;
     }
 
     .cap-hl {
@@ -249,7 +250,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 
-  <div data-hf-id="hf-01-root" id="root" data-composition-id="01-hook" data-width="2160" data-height="3840" data-duration="12.94">
+  <div data-hf-id="hf-01-root" id="root" data-composition-id="01-hook" data-width="1080" data-height="1920" data-duration="12.94">
     <div data-hf-id="hf-01-ground" id="f01-ground" class="clip ground" data-start="0" data-duration="12.94" data-track-index="0">
       <div data-hf-id="hf-01-grid" id="f01-grid" class="bg-grid"></div>
     </div>
@@ -270,7 +271,7 @@
                 <span data-hf-id="hf-i0ip" class="status-dot"></span>
                 <span data-hf-id="hf-9z33">THE KNOWLEDGE EXAM</span>
               </div>
-              <span data-hf-id="hf-vj1j" style="color: #F2D24B; font-weight: 700; font-size: 24px;">LONDON</span>
+              <span data-hf-id="hf-vj1j" style="color: #F2D24B; font-weight: 700; font-size: 15px;">LONDON</span>
             </div>
 
             <div data-hf-id="hf-kb9w" class="knowledge-metrics">
@@ -350,7 +351,7 @@
     tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.45);
 
     // Subtle drift
-    tl.to(imgCard, { y: -8, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.2);
-    tl.to(statsCard, { y: 8, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.2);
+    tl.to(imgCard, { y: -6, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.2);
+    tl.to(statsCard, { y: 6, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.2);
   </script>
 </template>

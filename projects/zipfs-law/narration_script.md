@@ -1,82 +1,77 @@
-# Zipf's Law — Voiceover Narration Script & Timing Blueprint
+# Zipf's Law — Voiceover Narration Script & Timing Blueprint (1080p 60s Vertical)
 
 - **Voice Clone Model:** Pocket-TTS
 - **Reference Voice Audio:** `reference_clean.wav`
-- **Audio Output:** `.temp_audio/narration_full.wav` (24kHz Mono, 82.66s)
-- **Master Audio Duration:** `82.66s`
+- **Audio Output:** `.temp_audio/narration_full.wav` (24kHz Mono, 59.21s)
+- **Master Audio Duration:** `59.21s` (60 FPS standard)
 
 ---
 
 ## Complete Script & On-Screen Reveals
 
-### Frame 01: The Mathematical Anomaly (0.00s – 17.82s)
+### Frame 01: The Mathematical Anomaly (0.00s – 10.76s)
 ```text
-[0.5s] The most common word in English is 'the'.
-[3.8s] It makes up seven percent of everything you speak.
-[7.5s] The second word appears half as often. The third, one-third.
-[11.8s] Why does this rule govern every language on Earth?
+[0.35s] The most common word in English is the.
+[3.35s] It accounts for seven percent of everything spoken.
+[6.65s] Why does this rule govern language?
 ```
-* **TTS Raw Duration:** 15.72s
-* **Reveal Offset:** 0.50s
-* **Composition Window:** 17.82s
+* **TTS Raw Duration:** 9.96s
+* **Reveal Offset:** 0.35s
+* **Composition Window:** 10.76s
 
 ---
 
-### Frame 02: The Harvard Discovery (17.32s – 28.58s)
+### Frame 02: The Harvard Discovery (10.26s – 19.02s)
 ```text
-[17.8s] In nineteen thirty-five, Harvard linguist George Kingsley Zipf...
-[21.8s] ...uncovered a bizarre mathematical pattern hidden across millions of written texts.
+[10.61s] In nineteen thirty-five, Harvard linguist George Kingsley Zipf...
+[14.11s] ...uncovered a bizarre mathematical pattern across millions of texts.
 ```
-* **TTS Raw Duration:** 9.16s
-* **Reveal Offset:** 0.50s
-* **Composition Window:** 11.26s
+* **TTS Raw Duration:** 7.96s
+* **Reveal Offset:** 0.35s
+* **Composition Window:** 8.76s
 
 ---
 
-### Frame 03: The Power Law Formula (28.08s – 44.38s)
+### Frame 03: The Power Law Formula (18.52s – 30.96s)
 ```text
-[28.5s] Rank every word by frequency.
-[31.0s] The second word appears half as often as the first.
-[34.8s] The tenth, one-tenth. The ten-thousandth, one-ten-thousandth.
-[39.5s] An unbroken power law.
+[18.87s] Rank every word by frequency.
+[21.37s] The second appears half as often.
+[24.37s] The tenth, one-tenth.
+[27.67s] An unbroken power law.
 ```
-* **TTS Raw Duration:** 14.20s
-* **Reveal Offset:** 0.50s
-* **Composition Window:** 16.30s
+* **TTS Raw Duration:** 11.64s
+* **Reveal Offset:** 0.35s
+* **Composition Window:** 12.44s
 
 ---
 
-### Frame 04: The Universal Cascade (43.88s – 58.98s)
+### Frame 04: The Universal Cascade (30.46s – 39.94s)
 ```text
-[44.3s] It gets weirder.
-[46.0s] The exact same law dictates the population of world cities...
-[50.0s] ...visits to websites, earthquake severity, and the distribution of wealth.
-[54.5s] Nature repeats this code everywhere.
+[30.81s] The same law dictates city populations, website traffic, earthquakes, and wealth.
+[35.01s] Nature repeats this code everywhere.
 ```
-* **TTS Raw Duration:** 13.00s
-* **Reveal Offset:** 0.50s
-* **Composition Window:** 15.10s
+* **TTS Raw Duration:** 8.68s
+* **Reveal Offset:** 0.35s
+* **Composition Window:** 9.48s
 
 ---
 
-### Frame 05: The Principle of Least Effort (58.48s – 71.50s)
+### Frame 05: The Principle of Least Effort (39.44s – 49.24s)
 ```text
-[58.9s] Why does this happen? The Principle of Least Effort.
-[62.8s] The human brain constantly balances the speaker's desire to use few words...
-[66.5s] ...against the listener's demand for clarity.
+[39.79s] Why? The Principle of Least Effort.
+[43.39s] The human brain balances minimal speaker effort against maximum listener clarity.
 ```
-* **TTS Raw Duration:** 10.92s
-* **Reveal Offset:** 0.50s
-* **Composition Window:** 13.02s
+* **TTS Raw Duration:** 9.00s
+* **Reveal Offset:** 0.35s
+* **Composition Window:** 9.80s
 
 ---
 
-### Frame 06: The Asymmetry Advantage (71.00s – 82.66s)
+### Frame 06: The Asymmetry Advantage (48.74s – 59.21s)
 ```text
-[71.5s] The real takeaway?
-[73.5s] A tiny fraction of inputs controls the vast majority of outcomes.
-[78.0s] Master the head of the curve. Master the game.
+[49.09s] The takeaway? A tiny fraction of inputs controls the vast majority of outcomes.
+[53.89s] Master the head of the curve, master the game.
 ```
-* **TTS Raw Duration:** 11.16s
-* **Reveal Offset:** 0.50s
-* **Composition Window:** 11.66s
+* **TTS Raw Duration:** 10.12s
+* **Reveal Offset:** 0.35s
+* **Composition Window:** 10.92s
