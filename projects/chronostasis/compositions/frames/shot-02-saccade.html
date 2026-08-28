@@ -1,0 +1,197 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 40% 40%, rgba(212, 98, 43, 0.12) 0%, transparent 65%),
+        linear-gradient(180deg, #100b08 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .saccade-stage {
+      position: relative;
+      width: 860px;
+      height: 600px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .saccade-arc-svg {
+      width: 800px;
+      height: 260px;
+      overflow: visible;
+    }
+
+    .shutter-indicator {
+      position: absolute;
+      top: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .shutter-badge {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: #F2D24B;
+      text-transform: uppercase;
+      background: rgba(242, 210, 75, 0.1);
+      padding: 6px 16px;
+      border: 1px solid rgba(242, 210, 75, 0.3);
+      border-radius: 4px;
+    }
+
+    .shutter-main {
+      font-family: "Playfair Display", serif;
+      font-size: 52px;
+      font-weight: 900;
+      color: #D4622B;
+      text-shadow: 0 0 24px rgba(212, 98, 43, 0.6);
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #D4622B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-saccade" data-width="1080" data-height="1920" data-duration="6.50">
+    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s02-stage" id="s02-stage" class="saccade-stage">
+        <svg class="saccade-arc-svg" viewBox="0 0 800 260" fill="none">
+          <!-- Start point -->
+          <circle cx="80" cy="180" r="14" fill="#A0A09C" />
+          <text x="80" y="230" fill="#A0A09C" font-family="Inter" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="2">START</text>
+
+          <!-- End point -->
+          <circle cx="720" cy="80" r="14" fill="#F2D24B" filter="drop-shadow(0 0 12px #F2D24B)" />
+          <text x="720" y="130" fill="#F2D24B" font-family="Inter" font-size="14" font-weight="700" text-anchor="middle" letter-spacing="2">CLOCK</text>
+
+          <!-- Saccade flight arc -->
+          <path id="s02-flight" d="M 80 180 C 250 40, 550 40, 720 80" stroke="#F2D24B" stroke-width="4" stroke-dasharray="800" stroke-dashoffset="800" />
+
+          <!-- Shutter blackout gap -->
+          <path id="s02-gap" d="M 320 82 C 400 68, 480 68, 560 74" stroke="#D4622B" stroke-width="8" stroke-dasharray="10 6" opacity="0" />
+        </svg>
+
+        <div data-hf-id="hf-s02-shutter" id="s02-shutter" class="shutter-indicator">
+          <div class="shutter-badge">SACCADIC SUPPRESSION</div>
+          <div class="shutter-main">100ms BLACKOUT</div>
+        </div>
+      </div>
+
+      <!-- Subtitle -->
+      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">Every time your eyes dart across a room...</p>
+        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">High-Speed Eye Saccade</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-saccade"] = tl;
+
+    const env = document.getElementById("s02-env");
+    const stage = document.getElementById("s02-stage");
+    const flight = document.getElementById("s02-flight");
+    const gap = document.getElementById("s02-gap");
+    const shutter = document.getElementById("s02-shutter");
+    const caption = document.getElementById("s02-caption");
+    const sub = document.getElementById("s02-sub");
+
+    gsap.set(flight, { strokeDashoffset: 800 });
+    gsap.set(gap, { opacity: 0 });
+    gsap.set(shutter, { opacity: 0, scale: 0.9, y: 20 });
+
+    tl.to(env, { scale: 1.05, duration: 6.50, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 6.50, ease: "power1.out" }, 0);
+
+    // 0.2s - 2.5s: Fast eye flight
+    tl.to(flight, { strokeDashoffset: 0, duration: 1.8, ease: "power3.out" }, 0.2);
+
+    // 2.8s: "your brain goes blind for a hundred milliseconds."
+    tl.call(() => {
+      caption.innerHTML = 'your brain goes <span class="accent">completely blind</span> for 100ms.';
+      sub.innerHTML = 'Neural Shutter Gate';
+    }, null, 2.6);
+
+    tl.to(gap, { opacity: 1, duration: 0.4 }, 2.8);
+    tl.to(shutter, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.5)" }, 2.9);
+  </script>
+</template>

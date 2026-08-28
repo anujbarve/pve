@@ -1,0 +1,171 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 48%, rgba(242, 210, 75, 0.15) 0%, transparent 65%),
+        linear-gradient(180deg, #100e0a 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    .manifesto-block {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      max-width: 920px;
+      margin-top: -80px;
+    }
+
+    .manifesto-pre {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: #A0A09C;
+      text-transform: uppercase;
+    }
+
+    .manifesto-title {
+      font-family: "Playfair Display", serif;
+      font-size: 78px;
+      font-weight: 900;
+      line-height: 1.1;
+      color: #F2D24B;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
+      letter-spacing: 0.02em;
+    }
+
+    .manifesto-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      color: #F2F1EC;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      max-width: 800px;
+    }
+
+    .manifesto-sub .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-edited" data-width="1080" data-height="1920" data-duration="7.14">
+    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Grand Manifesto Title -->
+      <div data-hf-id="hf-s05-manifesto" id="s05-manifesto" class="manifesto-block">
+        <div class="manifesto-pre">THE ARCHITECTURE OF TIME</div>
+        <h1 class="manifesto-title">CHRONOSTASIS</h1>
+        <p class="manifesto-sub">Your brain deletes the gap and edits the present <span class="accent">after the fact</span>.</p>
+      </div>
+
+      <!-- Subtitle -->
+      <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">You never see the present.</p>
+        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">Continuous Postdiction</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-edited"] = tl;
+
+    const env = document.getElementById("s05-env");
+    const manifesto = document.getElementById("s05-manifesto");
+    const caption = document.getElementById("s05-caption");
+    const sub = document.getElementById("s05-sub");
+
+    gsap.set(manifesto, { opacity: 0, scale: 0.9, y: 30 });
+
+    tl.to(env, { scale: 1.05, duration: 7.14, ease: "none" }, 0);
+
+    // 0.3s - 3.5s: "You never see the present."
+    // 3.5s: "You live inside an unbroken film, continuously edited after the fact."
+    tl.call(() => {
+      caption.innerHTML = 'You live in an unbroken film, <span class="accent">edited after the fact</span>.';
+      sub.innerHTML = 'The Temporal Illusion';
+    }, null, 3.4);
+
+    tl.to(manifesto, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: "power3.out" }, 3.5);
+  </script>
+</template>

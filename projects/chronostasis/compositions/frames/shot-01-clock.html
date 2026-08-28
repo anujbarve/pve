@@ -1,0 +1,229 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 42%, rgba(242, 210, 75, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 75% 70%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0c0a 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .clock-stage {
+      position: relative;
+      width: 650px;
+      height: 650px;
+      margin-top: -100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .clock-housing {
+      position: absolute;
+      width: 580px;
+      height: 580px;
+      border-radius: 50%;
+      border: 3px solid rgba(242, 210, 75, 0.25);
+      background: radial-gradient(circle at center, #151412 0%, #0a0a09 100%);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .clock-center-pin {
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: #F2D24B;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(242, 210, 75, 0.6);
+      z-index: 10;
+    }
+
+    .clock-hand-hour {
+      position: absolute;
+      width: 8px;
+      height: 140px;
+      background: #A0A09C;
+      border-radius: 4px;
+      bottom: 290px;
+      transform-origin: bottom center;
+      transform: rotate(60deg);
+    }
+
+    .clock-hand-min {
+      position: absolute;
+      width: 6px;
+      height: 200px;
+      background: #F2F1EC;
+      border-radius: 3px;
+      bottom: 290px;
+      transform-origin: bottom center;
+      transform: rotate(240deg);
+    }
+
+    .clock-hand-sec {
+      position: absolute;
+      width: 4px;
+      height: 240px;
+      background: #F2D24B;
+      border-radius: 2px;
+      bottom: 290px;
+      transform-origin: bottom center;
+      transform: rotate(300deg);
+      box-shadow: 0 0 16px rgba(242, 210, 75, 0.8);
+      z-index: 8;
+    }
+
+    .freeze-ring {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      border: 2px dashed #F2D24B;
+      opacity: 0;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-clock" data-width="1080" data-height="1920" data-duration="6.10">
+    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s01-stage" id="s01-stage" class="clock-stage">
+        <div class="clock-housing">
+          <!-- Dial markers -->
+          <svg width="500" height="500" viewBox="0 0 500 500" fill="none">
+            <circle cx="250" cy="250" r="230" stroke="rgba(242, 241, 236, 0.15)" stroke-width="2" />
+            <!-- 12 hour ticks -->
+            <line x1="250" y1="30" x2="250" y2="60" stroke="#F2D24B" stroke-width="4" />
+            <line x1="470" y1="250" x2="440" y2="250" stroke="#F2F1EC" stroke-width="3" />
+            <line x1="250" y1="470" x2="250" y2="440" stroke="#F2F1EC" stroke-width="3" />
+            <line x1="30" y1="250" x2="60" y2="250" stroke="#F2F1EC" stroke-width="3" />
+          </svg>
+
+          <!-- Clock Hands -->
+          <div id="s01-hour" class="clock-hand-hour"></div>
+          <div id="s01-min" class="clock-hand-min"></div>
+          <div id="s01-sec" class="clock-hand-sec"></div>
+          <div class="clock-center-pin"></div>
+          <div id="s01-freeze" class="freeze-ring"></div>
+        </div>
+      </div>
+
+      <!-- Subtitle -->
+      <div data-hf-id="hf-s01-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">You glance over at a ticking clock...</p>
+        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">The Optical Saccade</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-clock"] = tl;
+
+    const env = document.getElementById("s01-env");
+    const stage = document.getElementById("s01-stage");
+    const secHand = document.getElementById("s01-sec");
+    const freezeRing = document.getElementById("s01-freeze");
+    const caption = document.getElementById("s01-caption");
+    const sub = document.getElementById("s01-sub");
+
+    gsap.set(secHand, { rotation: 300 });
+    gsap.set(freezeRing, { opacity: 0, scale: 0.9 });
+    gsap.set(stage, { scale: 0.95 });
+
+    // Slow camera push-in
+    tl.to(env, { scale: 1.05, duration: 6.10, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 6.10, ease: "power1.out" }, 0);
+
+    // 0.5s: Tick to 330deg
+    tl.to(secHand, { rotation: 330, duration: 0.08, ease: "back.out(2)" }, 0.5);
+    // 1.5s: Tick to 360deg (12 o'clock)
+    tl.to(secHand, { rotation: 360, duration: 0.08, ease: "back.out(2)" }, 1.5);
+
+    // 3.8s: "and the second hand seems frozen."
+    tl.call(() => {
+      caption.innerHTML = 'and the second hand seems <span class="accent">frozen in time</span>.';
+      sub.innerHTML = 'Chronostasis Event';
+    }, null, 3.6);
+
+    // The second hand stays completely frozen on 12, golden freeze ring pulses
+    tl.to(freezeRing, { opacity: 0.8, scale: 1, duration: 0.8, ease: "power2.out" }, 3.8);
+    tl.to(secHand, { filter: "drop-shadow(0 0 20px #F2D24B)", duration: 0.5 }, 3.8);
+  </script>
+</template>

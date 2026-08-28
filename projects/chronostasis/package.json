@@ -1,0 +1,10 @@
+{
+  "name": "chronostasis",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "hyperframes dev --port 3002",
+    "check": "hyperframes check",
+    "render": "hyperframes render",
+    "publish": "hyperframes publish"
+  }
+}

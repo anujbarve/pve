@@ -1,0 +1,35 @@
+{
+  "total_duration": 33.78,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Glanced Clock",
+      "start": 0.0,
+      "duration": 6.1
+    },
+    {
+      "id": "shot_02",
+      "name": "The Saccade Gap",
+      "start": 6.1,
+      "duration": 6.5
+    },
+    {
+      "id": "shot_03",
+      "name": "The Motion Blur Delete",
+      "start": 12.6,
+      "duration": 7.3
+    },
+    {
+      "id": "shot_04",
+      "name": "The Retroactive Stitch",
+      "start": 19.9,
+      "duration": 6.74
+    },
+    {
+      "id": "shot_05",
+      "name": "The Edited Reality",
+      "start": 26.64,
+      "duration": 7.14
+    }
+  ]
+}
