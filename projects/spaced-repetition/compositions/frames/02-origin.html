@@ -1,0 +1,365 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Vintage study environment */
+    .study-environment {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        #15120d 0%, 
+        #1f1a14 25%,
+        #2a2218 50%, 
+        #1a1510 75%,
+        #0d0b08 100%
+      );
+    }
+
+    /* Warm candlelight glow */
+    .candle-glow {
+      position: absolute;
+      width: 300px;
+      height: 400px;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, 
+        rgba(255, 180, 80, 0.2) 0%, 
+        rgba(255, 160, 60, 0.08) 40%, 
+        transparent 70%
+      );
+    }
+
+    /* Journal/ledger */
+    .journal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-2deg);
+      width: 500px;
+      height: 350px;
+      perspective: 800px;
+    }
+
+    .journal-page {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f5f0e0 0%, #e8e0d0 100%);
+      border-radius: 4px;
+      box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.7),
+        inset 0 0 60px rgba(139, 119, 80, 0.15);
+      position: relative;
+      transform: rotateX(8deg);
+      overflow: hidden;
+    }
+
+    /* Handwritten text lines */
+    .writing-lines {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      right: 40px;
+      bottom: 40px;
+    }
+
+    .writing-line {
+      height: 2px;
+      background: rgba(100, 80, 50, 0.3);
+      margin-bottom: 28px;
+      transform-origin: left;
+      opacity: 0;
+    }
+
+    /* Scattered letters */
+    .scattered-letters {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 250px;
+    }
+
+    .letter {
+      position: absolute;
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: rgba(80, 60, 30, 0.7);
+      opacity: 0;
+    }
+
+    /* Clock */
+    .clock-container {
+      position: absolute;
+      top: 15%;
+      right: 10%;
+      width: 150px;
+      height: 150px;
+      opacity: 0;
+    }
+
+    .clock-face {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 200, 120, 0.2);
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .clock-hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      background: rgba(255, 200, 120, 0.6);
+      border-radius: 2px;
+    }
+
+    .clock-hand.hour {
+      width: 3px;
+      height: 35px;
+      margin-left: -1.5px;
+    }
+
+    .clock-hand.minute {
+      width: 2px;
+      height: 50px;
+      margin-left: -1px;
+    }
+
+    /* Year etching */
+    .year-etched {
+      position: absolute;
+      top: 20%;
+      left: 10%;
+      font-family: "Playfair Display", serif;
+      font-size: 120px;
+      font-weight: 900;
+      color: rgba(255, 200, 120, 0.45);
+      letter-spacing: -0.02em;
+      opacity: 0;
+    }
+
+    /* Grain and vignette */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, 
+        transparent 30%, 
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Caption */
+    .caption-wrapper {
+      position: absolute;
+      bottom: 180px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      border-radius: 999px;
+      padding: 10px 24px;
+      max-width: 800px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(242, 241, 236, 0.85);
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #D4622B;
+      font-weight: 700;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-02-root" id="root" data-composition-id="02-origin" data-width="1080" data-height="1920" data-duration="21.08">
+    
+    <!-- Cinematic scene -->
+    <div data-hf-id="hf-02-scene" id="f02-scene" class="clip scene-layer" data-start="0" data-duration="21.08" data-track-index="0">
+      <div data-hf-id="hf-02-env" class="study-environment">
+        <div data-hf-id="hf-02-candle" class="candle-glow"></div>
+      </div>
+
+      <!-- Year etching in background -->
+      <div data-hf-id="hf-02-year" id="f02-year" class="year-etched" style="z-index: 2;">1885</div>
+
+      <!-- Clock -->
+      <div data-hf-id="hf-02-clock" id="f02-clock" class="clock-container">
+        <div data-hf-id="hf-02-clockface" class="clock-face">
+          <div data-hf-id="hf-02-hour" class="clock-hand hour" style="transform: rotate(-30deg);"></div>
+          <div data-hf-id="hf-02-minute" class="clock-hand minute" style="transform: rotate(90deg);"></div>
+        </div>
+      </div>
+
+      <!-- Journal with writing -->
+      <div data-hf-id="hf-02-journal" id="f02-journal" class="journal">
+        <div data-hf-id="hf-02-page" class="journal-page">
+          <div data-hf-id="hf-02-lines" class="writing-lines">
+            <div data-hf-id="hf-wl1" class="writing-line" style="width: 80%;"></div>
+            <div data-hf-id="hf-wl2" class="writing-line" style="width: 65%;"></div>
+            <div data-hf-id="hf-wl3" class="writing-line" style="width: 90%;"></div>
+            <div data-hf-id="hf-wl4" class="writing-line" style="width: 45%;"></div>
+            <div data-hf-id="hf-wl5" class="writing-line" style="width: 75%;"></div>
+            <div data-hf-id="hf-wl6" class="writing-line" style="width: 55%;"></div>
+            <div data-hf-id="hf-wl7" class="writing-line" style="width: 85%;"></div>
+            <div data-hf-id="hf-wl8" class="writing-line" style="width: 30%;"></div>
+          </div>
+
+          <!-- Scattered nonsense syllables -->
+          <div data-hf-id="hf-02-letters" class="scattered-letters">
+            <div data-hf-id="hf-l1" class="letter" style="top: 10%; left: 5%;">DAX</div>
+            <div data-hf-id="hf-l2" class="letter" style="top: 25%; left: 60%;">WUB</div>
+            <div data-hf-id="hf-l3" class="letter" style="top: 50%; left: 20%;">QIF</div>
+            <div data-hf-id="hf-l4" class="letter" style="top: 40%; left: 75%;">ZOQ</div>
+            <div data-hf-id="hf-l5" class="letter" style="top: 70%; left: 45%;">JUX</div>
+            <div data-hf-id="hf-l6" class="letter" style="top: 15%; left: 40%;">BEV</div>
+            <div data-hf-id="hf-l7" class="letter" style="top: 65%; left: 10%;">NIH</div>
+            <div data-hf-id="hf-l8" class="letter" style="top: 80%; left: 70%;">TYL</div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-02-grain" class="grain"></div>
+      <div data-hf-id="hf-02-vignette" class="vignette" style="z-index: 1;"></div>
+    </div>
+
+    <!-- Caption -->
+    <div data-hf-id="hf-02-capwrap" id="f02-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+      <div data-hf-id="hf-02-pill" id="f02-pill" class="caption-pill">
+        <span data-hf-id="hf-02-cap" id="f02-caption" class="caption-text">In eighteen eighty-five, Hermann Ebbinghaus discovered something disturbing about memory.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["02-origin"] = tl;
+
+    const scene = document.getElementById("f02-scene");
+    const year = document.getElementById("f02-year");
+    const clock = document.getElementById("f02-clock");
+    const journal = document.getElementById("f02-journal");
+    const lines = document.querySelectorAll(".writing-line");
+    const letters = document.querySelectorAll(".letter");
+    const minuteHand = document.getElementById("f02-minute");
+    const capwrap = document.getElementById("f02-capwrap");
+    const capText = document.getElementById("f02-caption");
+
+    // Initial states
+    gsap.set(year, { opacity: 0 });
+    gsap.set(clock, { opacity: 0 });
+    gsap.set(journal, { opacity: 0, scale: 0.95 });
+    gsap.set(capwrap, { opacity: 0 });
+
+    // 0.0 - 3.0s: Slow push-in on study
+    tl.to(scene, { scale: 1.08, duration: 6, ease: "power1.inOut" }, 0);
+
+    // 0.5 - 1.5s: Year etching appears
+    tl.to(year, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.5);
+
+    // 1.5 - 2.5s: Clock appears
+    tl.to(clock, { opacity: 0.6, duration: 1.0, ease: "power2.out" }, 1.5);
+
+    // 2.0 - 3.0s: Clock hands move backward
+    tl.to(minuteHand, { rotation: -270, duration: 4, ease: "power1.inOut" }, 2.0);
+
+    // 3.0 - 4.0s: Journal appears
+    tl.to(journal, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 3.0);
+
+    // 4.0 - 7.0s: Writing lines appear one by one
+    tl.to(lines, { opacity: 1, duration: 0.3, stagger: 0.4, ease: "power2.out" }, 4.0);
+
+    // 8.0 - 12.0s: Letters scatter across page
+    tl.to(letters, { opacity: 0.8, duration: 0.4, stagger: 0.3, ease: "power2.out" }, 8.0);
+
+    // 14.0 - 17.0s: Letters fade (forgetting)
+    tl.to(letters, { 
+      opacity: 0, 
+      y: 10, 
+      duration: 0.8, 
+      stagger: { each: 0.15, from: "random" }, 
+      ease: "power2.in" 
+    }, 14.0);
+
+    // 17.0 - 19.0s: Writing lines fade
+    tl.to(lines, { opacity: 0.2, duration: 1.5, ease: "power2.in" }, 17.0);
+
+    // Caption updates
+    tl.to(capwrap, { opacity: 1, duration: 0.5 }, 0.5);
+
+    tl.call(() => {
+      capText.innerHTML = 'He tried to remember <span class="cap-hl">nonsense syllables</span>.';
+    }, null, 5.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 4.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 5.0);
+
+    tl.call(() => {
+      capText.innerHTML = 'Then he <span class="cap-hl">forgot</span>.';
+    }, null, 10.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 9.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 10.0);
+
+    tl.call(() => {
+      capText.innerHTML = 'And he measured exactly how fast <span class="cap-hl">memory dies</span>.';
+    }, null, 14.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 13.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 14.0);
+  </script>
+</template>

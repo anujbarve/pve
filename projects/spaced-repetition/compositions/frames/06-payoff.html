@@ -1,0 +1,302 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Warm study environment */
+    .study-final {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        #1a1510 0%, 
+        #252015 30%,
+        #2a2218 60%, 
+        #15120d 100%
+      );
+    }
+
+    /* Book - close up, filling frame */
+    .book-closeup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 420px;
+      perspective: 800px;
+      opacity: 0;
+    }
+
+    .book-obj {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(10deg) rotateY(-5deg);
+    }
+
+    .book-cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2a1f15 0%, #1a1208 100%);
+      border: 1px solid rgba(255, 200, 120, 0.15);
+      border-radius: 4px;
+      box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 200, 120, 0.1);
+      transform: translateZ(8px);
+    }
+
+    .book-spine {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 30px;
+      background: linear-gradient(90deg, #1a1208 0%, #2a1f15 100%);
+      transform: rotateY(-90deg) translateZ(0px);
+      transform-origin: left;
+    }
+
+    .book-page-open {
+      position: absolute;
+      width: 92%;
+      height: 92%;
+      top: 4%;
+      left: 4%;
+      background: linear-gradient(135deg, #f8f6f0 0%, #f0ece0 100%);
+      border-radius: 3px;
+      transform: translateZ(4px);
+      overflow: hidden;
+    }
+
+    .page-annotations {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+    }
+
+    .annotation-line {
+      height: 2px;
+      background: rgba(60, 45, 20, 0.4);
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .annotation-highlight {
+      position: absolute;
+      top: -2px;
+      left: 0;
+      height: 6px;
+      background: rgba(242, 210, 75, 0.3);
+      border-radius: 3px;
+    }
+
+    /* Bookmark */
+    .bookmark-final {
+      position: absolute;
+      top: -15px;
+      right: 40px;
+      width: 24px;
+      height: 50px;
+      background: #F2D24B;
+      border-radius: 0 0 4px 4px;
+      box-shadow: 0 4px 12px rgba(242, 210, 75, 0.3);
+      opacity: 0;
+    }
+
+    /* Final typography */
+    .final-type {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+      opacity: 0;
+    }
+
+    .final-line {
+      font-family: "Playfair Display", serif;
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.15;
+      color: #F2F1EC;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .final-line.accent {
+      color: #F2D24B;
+      font-style: italic;
+      margin-top: 20px;
+    }
+
+    /* Grain and vignette */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, 
+        transparent 30%, 
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Caption */
+    .caption-wrapper {
+      position: absolute;
+      bottom: 180px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      border-radius: 999px;
+      padding: 10px 24px;
+      max-width: 800px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(242, 241, 236, 0.85);
+      text-align: center;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-06-root" id="root" data-composition-id="06-payoff" data-width="1080" data-height="1920" data-duration="4.52">
+    
+    <!-- Cinematic scene -->
+    <div data-hf-id="hf-06-scene" id="f06-scene" class="clip scene-layer" data-start="0" data-duration="4.52" data-track-index="0">
+      <div data-hf-id="hf-06-env" class="study-final"></div>
+
+      <!-- Book close-up -->
+      <div data-hf-id="hf-06-book" id="f06-book" class="book-closeup">
+        <div data-hf-id="hf-06-bookobj" class="book-obj">
+          <div data-hf-id="hf-06-cover" class="book-cover"></div>
+          <div data-hf-id="hf-06-spine" class="book-spine"></div>
+          <div data-hf-id="hf-06-page" class="book-page-open">
+            <div data-hf-id="hf-06-annotations" class="page-annotations">
+              <div data-hf-id="hf-al1" class="annotation-line" style="width: 85%;"><div class="annotation-highlight" style="width: 40%;"></div></div>
+              <div data-hf-id="hf-al2" class="annotation-line" style="width: 70%;"><div class="annotation-highlight" style="width: 30%;"></div></div>
+              <div data-hf-id="hf-al3" class="annotation-line" style="width: 90%;"><div class="annotation-highlight" style="width: 50%;"></div></div>
+              <div data-hf-id="hf-al4" class="annotation-line" style="width: 50%;"></div>
+              <div data-hf-id="hf-al5" class="annotation-line" style="width: 80%;"><div class="annotation-highlight" style="width: 35%;"></div></div>
+              <div data-hf-id="hf-al6" class="annotation-line" style="width: 60%;"></div>
+              <div data-hf-id="hf-al7" class="annotation-line" style="width: 75%;"><div class="annotation-highlight" style="width: 45%;"></div></div>
+              <div data-hf-id="hf-al8" class="annotation-line" style="width: 40%;"></div>
+            </div>
+            <div data-hf-id="hf-06-bookmark" class="bookmark-final"></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-06-grain" class="grain"></div>
+      <div data-hf-id="hf-06-vignette" class="vignette"></div>
+    </div>
+
+    <!-- Final typography -->
+    <div data-hf-id="hf-06-type" id="f06-type" class="clip final-type" data-start="0" data-duration="4.52" data-track-index="1">
+      <div data-hf-id="hf-06-line1" id="f06-line1" class="final-line">FORGETTING ISN'T</div>
+      <div data-hf-id="hf-06-line2" id="f06-line2" class="final-line">FAILURE.</div>
+      <div data-hf-id="hf-06-line3" id="f06-line3" class="final-line accent">IT'S THE MECHANISM.</div>
+    </div>
+
+    <!-- Caption -->
+    <div data-hf-id="hf-06-capwrap" id="f06-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+      <div data-hf-id="hf-06-pill" id="f06-pill" class="caption-pill">
+        <span data-hf-id="hf-06-cap" id="f06-caption" class="caption-text">Forgetting isn't failure. It's the mechanism.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["06-payoff"] = tl;
+
+    const book = document.getElementById("f06-book");
+    const bookmark = document.querySelector(".bookmark-final");
+    const typeMoment = document.getElementById("f06-type");
+    const line1 = document.getElementById("f06-line1");
+    const line2 = document.getElementById("f06-line2");
+    const line3 = document.getElementById("f06-line3");
+    const capwrap = document.getElementById("f06-capwrap");
+
+    // Initial states
+    gsap.set(typeMoment, { opacity: 0 });
+    gsap.set([line1, line2, line3], { opacity: 0, y: 20 });
+    gsap.set(capwrap, { opacity: 0 });
+
+    // 0.0 - 1.0s: Book appears, filling frame
+    tl.to(book, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.2);
+
+    // 0.5 - 1.0s: Bookmark appears
+    tl.to(bookmark, { opacity: 1, y: 5, duration: 0.5, ease: "back.out(2)" }, 0.5);
+
+    // 1.0 - 1.5s: Slow push-in on book
+    tl.to(book, { scale: 1.08, duration: 2, ease: "power1.inOut" }, 1.0);
+
+    // 1.5 - 2.5s: Book fades, typography appears
+    tl.to(book, { opacity: 0, duration: 0.8, ease: "power2.in" }, 1.5);
+    tl.to(typeMoment, { opacity: 1, duration: 0.3 }, 2.0);
+
+    // 2.0 - 3.0s: Typography lines appear
+    tl.to(line1, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.0);
+    tl.to(line2, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 2.3);
+    tl.to(line3, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 2.7);
+
+    // Caption
+    tl.to(capwrap, { opacity: 1, duration: 0.5 }, 0.5);
+  </script>
+</template>

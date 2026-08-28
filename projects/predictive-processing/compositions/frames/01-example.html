@@ -1,0 +1,227 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 2px, transparent 2px);
+      background-size: 60px 60px;
+      opacity: 0.7;
+    }
+
+    /* Optical Center Safe Zone Container (avoids top/bottom Reels overlay) */
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Visual Graphic Prop / Stage */
+    .visual-stage {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 14px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 70px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #F2F1EC;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .divider-line {
+      width: 220px;
+      height: 2px;
+      background: rgba(242, 241, 236, 0.2);
+      margin: 10px 0 20px;
+      transform-origin: center;
+    }
+
+    /* Callout Card */
+    .callout-card {
+      background: rgba(242, 210, 75, 0.08);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      border-radius: 14px;
+      padding: 18px 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .callout-text {
+      font-family: "Inter", sans-serif;
+      font-size: 25px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.04em;
+    }
+
+    /* Smooth Captions Subtitle Pill */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 35px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.88);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(242, 241, 236, 0.15);
+      border-radius: 999px;
+      padding: 12px 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      max-width: 880px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 26px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-01-root" id="root" data-composition-id="01-example" data-width="1080" data-height="1920" data-duration="8.0">
+    <div data-hf-id="hf-01-ground" id="f01-ground" class="clip ground" data-start="0" data-duration="8.0" data-track-index="0">
+      <div data-hf-id="hf-01-grid" id="f01-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-01-frame" id="f01-frame" class="clip frame-container" data-start="0" data-duration="8.0" data-track-index="1">
+      <div data-hf-id="hf-01-szone" class="safe-zone">
+        
+        <div data-hf-id="hf-01-stage" id="f01-stage" class="visual-stage">
+          <div data-hf-id="hf-01-kicker" id="f01-kicker" class="kicker">FRAME KICKER</div>
+          <h1 data-hf-id="hf-01-hl" id="f01-headline" class="headline">
+            Hero Concept Headline <br><span class="highlight">Key Emphasis</span>
+          </h1>
+          <div data-hf-id="hf-01-div" id="f01-divider" class="divider-line"></div>
+
+          <div data-hf-id="hf-01-call" id="f01-callout" class="callout-card">
+            <span class="callout-text">Core Takeaway Insight</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Subtitle Captions -->
+        <div data-hf-id="hf-01-capwrap" class="caption-wrapper" data-layout-allow-overlap>
+          <div data-hf-id="hf-01-pill" id="f01-pill" class="caption-pill">
+            <span data-hf-id="hf-01-cap" id="f01-caption" class="caption-text">Dynamic voiceover subtitle line.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["01-example"] = tl;
+
+    const kicker = document.getElementById("f01-kicker");
+    const headline = document.getElementById("f01-headline");
+    const divider = document.getElementById("f01-divider");
+    const callout = document.getElementById("f01-callout");
+    const capPill = document.getElementById("f01-pill");
+    const capText = document.getElementById("f01-caption");
+
+    // Initial states
+    gsap.set(kicker, { opacity: 0, y: -20 });
+    gsap.set(headline, { opacity: 0, y: 30 });
+    gsap.set(divider, { scaleX: 0, opacity: 0 });
+    gsap.set(callout, { opacity: 0, scale: 0.9, y: 30 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // Choreography timed to actual TTS audio
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.2);
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.to(divider, { opacity: 1, scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.2);
+    tl.to(callout, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.4)" }, 3.5);
+
+    // Dynamic Captions
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+    tl.call(() => {
+      capText.innerHTML = 'Dynamic voiceover <span class="cap-hl">subtitle line.</span>';
+    }, null, 0.4);
+  </script>
+</template>

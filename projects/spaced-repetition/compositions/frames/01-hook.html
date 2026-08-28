@@ -1,0 +1,321 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    /* Cinematic scene layer */
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Desk environment - warm practical lighting */
+    .desk-environment {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        #1a1510 0%, 
+        #2a2015 30%, 
+        #1d1812 70%, 
+        #0d0b08 100%
+      );
+    }
+
+    /* Warm light pool from desk lamp */
+    .light-pool {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, 
+        rgba(255, 200, 120, 0.15) 0%, 
+        rgba(255, 180, 100, 0.05) 40%, 
+        transparent 70%
+      );
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Book object */
+    .book-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 400px;
+      height: 280px;
+      perspective: 1200px;
+    }
+
+    .book {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(15deg) rotateY(-5deg);
+    }
+
+    .book-cover {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #2a1f15 0%, #1a1208 100%);
+      border: 1px solid rgba(255, 200, 120, 0.15);
+      border-radius: 4px;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 200, 120, 0.1);
+      transform: translateZ(5px);
+    }
+
+    .book-page {
+      position: absolute;
+      width: 95%;
+      height: 95%;
+      top: 2.5%;
+      left: 2.5%;
+      background: #f5f0e8;
+      border-radius: 2px;
+      transform: translateZ(2px);
+      opacity: 0;
+    }
+
+    .book-page-blank {
+      position: absolute;
+      width: 95%;
+      height: 95%;
+      top: 2.5%;
+      left: 2.5%;
+      background: #f8f5f0;
+      border-radius: 2px;
+      transform: translateZ(0px);
+      opacity: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Hand silhouette */
+    .hand-silhouette {
+      position: absolute;
+      bottom: 200px;
+      right: 150px;
+      opacity: 0;
+    }
+
+    /* Typography moments */
+    .type-moment {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+      opacity: 0;
+    }
+
+    .type-line {
+      font-family: "Playfair Display", serif;
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 1.15;
+      color: #F2F1EC;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+
+    .type-line.accent {
+      color: #D4622B;
+    }
+
+    .type-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: rgba(242, 241, 236, 0.6);
+      margin-top: 20px;
+      letter-spacing: 0.08em;
+    }
+
+    /* Grain overlay */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    /* Vignette */
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, 
+        transparent 40%, 
+        rgba(0, 0, 0, 0.6) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Caption pill */
+    .caption-wrapper {
+      position: absolute;
+      bottom: 180px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      border-radius: 999px;
+      padding: 10px 24px;
+      max-width: 800px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(242, 241, 236, 0.85);
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #D4622B;
+      font-weight: 700;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-01-root" id="root" data-composition-id="01-hook" data-width="1080" data-height="1920" data-duration="7.00">
+    
+    <!-- Cinematic scene layer -->
+    <div data-hf-id="hf-01-scene" id="f01-scene" class="clip scene-layer" data-start="0" data-duration="7.00" data-track-index="0">
+      <div data-hf-id="hf-01-desk" class="desk-environment">
+        <div data-hf-id="hf-01-light" class="light-pool"></div>
+      </div>
+
+      <!-- Book with pages -->
+      <div data-hf-id="hf-01-bookwrap" id="f01-book" class="book-container">
+        <div data-hf-id="hf-01-book" class="book">
+          <div data-hf-id="hf-01-cover" class="book-cover"></div>
+          <div data-hf-id="hf-01-page" id="f01-page" class="book-page"></div>
+          <div data-hf-id="hf-01-blank" id="f01-blank" class="book-page-blank">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.15">
+              <circle cx="30" cy="30" r="28" stroke="#8a7a6a" stroke-width="1"/>
+              <text x="30" y="35" text-anchor="middle" fill="#8a7a6a" font-family="Inter" font-size="12">?</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hand silhouette reaching for book -->
+      <div data-hf-id="hf-01-hand" id="f01-hand" class="hand-silhouette">
+        <svg width="120" height="80" viewBox="0 0 120 80" fill="none">
+          <path d="M10 70 Q30 20 60 15 Q90 10 110 20 Q115 25 110 35 Q100 50 80 55 Q60 60 40 65 Z" 
+                fill="rgba(26, 21, 16, 0.9)" stroke="rgba(255, 200, 120, 0.1)" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <!-- Grain and vignette -->
+      <div data-hf-id="hf-01-grain" class="grain"></div>
+      <div data-hf-id="hf-01-vignette" class="vignette"></div>
+    </div>
+
+    <!-- Typography moment -->
+    <div data-hf-id="hf-01-type" id="f01-type" class="clip type-moment" data-start="0" data-duration="7.00" data-track-index="1">
+      <div data-hf-id="hf-01-line1" id="f01-line1" class="type-line">YOU THOUGHT</div>
+      <div data-hf-id="hf-01-line2" id="f01-line2" class="type-line">YOU LEARNED IT.</div>
+      <div data-hf-id="hf-01-line3" id="f01-line3" class="type-line accent" style="margin-top: 30px;">YOU DIDN'T.</div>
+    </div>
+
+    <!-- Caption -->
+    <div data-hf-id="hf-01-capwrap" id="f01-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+      <div data-hf-id="hf-01-pill" id="f01-pill" class="caption-pill">
+        <span data-hf-id="hf-01-cap" id="f01-caption" class="caption-text">You probably forgot most of what you learned yesterday.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["01-hook"] = tl;
+
+    const scene = document.getElementById("f01-scene");
+    const book = document.getElementById("f01-book");
+    const page = document.getElementById("f01-page");
+    const blank = document.getElementById("f01-blank");
+    const hand = document.getElementById("f01-hand");
+    const typeMoment = document.getElementById("f01-type");
+    const line1 = document.getElementById("f01-line1");
+    const line2 = document.getElementById("f01-line2");
+    const line3 = document.getElementById("f01-line3");
+    const capwrap = document.getElementById("f01-capwrap");
+    const capPill = document.getElementById("f01-pill");
+    const capText = document.getElementById("f01-caption");
+
+    // Initial states
+    gsap.set(typeMoment, { opacity: 0 });
+    gsap.set([line1, line2, line3], { opacity: 0, y: 20 });
+    gsap.set(capwrap, { opacity: 0 });
+
+    // 0.0 - 1.5s: Slow push-in on desk environment
+    tl.to(scene, { scale: 1.05, duration: 3, ease: "power1.inOut" }, 0);
+
+    // 0.3 - 1.0s: Hand appears, reaches for book
+    tl.to(hand, { opacity: 0.7, x: -20, duration: 0.7, ease: "power2.out" }, 0.3);
+
+    // 1.0 - 2.0s: Book page appears (confident learning moment)
+    tl.to(page, { opacity: 1, duration: 0.5, ease: "power2.out" }, 1.0);
+    tl.to(hand, { opacity: 0, x: -40, duration: 0.4, ease: "power2.in" }, 1.2);
+
+    // 2.5 - 3.5s: Page fades to blank (forgetting)
+    tl.to(page, { opacity: 0, duration: 1.0, ease: "power2.in" }, 2.5);
+    tl.to(blank, { opacity: 1, duration: 0.8, ease: "power2.out" }, 3.0);
+
+    // 4.0 - 5.5s: Typography moment appears
+    tl.to(typeMoment, { opacity: 1, duration: 0.3 }, 4.0);
+    tl.to(line1, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 4.2);
+    tl.to(line2, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 4.7);
+    tl.to(line3, { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.5)" }, 5.5);
+
+    // 5.8 - 6.5s: Typography fades, return to scene
+    tl.to(typeMoment, { opacity: 0, duration: 0.5, ease: "power2.in" }, 6.0);
+
+    // Caption
+    tl.to(capwrap, { opacity: 1, duration: 0.5 }, 0.5);
+  </script>
+</template>

@@ -1,0 +1,85 @@
+<template>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    #root { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #000000; }
+    .cinematic-bg {
+      position: absolute; inset: -100px;
+      background-image: url('assets/01_codex.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.4) contrast(1.2);
+    }
+  </style>
+  <div id="root" data-composition-id="04-implication" data-width="1080" data-height="1920">
+    <div id="bg-scene" class="cinematic-bg"></div>
+
+    <div class="frame-container" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 80px;">
+      <div class="safe-zone" style="width: 100%; max-width: 920px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        
+        <div data-layout-allow-overlap style="width: 800px; height: 500px; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 60px;">
+          
+          <div id="word-sensory" data-layout-allow-overlap style="font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: #A0A09C; letter-spacing: 0.1em; opacity: 0; position: absolute; text-align: center; width: 100%; text-shadow: 0 5px 15px rgba(0,0,0,0.8);">
+            H A L L U C _ N A T I O N
+          </div>
+          <div id="word-prediction" data-layout-allow-overlap style="font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: #F2D24B; letter-spacing: 0.1em; opacity: 0; position: absolute; text-align: center; width: 100%; text-shadow: 0 0 20px rgba(242, 210, 75, 0.4);">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+          <div id="word-merged" data-layout-allow-overlap style="font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: #F2F1EC; letter-spacing: 0.1em; opacity: 0; position: absolute; text-align: center; width: 100%; text-shadow: 0 0 30px rgba(242, 241, 236, 0.8);">
+            H A L L U C I N A T I O N
+          </div>
+
+        </div>
+
+        <div class="caption-wrapper" data-layout-allow-overlap style="width: 100%; display: flex; justify-content: center;">
+          <div id="f04-pill" style="background: rgba(18, 18, 18, 0.88); backdrop-filter: blur(20px); border: 1px solid rgba(242, 241, 236, 0.15); border-radius: 999px; padding: 12px 28px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); max-width: 880px; opacity: 0;">
+            <span id="f04-caption" style="font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 600; color: #F2F1EC; letter-spacing: 0.02em; text-align: center;">If the sensory input matches the guess...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["04-implication"] = tl;
+      
+      const wordSensory = document.getElementById("word-sensory");
+      const wordPrediction = document.getElementById("word-prediction");
+      const wordMerged = document.getElementById("word-merged");
+      const capPill = document.getElementById("f04-pill");
+      const capText = document.getElementById("f04-caption");
+      const bgScene = document.getElementById("bg-scene");
+      
+      gsap.set(capPill, { y: 10 });
+      gsap.set(wordPrediction, { y: -50, scale: 1.1 });
+
+      tl.fromTo(bgScene, { scale: 1.2, y: -20 }, { scale: 1.0, y: 0, duration: 12.56, ease: "power1.out" }, 0);
+
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+      tl.to(wordSensory, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0.8);
+      
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 3.5);
+      tl.call(() => { capText.innerHTML = '...the raw data is <span style="color: #A0A09C;">ignored</span>.'; }, null, 3.7);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 3.7);
+
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 6.0);
+      tl.call(() => { capText.innerHTML = 'If your expectation is strong enough...'; }, null, 6.2);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 6.2);
+
+      tl.to(wordPrediction, { opacity: 1, duration: 0.5 }, 6.5);
+      
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 8.5);
+      tl.call(() => { capText.innerHTML = '...you literally <span style="color: #D4622B;">hallucinate</span> the correct spelling.'; }, null, 8.7);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 8.7);
+
+      // Fix the typo
+      tl.to(wordPrediction, { y: 0, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 9.0);
+      
+      tl.to(wordMerged, { opacity: 1, duration: 0.2 }, 9.5);
+      tl.to([wordSensory, wordPrediction], { opacity: 0, duration: 0.2 }, 9.5);
+      tl.to(wordMerged, { scale: 1.05, duration: 2.0, ease: "power2.out" }, 9.5);
+    })();
+  </script>
+</template>

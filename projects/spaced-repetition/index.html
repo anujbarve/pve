@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Spaced Repetition — Cinematic Documentary</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Playfair Display";
+        font-style: normal;
+        font-weight: 400 900;
+        src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+      }
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #0a0a0a;
+        overflow: hidden;
+      }
+      #root {
+        width: 1080px;
+        height: 1920px;
+        position: relative;
+        overflow: hidden;
+        background: #0a0a0a;
+      }
+      .frame-track {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      SPACED REPETITION — Cinematic Documentary — 6 frames, ~74.41s total
+      Timing from TTS measurements:
+        01-hook:       start=0.00s,  duration=3.88s
+        02-origin:     start=3.38s,  duration=21.08s
+        03-mechanism:  start=23.96s, duration=18.04s
+        04-reveal:     start=41.50s, duration=15.32s
+        05-implication: start=56.32s, duration=14.52s
+        06-payoff:     start=70.34s, duration=4.52s
+    -->
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="spaced-repetition-main"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="74.41"
+    >
+      <!-- Frame 1: Hook -->
+      <div
+        data-hf-id="f01"
+        id="f01"
+        class="clip frame-track"
+        data-composition-id="01-hook"
+        data-composition-src="compositions/frames/01-hook.html"
+        data-start="0.00"
+        data-duration="3.88"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Frame 2: Origin -->
+      <div
+        data-hf-id="f02"
+        id="f02"
+        class="clip frame-track"
+        data-composition-id="02-origin"
+        data-composition-src="compositions/frames/02-origin.html"
+        data-start="3.38"
+        data-duration="21.08"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Frame 3: Mechanism -->
+      <div
+        data-hf-id="f03"
+        id="f03"
+        class="clip frame-track"
+        data-composition-id="03-mechanism"
+        data-composition-src="compositions/frames/03-mechanism.html"
+        data-start="23.96"
+        data-duration="18.04"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Frame 4: Reveal -->
+      <div
+        data-hf-id="f04"
+        id="f04"
+        class="clip frame-track"
+        data-composition-id="04-reveal"
+        data-composition-src="compositions/frames/04-reveal.html"
+        data-start="41.50"
+        data-duration="15.32"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Frame 5: Implication -->
+      <div
+        data-hf-id="f05"
+        id="f05"
+        class="clip frame-track"
+        data-composition-id="05-implication"
+        data-composition-src="compositions/frames/05-implication.html"
+        data-start="56.32"
+        data-duration="14.52"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Frame 6: Payoff -->
+      <div
+        data-hf-id="f06"
+        id="f06"
+        class="clip frame-track"
+        data-composition-id="06-payoff"
+        data-composition-src="compositions/frames/06-payoff.html"
+        data-start="70.34"
+        data-duration="4.52"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Synced Narration Audio Track -->
+      <audio
+        data-hf-id="audio-narration"
+        id="audio-narration"
+        src=".temp_audio/narration_full.wav"
+        data-start="0"
+        data-duration="74.41"
+        data-track-index="10"
+        data-volume="1.0"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const masterTl = gsap.timeline({ paused: true });
+      window.__timelines["spaced-repetition-main"] = masterTl;
+
+      const f01 = document.getElementById("f01");
+      const f02 = document.getElementById("f02");
+      const f03 = document.getElementById("f03");
+      const f04 = document.getElementById("f04");
+      const f05 = document.getElementById("f05");
+      const f06 = document.getElementById("f06");
+
+      // Cinematic crossfades - longer, smoother transitions
+      masterTl.fromTo(f02, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 3.38);
+      masterTl.to(f01, { opacity: 0, duration: 1.0, ease: "power2.inOut" }, 3.38);
+
+      masterTl.fromTo(f03, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 23.96);
+      masterTl.to(f02, { opacity: 0, duration: 1.0, ease: "power2.inOut" }, 23.96);
+
+      masterTl.fromTo(f04, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 41.50);
+      masterTl.to(f03, { opacity: 0, duration: 1.0, ease: "power2.inOut" }, 41.50);
+
+      masterTl.fromTo(f05, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 56.32);
+      masterTl.to(f04, { opacity: 0, duration: 1.0, ease: "power2.inOut" }, 56.32);
+
+      masterTl.fromTo(f06, { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.inOut" }, 70.34);
+      masterTl.to(f05, { opacity: 0, duration: 1.0, ease: "power2.inOut" }, 70.34);
+    </script>
+  </body>
+</html>

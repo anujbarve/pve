@@ -1,0 +1,197 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 50%, rgba(242, 210, 75, 0.15) 0%, transparent 65%),
+        linear-gradient(180deg, #100f0c 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    /* Coalescing Wireframe Mesh */
+    .wireframe-mesh {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Final Manifesto Block */
+    .film-manifesto-block {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+      max-width: 920px;
+    }
+
+    .manifesto-pre {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      color: #A0A09C;
+      text-transform: uppercase;
+    }
+
+    .manifesto-title {
+      font-family: "Playfair Display", serif;
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 1.12;
+      color: #F2F1EC;
+      text-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
+    }
+
+    .manifesto-title .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .manifesto-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.05em;
+      line-height: 1.4;
+      max-width: 780px;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-calibration" data-width="1080" data-height="1920" data-duration="8.98">
+    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Coalescing Wireframe Sphere -->
+      <div data-hf-id="hf-s05-mesh" id="s05-mesh" class="wireframe-mesh">
+        <svg width="700" height="700" viewBox="0 0 700 700" fill="none">
+          <circle cx="350" cy="350" r="280" stroke="rgba(242, 210, 75, 0.2)" stroke-width="2" stroke-dasharray="8 8" />
+          <circle cx="350" cy="350" r="200" stroke="rgba(242, 210, 75, 0.3)" stroke-width="2" stroke-dasharray="6 6" />
+          <ellipse cx="350" cy="350" rx="280" ry="120" stroke="rgba(242, 210, 75, 0.25)" stroke-width="2" stroke-dasharray="8 8" />
+          <ellipse cx="350" cy="350" rx="120" ry="280" stroke="rgba(242, 210, 75, 0.25)" stroke-width="2" stroke-dasharray="8 8" />
+        </svg>
+      </div>
+
+      <!-- Grand Cinematic Title -->
+      <div data-hf-id="hf-s05-manifesto" id="s05-manifesto" class="film-manifesto-block">
+        <div class="manifesto-pre">THE ARCHITECTURE OF PERCEPTION</div>
+        <h1 class="manifesto-title">A Controlled <span class="accent">Hallucination</span></h1>
+        <p class="manifesto-sub">Constantly calibrated by the surprises of the physical world.</p>
+      </div>
+
+      <!-- Subtitle -->
+      <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">You never experience the world as it is.</p>
+        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">Continuous Recalibration</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-calibration"] = tl;
+
+    const env = document.getElementById("s05-env");
+    const mesh = document.getElementById("s05-mesh");
+    const manifesto = document.getElementById("s05-manifesto");
+    const caption = document.getElementById("s05-caption");
+    const sub = document.getElementById("s05-sub");
+
+    gsap.set(manifesto, { opacity: 0, scale: 0.9, y: 30 });
+    gsap.set(mesh, { opacity: 0.8, scale: 0.9 });
+
+    // Wide camera pull-back
+    tl.to(env, { scale: 1.05, duration: 9.06, ease: "none" }, 0);
+    tl.to(mesh, { rotation: 45, scale: 1.05, duration: 9.06, ease: "none" }, 0);
+
+    // 0.3s - 4.5s: "You never experience the world as it is."
+    tl.to(mesh, { opacity: 0.3, duration: 3.0, ease: "power2.out" }, 1.0);
+
+    // 4.5s - 9.06s: "You experience your brain's prediction of the world, calibrated by the surprises."
+    tl.call(() => {
+      caption.innerHTML = 'Experience your prediction, <span class="accent">calibrated by surprises</span>.';
+      sub.innerHTML = 'Unified Predictive Field';
+    }, null, 4.5);
+
+    tl.to(manifesto, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: "power3.out" }, 4.6);
+  </script>
+</template>

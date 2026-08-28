@@ -1,0 +1,200 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 45% 45%, rgba(242, 210, 75, 0.1) 0%, transparent 60%),
+        linear-gradient(180deg, #111110 0%, #060606 100%);
+    }
+
+    .paper-texture {
+      position: absolute;
+      top: 300px;
+      left: 100px;
+      right: 100px;
+      height: 900px;
+      background: linear-gradient(165deg, rgba(28, 26, 22, 0.85) 0%, rgba(14, 13, 11, 0.95) 100%);
+      border: 1px solid rgba(242, 210, 75, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    /* Typographic Illusion Stage */
+    .word-illusion-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 140px;
+    }
+
+    .word-base {
+      font-family: "Playfair Display", serif;
+      font-size: 76px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      color: #A0A09C;
+    }
+
+    .missing-slot {
+      display: inline-block;
+      width: 44px;
+      position: relative;
+      text-align: center;
+    }
+
+    .painted-letter {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      color: #F2D24B;
+      text-shadow: 0 0 24px rgba(242, 210, 75, 0.8);
+      opacity: 0;
+    }
+
+    .sweep-light-bar {
+      position: absolute;
+      top: -20px;
+      bottom: -20px;
+      width: 6px;
+      background: #F2D24B;
+      box-shadow: 0 0 30px #F2D24B, 0 0 60px #F2D24B;
+      opacity: 0;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-typo" data-width="1080" data-height="1920" data-duration="9.46">
+    <div data-hf-id="hf-s04-env" id="s04-env" class="film-env" data-layout-allow-overflow>
+      <!-- Physical Book Sheet -->
+      <div data-hf-id="hf-s04-paper" id="s04-paper" class="paper-texture">
+        <div style="font-family: 'Inter', sans-serif; font-size: 13px; letter-spacing: 0.25em; color: #A0A09C; text-transform: uppercase; margin-bottom: 30px;">
+          PRINTED PROOF · LINE 14
+        </div>
+
+        <div data-hf-id="hf-s04-wordbox" class="word-illusion-container">
+          <div class="word-base" data-layout-allow-overlap>
+            P E R C E P T<span class="missing-slot"><span id="s04-fill-letter" class="painted-letter" data-layout-allow-overlap>I</span>_</span>O N
+          </div>
+
+          <!-- Light sweep scanner -->
+          <div data-hf-id="hf-s04-sweep" id="s04-sweep" class="sweep-light-bar"></div>
+        </div>
+
+        <div style="font-family: 'Inter', sans-serif; font-size: 15px; color: #A0A09C; margin-top: 30px; letter-spacing: 0.05em;">
+          Actual raw sensory input: <span style="color: #F2F1EC; font-weight: 700;">Missing character</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Subtitle -->
+    <div data-hf-id="hf-s04-capwrap" class="film-caption-block" data-layout-allow-overlap>
+      <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">This is why you miss typos.</p>
+      <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">Cognitive Infilling</span>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-typo"] = tl;
+
+    const env = document.getElementById("s04-env");
+    const paper = document.getElementById("s04-paper");
+    const fillLetter = document.getElementById("s04-fill-letter");
+    const sweep = document.getElementById("s04-sweep");
+    const caption = document.getElementById("s04-caption");
+    const sub = document.getElementById("s04-sub");
+
+    gsap.set(paper, { scale: 0.95 });
+    gsap.set(sweep, { x: 100, opacity: 0 });
+
+    // Slow camera macro glide
+    tl.to(env, { scale: 1.05, duration: 9.46, ease: "none" }, 0);
+    tl.to(paper, { scale: 1.0, duration: 9.46, ease: "power1.out" }, 0);
+
+    // 0.3s - 4.5s: "This is why you miss typos in your own writing."
+    tl.to(paper, { y: -10, duration: 2.0, ease: "sine.inOut" }, 0.5);
+
+    // 4.5s - 9.46s: "If your expectation is strong enough, your brain literally paints over the mistake."
+    tl.call(() => {
+      caption.innerHTML = 'Your brain <span class="accent">paints over the mistake</span>.';
+      sub.innerHTML = 'Expectation Overrides Raw Senses';
+    }, null, 4.5);
+
+    // The golden sweep sweeps across and paints the missing letter
+    tl.to(sweep, { opacity: 1, duration: 0.2 }, 4.6);
+    tl.fromTo(sweep, { x: 120 }, { x: 760, duration: 1.6, ease: "power2.inOut" }, 4.8);
+    tl.to(fillLetter, { opacity: 1, duration: 0.4, ease: "power3.out" }, 5.6);
+    tl.to(sweep, { opacity: 0, duration: 0.3 }, 6.4);
+  </script>
+</template>

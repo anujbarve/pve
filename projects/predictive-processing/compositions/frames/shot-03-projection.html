@@ -1,0 +1,185 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.14) 0%, transparent 65%),
+        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+    }
+
+    .perspective-grid-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 800px;
+    }
+
+    .spatial-mesh-tunnel {
+      position: absolute;
+      width: 900px;
+      height: 1400px;
+      transform: rotateX(60deg);
+      background-image:
+        linear-gradient(rgba(242, 210, 75, 0.15) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 210, 75, 0.15) 2px, transparent 2px);
+      background-size: 80px 80px;
+      mask-image: radial-gradient(circle at 50% 20%, black 20%, transparent 80%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Outward Projection Beams */
+    .projection-beams-svg {
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      overflow: visible;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-projection" data-width="1080" data-height="1920" data-duration="9.54">
+    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow>
+      <div class="perspective-grid-container">
+        <div data-hf-id="hf-s03-mesh" id="s03-mesh" class="spatial-mesh-tunnel" data-layout-allow-overflow></div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-s03-view" class="scene-viewport">
+      <!-- Outward Projection Light Beams -->
+      <svg data-hf-id="hf-s03-beamssvg" class="projection-beams-svg" viewBox="0 0 800 800" fill="none">
+        <!-- Center Origin Point -->
+        <circle cx="400" cy="380" r="16" fill="#F2D24B" filter="drop-shadow(0 0 20px #F2D24B)" />
+        
+        <!-- Radiating Ray Traces -->
+        <line id="s03-ray-1" x1="400" y1="380" x2="100" y2="100" stroke="#F2D24B" stroke-width="2" stroke-dasharray="10 10" />
+        <line id="s03-ray-2" x1="400" y1="380" x2="700" y2="100" stroke="#F2D24B" stroke-width="2" stroke-dasharray="10 10" />
+        <line id="s03-ray-3" x1="400" y1="380" x2="150" y2="650" stroke="#F2D24B" stroke-width="2" stroke-dasharray="10 10" />
+        <line id="s03-ray-4" x1="400" y1="380" x2="650" y2="650" stroke="#F2D24B" stroke-width="2" stroke-dasharray="10 10" />
+
+        <!-- Expanding Light Cones -->
+        <polygon id="s03-cone" points="400,380 150,700 650,700" fill="url(#beamGrad)" opacity="0.4" />
+        
+        <defs>
+          <linearGradient id="beamGrad" x1="400" y1="380" x2="400" y2="700" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#F2D24B" stop-opacity="0.6" />
+            <stop offset="100%" stop-color="#F2D24B" stop-opacity="0" />
+          </linearGradient>
+        </defs>
+
+        <!-- Dynamic Projection Rings -->
+        <circle id="s03-ring-1" cx="400" cy="380" r="40" stroke="#F2D24B" stroke-width="2" fill="none" opacity="0" />
+        <circle id="s03-ring-2" cx="400" cy="380" r="40" stroke="#F2D24B" stroke-width="2" fill="none" opacity="0" />
+      </svg>
+
+      <!-- Subtitle -->
+      <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">Your brain is not a camera.</p>
+        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">Top-Down Simulation</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-projection"] = tl;
+
+    const env = document.getElementById("s03-env");
+    const mesh = document.getElementById("s03-mesh");
+    const ring1 = document.getElementById("s03-ring-1");
+    const ring2 = document.getElementById("s03-ring-2");
+    const cone = document.getElementById("s03-cone");
+    const caption = document.getElementById("s03-caption");
+    const sub = document.getElementById("s03-sub");
+
+    // Camera forward push
+    tl.to(env, { scale: 1.08, duration: 9.54, ease: "none" }, 0);
+    tl.to(mesh, { y: 60, duration: 9.54, ease: "none" }, 0);
+
+    // Dynamic wave ripples
+    tl.fromTo(ring1, { r: 40, opacity: 0.9 }, { r: 350, opacity: 0, duration: 2.2, repeat: 3, ease: "power1.out" }, 0.4);
+    tl.fromTo(ring2, { r: 40, opacity: 0.9 }, { r: 350, opacity: 0, duration: 2.2, repeat: 3, ease: "power1.out", delay: 1.1 }, 0.4);
+
+    // 0.3s - 4.5s: "We think our senses feed us reality. But your brain isn't a camera."
+    tl.to(cone, { opacity: 0.7, duration: 1.5, yoyo: true, repeat: 2, ease: "sine.inOut" }, 0.5);
+
+    // 4.5s - 9.54s: "It is a prediction engine projecting a simulation outward."
+    tl.call(() => {
+      caption.innerHTML = 'It is a prediction engine <span class="accent">projecting reality outward</span>.';
+      sub.innerHTML = 'Forward Model Synthesis';
+    }, null, 4.5);
+  </script>
+</template>

@@ -1,38 +1,54 @@
 # Content Style Guide
-### "Editorial Dark Mode" — Explainer Reel & Motion Graphics Visual System
+### "Editorial Dark Mode" — The Filmmaking Visual System
 
-This is the reusable design and motion spec for the Editorial Dark Mode series (Broken Windows Theory, The 1% Rule, Miller's Law, and future projects). Treat this as the canonical source of truth for video and motion graphics authoring.
+This is the design and motion specification for cinematic explainer films and visual essays. Treat this as the canonical source of truth for all video authoring.
 
 ---
 
-## 1. Canvas & Safe Zones (Vertical Reels / Shorts)
+## 1. Canvas & Optical Safe Zones (Vertical Reels / Shorts)
 
-- **Native Standard Resolution:** `1080×1920` (FHD vertical 9:16, 60s target length, 60 FPS).
-- **Background:** `#000000` pure black, edge-to-edge, with subtle background grid (`rgba(242, 241, 236, 0.03)` 60px cells).
+- **Native Standard Resolution:** `1080×1920` (FHD vertical 9:16, 60 FPS).
+- **Environment:** Full-bleed spatial environment occupying the entire 1080×1920 frame. No black voids containing tiny floating cards.
 - **Platform Safe Zone Clearance:**
-  - **Top Unsafe Zone (0 – 300px):** Platform search bars, audio pills, camera buttons, status bars.
+  - **Top Unsafe Zone (0 – 300px):** Platform search bars, audio pills, camera buttons.
   - **Bottom Unsafe Zone (1450 – 1920px):** User handles, captions, sound tickers, right-rail actions (like/comment/share/remix).
-  - **The Golden Safe Window:** All core graphics, typography, and subtitle pills MUST live comfortably between **Y = 325px and Y = 1425px**.
-- **Layout Rule:** NEVER use `justify-content: space-between` to spread elements from top to bottom of the 1920px canvas. Always use a vertically centered `.frame-container` holding an inner `.safe-zone` wrapper (`max-width: 920px`).
+  - **Center 1:1 Focal Square (Y = 420px to 1500px):** The primary visual stage.
+  - **Captions Anchor:** Subtitles must sit at **`bottom: 480px` (Y ≈ 1350px–1440px)**, directly along the lower third of the center square (immune to all platform UI overlays).
 
 ```css
-.frame-container {
+.film-caption-block {
   position: absolute;
-  inset: 0;
+  bottom: 480px;
+  left: 100px;
+  right: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0 80px;
+  text-align: center;
+  gap: 12px;
 }
 
-.safe-zone {
-  width: 100%;
-  max-width: 920px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+.caption-line {
+  font-family: "Playfair Display", serif;
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #F2F1EC;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+}
+
+.caption-line .accent {
+  color: #F2D24B;
+  font-style: italic;
+}
+
+.caption-sub {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #A0A09C;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 ```
 
@@ -41,16 +57,12 @@ This is the reusable design and motion spec for the Editorial Dark Mode series (
 ## 2. Typography Hierarchy
 
 ### Primary Typeface — Playfair Display
-- **Playfair Display Bold (700 / 900):** The hero concept font.
-  - Giant Display / Year figures (`130px – 170px`)
-  - Scene Headlines (`55px – 80px`)
-  - Stamped theory titles & punchlines
-- **Playfair Display Bold Italic:** Used for voice, quotes, and emotional lead-ins (`45px – 60px`).
-- **Emphasis rule:** Never use Playfair for dense body text; reserve it for high-impact headlines and quotable statements.
+- **Playfair Display Bold (700 / 900):** Hero cinematic statements and display titles (`55px – 76px`).
+- **Playfair Display Bold Italic:** Accents, voice emphasis, and evocative phrase anchors.
 
 ### Secondary Typeface — Inter (Grotesk Sans-Serif)
-- **Inter Semi-Bold / Bold (600 / 700):** Kicker badges, category tags, step numbers, and CTA button text (`16px – 26px`, `letter-spacing: 0.12em – 0.24em`, uppercase).
-- **Inter Regular / Medium (400 / 500):** Sub-leads, author titles, footnotes, and dynamic subtitle captions (`22px – 28px`).
+- **Inter Semi-Bold / Bold (600 / 700):** Spatial labels, HUD coordinate markers (`13px – 16px`, `letter-spacing: 0.15em – 0.25em`, uppercase).
+- **Inter Regular / Medium (400 / 500):** Sub-leads and secondary subtitles (`18px – 22px`).
 
 ---
 
@@ -58,98 +70,38 @@ This is the reusable design and motion spec for the Editorial Dark Mode series (
 
 | Role | Hex Code | Usage |
 |---|---|---|
-| Background | `#000000` | Full-bleed pure black |
-| Primary Text | `#F2F1EC` / `#EAE6DF` | Headlines, punchlines, active text |
-| Key Accent | `#F2D24B` (Mustard Gold) | The ONE hero idea/word per frame, active subtitles, glowing badges |
-| Warning / Critical Accent | `#D4622B` (Amber Orange) | Critical thresholds, strike-through bars, collapse cards |
-| Muted Secondary | `#A0A09C` / `#8A8A8A` | Category kickers, supporting details, inactive states |
-| Card Surface | `rgba(242, 241, 236, 0.03)` | Card containers with `2px solid rgba(242, 241, 236, 0.15)` border |
+| Deep Space / Shadow | `#080808` / `#0D0D0D` | Cinematic atmosphere and ambient gradient bases |
+| Primary Text | `#F2F1EC` | Main dialogue, titles, clear text |
+| Key Accent | `#F2D24B` (Warm Gold) | Phantom predictions, expectation beams, hero emphasis |
+| Warning / Error Accent | `#D4622B` (Amber Orange) | Error vectors, discrepancy reticles, critical surprises |
+| Muted Secondary | `#A0A09C` | Contextual subtitles, inactive coordinate lines |
 
 ---
 
-## 4. Motion Graphics Architecture (No "Glorified PPT")
+## 4. The Anti-PowerPoint Motion Architecture
 
-Avoid repetitive slide templates across consecutive scenes. Every scene must have a distinct narrative-driven graphic prop:
-
-1. **Frame 1 — Hook / Prop Frame:**
-   - Visual SVG Prop (e.g. window pane with animated `stroke-dashoffset` fracture crack lines).
-   - Headline with gold italic highlight + curiosity callout card (`What if one crack could change everything?`).
-2. **Frame 2 — Archival / Origin Frame:**
-   - 3D oversized year digits (`1982`) with floating drift.
-   - Dual researcher cards with `rotateY` perspective tilt.
-   - Gold-stamped theory seal.
-3. **Frame 3 — Mechanism / Insight Frame:**
-   - Radar shockwave beacon with concentric pulsating SVG circles + glowing amber center dot.
-   - High-contrast broadcast cards (`[ BROADCAST 01 ] "Nobody is watching"`).
-4. **Frame 4 — Escalation / Cascade Frame:**
-   - Progressive domino staircase (`01` → `02` → `10`) stepping in on vocal cues.
-   - Full-width amber critical threshold warning banner (`Then the whole block falls apart`).
-5. **Frame 5 — Reframe / Duality Frame:**
-   - Struck-through dashed card with red laser bar (`The Physical Glass [ NOT THE PROBLEM ]`).
-   - Luminous gold hero card (`THE REAL PHENOMENON: It's about the signal it sends`).
-6. **Frame 6 — Manifesto / Closer Frame:**
-   - Luxury double-bordered manifesto box with gold quote text.
-   - Dual actionable pill buttons (`01 · Fix The Signal`, `02 · Change The Story`).
+1. **Shot 01 — The Human Experience Entry Point:**
+   - Full-bleed physical or environmental event (e.g. reaching for an object, closing a book, walking past an obstacle).
+   - Metaphor: A phantom expectation or wireframe emerges directly from the physical point of interaction.
+2. **Shot 02 — The Spatial Fracture / Mismatch:**
+   - Lens push-in or parallax pan revealing the discrepancy between reality and prediction.
+   - An active vector or light sweep measures the error signal.
+3. **Shot 03 — The Internal Projection Engine:**
+   - Seamless camera push into the spatial matrix (3D ray-traced grid, expanding wave cones).
+   - Metaphor: Shows that the brain projects reality outward rather than passively receiving it.
+4. **Shot 04 — The Physical Glitch (Typo / Blind Spot):**
+   - Macro focus on a physical medium (e.g. printed paper, textured surface) with a visible flaw.
+   - The brain's expectation light sweep actively paints over the flaw in real time.
+5. **Shot 05 — The Synthesis / Calibration:**
+   - Wide cinematic pull-back coalescing all simulation rays into tangible physical reality.
+   - Minimalist, integrated manifesto title embedded directly into the environment.
 
 ---
 
-## 5. Smooth Dynamic Captions System
+## 5. Build Checklist (Before Render)
 
-In vertical video reels, subtitles should be anchored directly below the central content block:
-
-```html
-<div class="caption-wrapper" data-layout-allow-overlap>
-  <div id="f01-pill" class="caption-pill">
-    <span id="f01-caption" class="caption-text">You walk past a broken window every day.</span>
-  </div>
-</div>
-```
-
-```css
-.caption-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-}
-
-.caption-pill {
-  background: rgba(18, 18, 18, 0.88);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(242, 241, 236, 0.15);
-  border-radius: 999px;
-  padding: 12px 28px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-  max-width: 880px;
-}
-
-.caption-text {
-  font-family: "Inter", sans-serif;
-  font-size: 26px;
-  font-weight: 600;
-  color: #F2F1EC;
-  letter-spacing: 0.02em;
-  text-align: center;
-}
-
-.cap-hl {
-  color: #F2D24B;
-  font-weight: 800;
-}
-```
-
----
-
-## 6. Build Checklist (Before Render)
-
-- [ ] Canvas is standard vertical `1080×1920` (60s target length, 60 FPS) with full-bleed `#000000` background.
-- [ ] No elements in Top Unsafe Zone (0–300px) or Bottom Unsafe Zone (1450–1920px).
-- [ ] Visual props and typography are centered inside `.safe-zone` (Y = 325px – 1425px).
-- [ ] Subtitle pill sits directly below main content.
-- [ ] No fake header/footer bars that collide with platform feed UI.
-- [ ] Authentic Assets Only: Zero AI-generated images. Strictly real historical, scientific, archival, or documentary visuals.
-- [ ] Audio Loudness Standard: Master voiceover narration is mastered at **-14.0 LUFS to -16.0 LUFS** with `normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7` (no muffled / attenuated audio).
-- [ ] `npm run check` passes with 0 errors, 0 warnings, and 100% WCAG AA contrast.
+- [ ] Canvas is standard vertical `1080×1920` @ 60 FPS with full-bleed atmospheric lighting.
+- [ ] **No Card Prisons**: Environments fill the frame; objects and animations live in real space, not in floating boxes.
+- [ ] Subtitles sit at **`bottom: 480px`** (lower third of 1:1 center square), safe from platform UI.
+- [ ] Master voiceover is mastered at **-14.0 LUFS to -16.0 LUFS** with `normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7`.
+- [ ] `npm run check` passes with **0 errors, 0 warnings, and 100% WCAG AA contrast**.

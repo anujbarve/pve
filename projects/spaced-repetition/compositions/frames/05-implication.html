@@ -1,0 +1,362 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Library environment - split screen */
+    .library-env {
+      position: absolute;
+      inset: 0;
+      display: flex;
+    }
+
+    .library-left {
+      flex: 1;
+      background: linear-gradient(180deg, 
+        #1a1510 0%, 
+        #2a2015 50%, 
+        #15120d 100%
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .library-right {
+      flex: 1;
+      background: linear-gradient(180deg, 
+        #0d0d0d 0%, 
+        #151515 50%, 
+        #0a0a0a 100%
+      );
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Divider */
+    .divider {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(242, 241, 236, 0.1);
+      z-index: 10;
+    }
+
+    /* Chaos side - cluttered desk */
+    .chaos-desk {
+      position: absolute;
+      bottom: 30%;
+      left: 10%;
+      right: 10%;
+      height: 40%;
+      opacity: 0;
+    }
+
+    .chaos-book {
+      position: absolute;
+      background: linear-gradient(135deg, #2a1f15 0%, #1a1208 100%);
+      border: 1px solid rgba(255, 200, 120, 0.1);
+      border-radius: 3px;
+    }
+
+    .chaos-note {
+      position: absolute;
+      background: #f5f0e0;
+      border-radius: 2px;
+    }
+
+    .chaos-note-line {
+      height: 1px;
+      background: rgba(100, 80, 50, 0.3);
+      margin: 4px 6px;
+    }
+
+    /* Calm side - single page */
+    .calm-desk {
+      position: absolute;
+      bottom: 30%;
+      left: 15%;
+      right: 15%;
+      height: 40%;
+      opacity: 0;
+    }
+
+    .calm-page {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #f8f6f0 0%, #f0ece0 100%);
+      border-radius: 3px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .calm-text {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+    }
+
+    .calm-line {
+      height: 2px;
+      background: rgba(60, 45, 20, 0.4);
+      margin-bottom: 12px;
+    }
+
+    /* Labels - using xPercent instead of CSS transform */
+    .side-label {
+      position: absolute;
+      top: 20%;
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+
+    .side-label.left {
+      left: 50%;
+      color: #D4622B;
+    }
+
+    .side-label.right {
+      left: 50%;
+      color: #F2D24B;
+    }
+
+    /* Grain and vignette */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, 
+        transparent 30%, 
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Caption */
+    .caption-wrapper {
+      position: absolute;
+      bottom: 180px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      border-radius: 999px;
+      padding: 10px 24px;
+      max-width: 800px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(242, 241, 236, 0.85);
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 700;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-05-root" id="root" data-composition-id="05-implication" data-width="1080" data-height="1920" data-duration="14.52">
+    
+    <!-- Cinematic scene -->
+    <div data-hf-id="hf-05-scene" id="f05-scene" class="clip scene-layer" data-start="0" data-duration="14.52" data-track-index="0">
+      <div data-hf-id="hf-05-env" class="library-env">
+        
+        <!-- Left: Chaos -->
+        <div data-hf-id="hf-05-left" class="library-left">
+          <div data-hf-id="hf-05-label-left" class="side-label left">CRAMMING</div>
+          
+          <div data-hf-id="hf-05-chaos" id="f05-chaos" class="chaos-desk">
+            <!-- Scattered books -->
+            <div data-hf-id="hf-cb1" class="chaos-book" style="width: 80px; height: 100px; top: 10%; left: 5%; transform: rotate(-15deg);"></div>
+            <div data-hf-id="hf-cb2" class="chaos-book" style="width: 70px; height: 90px; top: 20%; left: 40%; transform: rotate(8deg);"></div>
+            <div data-hf-id="hf-cb3" class="chaos-book" style="width: 90px; height: 110px; top: 5%; left: 65%; transform: rotate(-5deg);"></div>
+            <div data-hf-id="hf-cb4" class="chaos-book" style="width: 60px; height: 80px; top: 40%; left: 20%; transform: rotate(12deg);"></div>
+            <div data-hf-id="hf-cb5" class="chaos-book" style="width: 75px; height: 95px; top: 35%; left: 55%; transform: rotate(-8deg);"></div>
+            
+            <!-- Scattered notes -->
+            <div data-hf-id="hf-cn1" class="chaos-note" style="width: 100px; height: 60px; top: 15%; left: 25%; transform: rotate(-10deg);">
+              <div class="chaos-note-line" style="width: 80%;"></div>
+              <div class="chaos-note-line" style="width: 60%;"></div>
+              <div class="chaos-note-line" style="width: 70%;"></div>
+            </div>
+            <div data-hf-id="hf-cn2" class="chaos-note" style="width: 90px; height: 55px; top: 45%; left: 70%; transform: rotate(15deg);">
+              <div class="chaos-note-line" style="width: 75%;"></div>
+              <div class="chaos-note-line" style="width: 55%;"></div>
+              <div class="chaos-note-line" style="width: 65%;"></div>
+            </div>
+            <div data-hf-id="hf-cn3" class="chaos-note" style="width: 85px; height: 50px; top: 60%; left: 10%; transform: rotate(-5deg);">
+              <div class="chaos-note-line" style="width: 70%;"></div>
+              <div class="chaos-note-line" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Calm -->
+        <div data-hf-id="hf-05-right" class="library-right">
+          <div data-hf-id="hf-05-label-right" class="side-label right" style="z-index: 20;">SPACING</div>
+          
+          <div data-hf-id="hf-05-calm" id="f05-calm" class="calm-desk">
+            <div data-hf-id="hf-05-page" class="calm-page">
+              <div data-hf-id="hf-05-text" class="calm-text">
+                <div class="calm-line" style="width: 85%;"></div>
+                <div class="calm-line" style="width: 70%;"></div>
+                <div class="calm-line" style="width: 90%;"></div>
+                <div class="calm-line" style="width: 50%;"></div>
+                <div class="calm-line" style="width: 80%;"></div>
+                <div class="calm-line" style="width: 60%;"></div>
+                <div class="calm-line" style="width: 75%;"></div>
+                <div class="calm-line" style="width: 40%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-05-divider" class="divider"></div>
+      <div data-hf-id="hf-05-grain" class="grain"></div>
+      <div data-hf-id="hf-05-vignette" class="vignette"></div>
+    </div>
+
+    <!-- Caption -->
+    <div data-hf-id="hf-05-capwrap" id="f05-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+      <div data-hf-id="hf-05-pill" id="f05-pill" class="caption-pill">
+        <span data-hf-id="hf-05-cap" id="f05-caption" class="caption-text">This is why cramming never works.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["05-implication"] = tl;
+
+    const chaos = document.getElementById("f05-chaos");
+    const calm = document.getElementById("f05-calm");
+    const labelLeft = document.querySelector(".side-label.left");
+    const labelRight = document.querySelector(".side-label.right");
+    const chaosBooks = document.querySelectorAll(".chaos-book");
+    const chaosNotes = document.querySelectorAll(".chaos-note");
+    const capwrap = document.getElementById("f05-capwrap");
+    const capText = document.getElementById("f05-caption");
+
+    // Initial states - use xPercent for centering instead of CSS transform
+    gsap.set(chaos, { opacity: 0 });
+    gsap.set(calm, { opacity: 0 });
+    gsap.set(labelLeft, { opacity: 0, y: 10, xPercent: -50 });
+    gsap.set(labelRight, { opacity: 0, y: 10, xPercent: -50 });
+    gsap.set(capwrap, { opacity: 0 });
+
+    // Predefined rotation values instead of random()
+    const bookRotations = [-25, 18, -12, 22, -8];
+    const bookX = [-15, 12, -8, 18, -12];
+    const bookY = [-10, 8, -12, 6, -8];
+    const noteRotations = [-18, 14, -8];
+    const noteX = [-12, 10, -8];
+
+    // 0.0 - 2.0s: Left side (chaos) appears
+    tl.to(chaos, { opacity: 1, duration: 0.8, ease: "power2.out" }, 0.5);
+    tl.to(labelLeft, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.8);
+
+    // 1.0 - 3.0s: Chaos books and notes scatter with fixed values
+    tl.to(chaosBooks, { 
+      rotation: function(i) { return bookRotations[i]; },
+      x: function(i) { return bookX[i]; },
+      y: function(i) { return bookY[i]; },
+      duration: 0.5, 
+      stagger: 0.1,
+      ease: "power2.out" 
+    }, 1.0);
+    tl.to(chaosNotes, { 
+      rotation: function(i) { return noteRotations[i]; },
+      x: function(i) { return noteX[i]; },
+      duration: 0.4, 
+      stagger: 0.1,
+      ease: "power2.out" 
+    }, 1.5);
+
+    // 4.0 - 6.0s: Chaos starts fading (cramming fails)
+    tl.to(chaos, { opacity: 0.3, duration: 1.5, ease: "power2.in" }, 4.0);
+    tl.to(labelLeft, { opacity: 0.3, duration: 1.0 }, 4.0);
+
+    // 5.0 - 7.0s: Right side (calm) appears
+    tl.to(calm, { opacity: 1, duration: 1.0, ease: "power2.out" }, 5.0);
+    tl.to(labelRight, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 5.5);
+
+    // 7.0 - 10.0s: Slow push-in on calm side
+    tl.to(calm, { scale: 1.05, duration: 4, ease: "power1.inOut" }, 7.0);
+
+    // 10.0 - 12.0s: Chaos completely disappears
+    tl.to(chaos, { opacity: 0, duration: 1.5, ease: "power2.in" }, 10.0);
+    tl.to(labelLeft, { opacity: 0, duration: 1.0 }, 10.0);
+
+    // Caption updates
+    tl.to(capwrap, { opacity: 1, duration: 0.5 }, 0.5);
+
+    tl.call(() => {
+      capText.innerHTML = 'Without forgetting, there\'s no <span class="cap-hl">strengthening</span>.';
+    }, null, 4.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 3.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 4.0);
+
+    tl.call(() => {
+      capText.innerHTML = 'Spacing isn\'t a hack. It\'s how your brain <span class="cap-hl">learns</span>.';
+    }, null, 8.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 7.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 8.0);
+  </script>
+</template>

@@ -1,0 +1,65 @@
+<template>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    #root { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #000000; }
+    .cinematic-bg {
+      position: absolute; inset: -100px;
+      background-image: url('assets/02_scholar.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.6) contrast(1.1);
+    }
+  </style>
+  <div id="root" data-composition-id="02-camera" data-width="1080" data-height="1920">
+    <div id="bg-scene" class="cinematic-bg"></div>
+    
+    <div class="frame-container" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 80px;">
+      <div class="safe-zone" style="width: 100%; max-width: 920px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 100px 0;">
+        
+        <div id="diagram-overlay" style="width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 100px; opacity: 0;">
+          <div style="font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 800; color: #D4622B; margin-bottom: 20px;">OPPOSITE DIRECTION</div>
+          <svg width="400" height="100" viewBox="0 0 400 100" style="overflow: visible;">
+            <line x1="300" y1="50" x2="100" y2="50" stroke="#F2D24B" stroke-width="6" stroke-dasharray="10 10" />
+            <polygon points="100,50 120,40 120,60" fill="#F2D24B" />
+          </svg>
+        </div>
+
+        <div class="caption-wrapper" data-layout-allow-overlap style="width: 100%; display: flex; justify-content: center;">
+          <div id="f02-pill" style="background: rgba(18, 18, 18, 0.88); backdrop-filter: blur(20px); border: 1px solid rgba(242, 241, 236, 0.15); border-radius: 999px; padding: 12px 28px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); max-width: 880px; opacity: 0;">
+            <span id="f02-caption" style="font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 600; color: #F2F1EC; letter-spacing: 0.02em; text-align: center;">We assume perception works like a scanner...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["02-camera"] = tl;
+      
+      const capPill = document.getElementById("f02-pill");
+      const capText = document.getElementById("f02-caption");
+      const bgScene = document.getElementById("bg-scene");
+      const diagram = document.getElementById("diagram-overlay");
+      
+      gsap.set(capPill, { y: 10 });
+      gsap.set(diagram, { y: -20 });
+
+      tl.fromTo(bgScene, { scale: 1.1, y: -20 }, { scale: 1.0, y: 0, duration: 11.52, ease: "power1.out" }, 0);
+      
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+      
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 4.0);
+      tl.call(() => { capText.innerHTML = '...taking in the world letter by letter.'; }, null, 4.2);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 4.2);
+
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 7.5);
+      tl.call(() => { capText.innerHTML = 'But the physical wiring goes the <span style="color: #D4622B;">opposite direction</span>.'; }, null, 7.7);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 7.7);
+
+      tl.to(diagram, { opacity: 1, y: 0, duration: 0.6, ease: "back.out(1.5)" }, 8.0);
+    })();
+  </script>
+</template>

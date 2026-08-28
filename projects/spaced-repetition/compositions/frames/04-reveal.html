@@ -1,0 +1,355 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Warm study environment */
+    .study-warm {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        #1a1510 0%, 
+        #252015 30%,
+        #2a2218 60%, 
+        #15120d 100%
+      );
+    }
+
+    /* Book progression - three stages */
+    .book-stage {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 350px;
+      height: 250px;
+      perspective: 1000px;
+      opacity: 0;
+    }
+
+    .book-obj {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(12deg) rotateY(-8deg);
+    }
+
+    .book-page-content {
+      position: absolute;
+      width: 90%;
+      height: 90%;
+      top: 5%;
+      left: 5%;
+      background: linear-gradient(135deg, #f5f0e0 0%, #e8e0d0 100%);
+      border-radius: 3px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .page-text {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+    }
+
+    .page-line {
+      height: 2px;
+      background: rgba(80, 60, 30, 0.4);
+      margin-bottom: 14px;
+    }
+
+    /* Bookmark */
+    .bookmark {
+      position: absolute;
+      top: -10px;
+      right: 30px;
+      width: 20px;
+      height: 40px;
+      background: #F08040;
+      border-radius: 0 0 3px 3px;
+      opacity: 0;
+    }
+
+    /* Calendar marks */
+    .calendar-marks {
+      position: absolute;
+      top: 20%;
+      right: 10%;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      opacity: 0;
+    }
+
+    .cal-mark {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(212, 98, 43, 0.4);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #D4622B;
+    }
+
+    .cal-mark.filled {
+      background: rgba(212, 98, 43, 0.2);
+      border-color: #F08040;
+    }
+
+    /* Growth visualization - path becoming worn */
+    .path-worn {
+      position: absolute;
+      bottom: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 100px;
+      opacity: 0;
+    }
+
+    /* Grain and vignette */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, 
+        transparent 30%, 
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Caption */
+    .caption-wrapper {
+      position: absolute;
+      bottom: 180px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      border-radius: 999px;
+      padding: 10px 24px;
+      max-width: 800px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(242, 241, 236, 0.85);
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 700;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-04-root" id="root" data-composition-id="04-reveal" data-width="1080" data-height="1920" data-duration="15.32">
+    
+    <!-- Cinematic scene -->
+    <div data-hf-id="hf-04-scene" id="f04-scene" class="clip scene-layer" data-start="0" data-duration="15.32" data-track-index="0">
+      <div data-hf-id="hf-04-env" class="study-warm"></div>
+
+      <!-- Stage 1: First read - slightly yellowed page -->
+      <div data-hf-id="hf-04-stage1" id="f04-stage1" class="book-stage" style="transform: translate(-50%, -50%) rotateX(12deg) rotateY(-8deg);">
+        <div data-hf-id="hf-04-book1" class="book-obj">
+          <div data-hf-id="hf-04-page1" class="book-page-content" style="background: linear-gradient(135deg, #f0e8d0 0%, #e0d8c0 100%);">
+            <div data-hf-id="hf-04-text1" class="page-text">
+              <div class="page-line" style="width: 85%;"></div>
+              <div class="page-line" style="width: 70%;"></div>
+              <div class="page-line" style="width: 90%;"></div>
+              <div class="page-line" style="width: 50%;"></div>
+              <div class="page-line" style="width: 80%;"></div>
+              <div class="page-line" style="width: 60%;"></div>
+              <div class="page-line" style="width: 75%;"></div>
+            </div>
+            <div data-hf-id="hf-04-bookmark1" class="bookmark"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 2: Second review - brighter page -->
+      <div data-hf-id="hf-04-stage2" id="f04-stage2" class="book-stage" style="transform: translate(-50%, -50%) rotateX(10deg) rotateY(-5deg);">
+        <div data-hf-id="hf-04-book2" class="book-obj">
+          <div data-hf-id="hf-04-page2" class="book-page-content" style="background: linear-gradient(135deg, #f8f4e8 0%, #f0ece0 100%);">
+            <div data-hf-id="hf-04-text2" class="page-text">
+              <div class="page-line" style="width: 85%; background: rgba(60, 45, 20, 0.5);"></div>
+              <div class="page-line" style="width: 70%; background: rgba(60, 45, 20, 0.5);"></div>
+              <div class="page-line" style="width: 90%; background: rgba(60, 45, 20, 0.5);"></div>
+              <div class="page-line" style="width: 50%; background: rgba(60, 45, 20, 0.5);"></div>
+              <div class="page-line" style="width: 80%; background: rgba(60, 45, 20, 0.5);"></div>
+              <div class="page-line" style="width: 60%; background: rgba(60, 45, 20, 0.5);"></div>
+              <div class="page-line" style="width: 75%; background: rgba(60, 45, 20, 0.5);"></div>
+            </div>
+            <div data-hf-id="hf-04-bookmark2" class="bookmark" style="background: #F2D24B;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stage 3: Final review - crisp, permanent -->
+      <div data-hf-id="hf-04-stage3" id="f04-stage3" class="book-stage" style="transform: translate(-50%, -50%) rotateX(8deg) rotateY(-3deg);">
+        <div data-hf-id="hf-04-book3" class="book-obj">
+          <div data-hf-id="hf-04-page3" class="book-page-content" style="background: linear-gradient(135deg, #fffefa 0%, #f8f6f0 100%);">
+            <div data-hf-id="hf-04-text3" class="page-text">
+              <div class="page-line" style="width: 85%; background: rgba(40, 30, 15, 0.6);"></div>
+              <div class="page-line" style="width: 70%; background: rgba(40, 30, 15, 0.6);"></div>
+              <div class="page-line" style="width: 90%; background: rgba(40, 30, 15, 0.6);"></div>
+              <div class="page-line" style="width: 50%; background: rgba(40, 30, 15, 0.6);"></div>
+              <div class="page-line" style="width: 80%; background: rgba(40, 30, 15, 0.6);"></div>
+              <div class="page-line" style="width: 60%; background: rgba(40, 30, 15, 0.6);"></div>
+              <div class="page-line" style="width: 75%; background: rgba(40, 30, 15, 0.6);"></div>
+            </div>
+            <div data-hf-id="hf-04-bookmark3" class="bookmark" style="background: #F2D24B;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar marks -->
+      <div data-hf-id="hf-04-calendar" id="f04-calendar" class="calendar-marks">
+        <div data-hf-id="hf-cm1" class="cal-mark">D1</div>
+        <div data-hf-id="hf-cm2" class="cal-mark">D3</div>
+        <div data-hf-id="hf-cm3" class="cal-mark">D7</div>
+        <div data-hf-id="hf-cm4" class="cal-mark filled">D14</div>
+        <div data-hf-id="hf-cm5" class="cal-mark filled">D30</div>
+      </div>
+
+      <!-- Worn path visualization -->
+      <div data-hf-id="hf-04-path" id="f04-path" class="path-worn">
+        <svg viewBox="0 0 600 100" fill="none">
+          <path d="M 0 50 Q 150 20 300 50 Q 450 80 600 50" stroke="rgba(242, 210, 75, 0.3)" stroke-width="3" fill="none"/>
+          <path d="M 0 50 Q 150 20 300 50 Q 450 80 600 50" stroke="#F2D24B" stroke-width="4" fill="none" stroke-dasharray="800" stroke-dashoffset="800" id="path-line"/>
+        </svg>
+      </div>
+
+      <div data-hf-id="hf-04-grain" class="grain"></div>
+      <div data-hf-id="hf-04-vignette" class="vignette"></div>
+    </div>
+
+    <!-- Caption -->
+    <div data-hf-id="hf-04-capwrap" id="f04-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+      <div data-hf-id="hf-04-pill" id="f04-pill" class="caption-pill">
+        <span data-hf-id="hf-04-cap" id="f04-caption" class="caption-text">But here's what he discovered next.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["04-reveal"] = tl;
+
+    const stage1 = document.getElementById("f04-stage1");
+    const stage2 = document.getElementById("f04-stage2");
+    const stage3 = document.getElementById("f04-stage3");
+    const calendar = document.getElementById("f04-calendar");
+    const calMarks = document.querySelectorAll(".cal-mark");
+    const pathLine = document.getElementById("path-line");
+    const capwrap = document.getElementById("f04-capwrap");
+    const capText = document.getElementById("f04-caption");
+
+    // Initial states
+    gsap.set(stage1, { opacity: 0, scale: 0.9 });
+    gsap.set(stage2, { opacity: 0, scale: 0.9 });
+    gsap.set(stage3, { opacity: 0, scale: 0.9 });
+    gsap.set(calendar, { opacity: 0 });
+    gsap.set(capwrap, { opacity: 0 });
+
+    // 0.0 - 2.0s: Stage 1 appears - first read
+    tl.to(stage1, { opacity: 1, scale: 1, duration: 1.0, ease: "power2.out" }, 0.5);
+
+    // 2.0 - 3.0s: Bookmark appears
+    tl.to(".bookmark", { opacity: 1, duration: 0.5, ease: "power2.out" }, 2.0);
+
+    // 3.0 - 5.0s: Transition to stage 2 - review
+    tl.to(stage1, { opacity: 0, scale: 0.95, duration: 0.8, ease: "power2.in" }, 4.0);
+    tl.to(stage2, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 4.2);
+
+    // 5.0 - 6.0s: Calendar appears
+    tl.to(calendar, { opacity: 1, duration: 0.6, ease: "power2.out" }, 5.0);
+    tl.to(calMarks, { opacity: 1, duration: 0.3, stagger: 0.2, ease: "power2.out" }, 5.2);
+
+    // 7.0 - 9.0s: Transition to stage 3 - permanent memory
+    tl.to(stage2, { opacity: 0, scale: 0.95, duration: 0.8, ease: "power2.in" }, 7.5);
+    tl.to(stage3, { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" }, 7.7);
+
+    // 9.0 - 11.0s: Path draws itself (worn path metaphor)
+    tl.to(pathLine, { strokeDashoffset: 0, duration: 2.0, ease: "power2.inOut" }, 9.0);
+
+    // 11.0 - 13.0s: Slow push-in on final book
+    tl.to(stage3, { scale: 1.1, duration: 3, ease: "power1.inOut" }, 10.0);
+
+    // Caption updates
+    tl.to(capwrap, { opacity: 1, duration: 0.5 }, 0.5);
+
+    tl.call(() => {
+      capText.innerHTML = 'If you review right before you forget, the curve <span class="cap-hl">resets</span>.';
+    }, null, 3.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 2.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 3.0);
+
+    tl.call(() => {
+      capText.innerHTML = 'Each time it resets, the decay gets <span class="cap-hl">slower</span>.';
+    }, null, 6.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 5.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 6.0);
+
+    tl.call(() => {
+      capText.innerHTML = 'The memory gets <span class="cap-hl">stronger</span>.';
+    }, null, 10.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 9.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 10.0);
+  </script>
+</template>

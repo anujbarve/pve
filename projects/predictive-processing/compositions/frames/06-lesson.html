@@ -1,0 +1,343 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .ground {
+      position: absolute;
+      inset: 0;
+      background: #000000;
+    }
+
+    .bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(242, 241, 236, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 241, 236, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.7;
+    }
+
+    .frame-container {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 60px;
+    }
+
+    .safe-zone {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Comparison Prop */
+    .hero-media-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .image-card {
+      width: 380px;
+      height: 380px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid rgba(242, 210, 75, 0.4);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(242, 210, 75, 0.15);
+      position: relative;
+      background: #111111;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .manifesto-card {
+      width: 480px;
+      height: 380px;
+      background: rgba(242, 210, 75, 0.06);
+      border: 2px solid #F2D24B;
+      border-radius: 24px;
+      padding: 24px 26px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(242, 210, 75, 0.2);
+    }
+
+    .prop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #F2D24B;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 12px #F2D24B;
+    }
+
+    .manifesto-core {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+    }
+
+    .manifesto-title {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: #F2D24B;
+      line-height: 1.15;
+    }
+
+    .manifesto-subtitle {
+      font-size: 14px;
+      color: #F2F1EC;
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    .prop-footer {
+      font-size: 14px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.05em;
+      text-align: center;
+      border-top: 1px solid rgba(242, 210, 75, 0.2);
+      padding-top: 8px;
+    }
+
+    /* Content block */
+    .content-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .kicker {
+      font-family: "Inter", sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      margin-bottom: 12px;
+    }
+
+    .headline {
+      font-family: "Playfair Display", serif;
+      font-size: 58px;
+      font-weight: 700;
+      line-height: 1.15;
+      color: #F2F1EC;
+      margin-bottom: 16px;
+    }
+
+    .headline .highlight {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    /* Dynamic Captions Pill */
+    .caption-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(242, 241, 236, 0.18);
+      border-radius: 999px;
+      padding: 14px 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      max-width: 920px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .cap-hl {
+      color: #F2D24B;
+      font-weight: 800;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-06-root" id="root" data-composition-id="06-lesson" data-width="1080" data-height="1920" data-duration="10.44">
+    <div data-hf-id="hf-06-ground" id="f06-ground" class="clip ground" data-start="0" data-duration="10.44" data-track-index="0">
+      <div data-hf-id="hf-06-grid" id="f06-grid" class="bg-grid"></div>
+    </div>
+
+    <div data-hf-id="hf-06-frame" id="f06-frame" class="clip frame-container" data-start="0" data-duration="10.44" data-track-index="1">
+      <div data-hf-id="hf-06-szone" class="safe-zone">
+        
+        <!-- Media + Master Manifesto Prop -->
+        <div data-hf-id="hf-06-hero" id="f06-hero" class="hero-media-wrap">
+          <div data-hf-id="hf-06-imgcard" id="f06-imgcard" class="image-card">
+            <img data-hf-id="hf-99ac" src="assets/05_brain.jpg" alt="Connectome World Model">
+            <div data-hf-id="hf-124b" class="image-tag">CONNECTOME · UNIFIED REALITY</div>
+          </div>
+
+          <div data-hf-id="hf-06-manifestocard" id="f06-manifestocard" class="manifesto-card">
+            <div class="prop-header">
+              <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>CORE DIRECTIVE</span>
+              </div>
+              <span style="color: #F2D24B; font-weight: 700; font-size: 15px;">SYNTHESIS</span>
+            </div>
+
+            <div class="manifesto-core">
+              <div class="manifesto-title">Controlled Hallucination</div>
+              <div class="manifesto-subtitle">Your reality is an internally simulated prediction, continually calibrated by sensory error signals.</div>
+            </div>
+
+            <div class="prop-footer">PREDICTIVE PROCESSING THEOREM</div>
+          </div>
+        </div>
+
+        <!-- Typography -->
+        <div data-hf-id="hf-06-content" class="content-block">
+          <div data-hf-id="hf-06-kicker" id="f06-kicker" class="kicker">THE FINAL TRUTH</div>
+          <h2 data-hf-id="hf-06-hl" id="f06-headline" class="headline">
+            Reality is a <span class="highlight">controlled hallucination</span>.
+          </h2>
+        </div>
+
+        <!-- Subtitle Pill -->
+        <div data-hf-id="hf-06-capwrap" class="caption-wrapper" data-layout-allow-overlap>
+          <div data-hf-id="hf-06-pill" id="f06-pill" class="caption-pill">
+            <span data-hf-id="hf-06-cap" id="f06-caption" class="caption-text">You never experience objective reality...</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["06-lesson"] = tl;
+
+    const imgCard = document.getElementById("f06-imgcard");
+    const manifestoCard = document.getElementById("f06-manifestocard");
+    const kicker = document.getElementById("f06-kicker");
+    const headline = document.getElementById("f06-headline");
+    const capPill = document.getElementById("f06-pill");
+    const capText = document.getElementById("f06-caption");
+
+    // Initial states
+    gsap.set(imgCard, { opacity: 0, scale: 0.9, y: 20 });
+    gsap.set(manifestoCard, { opacity: 0, scale: 0.9, y: 20 });
+    gsap.set(kicker, { opacity: 0, y: -15 });
+    gsap.set(headline, { opacity: 0, y: 25 });
+    gsap.set(capPill, { opacity: 0, y: 20 });
+
+    // Reveal props
+    tl.to(imgCard, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+    tl.to(manifestoCard, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.35);
+
+    // 0.4s: "You never experience objective reality."
+    tl.to(kicker, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.4);
+    tl.call(() => {
+      capText.innerHTML = 'You <span class="cap-hl">never experience</span> objective reality.';
+    }, null, 0.4);
+
+    // 4.2s: "You experience your brain's internal expectation of reality, constantly corrected by the world."
+    tl.to(headline, { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 4.2);
+    tl.to(capPill, { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, 4.0);
+    tl.call(() => {
+      capText.innerHTML = 'Experience your brain\'s internal model, <span class="cap-hl">calibrated by the world</span>.';
+    }, null, 4.25);
+    tl.to(capPill, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, 4.25);
+
+    // Pulse manifesto card
+    tl.to(manifestoCard, { scale: 1.03, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 1.2);
+    tl.to(imgCard, { y: -6, duration: 2.8, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.2);
+  </script>
+</template>

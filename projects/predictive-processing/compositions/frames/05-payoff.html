@@ -1,0 +1,71 @@
+<template>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    #root { width: 1080px; height: 1920px; position: relative; overflow: hidden; background: #000000; }
+    .cinematic-bg {
+      position: absolute; inset: -100px;
+      background-image: url('assets/01_codex.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.7) contrast(1.1);
+      opacity: 0;
+    }
+    .wireframe-bg {
+      position: absolute; inset: -100px;
+      background-image: 
+        linear-gradient(rgba(242, 210, 75, 0.2) 2px, transparent 2px),
+        linear-gradient(90deg, rgba(242, 210, 75, 0.2) 2px, transparent 2px);
+      background-size: 80px 80px;
+      opacity: 0;
+      transform: perspective(600px) rotateX(40deg) scale(2);
+    }
+  </style>
+  <div id="root" data-composition-id="05-payoff" data-width="1080" data-height="1920">
+    <div id="bg-scene" class="cinematic-bg"></div>
+    <div id="wire-bg" class="wireframe-bg"></div>
+
+    <div class="frame-container" style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 0 80px;">
+      <div class="safe-zone" style="width: 100%; max-width: 920px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        
+        <div class="caption-wrapper" data-layout-allow-overlap style="width: 100%; display: flex; justify-content: center; margin-top: 40px;">
+          <div id="f05-pill" style="background: rgba(18, 18, 18, 0.88); backdrop-filter: blur(20px); border: 1px solid rgba(242, 241, 236, 0.15); border-radius: 999px; padding: 12px 28px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6); max-width: 880px; opacity: 0;">
+            <span id="f05-caption" style="font-family: 'Inter', sans-serif; font-size: 26px; font-weight: 600; color: #F2F1EC; letter-spacing: 0.02em; text-align: center;">You aren't reading the book.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+    (function() {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["05-payoff"] = tl;
+      
+      const bgScene = document.getElementById("bg-scene");
+      const wireBg = document.getElementById("wire-bg");
+      
+      const capPill = document.getElementById("f05-pill");
+      const capText = document.getElementById("f05-caption");
+      
+      gsap.set(capPill, { y: 10 });
+      
+      tl.to(wireBg, { opacity: 1, duration: 1.0 }, 0.5);
+      tl.to(wireBg, { rotationZ: 5, duration: 9.20, ease: "none" }, 0.5); 
+
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.5);
+      
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 2.5);
+      tl.call(() => { capText.innerHTML = 'You are reading your brain\'s <span style="color: #F2D24B;">expectation</span> of the book...'; }, null, 2.7);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 2.7);
+
+      tl.to(bgScene, { opacity: 1, duration: 2.0, ease: "power2.inOut" }, 3.0);
+      tl.to(bgScene, { scale: 1.1, duration: 6.0, ease: "power1.out" }, 3.0);
+      tl.to(wireBg, { opacity: 0, duration: 2.0 }, 3.0);
+      
+      tl.to(capPill, { opacity: 0, y: -10, duration: 0.2, ease: "power2.in" }, 6.5);
+      tl.call(() => { capText.innerHTML = '...constantly corrected by reality.'; }, null, 6.7);
+      tl.to(capPill, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, 6.7);
+    })();
+  </script>
+</template>

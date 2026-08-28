@@ -1,0 +1,240 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 35% 45%, rgba(212, 98, 43, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 75% 65%, rgba(242, 210, 75, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+    }
+
+    .table-surface {
+      position: absolute;
+      bottom: 0;
+      left: -100px;
+      right: -100px;
+      height: 1200px;
+      background: linear-gradient(175deg, rgba(25, 22, 18, 0.9) 0%, rgba(10, 10, 10, 0.98) 100%);
+      transform: perspective(1000px) rotateX(45deg);
+      border-top: 1px solid rgba(212, 98, 43, 0.2);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dual-spatial-stage {
+      position: relative;
+      width: 880px;
+      height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Actual Real Object */
+    .real-object-wrap {
+      position: absolute;
+      left: 100px;
+      top: 180px;
+      width: 260px;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Phantom Predicted Object */
+    .phantom-object-wrap {
+      position: absolute;
+      right: 100px;
+      top: 180px;
+      width: 260px;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .object-tag {
+      position: absolute;
+      top: -30px;
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* Connecting Error Vector */
+    .error-vector-svg {
+      position: absolute;
+      inset: 0;
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    /* Subtitle Block */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #D4622B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-fracture" data-width="1080" data-height="1920" data-duration="8.66">
+    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow>
+      <div data-hf-id="hf-s02-table" id="s02-table" class="table-surface" data-layout-allow-overflow></div>
+    </div>
+
+    <div data-hf-id="hf-s02-view" class="scene-viewport">
+      <div data-hf-id="hf-s02-stage" id="s02-stage" class="dual-spatial-stage">
+        
+        <!-- Connecting Error Vector -->
+        <svg data-hf-id="hf-s02-vecsvg" class="error-vector-svg" viewBox="0 0 880 700">
+          <line id="s02-err-line" x1="650" y1="340" x2="230" y2="340" stroke="#D4622B" stroke-width="4" stroke-dasharray="10 10" opacity="0" />
+          <line id="s02-err-solid" x1="650" y1="340" x2="230" y2="340" stroke="#D4622B" stroke-width="4" stroke-dasharray="420" stroke-dashoffset="420" />
+          
+          <!-- Distance callout -->
+          <g id="s02-err-badge" opacity="0">
+            <rect x="380" y="315" width="120" height="50" rx="8" fill="rgba(212, 98, 43, 0.2)" stroke="#D4622B" stroke-width="2" />
+            <text x="440" y="346" text-anchor="middle" fill="#F2D24B" font-family="Inter" font-size="14" font-weight="800">Δ 2 INCHES</text>
+          </g>
+        </svg>
+
+        <!-- Real Physical Cup -->
+        <div data-hf-id="hf-s02-real" id="s02-real" class="real-object-wrap">
+          <div data-hf-id="hf-s02-realtag" class="object-tag" style="color: #F2F1EC;">ACTUAL REALITY</div>
+          <svg width="200" height="260" viewBox="0 0 200 260" fill="none">
+            <!-- Solid Ceramic Cup with lighting highlights -->
+            <ellipse cx="100" cy="50" rx="60" ry="20" fill="#222" stroke="#F2F1EC" stroke-width="3" />
+            <path d="M 40 50 L 48 210 C 48 230, 152 230, 152 210 L 160 50 Z" fill="linear-gradient(135deg, #2a2a2a 0%, #111 100%)" stroke="#F2F1EC" stroke-width="3" />
+            <ellipse cx="100" cy="210" rx="52" ry="16" fill="#181818" stroke="#F2F1EC" stroke-width="2" />
+            <path d="M 158 80 C 200 80, 200 170, 153 170" stroke="#F2F1EC" stroke-width="3" />
+          </svg>
+        </div>
+
+        <!-- Phantom Expected Cup -->
+        <div data-hf-id="hf-s02-phantom" id="s02-phantom" class="phantom-object-wrap">
+          <div data-hf-id="hf-s02-phantag" class="object-tag" style="color: #F2D24B;">BRAIN'S SIMULATION</div>
+          <svg width="200" height="260" viewBox="0 0 200 260" fill="none">
+            <ellipse cx="100" cy="50" rx="60" ry="20" stroke="#F2D24B" stroke-width="3" stroke-dasharray="6 6" fill="rgba(242, 210, 75, 0.06)" />
+            <path d="M 40 50 L 48 210 C 48 230, 152 230, 152 210 L 160 50" stroke="#F2D24B" stroke-width="3" stroke-dasharray="6 6" fill="rgba(242, 210, 75, 0.03)" />
+            <ellipse cx="100" cy="210" rx="52" ry="16" stroke="#F2D24B" stroke-width="2" stroke-dasharray="4 4" />
+            <path d="M 158 80 C 200 80, 200 170, 153 170" stroke="#F2D24B" stroke-width="3" stroke-dasharray="4 4" />
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">The cup was moved two inches left.</p>
+        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">Spatial Error Signal</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-fracture"] = tl;
+
+    const env = document.getElementById("s02-env");
+    const stage = document.getElementById("s02-stage");
+    const realObj = document.getElementById("s02-real");
+    const phantom = document.getElementById("s02-phantom");
+    const errLine = document.getElementById("s02-err-line");
+    const errSolid = document.getElementById("s02-err-solid");
+    const errBadge = document.getElementById("s02-err-badge");
+    const caption = document.getElementById("s02-caption");
+    const sub = document.getElementById("s02-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+    gsap.set(realObj, { opacity: 0, x: -30 });
+    gsap.set(phantom, { opacity: 1 });
+
+    // Cinematic push-in
+    tl.to(env, { scale: 1.05, duration: 8.66, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 8.66, ease: "power1.out" }, 0);
+
+    // 0.3s - 4.2s: "The cup was moved two inches to the left."
+    tl.to(realObj, { opacity: 1, x: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.to(errLine, { opacity: 1, duration: 0.4 }, 1.0);
+    tl.to(errSolid, { strokeDashoffset: 0, duration: 1.2, ease: "power2.out" }, 1.2);
+    tl.to(errBadge, { opacity: 1, duration: 0.5, ease: "back.out(1.5)" }, 1.8);
+
+    // 4.2s - 8.66s: "But your brain didn't wait for your eyes. It rendered a phantom object."
+    tl.call(() => {
+      caption.innerHTML = 'Your brain didn\'t wait for eyes. It <span class="accent">rendered a phantom</span>.';
+      sub.innerHTML = 'Pre-Conscious Simulation';
+    }, null, 4.2);
+
+    tl.to(phantom, { scale: 1.05, duration: 1.2, yoyo: true, repeat: 2, ease: "sine.inOut" }, 4.5);
+  </script>
+</template>

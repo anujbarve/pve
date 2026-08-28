@@ -1,0 +1,6 @@
+47.62
+shot-01-reach,0.0,10.9
+shot-02-fracture,10.9,8.66
+shot-03-projection,19.56,9.54
+shot-04-typo,29.1,9.46
+shot-05-calibration,38.56,9.06

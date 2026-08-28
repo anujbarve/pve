@@ -1,0 +1,404 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0a0a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .scene-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    /* Dark environment with subtle texture */
+    .dark-env {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        #0d0d0d 0%, 
+        #121212 50%, 
+        #0a0a0a 100%
+      );
+    }
+
+    /* Neural network visualization - fills the frame */
+    .neural-canvas {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .neural-svg {
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+
+    /* Paper crumple transition */
+    .paper-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .paper {
+      width: 600px;
+      height: 400px;
+      background: #f5f0e8;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .paper-lines {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      right: 30px;
+    }
+
+    .paper-line {
+      height: 2px;
+      background: rgba(100, 80, 50, 0.3);
+      margin-bottom: 24px;
+    }
+
+    /* Person silhouette at desk */
+    .person-scene {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      opacity: 0;
+    }
+
+    /* Screen glow on face */
+    .screen-glow {
+      position: absolute;
+      width: 400px;
+      height: 300px;
+      bottom: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: radial-gradient(ellipse, 
+        rgba(100, 150, 255, 0.1) 0%, 
+        transparent 60%
+      );
+      opacity: 0;
+    }
+
+    /* Forgetting curve on screen */
+    .curve-on-screen {
+      position: absolute;
+      width: 300px;
+      height: 200px;
+      bottom: 250px;
+      left: 50%;
+      transform: translateX(-50%) perspective(500px) rotateX(10deg);
+      opacity: 0;
+    }
+
+    /* Grain and vignette */
+    .grain {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, 
+        transparent 30%, 
+        rgba(0, 0, 0, 0.7) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Caption */
+    .caption-wrapper {
+      position: absolute;
+      bottom: 180px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      opacity: 0;
+    }
+
+    .caption-pill {
+      background: rgba(18, 18, 18, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      border-radius: 999px;
+      padding: 10px 24px;
+      max-width: 800px;
+    }
+
+    .caption-text {
+      font-family: "Inter", sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      color: rgba(242, 241, 236, 0.85);
+      text-align: center;
+    }
+
+    .cap-hl {
+      color: #D4622B;
+      font-weight: 700;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-03-root" id="root" data-composition-id="03-mechanism" data-width="1080" data-height="1920" data-duration="18.04">
+    
+    <!-- Cinematic scene -->
+    <div data-hf-id="hf-03-scene" id="f03-scene" class="clip scene-layer" data-start="0" data-duration="18.04" data-track-index="0">
+      <div data-hf-id="hf-03-env" class="dark-env"></div>
+
+      <!-- Neural network - fills the frame -->
+      <div data-hf-id="hf-03-neural" id="f03-neural" class="neural-canvas">
+        <svg data-hf-id="hf-03-svg" class="neural-svg" viewBox="0 0 1080 1920">
+          <!-- Dense neural connections -->
+          <g id="neural-connections" opacity="0">
+            <!-- Layer 1 -->
+            <line x1="200" y1="400" x2="350" y2="350" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="400" x2="350" y2="500" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="600" x2="350" y2="500" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="600" x2="350" y2="700" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="800" x2="350" y2="700" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="800" x2="350" y2="900" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="1000" x2="350" y2="900" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="1000" x2="350" y2="1100" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="1200" x2="350" y2="1100" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="1200" x2="350" y2="1300" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="1400" x2="350" y2="1300" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+            <line x1="200" y1="1400" x2="350" y2="1500" stroke="rgba(100, 180, 255, 0.3)" stroke-width="1.5"/>
+
+            <!-- Layer 2 -->
+            <line x1="350" y1="350" x2="540" y2="450" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="500" x2="540" y2="450" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="500" x2="540" y2="650" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="700" x2="540" y2="650" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="700" x2="540" y2="850" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="900" x2="540" y2="850" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="900" x2="540" y2="1050" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="1100" x2="540" y2="1050" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="1100" x2="540" y2="1250" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="1300" x2="540" y2="1250" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="1300" x2="540" y2="1450" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+            <line x1="350" y1="1500" x2="540" y2="1450" stroke="rgba(100, 180, 255, 0.4)" stroke-width="2"/>
+
+            <!-- Layer 3 -->
+            <line x1="540" y1="450" x2="730" y2="600" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="650" x2="730" y2="600" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="650" x2="730" y2="800" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="850" x2="730" y2="800" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="850" x2="730" y2="1000" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="1050" x2="730" y2="1000" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="1050" x2="730" y2="1200" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="1250" x2="730" y2="1200" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="1250" x2="730" y2="1400" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+            <line x1="540" y1="1450" x2="730" y2="1400" stroke="rgba(100, 180, 255, 0.5)" stroke-width="2.5"/>
+
+            <!-- Layer 4 -->
+            <line x1="730" y1="600" x2="880" y2="750" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="800" x2="880" y2="750" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="800" x2="880" y2="950" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="1000" x2="880" y2="950" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="1000" x2="880" y2="1150" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="1200" x2="880" y2="1150" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="1200" x2="880" y2="1350" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+            <line x1="730" y1="1400" x2="880" y2="1350" stroke="rgba(100, 180, 255, 0.6)" stroke-width="3"/>
+          </g>
+
+          <!-- Nodes -->
+          <g id="neural-nodes">
+            <!-- Layer 1 nodes -->
+            <circle cx="200" cy="400" r="8" fill="rgba(100, 180, 255, 0.8)" opacity="0" class="node"/>
+            <circle cx="200" cy="600" r="8" fill="rgba(100, 180, 255, 0.8)" opacity="0" class="node"/>
+            <circle cx="200" cy="800" r="8" fill="rgba(100, 180, 255, 0.8)" opacity="0" class="node"/>
+            <circle cx="200" cy="1000" r="8" fill="rgba(100, 180, 255, 0.8)" opacity="0" class="node"/>
+            <circle cx="200" cy="1200" r="8" fill="rgba(100, 180, 255, 0.8)" opacity="0" class="node"/>
+            <circle cx="200" cy="1400" r="8" fill="rgba(100, 180, 255, 0.8)" opacity="0" class="node"/>
+
+            <!-- Layer 2 nodes -->
+            <circle cx="350" cy="350" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+            <circle cx="350" cy="500" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+            <circle cx="350" cy="700" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+            <circle cx="350" cy="900" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+            <circle cx="350" cy="1100" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+            <circle cx="350" cy="1300" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+            <circle cx="350" cy="1500" r="10" fill="rgba(100, 180, 255, 0.9)" opacity="0" class="node"/>
+
+            <!-- Layer 3 nodes -->
+            <circle cx="540" cy="450" r="12" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="540" cy="650" r="12" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="540" cy="850" r="12" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="540" cy="1050" r="12" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="540" cy="1250" r="12" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="540" cy="1450" r="12" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+
+            <!-- Layer 4 nodes -->
+            <circle cx="730" cy="600" r="14" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="730" cy="800" r="14" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="730" cy="1000" r="14" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="730" cy="1200" r="14" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+            <circle cx="730" cy="1400" r="14" fill="rgba(100, 180, 255, 1)" opacity="0" class="node"/>
+
+            <!-- Output nodes -->
+            <circle cx="880" cy="750" r="16" fill="rgba(212, 98, 43, 1)" opacity="0" class="node output"/>
+            <circle cx="880" cy="950" r="16" fill="rgba(212, 98, 43, 1)" opacity="0" class="node output"/>
+            <circle cx="880" cy="1150" r="16" fill="rgba(212, 98, 43, 1)" opacity="0" class="node output"/>
+            <circle cx="880" cy="1350" r="16" fill="rgba(212, 98, 43, 1)" opacity="0" class="node output"/>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Paper crumple overlay -->
+      <div data-hf-id="hf-03-paper" id="f03-paper" class="paper-overlay">
+        <div data-hf-id="hf-03-paperobj" class="paper">
+          <div data-hf-id="hf-03-plines" class="paper-lines">
+            <div class="paper-line" style="width: 80%;"></div>
+            <div class="paper-line" style="width: 65%;"></div>
+            <div class="paper-line" style="width: 90%;"></div>
+            <div class="paper-line" style="width: 45%;"></div>
+            <div class="paper-line" style="width: 75%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen glow -->
+      <div data-hf-id="hf-03-screen" id="f03-screen" class="screen-glow"></div>
+
+      <div data-hf-id="hf-03-grain" class="grain"></div>
+      <div data-hf-id="hf-03-vignette" class="vignette"></div>
+    </div>
+
+    <!-- Caption -->
+    <div data-hf-id="hf-03-capwrap" id="f03-capwrap" class="caption-wrapper" data-layout-allow-overlap="">
+      <div data-hf-id="hf-03-pill" id="f03-pill" class="caption-pill">
+        <span data-hf-id="hf-03-cap" id="f03-caption" class="caption-text">What he found was devastating.</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["03-mechanism"] = tl;
+
+    const neuralSvg = document.querySelector(".neural-svg");
+    const connections = document.getElementById("neural-connections");
+    const nodes = document.querySelectorAll(".node");
+    const outputNodes = document.querySelectorAll(".output");
+    const paper = document.getElementById("f03-paper");
+    const screen = document.getElementById("f03-screen");
+    const capwrap = document.getElementById("f03-capwrap");
+    const capText = document.getElementById("f03-caption");
+
+    // Initial states
+    gsap.set(paper, { opacity: 0 });
+    gsap.set(screen, { opacity: 0 });
+    gsap.set(capwrap, { opacity: 0 });
+
+    // 0.0 - 2.0s: Neural network fades in, filling the frame
+    tl.to(neuralSvg, { opacity: 1, duration: 1.5, ease: "power2.out" }, 0.3);
+    tl.to(connections, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0.5);
+    tl.to(nodes, { opacity: 1, duration: 0.5, stagger: 0.05, ease: "power2.out" }, 1.0);
+
+    // 2.0 - 6.0s: Slow push-in on network
+    tl.to(neuralSvg, { scale: 1.15, duration: 6, ease: "power1.inOut" }, 2.0);
+
+    // 5.0 - 10.0s: Connections start dimming (forgetting)
+    tl.to("line", { 
+      stroke: "rgba(100, 180, 255, 0.1)", 
+      duration: 2, 
+      stagger: { each: 0.1, from: "random" },
+      ease: "power2.in" 
+    }, 5.0);
+
+    // 8.0 - 12.0s: Nodes start disappearing
+    tl.to(nodes, { 
+      opacity: 0, 
+      scale: 0.5, 
+      duration: 0.8, 
+      stagger: { each: 0.1, from: "random" },
+      ease: "power2.in" 
+    }, 8.0);
+
+    // 10.0 - 12.0s: Paper appears (the network was drawn on paper)
+    tl.to(paper, { opacity: 1, duration: 0.8, ease: "power2.out" }, 10.0);
+    tl.to(neuralSvg, { opacity: 0, duration: 0.5 }, 10.5);
+
+    // 12.0 - 14.0s: Paper crumples (visual metaphor for forgetting)
+    tl.to(paper, { 
+      scale: 0.8, 
+      rotation: -5, 
+      borderRadius: "50%", 
+      duration: 1.5, 
+      ease: "power2.in" 
+    }, 12.0);
+    tl.to(paper, { opacity: 0, duration: 0.5, ease: "power2.in" }, 13.5);
+
+    // 14.0 - 16.0s: Screen appears with curve
+    tl.to(screen, { opacity: 1, duration: 1.0, ease: "power2.out" }, 14.0);
+
+    // Caption updates
+    tl.to(capwrap, { opacity: 1, duration: 0.5 }, 0.5);
+
+    tl.call(() => {
+      capText.innerHTML = 'Without review, you lose <span class="cap-hl">70%</span> of new information within 24 hours.';
+    }, null, 3.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 2.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 3.0);
+
+    tl.call(() => {
+      capText.innerHTML = 'The curve doesn\'t decline gently. It falls off a <span class="cap-hl">cliff</span>.';
+    }, null, 8.0);
+    tl.to(capwrap, { opacity: 0, duration: 0.3 }, 7.8);
+    tl.to(capwrap, { opacity: 1, duration: 0.4 }, 8.0);
+
+    // Continuous pulse on output nodes
+    tl.to(outputNodes, { 
+      scale: 1.3, 
+      duration: 1.5, 
+      ease: "sine.inOut", 
+      yoyo: true, 
+      repeat: 4,
+      stagger: 0.2
+    }, 0);
+  </script>
+</template>

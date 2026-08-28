@@ -1,0 +1,239 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    /* Cinematic Environment Background */
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 65% 35%, rgba(242, 210, 75, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+    }
+
+    .table-surface {
+      position: absolute;
+      bottom: 0;
+      left: -100px;
+      right: -100px;
+      height: 1200px;
+      background: linear-gradient(175deg, rgba(25, 22, 18, 0.9) 0%, rgba(10, 10, 10, 0.98) 100%);
+      transform: perspective(1000px) rotateX(45deg);
+      border-top: 1px solid rgba(242, 210, 75, 0.2);
+      box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.9);
+    }
+
+    /* Spatial Stage */
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-spatial-stage {
+      position: relative;
+      width: 800px;
+      height: 800px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Physical Hand Path */
+    .hand-reach-path {
+      position: absolute;
+      width: 400px;
+      height: 300px;
+      right: 40px;
+      bottom: 120px;
+    }
+
+    /* Ghost Cup Wireframe (Expected) */
+    .phantom-cup-wrap {
+      position: absolute;
+      left: 260px;
+      top: 240px;
+      width: 280px;
+      height: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phantom-cup-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .spatial-hud-label {
+      position: absolute;
+      top: -30px;
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: #F2D24B;
+      text-transform: uppercase;
+    }
+
+    /* Cinematic Subtitle Block */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 46px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+      letter-spacing: 0.01em;
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-reach" data-width="1080" data-height="1920" data-duration="10.90">
+    <!-- Environment -->
+    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow>
+      <div data-hf-id="hf-s01-table" id="s01-table" class="table-surface" data-layout-allow-overflow></div>
+    </div>
+
+    <!-- Viewport -->
+    <div data-hf-id="hf-s01-view" class="scene-viewport">
+      <div data-hf-id="hf-s01-stage" id="s01-stage" class="hero-spatial-stage">
+        
+        <!-- Spatial Reach Vector -->
+        <svg data-hf-id="hf-s01-pathsvg" class="hand-reach-path" viewBox="0 0 400 300" fill="none">
+          <path id="s01-reach-arc" d="M 380 280 C 300 200, 220 180, 100 150" stroke="rgba(242, 241, 236, 0.15)" stroke-width="4" stroke-dasharray="8 8" />
+          <path id="s01-reach-solid" d="M 380 280 C 300 200, 220 180, 100 150" stroke="#F2D24B" stroke-width="4" stroke-dasharray="400" stroke-dashoffset="400" />
+          <!-- Reach Target Reticle -->
+          <circle id="s01-target-dot" cx="100" cy="150" r="10" fill="#F2D24B" filter="drop-shadow(0 0 16px #F2D24B)" />
+        </svg>
+
+        <!-- The Phantom Expected Object -->
+        <div data-hf-id="hf-s01-phantom" id="s01-phantom" class="phantom-cup-wrap">
+          <div data-hf-id="hf-s01-label" id="s01-label" class="spatial-hud-label">PREDICTED POSITION</div>
+          <svg data-hf-id="hf-s01-cupsvg" class="phantom-cup-svg" viewBox="0 0 200 260" fill="none">
+            <!-- Shimmering Wireframe Ceramic Mug -->
+            <ellipse cx="100" cy="50" rx="60" ry="20" stroke="#F2D24B" stroke-width="3" stroke-dasharray="6 6" fill="rgba(242, 210, 75, 0.08)" />
+            <path d="M 40 50 L 48 210 C 48 230, 152 230, 152 210 L 160 50" stroke="#F2D24B" stroke-width="3" stroke-dasharray="6 6" fill="rgba(242, 210, 75, 0.04)" />
+            <ellipse cx="100" cy="210" rx="52" ry="16" stroke="#F2D24B" stroke-width="2" stroke-dasharray="4 4" />
+            <!-- Handle wireframe -->
+            <path d="M 158 80 C 200 80, 200 170, 153 170" stroke="#F2D24B" stroke-width="3" stroke-dasharray="4 4" />
+            
+            <!-- Pulse ripple -->
+            <circle id="s01-phantom-pulse" cx="100" cy="130" r="20" fill="none" stroke="#F2D24B" stroke-width="2" opacity="0" />
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- Film Subtitle -->
+      <div data-hf-id="hf-s01-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">Reach for your cup without looking.</p>
+        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">The Blind Reach</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-reach"] = tl;
+
+    const env = document.getElementById("s01-env");
+    const table = document.getElementById("s01-table");
+    const stage = document.getElementById("s01-stage");
+    const reachSolid = document.getElementById("s01-reach-solid");
+    const targetDot = document.getElementById("s01-target-dot");
+    const phantom = document.getElementById("s01-phantom");
+    const phantomPulse = document.getElementById("s01-phantom-pulse");
+    const caption = document.getElementById("s01-caption");
+    const sub = document.getElementById("s01-sub");
+
+    // Camera initial framing
+    gsap.set(stage, { scale: 0.95, y: 30 });
+    gsap.set(phantom, { opacity: 0, scale: 0.9 });
+    gsap.set(targetDot, { opacity: 0 });
+
+    // Slow cinematic camera track
+    tl.to(env, { scale: 1.05, duration: 10.90, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, y: 0, duration: 10.90, ease: "power1.out" }, 0);
+
+    // 0.3s - 3.8s: "Reach for your cup without looking."
+    tl.to(reachSolid, { strokeDashoffset: 0, duration: 2.2, ease: "power2.out" }, 0.4);
+    tl.to(targetDot, { opacity: 1, duration: 0.3 }, 2.0);
+
+    // 3.8s - 7.2s: "Your fingers close on empty air."
+    tl.call(() => {
+      caption.innerHTML = 'Your fingers close on <span class="accent">empty air</span>.';
+      sub.innerHTML = 'The Missing Target';
+    }, null, 3.8);
+
+    // Phantom cup materializes from the empty space
+    tl.to(phantom, { opacity: 1, scale: 1, duration: 1.2, ease: "power3.out" }, 4.0);
+    tl.fromTo(phantomPulse, { r: 20, opacity: 0.9 }, { r: 120, opacity: 0, duration: 1.8, repeat: 2, ease: "power2.out" }, 4.5);
+
+    // 7.2s - 10.9s: "For a split second, your world glitches."
+    tl.call(() => {
+      caption.innerHTML = 'For a split second, your world <span class="accent">glitches</span>.';
+      sub.innerHTML = 'Perceptual Mismatch';
+    }, null, 7.2);
+
+    tl.to(phantom, { x: 4, duration: 0.06, repeat: 7, yoyo: true, ease: "rough" }, 7.5);
+  </script>
+</template>
