@@ -1,0 +1,35 @@
+{
+  "total_duration": 46.42,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The 10,000-Watt Stain",
+      "start": 0.0,
+      "duration": 9.62
+    },
+    {
+      "id": "shot_02",
+      "name": "The Hallucinated Audience",
+      "start": 9.62,
+      "duration": 8.02
+    },
+    {
+      "id": "shot_03",
+      "name": "The Barry Manilow Test",
+      "start": 17.64,
+      "duration": 11.06
+    },
+    {
+      "id": "shot_04",
+      "name": "The Inward Vectors",
+      "start": 28.7,
+      "duration": 9.14
+    },
+    {
+      "id": "shot_05",
+      "name": "The Blackout of Judgment",
+      "start": 37.84,
+      "duration": 8.58
+    }
+  ]
+}

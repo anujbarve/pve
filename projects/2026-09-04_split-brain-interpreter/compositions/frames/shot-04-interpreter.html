@@ -1,0 +1,293 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #0b0d13 0%, #050507 100%);
+    }
+
+    .engine-floor {
+      position: absolute;
+      bottom: 0;
+      left: -100px;
+      right: -100px;
+      height: 900px;
+      background: linear-gradient(180deg, rgba(15, 18, 25, 0.95) 0%, #040507 100%);
+      transform: perspective(1000px) rotateX(55deg);
+      border-top: 1px solid rgba(242, 210, 75, 0.25);
+    }
+
+    .stage-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Theory Header Badge */
+    .theory-badge {
+      position: absolute;
+      top: 310px;
+      background: rgba(14, 17, 24, 0.85);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 22px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .badge-author {
+      font-size: 14px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.08em;
+    }
+
+    /* Dual Track Engine Stage */
+    .engine-stage {
+      position: relative;
+      width: 760px;
+      height: 620px;
+      margin-top: -40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .track-row {
+      position: relative;
+      width: 100%;
+      background: rgba(12, 15, 20, 0.9);
+      border: 1px solid rgba(242, 241, 236, 0.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+    }
+
+    .track-01 {
+      border-left: 4px solid #FFA270;
+    }
+
+    .track-02 {
+      border-left: 4px solid #F2D24B;
+      box-shadow: 0 0 35px rgba(242, 210, 75, 0.15);
+    }
+
+    .track-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .track-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .track-timing {
+      font-family: "Inter", monospace;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .timing-early {
+      background: rgba(220, 100, 40, 0.25);
+      color: #FFA270;
+      border: 1px solid rgba(255, 162, 112, 0.5);
+    }
+
+    .timing-late {
+      background: rgba(242, 210, 75, 0.2);
+      color: #F2D24B;
+      border: 1px solid rgba(242, 210, 75, 0.4);
+    }
+
+    .track-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 14px 18px;
+      border-radius: 8px;
+    }
+
+    .content-primary {
+      font-size: 18px;
+      font-weight: 700;
+      font-family: "Playfair Display", serif;
+      color: #F2F1EC;
+    }
+
+    .content-status {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Subtitles at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-interpreter" data-width="1080" data-height="1920" data-duration="9.78">
+    <div data-hf-id="hf-s04-env" id="s04-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s04-floor" id="s04-floor" class="engine-floor" data-layout-allow-overflow></div>
+
+    <div class="stage-center">
+      <!-- Theory Badge -->
+      <div data-hf-id="hf-s04-badge" id="s04-badge" class="theory-badge" data-layout-allow-overlap>
+        <span class="badge-tag">COGNITIVE MODULE</span>
+        <span class="badge-author">The Left-Brain Interpreter</span>
+      </div>
+
+      <!-- Engine Dual Track Schematic -->
+      <div data-hf-id="hf-s04-stage" id="s04-stage" class="engine-stage" data-layout-allow-overlap>
+        <!-- Track 1: Physical Action -->
+        <div id="s04-track1" class="track-row track-01">
+          <div class="track-header">
+            <span class="track-title" style="color: #FFA270;">1. Physical Action Trigger</span>
+            <span class="track-timing timing-early">t = 0 ms</span>
+          </div>
+          <div class="track-content">
+            <span class="content-primary">Body Moves / Action Initiated</span>
+            <span class="content-status" style="color: #FFA270;">Subconscious Execution</span>
+          </div>
+        </div>
+
+        <!-- Track 2: Retroactive Narrative -->
+        <div id="s04-track2" class="track-row track-02">
+          <div class="track-header">
+            <span class="track-title" style="color: #F2D24B;">2. Post-Hoc Story Weaver</span>
+            <span class="track-timing timing-late">t = +250 ms</span>
+          </div>
+          <div class="track-content">
+            <span class="content-primary">"I wanted to get a soda"</span>
+            <span class="content-status" style="color: #F2D24B;">Confabulated Reason</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s04-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">Michael Gazzaniga discovered the Left-Brain Interpreter...</p>
+        <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">The Retroactive Storytelling Circuit</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-interpreter"] = tl;
+
+    const env = document.getElementById("s04-env");
+    const stage = document.getElementById("s04-stage");
+    const track1 = document.getElementById("s04-track1");
+    const track2 = document.getElementById("s04-track2");
+    const caption = document.getElementById("s04-caption");
+    const sub = document.getElementById("s04-sub");
+
+    gsap.set(track1, { opacity: 0.4, x: -20 });
+    gsap.set(track2, { opacity: 0.3, x: 20 });
+    gsap.set(stage, { scale: 0.96 });
+
+    // Smooth push
+    tl.to(env, { scale: 1.05, duration: 9.78, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.03, duration: 9.78, ease: "power1.out" }, 0);
+
+    // Track 1 activates
+    tl.to(track1, { opacity: 1, x: 0, duration: 0.7, ease: "power2.out" }, 0.5);
+
+    // 4.6s: Second half of sentence
+    tl.call(() => {
+      caption.innerHTML = '...manufacturing logical stories to <span class="accent">explain actions it never commanded</span>.';
+      sub.innerText = 'The Post-Hoc Story Weaver';
+    }, null, 4.6);
+
+    // Track 2 activates with gold glow
+    tl.to(track2, { opacity: 1, x: 0, duration: 0.8, ease: "back.out(1.4)" }, 4.8);
+  </script>
+</template>

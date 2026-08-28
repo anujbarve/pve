@@ -1,0 +1,432 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08090C;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 75% 25%, rgba(242, 210, 75, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #0d1117 0%, #060709 100%);
+    }
+
+    .street-ground {
+      position: absolute;
+      bottom: 0;
+      left: -120px;
+      right: -120px;
+      height: 960px;
+      background: linear-gradient(180deg, rgba(20, 24, 33, 0.95) 0%, #08090C 100%);
+      transform: perspective(1000px) rotateX(55deg);
+      border-top: 2px solid rgba(242, 241, 236, 0.12);
+      box-shadow: 0 -30px 100px rgba(0, 0, 0, 0.95);
+    }
+
+    .sidewalk-grid {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 120px 120px;
+      opacity: 0.7;
+    }
+
+    .street-glow {
+      position: absolute;
+      top: 360px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(242, 210, 75, 0.12) 0%, rgba(56, 189, 248, 0.04) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Top HUD Study Tag */
+    .study-tag {
+      position: absolute;
+      top: 330px;
+      left: 80px;
+      background: rgba(15, 18, 24, 0.85);
+      border: 1px solid rgba(242, 241, 236, 0.18);
+      padding: 10px 18px;
+      border-radius: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      backdrop-filter: blur(8px);
+    }
+
+    .tag-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      font-weight: 600;
+    }
+
+    .tag-title {
+      font-size: 15px;
+      color: #F2D24B;
+      font-weight: 700;
+    }
+
+    /* Main Street Interaction Stage */
+    .interaction-stage {
+      position: relative;
+      width: 860px;
+      height: 680px;
+      margin-top: -60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    /* Direction Giver (Left) */
+    .person-giver {
+      position: relative;
+      width: 180px;
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Strangers Container (Right) */
+    .stranger-target-area {
+      position: relative;
+      width: 200px;
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .stranger-a, .stranger-b {
+      position: absolute;
+      bottom: 0;
+      width: 180px;
+      height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Person Silhouette SVG styling */
+    .silhouette-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+    }
+
+    /* Conversation Beam */
+    .convo-beam-container {
+      position: absolute;
+      top: 240px;
+      left: 190px;
+      right: 200px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .convo-line {
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #F2D24B 0%, rgba(242, 210, 75, 0.4) 50%, #F2D24B 100%);
+      box-shadow: 0 0 16px rgba(242, 210, 75, 0.6);
+      position: relative;
+    }
+
+    .convo-pulse {
+      position: absolute;
+      top: -6px;
+      left: 20%;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 12px #F2D24B;
+    }
+
+    /* The Wooden Door passing through */
+    .door-rig {
+      position: absolute;
+      top: 40px;
+      left: -400px;
+      width: 380px;
+      height: 600px;
+      transform: perspective(800px) rotateY(-18deg) rotateZ(3deg);
+      z-index: 20;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .door-slab {
+      width: 320px;
+      height: 560px;
+      background: linear-gradient(135deg, #7C4A27 0%, #4A2810 50%, #2E1708 100%);
+      border: 6px solid #9C6238;
+      border-radius: 8px;
+      box-shadow: 
+        0 30px 90px rgba(0, 0, 0, 0.95),
+        inset 0 0 40px rgba(0, 0, 0, 0.8),
+        inset 4px 4px 10px rgba(255, 255, 255, 0.15);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 30px 20px;
+    }
+
+    .door-panel {
+      width: 100%;
+      height: 140px;
+      background: linear-gradient(180deg, #5C3217 0%, #3B1E0C 100%);
+      border: 3px solid #8C552D;
+      border-radius: 4px;
+      box-shadow: inset 0 3px 8px rgba(0,0,0,0.8);
+    }
+
+    .door-knob {
+      position: absolute;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #F2D24B 0%, #997514 100%);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.9);
+    }
+
+    .worker-carrier-front {
+      position: absolute;
+      left: -70px;
+      bottom: 20px;
+      width: 90px;
+      height: 380px;
+      opacity: 0.85;
+    }
+
+    .worker-carrier-back {
+      position: absolute;
+      right: -70px;
+      bottom: 40px;
+      width: 90px;
+      height: 380px;
+      opacity: 0.85;
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-door" data-width="1080" data-height="1920" data-duration="9.62">
+    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s01-ground" id="s01-ground" class="street-ground" data-layout-allow-overflow>
+      <div class="sidewalk-grid"></div>
+    </div>
+    <div data-hf-id="hf-s01-glow" id="s01-glow" class="street-glow" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Study Badge -->
+      <div data-hf-id="hf-s01-tag" id="s01-tag" class="study-tag" data-layout-allow-overlap>
+        <span class="tag-label">Field Experiment</span>
+        <span class="tag-title">Simons & Levin (1998)</span>
+      </div>
+
+      <!-- Interaction Stage -->
+      <div data-hf-id="hf-s01-stage" id="s01-stage" class="interaction-stage" data-layout-allow-overlap>
+        
+        <!-- Direction Giver -->
+        <div data-hf-id="hf-s01-giver" id="s01-giver" class="person-giver">
+          <svg class="silhouette-svg" viewBox="0 0 160 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="80" cy="55" r="32" fill="#E2E8F0"/>
+            <path d="M40 120 C40 95, 120 95, 120 120 L135 240 L115 245 L105 160 L105 380 L85 380 L80 260 L75 380 L55 380 L55 160 L45 245 L25 240 Z" fill="#38BDF8"/>
+            <!-- Arm giving directions -->
+            <path d="M110 135 L155 125 L158 135 L112 150 Z" fill="#E2E8F0"/>
+          </svg>
+        </div>
+
+        <!-- Conversation Beam -->
+        <div data-hf-id="hf-s01-convo" id="s01-convo" class="convo-beam-container">
+          <div class="convo-line">
+            <div data-hf-id="hf-s01-pulse" id="s01-pulse" class="convo-pulse"></div>
+          </div>
+        </div>
+
+        <!-- Strangers Stage (Right) -->
+        <div data-hf-id="hf-s01-strangers" id="s01-strangers" class="stranger-target-area">
+          <!-- Stranger A (Original asking directions) -->
+          <div data-hf-id="hf-s01-stra" id="s01-stranger-a" class="stranger-a">
+            <svg class="silhouette-svg" viewBox="0 0 160 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="80" cy="55" r="32" fill="#E2E8F0"/>
+              <!-- Blue Jacket -->
+              <path d="M35 120 C35 95, 125 95, 125 120 L138 235 L120 240 L110 160 L110 380 L90 380 L80 260 L70 380 L50 380 L50 160 L40 240 L22 235 Z" fill="#64748B"/>
+            </svg>
+          </div>
+
+          <!-- Stranger B (New Person swapped behind door) -->
+          <div data-hf-id="hf-s01-strb" id="s01-stranger-b" class="stranger-b">
+            <svg class="silhouette-svg" viewBox="0 0 160 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="80" cy="62" r="30" fill="#F2D24B"/>
+              <!-- Amber / Orange Construction Jacket, shorter height -->
+              <path d="M40 128 C40 102, 120 102, 120 128 L132 230 L115 235 L106 165 L106 370 L86 370 L80 255 L74 370 L54 370 L54 165 L45 235 L28 230 Z" fill="#D4622B"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- The Door & Workers Moving Across -->
+        <div data-hf-id="hf-s01-door" id="s01-door-rig" class="door-rig" data-layout-allow-overflow data-layout-allow-overlap>
+          <div class="worker-carrier-front">
+            <svg viewBox="0 0 100 350" fill="none">
+              <circle cx="50" cy="45" r="24" fill="#64748B"/>
+              <path d="M25 90 C25 70, 75 70, 75 90 L85 200 L65 205 L60 330 L40 330 L35 205 L15 200 Z" fill="#334155"/>
+            </svg>
+          </div>
+
+          <div class="door-slab" data-layout-allow-overflow>
+            <div class="door-panel"></div>
+            <div class="door-panel"></div>
+            <div class="door-panel"></div>
+            <div class="door-knob"></div>
+          </div>
+
+          <div class="worker-carrier-back">
+            <svg viewBox="0 0 100 350" fill="none">
+              <circle cx="50" cy="45" r="24" fill="#64748B"/>
+              <path d="M25 90 C25 70, 75 70, 75 90 L85 200 L65 205 L60 330 L40 330 L35 205 L15 200 Z" fill="#334155"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s01-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">You're giving directions to a stranger on the sidewalk...</p>
+        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">The Real-World Experiment</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-door"] = tl;
+
+    const env = document.getElementById("s01-env");
+    const stage = document.getElementById("s01-stage");
+    const doorRig = document.getElementById("s01-door-rig");
+    const strangerA = document.getElementById("s01-stranger-a");
+    const strangerB = document.getElementById("s01-stranger-b");
+    const convoPulse = document.getElementById("s01-pulse");
+    const caption = document.getElementById("s01-caption");
+    const sub = document.getElementById("s01-sub");
+    const glow = document.getElementById("s01-glow");
+
+    gsap.set(strangerA, { opacity: 1, x: 0 });
+    gsap.set(strangerB, { opacity: 0, x: 0 });
+    gsap.set(doorRig, { x: -350, opacity: 0 });
+    gsap.set(stage, { scale: 0.95 });
+
+    // Slow push-in on scene
+    tl.to(stage, { scale: 1.04, duration: 9.62, ease: "power1.out" }, 0);
+    tl.to(env, { scale: 1.06, duration: 9.62, ease: "none" }, 0);
+
+    // Pulse animation across conversation beam
+    tl.to(convoPulse, { x: 380, duration: 2.2, repeat: 3, ease: "linear" }, 0);
+
+    // 4.6s: Door enters and sweeps across the interaction line
+    tl.to(doorRig, { opacity: 1, duration: 0.4 }, 4.4);
+    tl.to(doorRig, { x: 1200, duration: 3.4, ease: "power1.inOut" }, 4.5);
+
+    // Swap occurs right behind the door at 6.0s
+    tl.call(() => {
+      caption.innerHTML = 'when a door passes—<span class="accent">swapping them with a total stranger</span>.';
+      sub.innerText = 'The Swap (Simons & Levin 1998)';
+    }, null, 5.0);
+
+    tl.to(strangerA, { opacity: 0, duration: 0.1 }, 6.2);
+    tl.to(strangerB, { opacity: 1, duration: 0.1 }, 6.2);
+    tl.to(glow, { scale: 1.15, opacity: 1.0, duration: 1.5, ease: "power2.out" }, 6.2);
+  </script>
+</template>

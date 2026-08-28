@@ -1,0 +1,449 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08080a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.14) 0%, transparent 60%),
+        radial-gradient(circle at 20% 70%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0f14 0%, #050608 100%);
+    }
+
+    .neural-wave-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background-image: radial-gradient(rgba(242, 210, 75, 0.35) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Crossmodal Telemetry Header */
+    .crossmodal-header {
+      position: absolute;
+      top: 310px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .binding-status-pill {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 16, 22, 0.85);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 20px;
+      border-radius: 30px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(242, 210, 75, 0.15);
+    }
+
+    .status-pulse-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 12px #F2D24B;
+    }
+
+    .status-text-val {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #F2F1EC;
+    }
+
+    .phase-lock-counter {
+      background: rgba(14, 16, 22, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      padding: 10px 18px;
+      border-radius: 30px;
+      font-family: "Inter", monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: #38BDF8;
+      letter-spacing: 0.08em;
+    }
+
+    /* Synchrony Main Stage */
+    .sync-stage {
+      position: relative;
+      width: 780px;
+      height: 640px;
+      margin-top: -60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sync-divider {
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      bottom: 10px;
+      width: 20px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #1c1814 0%, #3a3229 50%, #1c1814 100%);
+      border: 1px solid rgba(242, 210, 75, 0.3);
+      border-radius: 4px;
+      z-index: 10;
+    }
+
+    /* Hand Beds */
+    .sync-hand-bed {
+      position: absolute;
+      width: 320px;
+      height: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14, 16, 22, 0.65);
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .bed-left {
+      left: 20px;
+      border: 1px dashed rgba(56, 189, 248, 0.4);
+    }
+
+    .bed-right {
+      right: 20px;
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    }
+
+    .bed-label {
+      position: absolute;
+      top: 16px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .lbl-left { color: #38BDF8; }
+    .lbl-right { color: #F2D24B; }
+
+    /* Hand Illustrations */
+    .hand-silhouette {
+      position: relative;
+      width: 170px;
+      height: 340px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .hand-palm-sync {
+      width: 130px;
+      height: 160px;
+      border-radius: 36px 36px 18px 18px;
+    }
+
+    .palm-left {
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.25) 0%, rgba(10, 14, 20, 0.9) 100%);
+      border: 1.5px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .palm-right {
+      background: linear-gradient(180deg, #9e724b 0%, #5e4028 100%);
+      border: 2px solid rgba(242, 210, 75, 0.6);
+      box-shadow: 0 0 25px rgba(242, 210, 75, 0.25);
+    }
+
+    .hand-fingers-sync {
+      display: flex;
+      gap: 10px;
+      margin-top: -10px;
+    }
+
+    .finger-sync {
+      width: 20px;
+      border-radius: 10px 10px 5px 5px;
+    }
+
+    .f-l1 { height: 95px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
+    .f-l2 { height: 125px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
+    .f-l3 { height: 115px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
+    .f-l4 { height: 85px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
+
+    .f-r1 { height: 95px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
+    .f-r2 { height: 125px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
+    .f-r3 { height: 115px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
+    .f-r4 { height: 85px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
+
+    /* Paintbrush Elements */
+    .brush-assembly {
+      position: absolute;
+      top: 140px;
+      width: 28px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 20;
+      pointer-events: none;
+    }
+
+    .brush-handle {
+      width: 10px;
+      height: 130px;
+      background: linear-gradient(180deg, #d4a373 0%, #8b5a2b 100%);
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .brush-ferrule {
+      width: 14px;
+      height: 24px;
+      background: linear-gradient(90deg, #c0c0c0 0%, #e8e8e8 50%, #909090 100%);
+      border-radius: 2px;
+    }
+
+    .brush-bristles {
+      width: 16px;
+      height: 32px;
+      background: linear-gradient(180deg, #fef08a 0%, #ca8a04 100%);
+      border-radius: 2px 2px 8px 8px;
+      box-shadow: 0 0 16px rgba(242, 210, 75, 0.8);
+    }
+
+    .brush-left { left: 160px; }
+    .brush-right { right: 160px; }
+
+    /* Tactile Contact Ripple */
+    .tactile-ripple {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid rgba(242, 210, 75, 0.8);
+      box-shadow: 0 0 20px rgba(242, 210, 75, 0.5);
+      top: 290px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ripple-l { left: 144px; border-color: rgba(56, 189, 248, 0.8); box-shadow: 0 0 20px rgba(56, 189, 248, 0.5); }
+    .ripple-r { right: 144px; }
+
+    /* Crossmodal Fusion Arc */
+    .fusion-arc-beam {
+      position: absolute;
+      top: 290px;
+      left: 200px;
+      right: 200px;
+      height: 3px;
+      background: linear-gradient(90deg, #38BDF8 0%, #F2D24B 50%, #38BDF8 100%);
+      box-shadow: 0 0 24px #F2D24B;
+      opacity: 0;
+      z-index: 15;
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-sync" data-width="1080" data-height="1920" data-duration="9.86">
+    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s02-grid" class="neural-wave-grid" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Header telemetry -->
+      <div data-hf-id="hf-s02-hdr" class="crossmodal-header" data-layout-allow-overlap>
+        <div class="binding-status-pill">
+          <div id="s02-pulse-dot" class="status-pulse-dot"></div>
+          <span id="s02-status-txt" class="status-text-val">Synchronous Stroking</span>
+        </div>
+        <div id="s02-lock-counter" class="phase-lock-counter">Phase Lock: 100.0%</div>
+      </div>
+
+      <!-- Main Stage -->
+      <div data-hf-id="hf-s02-stage" id="s02-stage" class="sync-stage" data-layout-allow-overlap>
+        <div class="sync-divider"></div>
+
+        <!-- Left Hand Bed -->
+        <div data-hf-id="hf-s02-bl" class="sync-hand-bed bed-left">
+          <span class="bed-label lbl-left">Tactile Input [Skin]</span>
+          <div class="hand-silhouette">
+            <div class="hand-fingers-sync">
+              <div class="finger-sync f-l1"></div>
+              <div class="finger-sync f-l2"></div>
+              <div class="finger-sync f-l3"></div>
+              <div class="finger-sync f-l4"></div>
+            </div>
+            <div class="hand-palm-sync palm-left"></div>
+          </div>
+        </div>
+
+        <!-- Right Hand Bed -->
+        <div data-hf-id="hf-s02-br" class="sync-hand-bed bed-right">
+          <span class="bed-label lbl-right">Visual Input [Retina]</span>
+          <div class="hand-silhouette">
+            <div class="hand-fingers-sync">
+              <div class="finger-sync f-r1"></div>
+              <div class="finger-sync f-r2"></div>
+              <div class="finger-sync f-r3"></div>
+              <div class="finger-sync f-r4"></div>
+            </div>
+            <div class="hand-palm-sync palm-right"></div>
+          </div>
+        </div>
+
+        <!-- Synchronous Paintbrushes -->
+        <div data-hf-id="hf-s02-brl" id="s02-brush-left" class="brush-assembly brush-left">
+          <div class="brush-handle"></div>
+          <div class="brush-ferrule"></div>
+          <div class="brush-bristles"></div>
+        </div>
+        <div data-hf-id="hf-s02-brr" id="s02-brush-right" class="brush-assembly brush-right">
+          <div class="brush-handle"></div>
+          <div class="brush-ferrule"></div>
+          <div class="brush-bristles"></div>
+        </div>
+
+        <!-- Contact Ripples -->
+        <div data-hf-id="hf-s02-rpl" id="s02-ripple-l" class="tactile-ripple ripple-l"></div>
+        <div data-hf-id="hf-s02-rpr" id="s02-ripple-r" class="tactile-ripple ripple-r"></div>
+
+        <!-- Fusion Beam Arc -->
+        <div data-hf-id="hf-s02-fbeam" id="s02-fusion-beam" class="fusion-arc-beam"></div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">Two paintbrushes stroke both hands in exact synchrony...</p>
+        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">Multisensory Binding Mechanism</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-sync"] = tl;
+
+    const env = document.getElementById("s02-env");
+    const stage = document.getElementById("s02-stage");
+    const brushL = document.getElementById("s02-brush-left");
+    const brushR = document.getElementById("s02-brush-right");
+    const rippleL = document.getElementById("s02-ripple-l");
+    const rippleR = document.getElementById("s02-ripple-r");
+    const fusionBeam = document.getElementById("s02-fusion-beam");
+    const statusTxt = document.getElementById("s02-status-txt");
+    const caption = document.getElementById("s02-caption");
+    const sub = document.getElementById("s02-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+    gsap.set([brushL, brushR], { y: 0 });
+    gsap.set([rippleL, rippleR], { scale: 0.5, opacity: 0 });
+    gsap.set(fusionBeam, { scaleX: 0, opacity: 0 });
+
+    // Smooth forward push
+    tl.to(env, { scale: 1.05, duration: 9.86, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 9.86, ease: "power1.out" }, 0);
+
+    // Stroke 1 (0.5s - 2.5s)
+    tl.to([brushL, brushR], { y: 110, duration: 1.4, ease: "power1.inOut" }, 0.5);
+    tl.fromTo([rippleL, rippleR], { opacity: 0.9, scale: 0.5 }, { opacity: 0, scale: 1.8, duration: 1.0, ease: "power2.out" }, 0.9);
+
+    // Stroke 1 reset (2.5s - 3.5s)
+    tl.to([brushL, brushR], { y: 0, duration: 1.0, ease: "power1.inOut" }, 2.2);
+
+    // Stroke 2 (3.6s - 5.5s)
+    tl.to([brushL, brushR], { y: 120, duration: 1.4, ease: "power1.inOut" }, 3.6);
+    tl.fromTo([rippleL, rippleR], { opacity: 0.9, scale: 0.5 }, { opacity: 0, scale: 2.0, duration: 1.0, ease: "power2.out" }, 4.0);
+
+    // 4.8s: "what your eyes see and what your skin feels fuse into a single neural event."
+    tl.call(() => {
+      caption.innerHTML = 'what your eyes see and skin feels <span class="accent">fuse into a single neural event</span>.';
+      sub.innerText = 'Crossmodal Temporal Binding';
+      statusTxt.innerText = 'CROSSMODAL FUSION ACTIVE';
+      statusTxt.style.color = '#F2D24B';
+    }, null, 4.8);
+
+    // Crossmodal Fusion Beam Ignites
+    tl.to(fusionBeam, { scaleX: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 5.0);
+
+    // Stroke 3 (6.0s - 8.2s)
+    tl.to([brushL, brushR], { y: 20, duration: 1.0, ease: "power1.inOut" }, 5.5);
+    tl.to([brushL, brushR], { y: 130, duration: 1.4, ease: "power1.inOut" }, 6.6);
+    tl.fromTo([rippleL, rippleR], { opacity: 1, scale: 0.5 }, { opacity: 0, scale: 2.2, duration: 1.0, ease: "power2.out" }, 7.0);
+  </script>
+</template>

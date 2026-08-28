@@ -1,0 +1,296 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 45%, rgba(242, 210, 75, 0.16) 0%, transparent 65%),
+        radial-gradient(circle at 80% 25%, rgba(212, 98, 43, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0f14 0%, #050507 100%);
+    }
+
+    .chamber-floor {
+      position: absolute;
+      bottom: 0;
+      left: -100px;
+      right: -100px;
+      height: 900px;
+      background: linear-gradient(180deg, rgba(16, 19, 26, 0.95) 0%, #040507 100%);
+      transform: perspective(1000px) rotateX(55deg);
+      border-top: 1px solid rgba(242, 210, 75, 0.25);
+    }
+
+    .stage-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Interrogation Question Banner */
+    .interrogation-banner {
+      position: absolute;
+      top: 310px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      background: rgba(14, 16, 22, 0.85);
+      border: 1px solid rgba(242, 241, 236, 0.2);
+      padding: 14px 28px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    }
+
+    .question-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .question-text {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #F2F1EC;
+      font-style: italic;
+    }
+
+    /* Central Confabulation Stage */
+    .confab-stage {
+      position: relative;
+      width: 720px;
+      height: 640px;
+      margin-top: -40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    /* Soda Can Vector Construction */
+    .soda-capsule {
+      position: relative;
+      width: 280px;
+      height: 420px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(242, 210, 75, 0.15) 0%, rgba(212, 98, 43, 0.2) 100%);
+      border: 2px solid rgba(242, 210, 75, 0.5);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(242, 210, 75, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      gap: 16px;
+    }
+
+    .soda-can-art {
+      width: 140px;
+      height: 240px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #e53935 0%, #b71c1c 50%, #880e4f 100%);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: inset 0 0 30px rgba(0,0,0,0.6), 0 15px 40px rgba(229, 57, 53, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 12px;
+      position: relative;
+    }
+
+    .can-top-tab {
+      width: 60px;
+      height: 12px;
+      background: #cfd8dc;
+      border-radius: 6px;
+      border: 1px solid #ffffff;
+    }
+
+    .can-label {
+      font-family: "Playfair Display", serif;
+      font-size: 26px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: 0.1em;
+      transform: rotate(-10deg);
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .can-cold-tag {
+      font-size: 9px;
+      font-weight: 800;
+      color: #ffcdd2;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .confab-quote-bubble {
+      background: rgba(10, 12, 16, 0.95);
+      border: 2px solid #F2D24B;
+      padding: 16px 28px;
+      border-radius: 12px;
+      box-shadow: 0 15px 50px rgba(242, 210, 75, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quote-lead {
+      font-size: 11px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .quote-content {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #F2F1EC;
+      font-style: italic;
+    }
+
+    /* Subtitles at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-soda" data-width="1080" data-height="1920" data-duration="11.14">
+    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s03-floor" id="s03-floor" class="chamber-floor" data-layout-allow-overflow></div>
+
+    <div class="stage-center">
+      <!-- Interrogation prompt -->
+      <div data-hf-id="hf-s03-banner" id="s03-banner" class="interrogation-banner" data-layout-allow-overlap>
+        <span class="question-tag">EXPERIMENTER PROMPT</span>
+        <span class="question-text">"Why did you stand up?"</span>
+      </div>
+
+      <!-- Confabulation Stage -->
+      <div data-hf-id="hf-s03-stage" id="s03-stage" class="confab-stage" data-layout-allow-overlap>
+        <div id="s03-soda" class="soda-capsule">
+          <div class="soda-can-art">
+            <div class="can-top-tab"></div>
+            <div class="can-label">SODA</div>
+            <div class="can-cold-tag">Fabricated Motive</div>
+          </div>
+        </div>
+
+        <div id="s03-bubble" class="confab-quote-bubble">
+          <span class="quote-lead">Left-Brain Verbal Output</span>
+          <span class="quote-content">"I wanted to get a soda."</span>
+        </div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">Yet when asked why he stood up, he didn't say 'I don't know'...</p>
+        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">The Confabulation Paradox</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-soda"] = tl;
+
+    const env = document.getElementById("s03-env");
+    const stage = document.getElementById("s03-stage");
+    const banner = document.getElementById("s03-banner");
+    const soda = document.getElementById("s03-soda");
+    const bubble = document.getElementById("s03-bubble");
+    const caption = document.getElementById("s03-caption");
+    const sub = document.getElementById("s03-sub");
+
+    gsap.set(soda, { opacity: 0, scale: 0.8, y: 30 });
+    gsap.set(bubble, { opacity: 0, scale: 0.9, y: 20 });
+    gsap.set(stage, { scale: 0.96 });
+
+    // Smooth push
+    tl.to(env, { scale: 1.05, duration: 11.14, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.03, duration: 11.14, ease: "power1.out" }, 0);
+
+    // 0.4s: Prompt banner enters
+    tl.fromTo(banner, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 0.4);
+
+    // 4.8s: "...his left brain instantly confabulated: 'I wanted to get a soda.'"
+    tl.call(() => {
+      caption.innerHTML = '...his left brain instantly confabulated: <span class="accent">"I wanted to get a soda."</span>';
+      sub.innerText = 'Instant Narrative Invention';
+    }, null, 4.8);
+
+    // Soda and dialogue bubble materialize
+    tl.to(soda, { opacity: 1, scale: 1, y: 0, duration: 0.8, ease: "back.out(1.4)" }, 5.2);
+    tl.to(bubble, { opacity: 1, scale: 1, y: 0, duration: 0.7, ease: "back.out(1.6)" }, 6.2);
+  </script>
+</template>

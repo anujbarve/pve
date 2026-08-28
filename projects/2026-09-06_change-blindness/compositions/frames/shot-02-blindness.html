@@ -1,0 +1,388 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #07080A;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 45%, rgba(212, 98, 43, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0d13 0%, #040507 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Timer HUD at top */
+    .hud-timer-bar {
+      position: absolute;
+      top: 320px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(14, 17, 23, 0.95);
+      border: 1px solid rgba(242, 241, 236, 0.2);
+      padding: 10px 24px;
+      border-radius: 8px;
+      backdrop-filter: blur(8px);
+    }
+
+    .timer-led {
+      font-family: "Inter", monospace;
+      font-size: 22px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.1em;
+    }
+
+    .timer-status {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      font-weight: 600;
+    }
+
+    /* Main Discrepancy Stage */
+    .discrepancy-stage {
+      position: relative;
+      width: 880px;
+      height: 640px;
+      margin-top: -60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Big 50% Statistic Gauge on Left */
+    .stat-card-section {
+      width: 360px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stat-circle-wrap {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gauge-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .gauge-track {
+      fill: none;
+      stroke: rgba(255, 255, 255, 0.12);
+      stroke-width: 14;
+    }
+
+    .gauge-fill {
+      fill: none;
+      stroke: #F2D24B;
+      stroke-width: 14;
+      stroke-dasharray: 565;
+      stroke-dashoffset: 282; /* 50% fill */
+      stroke-linecap: round;
+      filter: drop-shadow(0 0 12px rgba(242, 210, 75, 0.5));
+    }
+
+    .stat-number-box {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-big-val {
+      font-family: "Playfair Display", serif;
+      font-size: 58px;
+      font-weight: 800;
+      color: #F2D24B;
+      line-height: 1;
+    }
+
+    .stat-pct-sign {
+      font-size: 32px;
+      color: #F2F1EC;
+    }
+
+    .stat-caption-note {
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      font-weight: 600;
+      text-align: center;
+      max-width: 260px;
+      line-height: 1.4;
+    }
+
+    /* Mismatch Telemetry Stack on Right */
+    .mismatch-stack {
+      width: 460px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mismatch-item {
+      background: #0E121A;
+      border: 1px solid rgba(242, 210, 75, 0.35);
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .feature-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .feature-name {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      font-weight: 600;
+    }
+
+    .feature-shift {
+      font-size: 15px;
+      color: #F2F1EC;
+      font-weight: 700;
+    }
+
+    .mismatch-badge {
+      background: #2D1408;
+      border: 1px solid #FF8C42;
+      color: #FFB380;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 6px 12px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .awareness-null-banner {
+      background: #200D0D;
+      border: 1px solid #EF4444;
+      border-radius: 6px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .null-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #EF4444;
+      box-shadow: 0 0 10px #EF4444;
+    }
+
+    .null-text {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #FCA5A5;
+      text-transform: uppercase;
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-blindness" data-width="1080" data-height="1920" data-duration="8.98">
+    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Elapsed Convo HUD -->
+      <div data-hf-id="hf-s02-timer" id="s02-timer-bar" class="hud-timer-bar" data-layout-allow-overlap>
+        <span class="timer-status">CONVERSATION ELAPSED:</span>
+        <span id="s02-timer-val" class="timer-led">00:45</span>
+        <span class="timer-status">STATUS: UNBROKEN</span>
+      </div>
+
+      <!-- Discrepancy Stage -->
+      <div data-hf-id="hf-s02-stage" id="s02-stage" class="discrepancy-stage" data-layout-allow-overlap>
+        
+        <!-- Left: 50% Stat Gauge -->
+        <div data-hf-id="hf-s02-stat" id="s02-stat-box" class="stat-card-section">
+          <div class="stat-circle-wrap">
+            <svg class="gauge-svg" viewBox="0 0 200 200">
+              <circle class="gauge-track" cx="100" cy="100" r="90"/>
+              <circle data-hf-id="hf-s02-gfill" id="s02-gauge-fill" class="gauge-fill" cx="100" cy="100" r="90"/>
+            </svg>
+            <div class="stat-number-box">
+              <span class="stat-big-val">50<span class="stat-pct-sign">%+</span></span>
+            </div>
+          </div>
+          <p class="stat-caption-note">Participants Fail To Notice Complete Swap</p>
+        </div>
+
+        <!-- Right: Mismatch Item Stack -->
+        <div data-hf-id="hf-s02-stack" id="s02-mismatch-stack" class="mismatch-stack">
+          <div data-hf-id="hf-s02-item1" id="s02-item-1" class="mismatch-item">
+            <div class="feature-info">
+              <span class="feature-name">Clothing & Color</span>
+              <span class="feature-shift">Navy Coat → Orange Vest</span>
+            </div>
+            <div class="mismatch-badge">MISSED</div>
+          </div>
+
+          <div data-hf-id="hf-s02-item2" id="s02-item-2" class="mismatch-item">
+            <div class="feature-info">
+              <span class="feature-name">Physical Stature</span>
+              <span class="feature-shift">6'1" Tall → 5'9" Shorter</span>
+            </div>
+            <div class="mismatch-badge">MISSED</div>
+          </div>
+
+          <div data-hf-id="hf-s02-item3" id="s02-item-3" class="mismatch-item">
+            <div class="feature-info">
+              <span class="feature-name">Facial Identity</span>
+              <span class="feature-shift">Stranger A → Stranger B</span>
+            </div>
+            <div class="mismatch-badge">MISSED</div>
+          </div>
+
+          <div data-hf-id="hf-s02-null" id="s02-null-banner" class="awareness-null-banner">
+            <div class="null-indicator"></div>
+            <span class="null-text">Perceptual Alarm: 0% Triggered</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">Over half of all people never notice...</p>
+        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">The Perceptual Continuity Trap</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-blindness"] = tl;
+
+    const env = document.getElementById("s02-env");
+    const stage = document.getElementById("s02-stage");
+    const timerVal = document.getElementById("s02-timer-val");
+    const gaugeFill = document.getElementById("s02-gauge-fill");
+    const item1 = document.getElementById("s02-item-1");
+    const item2 = document.getElementById("s02-item-2");
+    const item3 = document.getElementById("s02-item-3");
+    const nullBanner = document.getElementById("s02-null-banner");
+    const caption = document.getElementById("s02-caption");
+    const sub = document.getElementById("s02-sub");
+
+    gsap.set(stage, { scale: 0.94 });
+    gsap.set([item1, item2, item3, nullBanner], { opacity: 0, x: 30 });
+    gsap.set(gaugeFill, { strokeDashoffset: 565 });
+
+    // Scene slow camera drift
+    tl.to(stage, { scale: 1.03, duration: 8.98, ease: "power1.out" }, 0);
+    tl.to(env, { scale: 1.05, duration: 8.98, ease: "none" }, 0);
+
+    // Gauge fills up smoothly
+    tl.to(gaugeFill, { strokeDashoffset: 282, duration: 2.2, ease: "power2.out" }, 0.5);
+
+    // Timer updates
+    tl.call(() => { timerVal.innerText = "01:20"; }, null, 2.5);
+    tl.call(() => { timerVal.innerText = "02:15"; }, null, 5.5);
+
+    // Stagger in mismatch items
+    tl.to(item1, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 1.2);
+    tl.to(item2, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 2.4);
+    tl.to(item3, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 3.6);
+    tl.to(nullBanner, { opacity: 1, x: 0, duration: 0.6, ease: "power2.out" }, 4.8);
+
+    // Caption transition at 4.2s
+    tl.call(() => {
+      caption.innerHTML = 'continuing for minutes without realizing <span class="accent">they are talking to an entirely new face</span>.';
+      sub.innerText = 'Unconscious Continuity';
+    }, null, 4.0);
+  </script>
+</template>

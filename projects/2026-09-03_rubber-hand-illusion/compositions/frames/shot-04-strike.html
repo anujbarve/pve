@@ -1,0 +1,421 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #0a0808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(239, 68, 68, 0.2) 0%, transparent 65%),
+        radial-gradient(circle at 80% 20%, rgba(242, 210, 75, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #140b0b 0%, #060404 100%);
+    }
+
+    .threat-grid-plane {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background-image: repeating-linear-gradient(0deg, rgba(239, 68, 68, 0.3) 0px, rgba(239, 68, 68, 0.3) 1px, transparent 1px, transparent 40px);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Threat Status Telemetry */
+    .threat-header {
+      position: absolute;
+      top: 310px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .alarm-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(26, 12, 12, 0.9);
+      border: 1px solid rgba(239, 68, 68, 0.5);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 25px rgba(239, 68, 68, 0.3);
+    }
+
+    .alarm-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #EF4444;
+      box-shadow: 0 0 16px #EF4444;
+    }
+
+    .alarm-txt {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FEE2E2;
+    }
+
+    .gsr-counter-pill {
+      background: rgba(26, 12, 12, 0.9);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-family: "Inter", monospace;
+      font-size: 13px;
+      font-weight: 800;
+      color: #F2D24B;
+    }
+
+    /* Strike Arena Stage */
+    .strike-stage {
+      position: relative;
+      width: 780px;
+      height: 640px;
+      margin-top: -60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Rubber Hand Target Bed */
+    .target-hand-bed {
+      position: absolute;
+      width: 380px;
+      height: 480px;
+      background: rgba(24, 14, 14, 0.8);
+      border: 2px solid rgba(239, 68, 68, 0.6);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.9), inset 0 0 40px rgba(239, 68, 68, 0.2);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .target-hand-model {
+      position: relative;
+      width: 180px;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .target-palm {
+      width: 140px;
+      height: 160px;
+      background: linear-gradient(180deg, #F2D24B 0%, #B91C1C 100%);
+      border-radius: 36px 36px 18px 18px;
+      border: 2px solid #EF4444;
+      box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+    }
+
+    .target-fingers {
+      display: flex;
+      gap: 10px;
+      margin-top: -10px;
+    }
+
+    .target-finger {
+      width: 22px;
+      background: linear-gradient(180deg, #F2D24B 0%, #DC2626 100%);
+      border: 1.5px solid #EF4444;
+      border-radius: 12px 12px 6px 6px;
+    }
+
+    .tf-1 { height: 95px; }
+    .tf-2 { height: 125px; }
+    .tf-3 { height: 115px; }
+    .tf-4 { height: 85px; }
+
+    /* The Descending Hammer */
+    .hammer-assembly {
+      position: absolute;
+      top: -140px;
+      left: 50%;
+      transform: translateX(-50%) rotate(-25deg);
+      width: 160px;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 30;
+      pointer-events: none;
+    }
+
+    .hammer-head {
+      position: relative;
+      width: 120px;
+      height: 48px;
+      background: linear-gradient(180deg, #94a3b8 0%, #475569 50%, #1e293b 100%);
+      border-radius: 6px;
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8px;
+    }
+
+    .hammer-claw {
+      width: 28px;
+      height: 32px;
+      background: #475569;
+      border-radius: 0 12px 0 0;
+      border: 1px solid #94a3b8;
+    }
+
+    .hammer-face {
+      width: 24px;
+      height: 36px;
+      background: #cbd5e1;
+      border-radius: 4px;
+      border: 1px solid #ffffff;
+    }
+
+    .hammer-shaft {
+      width: 20px;
+      height: 240px;
+      background: linear-gradient(90deg, #78350f 0%, #b45309 50%, #451a03 100%);
+      border-radius: 4px;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    /* Shockwave ring */
+    .impact-shockwave {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 4px solid #EF4444;
+      box-shadow: 0 0 50px #EF4444;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 25;
+    }
+
+    /* Physiological ECG / GSR Oscilloscope Card */
+    .telemetry-tray {
+      position: absolute;
+      bottom: 20px;
+      left: 30px;
+      right: 30px;
+      background: rgba(14, 8, 8, 0.95);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      padding: 12px 20px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    }
+
+    .ecg-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ecg-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: #A0A09C;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .ecg-val {
+      font-family: "Inter", monospace;
+      font-size: 18px;
+      font-weight: 800;
+      color: #EF4444;
+    }
+
+    .threat-tag {
+      font-size: 11px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-strike" data-width="1080" data-height="1920" data-duration="11.46">
+    <div data-hf-id="hf-s04-env" id="s04-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s04-grid" class="threat-grid-plane" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Header telemetry -->
+      <div data-hf-id="hf-s04-hdr" class="threat-header" data-layout-allow-overlap>
+        <div class="alarm-badge">
+          <div id="s04-alarm-dot" class="alarm-dot"></div>
+          <span id="s04-alarm-txt" class="alarm-txt">Threat Reflex Active</span>
+        </div>
+        <div id="s04-gsr-val" class="gsr-counter-pill">GSR: +420% ΔμS</div>
+      </div>
+
+      <!-- Main Stage -->
+      <div data-hf-id="hf-s04-stage" id="s04-stage" class="strike-stage" data-layout-allow-overlap>
+        <div data-hf-id="hf-s04-tb" id="s04-target-bed" class="target-hand-bed">
+          <div class="target-hand-model">
+            <div class="target-fingers">
+              <div class="target-finger tf-1"></div>
+              <div class="target-finger tf-2"></div>
+              <div class="target-finger tf-3"></div>
+              <div class="target-finger tf-4"></div>
+            </div>
+            <div class="target-palm"></div>
+          </div>
+        </div>
+
+        <!-- Descending Hammer -->
+        <div data-hf-id="hf-s04-hmr" id="s04-hammer" class="hammer-assembly">
+          <div class="hammer-head">
+            <div class="hammer-claw"></div>
+            <div class="hammer-face"></div>
+          </div>
+          <div class="hammer-shaft"></div>
+        </div>
+
+        <!-- Impact Shockwave -->
+        <div data-hf-id="hf-s04-shk" id="s04-shockwave" class="impact-shockwave"></div>
+
+        <!-- Telemetry Tray -->
+        <div data-hf-id="hf-s04-tray" class="telemetry-tray">
+          <div class="ecg-block">
+            <span class="ecg-title">Heart Rate (ECG)</span>
+            <span id="s04-ecg-val" class="ecg-val">146 BPM [SPIKE]</span>
+          </div>
+          <span class="threat-tag">Sympathetic Surge</span>
+        </div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s04-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">When a hammer suddenly smashes the fake hand...</p>
+        <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">Acute Sympathetic Threat Response</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-strike"] = tl;
+
+    const env = document.getElementById("s04-env");
+    const stage = document.getElementById("s04-stage");
+    const hammer = document.getElementById("s04-hammer");
+    const shockwave = document.getElementById("s04-shockwave");
+    const targetBed = document.getElementById("s04-target-bed");
+    const ecgVal = document.getElementById("s04-ecg-val");
+    const caption = document.getElementById("s04-caption");
+    const sub = document.getElementById("s04-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+    gsap.set(hammer, { y: -220, opacity: 0 });
+    gsap.set(shockwave, { scale: 0.3, opacity: 0 });
+
+    // Smooth forward push
+    tl.to(env, { scale: 1.06, duration: 11.46, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.03, duration: 11.46, ease: "power1.out" }, 0);
+
+    // Hammer descends at high velocity at 1.2s (sync with audio SFX impact)
+    tl.to(hammer, { opacity: 1, duration: 0.2 }, 0.8);
+    tl.to(hammer, { y: 160, rotation: 10, duration: 0.45, ease: "power3.in" }, 0.9);
+
+    // Impact shockwave & camera jolt at 1.35s
+    tl.to(shockwave, { opacity: 1, scale: 3.5, duration: 0.30, ease: "power2.out" }, 1.35);
+    tl.to(shockwave, { opacity: 0, duration: 0.30, ease: "power2.in" }, 1.75);
+    tl.fromTo(targetBed, { scale: 1.06 }, { scale: 1.0, duration: 0.5, ease: "elastic.out(1.2, 0.4)" }, 1.35);
+
+    // 4.5s: "your nervous system fires in visceral terror—your heart spikes, defending the rubber with genuine pain reflexes."
+    tl.call(() => {
+      caption.innerHTML = 'your nervous system fires in terror, <span class="accent">defending rubber with real pain reflexes</span>.';
+      sub.innerText = 'Autonomic Evoked Defense Reflex';
+    }, null, 4.5);
+
+    // Heart rate pulse animation
+    tl.to(ecgVal, { color: "#F2D24B", duration: 0.4, repeat: 5, yoyo: true }, 4.5);
+  </script>
+</template>

@@ -1,0 +1,35 @@
+{
+  "total_duration": 44.66,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Door Experiment",
+      "start": 0.0,
+      "duration": 9.62
+    },
+    {
+      "id": "shot_02",
+      "name": "The Blind Conversation",
+      "start": 9.62,
+      "duration": 8.98
+    },
+    {
+      "id": "shot_03",
+      "name": "The 2-Degree Fovea",
+      "start": 18.6,
+      "duration": 10.26
+    },
+    {
+      "id": "shot_04",
+      "name": "The Neural Reconstruction",
+      "start": 28.86,
+      "duration": 8.18
+    },
+    {
+      "id": "shot_05",
+      "name": "The Minimal Summary",
+      "start": 37.04,
+      "duration": 7.62
+    }
+  ]
+}

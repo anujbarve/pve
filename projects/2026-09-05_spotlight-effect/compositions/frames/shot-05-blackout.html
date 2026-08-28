@@ -1,0 +1,201 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080706;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .resolution-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 45%, rgba(242, 210, 75, 0.18) 0%, transparent 65%),
+        radial-gradient(circle at 20% 80%, rgba(212, 98, 43, 0.1) 0%, transparent 50%),
+        linear-gradient(180deg, #16120e 0%, #080706 100%);
+    }
+
+    .ambient-warmth-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(242, 210, 75, 0.15) 0%, transparent 70%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .resolution-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Architectural Manifesto Card */
+    .manifesto-panel {
+      position: relative;
+      width: 720px;
+      margin-top: -60px;
+      background: rgba(18, 15, 12, 0.85);
+      border: 1.5px solid rgba(242, 210, 75, 0.35);
+      border-radius: 20px;
+      padding: 50px 40px;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95), 0 0 40px rgba(242, 210, 75, 0.15);
+      backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .manifesto-tag {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #F2D24B;
+    }
+
+    .manifesto-hero {
+      font-family: "Playfair Display", serif;
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #F2F1EC;
+    }
+
+    .manifesto-hero .gold {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .manifesto-subtext {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.05em;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+
+    .freedom-ring {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #F2D24B, transparent);
+      margin-top: 10px;
+    }
+
+    /* Safe Zone Captions */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      pointer-events: none;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-blackout" data-width="1080" data-height="1920" data-duration="8.58">
+    <div data-hf-id="hf-s05-env" id="s05-env" class="resolution-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s05-glow" id="s05-glow" class="ambient-warmth-glow" data-layout-allow-overflow></div>
+
+    <div data-hf-id="hf-s05-stage" id="s05-stage" class="resolution-stage" data-layout-allow-overlap data-layout-allow-overflow>
+      <div data-hf-id="hf-s05-panel" id="s05-panel" class="manifesto-panel" data-layout-allow-overlap>
+        <span class="manifesto-tag">Psychological Liberation</span>
+        <h1 class="manifesto-hero">The Audience <span class="gold">Never Existed.</span></h1>
+        <div class="freedom-ring"></div>
+        <p class="manifesto-subtext">You are not under surveillance. You are completely free.</p>
+      </div>
+    </div>
+
+    <!-- Safe Zone Captions -->
+    <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
+      <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">When you realize the spotlight is only an internal projection...</p>
+      <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">05 / The Blackout of Judgment</span>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-blackout"] = tl;
+
+    const env = document.getElementById("s05-env");
+    const glow = document.getElementById("s05-glow");
+    const stage = document.getElementById("s05-stage");
+    const panel = document.getElementById("s05-panel");
+    const caption = document.getElementById("s05-caption");
+    const sub = document.getElementById("s05-sub");
+
+    gsap.set(panel, { scale: 0.9, opacity: 0 });
+    gsap.set(stage, { scale: 1.04 });
+
+    // Smooth pull back
+    tl.to(env, { scale: 0.98, duration: 8.58, ease: "none" }, 0);
+    tl.to(stage, { scale: 0.98, duration: 8.58, ease: "power1.out" }, 0);
+
+    // Initial glow emerges
+    tl.to(glow, { opacity: 1, duration: 2.0, ease: "power2.out" }, 0.5);
+    tl.to(panel, { opacity: 1, scale: 1, duration: 1.0, ease: "back.out(1.5)" }, 0.8);
+
+    // 3.8s: "...you realize the audience was never there."
+    tl.call(() => {
+      caption.innerHTML = 'you realize the <span class="accent">audience was never there</span>.';
+      sub.innerText = '05 / Total Liberation';
+    }, null, 3.8);
+
+    tl.to(glow, { opacity: 0.8, scale: 1.1, duration: 3.0, ease: "sine.inOut" }, 3.8);
+  </script>
+</template>

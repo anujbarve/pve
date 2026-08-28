@@ -1,0 +1,35 @@
+{
+  "total_duration": 47.78,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Silent Command",
+      "start": 0.0,
+      "duration": 10.26
+    },
+    {
+      "id": "shot_02",
+      "name": "The Severed Bridge",
+      "start": 10.26,
+      "duration": 7.38
+    },
+    {
+      "id": "shot_03",
+      "name": "The Soda Confabulation",
+      "start": 17.64,
+      "duration": 11.14
+    },
+    {
+      "id": "shot_04",
+      "name": "The Left-Brain Interpreter",
+      "start": 28.78,
+      "duration": 9.78
+    },
+    {
+      "id": "shot_05",
+      "name": "The Illusion of Reason",
+      "start": 38.56,
+      "duration": 9.22
+    }
+  ]
+}

@@ -1,0 +1,447 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08080a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 70% 40%, rgba(242, 210, 75, 0.16) 0%, transparent 60%),
+        radial-gradient(circle at 30% 60%, rgba(56, 189, 248, 0.14) 0%, transparent 55%),
+        linear-gradient(180deg, #0e0f14 0%, #050608 100%);
+    }
+
+    .somato-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.2;
+      background-image: 
+        linear-gradient(rgba(242, 210, 75, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(242, 210, 75, 0.2) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Telemetry Header */
+    .schema-header {
+      position: absolute;
+      top: 310px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .timer-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(14, 16, 22, 0.85);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 18px;
+      border-radius: 8px;
+      backdrop-filter: blur(8px);
+    }
+
+    .timer-icon {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 10px #F2D24B;
+    }
+
+    .timer-val {
+      font-family: "Inter", monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.1em;
+    }
+
+    .schema-status-pill {
+      background: rgba(14, 16, 22, 0.85);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #F2F1EC;
+    }
+
+    /* Adoption Stage */
+    .adoption-stage {
+      position: relative;
+      width: 780px;
+      height: 640px;
+      margin-top: -60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Left Real Hand: Decoupling & Cooling */
+    .hand-box-real {
+      position: absolute;
+      left: 20px;
+      width: 320px;
+      height: 520px;
+      background: rgba(10, 14, 22, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .temp-drop-callout {
+      position: absolute;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .temp-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .temp-value {
+      font-family: "Inter", monospace;
+      font-size: 15px;
+      font-weight: 800;
+      color: #38BDF8;
+    }
+
+    /* Right Rubber Hand: Golden Biological Adoption */
+    .hand-box-rubber {
+      position: absolute;
+      right: 20px;
+      width: 320px;
+      height: 520px;
+      background: rgba(22, 18, 12, 0.7);
+      border: 2px solid rgba(242, 210, 75, 0.6);
+      box-shadow: 0 15px 50px rgba(242, 210, 75, 0.25);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .adoption-callout {
+      position: absolute;
+      top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .adopt-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .adopt-value {
+      font-size: 14px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* Hands Models */
+    .hand-schematic {
+      position: relative;
+      width: 170px;
+      height: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .palm-schematic {
+      width: 130px;
+      height: 150px;
+      border-radius: 36px 36px 18px 18px;
+    }
+
+    .fingers-schematic {
+      display: flex;
+      gap: 10px;
+      margin-top: -10px;
+    }
+
+    .f-sch {
+      width: 20px;
+      border-radius: 10px 10px 5px 5px;
+    }
+
+    /* Real Hand Styling (Cooling Down) */
+    .palm-real-cool {
+      background: linear-gradient(180deg, rgba(56, 189, 248, 0.15) 0%, rgba(14, 20, 32, 0.9) 100%);
+      border: 1.5px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .f-rc1 { height: 95px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .f-rc2 { height: 125px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .f-rc3 { height: 115px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
+    .f-rc4 { height: 85px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
+
+    /* Rubber Hand Styling (Adopted & Glowing) */
+    .palm-rubber-glow {
+      background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%);
+      border: 2px solid #F2D24B;
+      box-shadow: 0 0 35px rgba(242, 210, 75, 0.6);
+    }
+
+    .f-rg1 { height: 95px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
+    .f-rg2 { height: 125px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
+    .f-rg3 { height: 115px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
+    .f-rg4 { height: 85px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
+
+    /* Proprioceptive Drift Ruler / Shift Vector */
+    .proprio-drift-hud {
+      position: absolute;
+      bottom: 24px;
+      left: 60px;
+      right: 60px;
+      background: rgba(14, 16, 22, 0.9);
+      border: 1px solid rgba(242, 210, 75, 0.4);
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    .drift-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #A0A09C;
+    }
+
+    .drift-arrow-track {
+      position: relative;
+      width: 240px;
+      height: 6px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .drift-arrow-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 0%;
+      background: linear-gradient(90deg, #38BDF8 0%, #F2D24B 100%);
+      box-shadow: 0 0 10px #F2D24B;
+    }
+
+    .drift-value {
+      font-family: "Inter", monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: #F2D24B;
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-adoption" data-width="1080" data-height="1920" data-duration="9.86">
+    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s03-grid" class="somato-grid" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Header telemetry -->
+      <div data-hf-id="hf-s03-hdr" class="schema-header" data-layout-allow-overlap>
+        <div class="timer-badge">
+          <div class="timer-icon"></div>
+          <span id="s03-timer-txt" class="timer-val">TIME: 00:58s</span>
+        </div>
+        <div class="schema-status-pill">
+          <span>Body Schema: Rewriting</span>
+        </div>
+      </div>
+
+      <!-- Main Stage -->
+      <div data-hf-id="hf-s03-stage" id="s03-stage" class="adoption-stage" data-layout-allow-overlap>
+        <!-- Real Hand Box (Cooling & Decoupled) -->
+        <div data-hf-id="hf-s03-br" id="s03-box-real" class="hand-box-real">
+          <div class="temp-drop-callout">
+            <span class="temp-label">Real Limb Temp</span>
+            <span id="s03-temp-val" class="temp-value">-0.7°C [Cooling]</span>
+          </div>
+          <div class="hand-schematic">
+            <div class="fingers-schematic">
+              <div class="f-sch f-rc1"></div>
+              <div class="f-sch f-rc2"></div>
+              <div class="f-sch f-rc3"></div>
+              <div class="f-sch f-rc4"></div>
+            </div>
+            <div class="palm-schematic palm-real-cool"></div>
+          </div>
+        </div>
+
+        <!-- Rubber Hand Box (Golden Biological Adoption) -->
+        <div data-hf-id="hf-s03-bg" id="s03-box-rubber" class="hand-box-rubber">
+          <div class="adoption-callout">
+            <span class="adopt-label">Cortical Representation</span>
+            <span id="s03-adopt-val" class="adopt-value">Biological Self</span>
+          </div>
+          <div class="hand-schematic">
+            <div class="fingers-schematic">
+              <div class="f-sch f-rg1"></div>
+              <div class="f-sch f-rg2"></div>
+              <div class="f-sch f-rg3"></div>
+              <div class="f-sch f-rg4"></div>
+            </div>
+            <div class="palm-schematic palm-rubber-glow"></div>
+          </div>
+        </div>
+
+        <!-- Proprioceptive Drift Vector HUD -->
+        <div data-hf-id="hf-s03-pd" id="s03-proprio-hud" class="proprio-drift-hud">
+          <span class="drift-title">Proprioceptive Drift</span>
+          <div class="drift-arrow-track">
+            <div id="s03-drift-fill" class="drift-arrow-fill"></div>
+          </div>
+          <span id="s03-drift-val" class="drift-value">+6.8 cm</span>
+        </div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">In less than sixty seconds, your brain rewrites its body schema...</p>
+        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">Cortical Plasticity & Ownership Transfer</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-adoption"] = tl;
+
+    const env = document.getElementById("s03-env");
+    const stage = document.getElementById("s03-stage");
+    const boxReal = document.getElementById("s03-box-real");
+    const boxRubber = document.getElementById("s03-box-rubber");
+    const proprioHud = document.getElementById("s03-proprio-hud");
+    const driftFill = document.getElementById("s03-drift-fill");
+    const caption = document.getElementById("s03-caption");
+    const sub = document.getElementById("s03-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+    gsap.set(boxRubber, { scale: 0.96 });
+    gsap.set(proprioHud, { opacity: 0, y: 15 });
+    gsap.set(driftFill, { width: "0%" });
+
+    // Smooth forward push
+    tl.to(env, { scale: 1.05, duration: 9.86, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 9.86, ease: "power1.out" }, 0);
+
+    // Rubber hand begins to warm and pulse
+    tl.to(boxRubber, { scale: 1.03, duration: 2.0, ease: "power2.out" }, 1.5);
+    tl.to(boxReal, { opacity: 0.5, duration: 2.0, ease: "power2.out" }, 2.0);
+
+    // 4.6s: "...severing ownership of your real flesh and adopting cold rubber as living biology."
+    tl.call(() => {
+      caption.innerHTML = 'severing ownership of real flesh and <span class="accent">adopting rubber as living biology</span>.';
+      sub.innerText = 'Body Schema Plasticity: Complete';
+    }, null, 4.6);
+
+    // Proprioceptive Drift activates
+    tl.to(proprioHud, { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.4)" }, 5.0);
+    tl.to(driftFill, { width: "100%", duration: 2.2, ease: "power2.out" }, 5.4);
+  </script>
+</template>
