@@ -1,0 +1,301 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 35%, rgba(212, 98, 43, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 50% 75%, rgba(242, 210, 75, 0.06) 0%, transparent 50%),
+        linear-gradient(180deg, #120e0a 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Dual System Stage */
+    .downshift-stage {
+      position: relative;
+      width: 720px;
+      height: 720px;
+      margin-top: -60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* Executive Network Grid (Top) */
+    .system-card {
+      position: relative;
+      width: 620px;
+      padding: 24px 30px;
+      border-radius: 14px;
+      background: rgba(18, 16, 14, 0.9);
+      border: 1px solid rgba(242, 210, 75, 0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: all 0.5s ease;
+    }
+
+    .card-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .system-title {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #F2F1EC;
+    }
+
+    .status-badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: rgba(242, 210, 75, 0.15);
+      color: #F2D24B;
+      border: 1px solid rgba(242, 210, 75, 0.4);
+    }
+
+    .circuit-bars {
+      display: flex;
+      gap: 8px;
+      height: 12px;
+    }
+
+    .circuit-segment {
+      flex: 1;
+      border-radius: 3px;
+      background: #F2D24B;
+      box-shadow: 0 0 10px rgba(242, 210, 75, 0.6);
+    }
+
+    /* Downshift Arrow / Relay Switch */
+    .downshift-relay {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .relay-line {
+      width: 160px;
+      height: 2px;
+      background: rgba(242, 241, 236, 0.2);
+    }
+
+    .relay-pill {
+      background: #1c140e;
+      border: 1px solid #D4622B;
+      padding: 8px 20px;
+      border-radius: 20px;
+      color: #E27D44;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(212, 98, 43, 0.3);
+    }
+
+    /* Impulse System (Bottom) */
+    .impulse-card {
+      border-color: rgba(212, 98, 43, 0.3);
+      opacity: 0.4;
+    }
+
+    .impulse-badge {
+      background: rgba(212, 98, 43, 0.15);
+      color: #E27D44;
+      border-color: rgba(212, 98, 43, 0.4);
+    }
+
+    .impulse-segment {
+      background: #D4622B;
+      box-shadow: 0 0 10px rgba(212, 98, 43, 0.6);
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-downshift" data-width="1080" data-height="1920" data-duration="10.58">
+    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Downshift Stage -->
+      <div data-hf-id="hf-s03-stage" id="s03-stage" class="downshift-stage" data-layout-allow-overlap>
+        <!-- System 1: Executive Network -->
+        <div id="s03-exec-card" class="system-card">
+          <div class="card-top-row">
+            <span class="system-title">Prefrontal Executive Network</span>
+            <span id="s03-exec-badge" class="status-badge">ACTIVE [Trade-Off Analysis]</span>
+          </div>
+          <div class="circuit-bars">
+            <div class="circuit-segment s03-seg"></div>
+            <div class="circuit-segment s03-seg"></div>
+            <div class="circuit-segment s03-seg"></div>
+            <div class="circuit-segment s03-seg"></div>
+            <div class="circuit-segment s03-seg"></div>
+          </div>
+        </div>
+
+        <!-- Downshift Relay Marker -->
+        <div data-hf-id="hf-s03-relay" id="s03-relay" class="downshift-relay">
+          <div class="relay-line"></div>
+          <div class="relay-pill">METABOLIC DOWNSHIFT</div>
+          <div class="relay-line"></div>
+        </div>
+
+        <!-- System 2: Default Impulse Network -->
+        <div id="s03-impulse-card" class="system-card impulse-card">
+          <div class="card-top-row">
+            <span class="system-title">Basal Ganglia / Default Mode</span>
+            <span id="s03-impulse-badge" class="status-badge impulse-badge">STANDBY</span>
+          </div>
+          <div class="circuit-bars">
+            <div class="circuit-segment impulse-segment s03-imp-seg"></div>
+            <div class="circuit-segment impulse-segment s03-imp-seg"></div>
+            <div class="circuit-segment impulse-segment s03-imp-seg"></div>
+            <div class="circuit-segment impulse-segment s03-imp-seg"></div>
+            <div class="circuit-segment impulse-segment s03-imp-seg"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">When that biological fuel runs dry...</p>
+        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">The Energy Conservation Pivot</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-downshift"] = tl;
+
+    const env = document.getElementById("s03-env");
+    const stage = document.getElementById("s03-stage");
+    const execCard = document.getElementById("s03-exec-card");
+    const execBadge = document.getElementById("s03-exec-badge");
+    const impCard = document.getElementById("s03-impulse-card");
+    const impBadge = document.getElementById("s03-impulse-badge");
+    const execSegs = document.querySelectorAll(".s03-seg");
+    const impSegs = document.querySelectorAll(".s03-imp-seg");
+    const caption = document.getElementById("s03-caption");
+    const sub = document.getElementById("s03-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+
+    // Smooth forward push
+    tl.to(env, { scale: 1.05, duration: 10.58, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 10.58, ease: "power1.out" }, 0);
+
+    // 2.5s - 5.0s: Downshift trigger
+    tl.to(execSegs, {
+      opacity: 0.2,
+      stagger: 0.1,
+      duration: 0.8,
+      ease: "power2.inOut"
+    }, 2.5);
+
+    tl.call(() => {
+      execBadge.innerText = "OFFLINE [DEPLETED]";
+      execBadge.style.color = "#A0A09C";
+      execBadge.style.borderColor = "rgba(160, 160, 156, 0.3)";
+      execBadge.style.background = "rgba(160, 160, 156, 0.1)";
+      execCard.style.opacity = "0.35";
+    }, null, 3.2);
+
+    // 4.8s: "your brain downshifts to pure impulse."
+    tl.call(() => {
+      caption.innerHTML = 'your brain <span class="accent">downshifts to pure impulse</span>.';
+      sub.innerText = 'Passive Energy Conservation';
+      
+      impCard.style.opacity = "1";
+      impBadge.innerText = "ENGAGED [ZERO-FRICTION AUTOPILOT]";
+      impBadge.style.color = "#E27D44";
+      impBadge.style.boxShadow = "0 0 20px rgba(212, 98, 43, 0.5)";
+    }, null, 4.8);
+
+    tl.fromTo(impSegs, 
+      { opacity: 0.2, scaleY: 0.6 },
+      { opacity: 1, scaleY: 1, stagger: 0.1, duration: 0.8, ease: "back.out(2)" },
+      5.0
+    );
+  </script>
+</template>

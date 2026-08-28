@@ -1,0 +1,313 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -60px;
+      background:
+        radial-gradient(circle at 35% 45%, rgba(212, 98, 43, 0.16) 0%, transparent 55%),
+        radial-gradient(circle at 65% 45%, rgba(56, 114, 224, 0.12) 0%, transparent 55%),
+        linear-gradient(180deg, #09090d 0%, #050406 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .neural-stage {
+      position: relative;
+      width: 860px;
+      height: 720px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dual-nodes-container {
+      position: relative;
+      width: 800px;
+      height: 380px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .neural-bridge-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .self-card {
+      position: relative;
+      width: 320px;
+      height: 340px;
+      border-radius: 24px;
+      background: radial-gradient(circle at center, #151318 0%, #0c0a0f 100%);
+      border: 2px solid rgba(242, 241, 236, 0.15);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 2;
+    }
+
+    .self-card.present {
+      border-color: rgba(212, 98, 43, 0.5);
+      box-shadow: 0 0 50px rgba(212, 98, 43, 0.2);
+    }
+
+    .self-card.future {
+      border-color: rgba(56, 114, 224, 0.3);
+    }
+
+    .avatar-orb {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .avatar-orb.present {
+      background: radial-gradient(circle at center, #D4622B 0%, #7A2808 100%);
+      box-shadow: 0 0 30px rgba(212, 98, 43, 0.6);
+    }
+
+    .avatar-orb.future {
+      background: radial-gradient(circle at center, #3872E0 0%, #152B59 100%);
+      box-shadow: 0 0 20px rgba(56, 114, 224, 0.4);
+    }
+
+    .avatar-orb.stranger {
+      border: 3px dashed #A0A09C;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .card-title {
+      font-family: "Playfair Display", serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #F2F1EC;
+      margin-bottom: 6px;
+    }
+
+    .card-circuit {
+      font-size: 13px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .telemetry-row {
+      margin-top: 36px;
+      width: 800px;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      border-radius: 14px;
+      background: rgba(242, 241, 236, 0.05);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      font-size: 15px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.1em;
+    }
+
+    .telemetry-metric {
+      font-family: "Playfair Display", serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-two-selves" data-width="1080" data-height="1920" data-duration="7.06">
+    <div data-hf-id="hf-s04-env" id="s04-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s04-stage" id="s04-stage" class="neural-stage">
+        <div class="dual-nodes-container">
+          <!-- Neural Connector Line SVG -->
+          <svg class="neural-bridge-svg" viewBox="0 0 800 380" fill="none">
+            <line
+              id="s04-connector"
+              x1="320"
+              y1="190"
+              x2="480"
+              y2="190"
+              stroke="#F2D24B"
+              stroke-width="4"
+              stroke-dasharray="6 6"
+            />
+          </svg>
+
+          <!-- Present Self Card -->
+          <div data-hf-id="hf-s04-card-pres" id="s04-card-present" class="self-card present">
+            <div class="avatar-orb present">
+              <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#F2F1EC" stroke-width="2">
+                <circle cx="12" cy="7" r="4" />
+                <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
+              </svg>
+            </div>
+            <span class="card-title">Present You</span>
+            <span class="card-circuit" style="color: #F2D24B;">Limbic / Survival</span>
+          </div>
+
+          <!-- Future Self Card -->
+          <div data-hf-id="hf-s04-card-fut" id="s04-card-future" class="self-card future">
+            <div id="s04-fut-orb" class="avatar-orb future">
+              <svg id="s04-fut-icon" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#F2F1EC" stroke-width="2">
+                <circle cx="12" cy="7" r="4" />
+                <path d="M5.5 21a8.38 8.38 0 0 1 13 0" />
+              </svg>
+            </div>
+            <span id="s04-fut-title" class="card-title">Future You</span>
+            <span id="s04-fut-circuit" class="card-circuit">Prefrontal / 6 AM</span>
+          </div>
+        </div>
+
+        <div class="telemetry-row">
+          <span>fMRI Medial Prefrontal Resonance</span>
+          <span id="s04-telemetry" class="telemetry-metric">Kinship: 0.94 (Self)</span>
+        </div>
+      </div>
+
+      <!-- Optical Safe-Zone Captions (bottom: 480px) -->
+      <div data-hf-id="hf-s04-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">To your primitive survival circuits...</p>
+        <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">Neurological Asymmetry</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-two-selves"] = tl;
+
+    const env = document.getElementById("s04-env");
+    const stage = document.getElementById("s04-stage");
+    const connector = document.getElementById("s04-connector");
+    const cardFut = document.getElementById("s04-card-future");
+    const orbFut = document.getElementById("s04-fut-orb");
+    const futTitle = document.getElementById("s04-fut-title");
+    const futCircuit = document.getElementById("s04-fut-circuit");
+    const telemetry = document.getElementById("s04-telemetry");
+    const caption = document.getElementById("s04-caption");
+    const sub = document.getElementById("s04-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+
+    // Slow push
+    tl.to(env, { scale: 1.05, duration: 7.06, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 7.06, ease: "power1.out" }, 0);
+
+    // Initial kinship pulse
+    tl.to(connector, { strokeWidth: 8, stroke: "#F2D24B", duration: 1.0, yoyo: true, repeat: 1 }, 0.5);
+
+    // 2.6s - 3.2s: "your future self is not you—it is a stranger you can abandon"
+    tl.call(() => {
+      caption.innerHTML = 'your future self is <span class="accent">a stranger you can abandon</span>.';
+      sub.innerHTML = 'Neural Estrangement · Hershfield et al.';
+    }, null, 2.6);
+
+    // Dissolve connection and fracture future self at 2.8s
+    tl.to(connector, { opacity: 0, stroke: "#E84A3B", duration: 0.4 }, 2.8);
+    tl.call(() => {
+      orbFut.className = "avatar-orb stranger";
+      orbFut.innerHTML = '<span style="font-size:28px; color:#A0A09C; font-weight:800;">?</span>';
+      cardFut.style.borderColor = "rgba(160, 160, 156, 0.3)";
+      futTitle.innerHTML = "Total Stranger";
+      futTitle.style.color = "#A0A09C";
+      futCircuit.innerHTML = "Uncorrelated Identity";
+      telemetry.innerHTML = "Kinship: 0.08 (Stranger)";
+      telemetry.style.color = "#FF7A6B";
+    }, null, 2.9);
+    tl.to(cardFut, { opacity: 0.65, duration: 0.6 }, 2.9);
+  </script>
+</template>

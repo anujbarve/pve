@@ -1,0 +1,10 @@
+{
+  "name": "hyperbolic-discounting",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "hyperframes dev --port 3003",
+    "check": "hyperframes check",
+    "render": "hyperframes render",
+    "publish": "hyperframes publish"
+  }
+}

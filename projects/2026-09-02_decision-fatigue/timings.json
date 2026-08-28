@@ -1,0 +1,35 @@
+{
+  "total_duration": 53.62,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Nighttime Paralysis",
+      "start": 0.0,
+      "duration": 10.58
+    },
+    {
+      "id": "shot_02",
+      "name": "The Neural Fuel Tank",
+      "start": 10.58,
+      "duration": 10.58
+    },
+    {
+      "id": "shot_03",
+      "name": "The Cognitive Downshift",
+      "start": 21.16,
+      "duration": 10.58
+    },
+    {
+      "id": "shot_04",
+      "name": "The Default Trap",
+      "start": 31.74,
+      "duration": 12.98
+    },
+    {
+      "id": "shot_05",
+      "name": "The Shield of Routine",
+      "start": 44.72,
+      "duration": 8.9
+    }
+  ]
+}

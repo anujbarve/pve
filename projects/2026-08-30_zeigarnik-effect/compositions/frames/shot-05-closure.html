@@ -1,0 +1,262 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08080a;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.12) 0%, transparent 65%),
+        radial-gradient(circle at 50% 85%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0c0a 0%, #050506 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .closure-stage {
+      position: relative;
+      width: 820px;
+      height: 760px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .notebook-card {
+      position: relative;
+      width: 660px;
+      background: linear-gradient(135deg, #181613 0%, #100f0d 100%);
+      border: 2px solid rgba(242, 210, 75, 0.35);
+      border-radius: 16px;
+      padding: 36px 40px;
+      box-shadow: 0 25px 90px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .notebook-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(242, 210, 75, 0.2);
+      padding-bottom: 12px;
+    }
+
+    .notebook-tag {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #F2D24B;
+      text-transform: uppercase;
+    }
+
+    .notebook-status {
+      font-family: "Inter", monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #A0A09C;
+    }
+
+    .action-note-text {
+      font-family: "Playfair Display", serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #F2F1EC;
+      line-height: 1.35;
+    }
+
+    .action-note-text .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .closure-seal {
+      position: absolute;
+      right: 30px;
+      bottom: 25px;
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 2px solid #F2D24B;
+      background: rgba(242, 210, 75, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #F2D24B;
+      font-size: 28px;
+      font-weight: 900;
+      opacity: 0;
+      box-shadow: 0 0 24px rgba(242, 210, 75, 0.4);
+    }
+
+    .manifesto-banner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .manifesto-title {
+      font-family: "Playfair Display", serif;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #F2D24B;
+      text-transform: uppercase;
+    }
+
+    .manifesto-rule {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      color: #A0A09C;
+      text-transform: uppercase;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-closure" data-width="1080" data-height="1920" data-duration="8.26">
+    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s05-stage" id="s05-stage" class="closure-stage">
+        <div data-hf-id="hf-s05-card" id="s05-card" class="notebook-card">
+          <div class="notebook-header">
+            <span class="notebook-tag">External Cognitive Offload</span>
+            <span data-hf-id="hf-s05-status" id="s05-status" class="notebook-status">BUFFER: RELEASED</span>
+          </div>
+
+          <div data-hf-id="hf-s05-notetxt" id="s05-note-text" class="action-note-text">
+            "Next Step: Review slide deck at <span class="accent">9:00 AM</span>."
+          </div>
+
+          <div data-hf-id="hf-s05-seal" id="s05-seal" class="closure-seal">✓</div>
+        </div>
+
+        <div data-hf-id="hf-s05-manifesto" id="s05-manifesto" class="manifesto-banner">
+          <div class="manifesto-title">The Zeigarnik Effect</div>
+          <div class="manifesto-rule">Write the next step • Close the mental tab</div>
+        </div>
+      </div>
+
+      <!-- Subtitles -->
+      <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">You do not have to finish the work...</p>
+        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">The Cognitive Offload Resolution</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-closure"] = tl;
+
+    const env = document.getElementById("s05-env");
+    const stage = document.getElementById("s05-stage");
+    const card = document.getElementById("s05-card");
+    const seal = document.getElementById("s05-seal");
+    const status = document.getElementById("s05-status");
+    const caption = document.getElementById("s05-caption");
+    const sub = document.getElementById("s05-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+    gsap.set(seal, { opacity: 0, scale: 0.5 });
+
+    // Slow cinematic camera push-in
+    tl.to(env, { scale: 1.05, duration: 8.26, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 8.26, ease: "power1.out" }, 0);
+
+    // 3.2s: "Simply writing down the next concrete step tricks your mind into closing the tab"
+    tl.call(() => {
+      caption.innerHTML = 'writing down the next step <span class="accent">tricks your mind into closing the tab</span>.';
+      sub.innerHTML = 'Loop Resolved • Sleep Restored';
+      status.innerHTML = '<span style="color: #F2D24B;">TAB CLOSED • 0% RAM DRAIN</span>';
+    }, null, 3.2);
+
+    // 4.0s: Golden closure seal snaps in with satisfying impact
+    tl.to(seal, {
+      opacity: 1,
+      scale: 1,
+      duration: 0.4,
+      ease: "back.out(2)"
+    }, 4.0);
+
+    tl.to(card, {
+      borderColor: "#F2D24B",
+      boxShadow: "0 25px 90px rgba(0, 0, 0, 0.9), 0 0 50px rgba(242, 210, 75, 0.35)",
+      duration: 1.2
+    }, 4.0);
+  </script>
+</template>

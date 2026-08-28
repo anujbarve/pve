@@ -12,6 +12,29 @@ A comprehensive, production-tested manual for producing elite faceless short-for
 4. **Canvas Standard (1080×1920 @ 60 FPS)**: Vertical 9:16 FHD at 60 FPS with full-bleed environments.
 5. **Optical Safe-Zone Captions (`bottom: 480px`)**: Subtitles and core focal action MUST be positioned along the lower third of the 1:1 center square (**`bottom: 480px` / Y = 1350px–1440px**), completely immune to Instagram Reels, TikTok, and YouTube Shorts UI overlays.
 6. **Zero Dead Air & Exact Timestamp Sync**: Timings are measured from the TTS engine with millisecond precision before authoring visuals.
+7. **Date-Prefixed Folder Naming**: Project folders MUST follow the incrementing date format: `projects/YYYY-MM-DD_topic-name/` (e.g. `2026-08-28_predictive-processing`, `2026-08-29_chronostasis`, `2026-08-30_zeigarnik-effect`).
+
+---
+
+## 0. Project Structure & Naming Standard
+
+Every video project lives in its own self-contained directory under `projects/`:
+```
+projects/
+├── 2026-08-28_predictive-processing/
+├── 2026-08-29_chronostasis/
+├── 2026-08-30_zeigarnik-effect/
+├── 2026-08-31_hyperbolic-discounting/
+├── 2026-09-01_extended-mind/
+└── 2026-09-02_decision-fatigue/
+```
+Each folder contains:
+- `index.html` (Master timeline orchestrator)
+- `generate_narration.py` (TTS synthesis & exact timing measurement)
+- `generate_sound_design.py` (Procedural SFX, BGM score, and 3-layer mix)
+- `compositions/frames/` (Full-bleed 1080×1920 shot compositions)
+- `package.json` & `timings.json`
+- `renders/` (Rendered output MP4)
 
 ---
 

@@ -1,0 +1,40 @@
+{
+  "total_duration": 42.26,
+  "shots": [
+    {
+      "id": "shot-01-panic",
+      "name": "The Phantom Pocket",
+      "text": "You reach into your pocket, and it is empty. For ten seconds, a spike of physical panic grips your chest.",
+      "start": 0.0,
+      "duration": 8.1
+    },
+    {
+      "id": "shot-02-amputation",
+      "name": "The Cognitive Amputation",
+      "text": "You don't just feel like you lost a gadget. You feel as though thirty percent of your memory and navigation was instantly amputated.",
+      "start": 8.1,
+      "duration": 8.26
+    },
+    {
+      "id": "shot-03-extended-mind",
+      "name": "The Extended Mind Thesis",
+      "text": "This is the Extended Mind Thesis. When an external tool reliably stores and recalls data, it functions as literal biology.",
+      "start": 16.36,
+      "duration": 9.54
+    },
+    {
+      "id": "shot-04-neural-loop",
+      "name": "The Silicon Loop",
+      "text": "Your biological neurons and silicon circuits operate in a continuous loop, thinking together across the boundary of your skin.",
+      "start": 25.9,
+      "duration": 8.26
+    },
+    {
+      "id": "shot-05-cyborg-reality",
+      "name": "The Handheld Cyborg",
+      "text": "You didn't need neural implants to become a cyborg. You became one the moment you offloaded your mind into your hand.",
+      "start": 34.16,
+      "duration": 8.1
+    }
+  ]
+}

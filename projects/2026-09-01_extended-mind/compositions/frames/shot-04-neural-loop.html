@@ -1,0 +1,221 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -50px;
+      background: 
+        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.16) 0%, transparent 65%),
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .loop-stage {
+      position: relative;
+      margin-top: 300px;
+      width: 860px;
+      height: 860px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .infinity-svg {
+      width: 860px;
+      height: 480px;
+      overflow: visible;
+    }
+
+    /* Telemetry Pill */
+    .circuit-telemetry {
+      position: relative;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(14, 14, 16, 0.88);
+      border: 1px solid rgba(242, 210, 75, 0.35);
+      border-radius: 100px;
+      padding: 12px 28px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #F2D24B;
+      box-shadow: 0 0 10px #F2D24B;
+    }
+
+    .circuit-text {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #F2F1EC;
+      text-transform: uppercase;
+    }
+
+    /* Subtitles (bottom: 480px) */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+      letter-spacing: 0.01em;
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-neural-loop" data-width="1080" data-height="1920" data-duration="8.26">
+    <div data-hf-id="hf-s04-env" id="s04-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div data-hf-id="hf-s04-view" class="scene-viewport">
+      <div data-hf-id="hf-s04-stage" id="s04-stage" class="loop-stage">
+        
+        <svg data-hf-id="hf-s04-svg" class="infinity-svg" viewBox="0 0 860 480" fill="none">
+          <!-- Central Epidermal Boundary Line -->
+          <g id="s04-boundary-group">
+            <line id="s04-skin-barrier" x1="430" y1="80" x2="430" y2="400" stroke="rgba(242, 241, 236, 0.25)" stroke-width="2" stroke-dasharray="6 6" />
+            <text id="s04-barrier-label" x="430" y="60" fill="#A0A09C" font-size="12" font-weight="700" letter-spacing="2" text-anchor="middle">EPIDERMAL BOUNDARY (SKIN)</text>
+          </g>
+
+          <!-- The Infinity Loop Track -->
+          <path id="s04-inf-track" d="M 430 240 C 320 120, 160 120, 160 240 C 160 360, 320 360, 430 240 C 540 120, 700 120, 700 240 C 700 360, 540 360, 430 240 Z" stroke="rgba(255, 255, 255, 0.12)" stroke-width="6" fill="none" />
+          <path id="s04-inf-glow" d="M 430 240 C 320 120, 160 120, 160 240 C 160 360, 320 360, 430 240 C 540 120, 700 120, 700 240 C 700 360, 540 360, 430 240 Z" stroke="#F2D24B" stroke-width="4" stroke-dasharray="1400" stroke-dashoffset="1400" fill="none" />
+
+          <!-- Left: Biological Synapse Cluster -->
+          <g id="s04-bio-side">
+            <circle cx="220" cy="190" r="8" fill="#F2D24B" />
+            <circle cx="200" cy="290" r="7" fill="#F2D24B" />
+            <circle cx="280" cy="240" r="9" fill="#F2D24B" />
+            <path d="M 220 190 L 280 240 L 200 290" stroke="rgba(242, 210, 75, 0.4)" stroke-width="2" />
+            <text x="240" y="420" fill="#F2F1EC" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">BIOLOGICAL NEURONS</text>
+          </g>
+
+          <!-- Right: Silicon Logic Gates -->
+          <g id="s04-silicon-side">
+            <circle cx="640" cy="190" r="8" fill="#F2D24B" />
+            <circle cx="660" cy="290" r="7" fill="#F2D24B" />
+            <circle cx="580" cy="240" r="9" fill="#F2D24B" />
+            <path d="M 640 190 L 580 240 L 660 290" stroke="rgba(242, 210, 75, 0.4)" stroke-width="2" />
+            <text x="620" y="420" fill="#F2D24B" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">SILICON REGISTERS</text>
+          </g>
+
+          <!-- Orbiting Cognitive Photon -->
+          <circle id="s04-photon" cx="430" cy="240" r="8" fill="#F2F1EC" filter="drop-shadow(0 0 16px #F2D24B)" />
+        </svg>
+
+        <div data-hf-id="hf-s04-telemetry" id="s04-telemetry" class="circuit-telemetry" data-layout-allow-overlap>
+          <div class="status-dot"></div>
+          <span class="circuit-text">CONTINUOUS COGNITIVE LOOP: SYNCHRONIZED</span>
+        </div>
+
+      </div>
+
+      <!-- Captions (bottom: 480px) -->
+      <div data-hf-id="hf-s04-caption-box" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">Biological neurons and silicon circuits operate in a <span class="accent">continuous loop</span>.</p>
+        <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">THE SEAMLESS COGNITIVE CIRCUIT</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-neural-loop"] = tl;
+
+    const env = document.getElementById("s04-env");
+    const stage = document.getElementById("s04-stage");
+    const infGlow = document.getElementById("s04-inf-glow");
+    const photon = document.getElementById("s04-photon");
+    const skinBarrier = document.getElementById("s04-skin-barrier");
+    const telemetry = document.getElementById("s04-telemetry");
+    const caption = document.getElementById("s04-caption");
+    const sub = document.getElementById("s04-sub");
+
+    // Camera initial
+    gsap.set(stage, { scale: 0.95, y: 15 });
+    gsap.set(telemetry, { opacity: 0, y: 20 });
+
+    tl.to(env, { scale: 1.05, duration: 8.26, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, y: 0, duration: 8.26, ease: "power1.out" }, 0);
+
+    // Continuous loop glow animation
+    tl.to(infGlow, { strokeDashoffset: 0, duration: 3.5, ease: "power1.inOut" }, 0.3);
+    tl.to(telemetry, { opacity: 1, y: 0, duration: 0.6 }, 0.8);
+
+    // 3.5s - 8.26s: "Thinking together across the boundary of your skin."
+    tl.call(() => {
+      caption.innerHTML = 'Thinking together across the <span class="accent">boundary of your skin</span>.';
+      sub.innerHTML = 'TRANS-EPIDERMAL REASONING';
+    }, null, 3.5);
+
+    // Barrier dissolves into golden unity
+    tl.to(skinBarrier, { stroke: "#F2D24B", opacity: 0.8, strokeWidth: 3, duration: 1.2 }, 3.5);
+    tl.fromTo(photon, { scale: 1 }, { scale: 1.8, repeat: 3, yoyo: true, duration: 0.8 }, 3.8);
+  </script>
+</template>

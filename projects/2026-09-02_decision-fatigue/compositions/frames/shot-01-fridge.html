@@ -1,0 +1,422 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 48%, rgba(224, 242, 254, 0.15) 0%, transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(242, 210, 75, 0.08) 0%, transparent 45%),
+        linear-gradient(180deg, #0a0c10 0%, #050505 100%);
+    }
+
+    .kitchen-floor {
+      position: absolute;
+      bottom: 0;
+      left: -100px;
+      right: -100px;
+      height: 900px;
+      background: linear-gradient(180deg, rgba(15, 17, 22, 0.95) 0%, #050507 100%);
+      transform: perspective(1000px) rotateX(55deg);
+      border-top: 1px solid rgba(224, 242, 254, 0.15);
+      box-shadow: 0 -30px 100px rgba(0, 0, 0, 0.9);
+    }
+
+    .light-cast-cone {
+      position: absolute;
+      top: 380px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 820px;
+      height: 1100px;
+      background: radial-gradient(ellipse at 50% 15%, rgba(224, 242, 254, 0.22) 0%, rgba(242, 210, 75, 0.08) 45%, transparent 75%);
+      pointer-events: none;
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Daytime Residual Decision Tags */
+    .daytime-residuals {
+      position: absolute;
+      top: 320px;
+      left: 80px;
+      right: 80px;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
+    }
+
+    .residual-badge {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: rgba(18, 20, 26, 0.7);
+      border: 1px solid rgba(242, 241, 236, 0.15);
+      padding: 10px 16px;
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+    }
+
+    .badge-title {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #A0A09C;
+      font-weight: 600;
+    }
+
+    .badge-val {
+      font-size: 15px;
+      color: #F2D24B;
+      font-weight: 700;
+    }
+
+    /* Digital Clock */
+    .clock-display {
+      position: absolute;
+      top: 320px;
+      right: 90px;
+      background: rgba(10, 12, 16, 0.85);
+      border: 1px solid rgba(212, 98, 43, 0.3);
+      padding: 10px 18px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 0 20px rgba(212, 98, 43, 0.2);
+    }
+
+    .clock-led {
+      font-family: "Inter", monospace;
+      font-size: 20px;
+      font-weight: 800;
+      color: #D4622B;
+      letter-spacing: 0.1em;
+    }
+
+    .clock-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+    }
+
+    /* Central Fridge Stage */
+    .fridge-stage {
+      position: relative;
+      width: 580px;
+      height: 740px;
+      margin-top: -60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fridge-body {
+      position: absolute;
+      width: 520px;
+      height: 680px;
+      background: linear-gradient(135deg, #181c22 0%, #0d0f13 100%);
+      border-radius: 16px;
+      border: 2px solid rgba(224, 242, 254, 0.25);
+      box-shadow: 0 30px 100px rgba(0,0,0,0.9), inset 0 0 60px rgba(0,0,0,0.9);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      gap: 20px;
+    }
+
+    .fridge-light-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 30%, rgba(224, 242, 254, 0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .shelf-row {
+      position: relative;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 2px solid rgba(224, 242, 254, 0.35);
+      border-radius: 4px;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px 20px;
+      justify-content: space-around;
+      box-shadow: inset 0 -4px 12px rgba(224, 242, 254, 0.1);
+    }
+
+    .item-bottle {
+      width: 32px;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(242, 210, 75, 0.7) 0%, rgba(212, 98, 43, 0.8) 100%);
+      border-radius: 6px 6px 3px 3px;
+      border: 1px solid rgba(242, 210, 75, 0.5);
+      box-shadow: 0 0 16px rgba(242, 210, 75, 0.3);
+    }
+
+    .item-jar {
+      width: 44px;
+      height: 60px;
+      background: linear-gradient(180deg, rgba(224, 242, 254, 0.6) 0%, rgba(56, 189, 248, 0.7) 100%);
+      border-radius: 4px;
+      border: 1px solid rgba(224, 242, 254, 0.5);
+    }
+
+    .item-container {
+      width: 70px;
+      height: 48px;
+      background: rgba(242, 241, 236, 0.15);
+      border-radius: 6px;
+      border: 1px solid rgba(242, 241, 236, 0.3);
+    }
+
+    /* Indecision Reticle / Question Vector */
+    .paralysis-hud {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 360px;
+      height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .choice-split {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .choice-node {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px dashed rgba(242, 210, 75, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(10, 10, 10, 0.85);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+    }
+
+    .node-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #F2F1EC;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .node-state {
+      font-size: 10px;
+      color: #D4622B;
+      font-weight: 600;
+    }
+
+    .indecision-arc {
+      position: absolute;
+      width: 140px;
+      height: 2px;
+      background: linear-gradient(90deg, #F2D24B 0%, #D4622B 100%);
+      box-shadow: 0 0 12px #F2D24B;
+    }
+
+    .freeze-ring {
+      position: absolute;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      border: 2px solid rgba(212, 98, 43, 0.5);
+      box-shadow: 0 0 40px rgba(212, 98, 43, 0.25);
+      opacity: 0;
+    }
+
+    /* Subtitle block at bottom: 480px */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 90px;
+      right: 90px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-fridge" data-width="1080" data-height="1920" data-duration="10.58">
+    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s01-floor" id="s01-floor" class="kitchen-floor" data-layout-allow-overflow></div>
+    <div data-hf-id="hf-s01-cone" id="s01-cone" class="light-cast-cone" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <!-- Residual HUD badges -->
+      <div data-hf-id="hf-s01-res" id="s01-residuals" class="daytime-residuals" data-layout-allow-overlap>
+        <div class="residual-badge">
+          <span class="badge-title">Executive Load</span>
+          <span class="badge-val">240+ Decisions</span>
+        </div>
+      </div>
+
+      <!-- Clock Display -->
+      <div data-hf-id="hf-s01-clk" id="s01-clock" class="clock-display" data-layout-allow-overlap>
+        <span class="clock-tag">TIME</span>
+        <span id="s01-clock-time" class="clock-led">21:00</span>
+      </div>
+
+      <!-- Refrigerator Stage -->
+      <div data-hf-id="hf-s01-stage" id="s01-stage" class="fridge-stage" data-layout-allow-overlap>
+        <div class="fridge-body">
+          <div class="fridge-light-glow"></div>
+          <div class="shelf-row">
+            <div class="item-bottle"></div>
+            <div class="item-jar"></div>
+            <div class="item-bottle"></div>
+          </div>
+          <div class="shelf-row">
+            <div class="item-container"></div>
+            <div class="item-jar"></div>
+            <div class="item-container"></div>
+          </div>
+          <div class="shelf-row">
+            <div class="item-jar"></div>
+            <div class="item-bottle"></div>
+            <div class="item-jar"></div>
+          </div>
+        </div>
+
+        <!-- Paralysis UI -->
+        <div data-hf-id="hf-s01-hud" id="s01-hud" class="paralysis-hud">
+          <div class="indecision-arc"></div>
+          <div class="choice-split">
+            <div id="s01-node-a" class="choice-node">
+              <span class="node-label">Option A</span>
+              <span class="node-state">Freeze</span>
+            </div>
+            <div id="s01-node-b" class="choice-node">
+              <span class="node-label">Option B</span>
+              <span class="node-state">Freeze</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="s01-freeze" class="freeze-ring"></div>
+      </div>
+
+      <!-- Caption -->
+      <div data-hf-id="hf-s01-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">You make disciplined, high-stakes decisions all day...</p>
+        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">The Nighttime Paralysis</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-fridge"] = tl;
+
+    const env = document.getElementById("s01-env");
+    const stage = document.getElementById("s01-stage");
+    const residuals = document.getElementById("s01-residuals");
+    const clockTime = document.getElementById("s01-clock-time");
+    const hud = document.getElementById("s01-hud");
+    const freezeRing = document.getElementById("s01-freeze");
+    const caption = document.getElementById("s01-caption");
+    const sub = document.getElementById("s01-sub");
+    const cone = document.getElementById("s01-cone");
+
+    gsap.set(freezeRing, { opacity: 0, scale: 0.85 });
+    gsap.set(hud, { opacity: 0, scale: 0.9 });
+    gsap.set(stage, { scale: 0.94 });
+    gsap.set(cone, { opacity: 0.7 });
+
+    // Smooth forward push-in
+    tl.to(env, { scale: 1.06, duration: 10.58, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.03, duration: 10.58, ease: "power1.out" }, 0);
+
+    // Daytime residuals fade away in the shadows
+    tl.to(residuals, { opacity: 0.15, y: -20, duration: 3.5, ease: "power2.out" }, 1.5);
+
+    // Clock ticks to 21:02 at 6.0s
+    tl.call(() => {
+      clockTime.innerText = "21:02";
+      gsap.fromTo(clockTime, { color: "#FFF" }, { color: "#D4622B", duration: 0.6 });
+    }, null, 6.0);
+
+    // 6.5s: "...yet at nine PM, you stand paralyzed before an open refrigerator."
+    tl.call(() => {
+      caption.innerHTML = 'yet at 9:00 PM, you stand <span class="accent">paralyzed before an open refrigerator</span>.';
+      sub.innerText = 'The Evening Breakdown';
+    }, null, 6.2);
+
+    tl.to(hud, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.5)" }, 6.5);
+    tl.to(freezeRing, { opacity: 0.9, scale: 1.05, duration: 1.2, ease: "power2.out" }, 6.8);
+    tl.to(cone, { opacity: 1.0, scale: 1.05, duration: 2.0, ease: "power1.inOut" }, 6.8);
+  </script>
+</template>

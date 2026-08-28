@@ -1,0 +1,35 @@
+{
+  "total_duration": 34.9,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Rational Architect (11 PM)",
+      "start": 0.0,
+      "duration": 6.98
+    },
+    {
+      "id": "shot_02",
+      "name": "The Morning Ambush (6 AM)",
+      "start": 6.98,
+      "duration": 7.14
+    },
+    {
+      "id": "shot_03",
+      "name": "The Hyperbolic Cliff",
+      "start": 14.12,
+      "duration": 7.06
+    },
+    {
+      "id": "shot_04",
+      "name": "The Estranged Future Self",
+      "start": 21.18,
+      "duration": 7.06
+    },
+    {
+      "id": "shot_05",
+      "name": "The Ulysses Contract",
+      "start": 28.24,
+      "duration": 6.66
+    }
+  ]
+}

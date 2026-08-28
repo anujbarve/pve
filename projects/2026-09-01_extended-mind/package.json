@@ -1,0 +1,11 @@
+{
+  "name": "extended-mind",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx hyperframes preview",
+    "check": "npx hyperframes check",
+    "render": "npx hyperframes render --fps 60 --resolution portrait",
+    "publish": "npx hyperframes publish"
+  }
+}

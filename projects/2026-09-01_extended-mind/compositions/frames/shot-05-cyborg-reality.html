@@ -1,0 +1,210 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -50px;
+      background: 
+        radial-gradient(circle at 50% 32%, rgba(242, 210, 75, 0.22) 0%, transparent 60%),
+        radial-gradient(circle at 50% 65%, rgba(212, 98, 43, 0.12) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cyborg-stage {
+      position: relative;
+      margin-top: 300px;
+      width: 860px;
+      height: 860px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Manifesto Display Title */
+    .manifesto-header {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .manifesto-title {
+      font-family: "Playfair Display", serif;
+      font-size: 50px;
+      font-weight: 900;
+      color: #F2F1EC;
+      letter-spacing: 0.02em;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .manifesto-sub {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      color: #F2D24B;
+      text-transform: uppercase;
+    }
+
+    .fusion-svg {
+      position: relative;
+      width: 700px;
+      height: 440px;
+      overflow: visible;
+    }
+
+    /* Subtitles (bottom: 480px) */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+      letter-spacing: 0.01em;
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-cyborg-reality" data-width="1080" data-height="1920" data-duration="8.10">
+    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div data-hf-id="hf-s05-view" class="scene-viewport">
+      <div data-hf-id="hf-s05-stage" id="s05-stage" class="cyborg-stage">
+        
+        <!-- Manifesto Header -->
+        <div data-hf-id="hf-s05-header" id="s05-header" class="manifesto-header" data-layout-allow-overlap>
+          <h1 class="manifesto-title">The Extended Mind</h1>
+          <span class="manifesto-sub">YOUR PHONE IS AN EXTERNAL LOBE</span>
+        </div>
+
+        <!-- Integrated Handheld Fusion Object -->
+        <svg data-hf-id="hf-s05-svg" class="fusion-svg" viewBox="0 0 700 440" fill="none">
+          <!-- Aura Core Ring -->
+          <circle id="s05-aura" cx="350" cy="220" r="160" fill="none" stroke="#F2D24B" stroke-width="2" stroke-dasharray="10 10" opacity="0.3" />
+          
+          <!-- Central Glass Device -->
+          <g id="s05-device-core">
+            <rect x="250" y="60" width="200" height="320" rx="36" stroke="#F2D24B" stroke-width="4" fill="rgba(242, 210, 75, 0.08)" filter="drop-shadow(0 0 30px rgba(242, 210, 75, 0.25))" />
+            <rect x="270" y="90" width="160" height="260" rx="20" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1.5" />
+            
+            <!-- Neural-Silicon Fusion Traces Inside Device -->
+            <path d="M 290 160 L 350 220 L 410 160" stroke="#F2D24B" stroke-width="3" />
+            <path d="M 290 280 L 350 220 L 410 280" stroke="#F2D24B" stroke-width="3" />
+            <circle cx="350" cy="220" r="14" fill="#F2D24B" filter="drop-shadow(0 0 16px #F2D24B)" />
+          </g>
+
+          <!-- Neural tracer lines flowing into fingers/wrist -->
+          <g id="s05-fusion-filaments">
+            <path d="M 120 400 C 180 350, 220 310, 250 290" stroke="#F2D24B" stroke-width="3" stroke-dasharray="4 4" />
+            <path d="M 580 400 C 520 350, 480 310, 450 290" stroke="#F2D24B" stroke-width="3" stroke-dasharray="4 4" />
+            <path d="M 140 100 C 190 120, 220 140, 250 160" stroke="#F2D24B" stroke-width="3" stroke-dasharray="4 4" />
+            <path d="M 560 100 C 510 120, 480 140, 450 160" stroke="#F2D24B" stroke-width="3" stroke-dasharray="4 4" />
+          </g>
+        </svg>
+
+      </div>
+
+      <!-- Captions (bottom: 480px) -->
+      <div data-hf-id="hf-s05-caption-box" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">You didn't need neural implants to become a cyborg.</p>
+        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">THE CYBORG REALITY</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-cyborg-reality"] = tl;
+
+    const env = document.getElementById("s05-env");
+    const stage = document.getElementById("s05-stage");
+    const header = document.getElementById("s05-header");
+    const aura = document.getElementById("s05-aura");
+    const deviceCore = document.getElementById("s05-device-core");
+    const caption = document.getElementById("s05-caption");
+    const sub = document.getElementById("s05-sub");
+
+    // Camera initial
+    gsap.set(stage, { scale: 0.94, y: 15 });
+    gsap.set(header, { opacity: 0, y: -15 });
+
+    tl.to(env, { scale: 1.08, duration: 8.10, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.03, y: 0, duration: 8.10, ease: "power1.out" }, 0);
+
+    // 0.0s - 3.2s: "You didn't need neural implants to become a cyborg."
+    tl.to(header, { opacity: 1, y: 0, duration: 1.0, ease: "power2.out" }, 0.4);
+    tl.to(aura, { rotation: 180, duration: 8.10, ease: "none", transformOrigin: "center center" }, 0);
+
+    // 3.2s - 8.10s: "You became one the moment you offloaded your mind into your hand."
+    tl.call(() => {
+      caption.innerHTML = 'You became one the moment you <span class="accent">offloaded your mind</span>.';
+      sub.innerHTML = 'THE INTEGRATED EXTENDED MIND';
+    }, null, 3.2);
+
+    tl.fromTo(deviceCore, { scale: 1 }, { scale: 1.05, duration: 1.2, repeat: 2, yoyo: true, ease: "power1.inOut" }, 3.4);
+  </script>
+</template>

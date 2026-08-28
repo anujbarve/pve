@@ -1,0 +1,310 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -60px;
+      background:
+        radial-gradient(circle at 50% 40%, rgba(212, 98, 43, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 20% 70%, rgba(232, 74, 59, 0.12) 0%, transparent 50%),
+        linear-gradient(180deg, #120807 0%, #060505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .alarm-stage {
+      position: relative;
+      width: 780px;
+      height: 720px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .alarm-box {
+      position: relative;
+      width: 720px;
+      height: 420px;
+      border-radius: 28px;
+      border: 2px solid rgba(212, 98, 43, 0.4);
+      background: radial-gradient(circle at center, #1c0e0b 0%, #0d0605 100%);
+      box-shadow: 0 30px 100px rgba(0, 0, 0, 0.95), inset 0 0 50px rgba(212, 98, 43, 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 40px;
+    }
+
+    .alert-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #D4622B;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(212, 98, 43, 0.25);
+      padding-bottom: 12px;
+    }
+
+    .alert-pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #E84A3B;
+    }
+
+    .pulse-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #E84A3B;
+      box-shadow: 0 0 14px #E84A3B;
+    }
+
+    .alarm-time-display {
+      font-family: "Playfair Display", serif;
+      font-size: 106px;
+      font-weight: 900;
+      line-height: 1.0;
+      color: #F2F1EC;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 35px rgba(212, 98, 43, 0.6);
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .alarm-period {
+      font-family: "Inter", sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: #D4622B;
+      letter-spacing: 0.05em;
+    }
+
+    .snooze-button {
+      margin-top: 24px;
+      width: 100%;
+      height: 76px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(212, 98, 43, 0.3) 0%, rgba(212, 98, 43, 0.1) 100%);
+      border: 2px solid #D4622B;
+      box-shadow: 0 0 24px rgba(212, 98, 43, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #F2F1EC;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .snooze-button.smashed {
+      background: #D4622B;
+      color: #080808;
+      box-shadow: 0 0 40px #D4622B;
+    }
+
+    .fracture-panel {
+      margin-top: 36px;
+      width: 700px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-radius: 14px;
+      background: rgba(212, 98, 43, 0.08);
+      border: 1px solid rgba(212, 98, 43, 0.2);
+    }
+
+    .fracture-label {
+      font-size: 15px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .fracture-status {
+      font-family: "Playfair Display", serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: #E84A3B;
+      font-style: italic;
+    }
+
+    .ripple-ring {
+      position: absolute;
+      width: 720px;
+      height: 420px;
+      border-radius: 28px;
+      border: 2px solid #D4622B;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #D4622B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-snooze-morning" data-width="1080" data-height="1920" data-duration="7.14">
+    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s02-stage" id="s02-stage" class="alarm-stage">
+        <div id="s02-ripple" class="ripple-ring"></div>
+        <div id="s02-box" class="alarm-box">
+          <div class="alert-header">
+            <span>Critical Event · 06:00:00 AM</span>
+            <span class="alert-pulse-badge"><span class="pulse-dot"></span> Ringing</span>
+          </div>
+
+          <div class="alarm-time-display">
+            <span id="s02-time-text">06:00</span>
+            <span class="alarm-period">AM</span>
+          </div>
+
+          <div id="s02-btn" class="snooze-button">
+            <span>Snooze (+10 Min)</span>
+          </div>
+        </div>
+
+        <div id="s02-panel" class="fracture-panel">
+          <span class="fracture-label">Discipline State</span>
+          <span id="s02-disc-status" class="fracture-status">Active (100%)</span>
+        </div>
+      </div>
+
+      <!-- Optical Safe-Zone Captions (bottom: 480px) -->
+      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">At six AM, that discipline vanishes...</p>
+        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">The Limbic Hijack · 06:00 AM</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-snooze-morning"] = tl;
+
+    const env = document.getElementById("s02-env");
+    const stage = document.getElementById("s02-stage");
+    const box = document.getElementById("s02-box");
+    const btn = document.getElementById("s02-btn");
+    const ripple = document.getElementById("s02-ripple");
+    const panel = document.getElementById("s02-panel");
+    const discStatus = document.getElementById("s02-disc-status");
+    const caption = document.getElementById("s02-caption");
+    const sub = document.getElementById("s02-sub");
+
+    // Initial state
+    gsap.set(stage, { scale: 0.96 });
+    gsap.set(ripple, { scale: 1, opacity: 0 });
+
+    // Slow push
+    tl.to(env, { scale: 1.05, duration: 7.14, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 7.14, ease: "power1.out" }, 0);
+
+    // Alarm blaring pulsation 0.0s - 2.5s
+    tl.to(box, { x: 3, duration: 0.06, yoyo: true, repeat: 16, ease: "power1.inOut" }, 0.2);
+    tl.fromTo(ripple, { scale: 1, opacity: 0.8 }, { scale: 1.25, opacity: 0, duration: 0.8, repeat: 2 }, 0.3);
+
+    // 2.6s - 3.2s: "and your hand hits snooze before you even open your eyes"
+    tl.call(() => {
+      caption.innerHTML = 'and your hand hits <span class="accent">snooze instantly</span>.';
+      sub.innerHTML = 'Cognitive Override · Immediate Comfort';
+    }, null, 2.6);
+
+    // Snooze impact at 2.8s
+    tl.to(btn, { scale: 0.92, duration: 0.1, ease: "power4.in" }, 2.8);
+    tl.call(() => {
+      btn.classList.add("smashed");
+      btn.innerHTML = "<span>OVERRIDDEN · SNOOZE ACTIVE</span>";
+      discStatus.innerHTML = "COLLAPSED (0%)";
+      discStatus.style.color = "#E84A3B";
+    }, null, 2.9);
+    tl.to(btn, { scale: 1.0, duration: 0.3, ease: "elastic.out(1, 0.4)" }, 2.9);
+    tl.fromTo(ripple, { scale: 1, opacity: 1 }, { scale: 1.4, opacity: 0, duration: 1.0, ease: "power2.out" }, 2.9);
+    tl.to(box, { borderColor: "#E84A3B", duration: 0.4 }, 2.9);
+  </script>
+</template>

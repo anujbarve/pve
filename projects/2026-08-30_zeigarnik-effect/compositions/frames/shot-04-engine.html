@@ -1,0 +1,270 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #06080d;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 50% 38%, rgba(212, 98, 43, 0.14) 0%, transparent 65%),
+        radial-gradient(circle at 20% 75%, rgba(242, 210, 75, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #05060a 0%, #090c14 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .engine-stage {
+      position: relative;
+      width: 800px;
+      height: 740px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .circuit-container {
+      position: relative;
+      width: 440px;
+      height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circuit-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 16px rgba(212, 98, 43, 0.5));
+    }
+
+    .tension-arc-path {
+      stroke: #D4622B;
+      stroke-width: 6;
+      stroke-linecap: round;
+      stroke-dasharray: 8 6;
+    }
+
+    .engine-center-core {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .engine-core-label {
+      font-family: "Inter", monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #D4622B;
+      text-transform: uppercase;
+    }
+
+    .engine-core-val {
+      font-family: "Playfair Display", serif;
+      font-size: 34px;
+      font-weight: 700;
+      color: #F2F1EC;
+    }
+
+    .telemetry-row {
+      display: flex;
+      gap: 16px;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .telemetry-card {
+      background: rgba(14, 17, 26, 0.85);
+      border: 1px solid rgba(242, 210, 75, 0.25);
+      border-radius: 12px;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+      width: 320px;
+    }
+
+    .telemetry-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #A0A09C;
+      text-transform: uppercase;
+    }
+
+    .telemetry-status {
+      font-family: "Inter", monospace;
+      font-size: 16px;
+      font-weight: 700;
+      color: #F2D24B;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      border: 2px solid #D4622B;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-engine" data-width="1080" data-height="1920" data-duration="8.02">
+    <div data-hf-id="hf-s04-env" id="s04-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s04-stage" id="s04-stage" class="engine-stage">
+        <div class="circuit-container">
+          <svg class="circuit-svg" viewBox="0 0 400 400" fill="none">
+            <!-- Inactive track -->
+            <circle cx="200" cy="200" r="160" stroke="rgba(242, 241, 236, 0.12)" stroke-width="4" />
+            <!-- Open Circuit Arc (leaving top gap open) -->
+            <path d="M 140 48 A 160 160 0 1 0 260 48" stroke="#F2D24B" stroke-width="6" stroke-linecap="round" />
+            <!-- Unclosed Gap Electric Arc -->
+            <line id="s04-gap-line" class="tension-arc-path" x1="140" y1="48" x2="260" y2="48" />
+            <!-- Terminal nodes -->
+            <circle cx="140" cy="48" r="9" fill="#D4622B" />
+            <circle cx="260" cy="48" r="9" fill="#D4622B" />
+          </svg>
+
+          <div data-hf-id="hf-s04-core" id="s04-core" class="engine-center-core">
+            <span class="engine-core-label">Working Memory Bus</span>
+            <span data-hf-id="hf-s04-drain" id="s04-drain-num" class="engine-core-val">84% DRAIN</span>
+          </div>
+
+          <div data-hf-id="hf-s04-pring" id="s04-pulse-ring" class="pulse-ring"></div>
+        </div>
+
+        <div class="telemetry-row">
+          <div class="telemetry-card">
+            <span class="telemetry-title">Cognitive Tension</span>
+            <span id="s04-state-val" class="telemetry-status">ACTIVE UNCLOSED LOOP</span>
+          </div>
+          <div class="telemetry-card">
+            <span class="telemetry-title">Subconscious Burn</span>
+            <span class="telemetry-status">CONTINUOUS RAM LOCK</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtitles -->
+      <div data-hf-id="hf-s04-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">Your brain treats unfinished goals like open tabs...</p>
+        <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">The Cognitive Tension Engine</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-engine"] = tl;
+
+    const env = document.getElementById("s04-env");
+    const stage = document.getElementById("s04-stage");
+    const gapLine = document.getElementById("s04-gap-line");
+    const pulseRing = document.getElementById("s04-pulse-ring");
+    const drainNum = document.getElementById("s04-drain-num");
+    const caption = document.getElementById("s04-caption");
+    const sub = document.getElementById("s04-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+
+    // Continuous camera push-in
+    tl.to(env, { scale: 1.06, duration: 8.02, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.03, duration: 8.02, ease: "power1.out" }, 0);
+
+    // Electric tension arc flickering
+    tl.to(gapLine, {
+      strokeDashoffset: 40,
+      duration: 0.8,
+      repeat: 9,
+      ease: "none"
+    }, 0);
+
+    // 3.8s: "burning active working memory until the loop is resolved"
+    tl.call(() => {
+      caption.innerHTML = 'burning active working memory <span class="accent">until the loop is closed</span>.';
+      sub.innerHTML = 'Subconscious Resource Depletion';
+      drainNum.innerHTML = '<span style="color: #D4622B;">94% PEAK DRAIN</span>';
+    }, null, 3.8);
+
+    // Warning pulses radiating
+    tl.fromTo(pulseRing, { scale: 0.9, opacity: 0.8 }, { scale: 1.4, opacity: 0, duration: 1.8, repeat: 2, ease: "power2.out" }, 3.8);
+  </script>
+</template>

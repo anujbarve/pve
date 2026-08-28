@@ -1,0 +1,322 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    /* Full-Bleed Cinematic Environment */
+    .film-env {
+      position: absolute;
+      inset: -50px;
+      background: 
+        radial-gradient(circle at 50% 35%, rgba(212, 98, 43, 0.16) 0%, transparent 65%),
+        radial-gradient(circle at 80% 20%, rgba(242, 210, 75, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stage-container {
+      position: relative;
+      margin-top: 300px;
+      width: 800px;
+      height: 960px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Spatial Fabric & Pocket Silhouette Base */
+    .pocket-geometry {
+      position: relative;
+      width: 800px;
+      height: 740px;
+      border-radius: 40px;
+      background: linear-gradient(175deg, rgba(26, 26, 30, 0.85) 0%, rgba(12, 12, 14, 0.95) 100%);
+      border: 1px solid rgba(242, 241, 236, 0.12);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.9), inset 0 2px 20px rgba(255, 255, 255, 0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px 20px;
+    }
+
+    .chamber-label {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: #F2D24B;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* Empty Pocket Void Chamber */
+    .pocket-void-chamber {
+      position: relative;
+      width: 440px;
+      height: 480px;
+      border-radius: 28px;
+      border: 2px dashed rgba(242, 210, 75, 0.3);
+      background: radial-gradient(circle at 50% 50%, rgba(212, 98, 43, 0.12) 0%, rgba(0, 0, 0, 0.8) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .void-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(212, 98, 43, 0.2);
+      border: 1px solid #D4622B;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #F2F1EC;
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D4622B;
+      box-shadow: 0 0 10px #D4622B;
+    }
+
+    /* Reaching Kinematic Vector Path */
+    .reach-vector-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    /* Somatic Alarm Heartbeat Waveform */
+    .somatic-pulse-card {
+      position: relative;
+      margin-top: 24px;
+      width: 600px;
+      height: 100px;
+      background: rgba(14, 14, 16, 0.88);
+      border: 1px solid rgba(212, 98, 43, 0.35);
+      border-radius: 18px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pulse-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .pulse-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      color: #D4622B;
+      text-transform: uppercase;
+    }
+
+    .pulse-metric {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #F2F1EC;
+    }
+
+    .ecg-svg {
+      width: 320px;
+      height: 60px;
+      overflow: visible;
+    }
+
+    /* Captions Anchor (bottom: 480px) */
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      pointer-events: none;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+      letter-spacing: 0.01em;
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-panic" data-width="1080" data-height="1920" data-duration="8.10">
+    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div data-hf-id="hf-s01-view" class="scene-viewport">
+      <div data-hf-id="hf-s01-stage" id="s01-stage" class="stage-container">
+        
+        <!-- Spatial Pocket Geometry -->
+        <div data-hf-id="hf-s01-pocket" id="s01-pocket" class="pocket-geometry" data-layout-allow-overlap>
+          <span data-hf-id="hf-s01-label" id="s01-label" class="chamber-label">EXTERNAL STORAGE RECEPTACLE</span>
+
+          <!-- Empty Pocket Void -->
+          <div data-hf-id="hf-s01-void" id="s01-void" class="pocket-void-chamber">
+            <!-- Missing Device Silhouette Wireframe -->
+            <svg data-hf-id="hf-s01-ghostphone" id="s01-ghostphone" width="200" height="320" viewBox="0 0 200 320" fill="none">
+              <rect x="10" y="10" width="180" height="300" rx="32" stroke="rgba(242, 210, 75, 0.4)" stroke-width="2.5" stroke-dasharray="8 8" fill="rgba(242, 210, 75, 0.03)" />
+              <line x1="75" y1="26" x2="125" y2="26" stroke="rgba(242, 210, 75, 0.4)" stroke-width="3" stroke-linecap="round" />
+              <!-- Glitch Crosshair -->
+              <circle cx="100" cy="160" r="28" stroke="#D4622B" stroke-width="2" stroke-dasharray="4 4" />
+              <line x1="100" y1="125" x2="100" y2="195" stroke="#D4622B" stroke-width="1.5" />
+              <line x1="65" y1="160" x2="135" y2="160" stroke="#D4622B" stroke-width="1.5" />
+            </svg>
+
+            <div data-hf-id="hf-s01-status" id="s01-status" class="void-status-pill">
+              <div class="pulse-dot"></div>
+              <span>TARGET NOT DETECTED</span>
+            </div>
+          </div>
+
+          <!-- Reach Vector Path -->
+          <svg data-hf-id="hf-s01-reachsvg" class="reach-vector-svg" viewBox="0 0 800 740">
+            <path id="s01-reach-trace" d="M 720 100 C 600 240, 480 280, 400 380" stroke="rgba(242, 241, 236, 0.15)" stroke-width="3" stroke-dasharray="6 6" fill="none" />
+            <path id="s01-reach-active" d="M 720 100 C 600 240, 480 280, 400 380" stroke="#F2D24B" stroke-width="4" stroke-dasharray="600" stroke-dashoffset="600" fill="none" />
+            <circle id="s01-reach-reticle" cx="400" cy="380" r="14" fill="#D4622B" opacity="0" />
+            <circle id="s01-shock-wave" cx="400" cy="380" r="20" fill="none" stroke="#D4622B" stroke-width="3" opacity="0" />
+          </svg>
+        </div>
+
+        <!-- Somatic Alarm Cardiac / Stress Telemetry -->
+        <div data-hf-id="hf-s01-pulse-card" id="s01-pulse-card" class="somatic-pulse-card" data-layout-allow-overlap>
+          <div class="pulse-meta">
+            <span class="pulse-title">SOMATIC AROUSAL</span>
+            <span id="s01-pulse-val" class="pulse-metric">68 BPM</span>
+          </div>
+          <svg class="ecg-svg" viewBox="0 0 320 60" fill="none">
+            <path id="s01-ecg-path" d="M 0 30 L 80 30 L 95 10 L 110 50 L 125 15 L 140 38 L 155 30 L 240 30 L 255 5 L 270 55 L 285 20 L 300 35 L 320 30" stroke="#D4622B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+
+      </div>
+
+      <!-- Film Captions (bottom: 480px) -->
+      <div data-hf-id="hf-s01-caption-box" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">You reach into your pocket, and it is empty.</p>
+        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">THE PHANTOM POCKET</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-panic"] = tl;
+
+    const env = document.getElementById("s01-env");
+    const stage = document.getElementById("s01-stage");
+    const reachActive = document.getElementById("s01-reach-active");
+    const reachReticle = document.getElementById("s01-reach-reticle");
+    const shockWave = document.getElementById("s01-shock-wave");
+    const ghostPhone = document.getElementById("s01-ghostphone");
+    const statusPill = document.getElementById("s01-status");
+    const pulseCard = document.getElementById("s01-pulse-card");
+    const pulseVal = document.getElementById("s01-pulse-val");
+    const caption = document.getElementById("s01-caption");
+    const sub = document.getElementById("s01-sub");
+
+    // Initial setup
+    gsap.set(stage, { scale: 0.94, y: 15 });
+    gsap.set(pulseCard, { opacity: 0, y: 15 });
+    gsap.set(statusPill, { opacity: 0, scale: 0.8 });
+
+    // Slow cinematic camera push
+    tl.to(env, { scale: 1.06, duration: 8.10, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, y: 0, duration: 8.10, ease: "power1.out" }, 0);
+
+    // 0.4s - 3.4s: Reaching into pocket
+    tl.to(reachActive, { strokeDashoffset: 0, duration: 2.4, ease: "power2.out" }, 0.4);
+    tl.to(reachReticle, { opacity: 1, duration: 0.3 }, 2.6);
+
+    // 3.5s - 8.1s: Shock of physical panic
+    tl.call(() => {
+      caption.innerHTML = 'For ten seconds, a spike of <span class="accent">physical panic</span> grips your chest.';
+      sub.innerHTML = 'SOMATIC ALARM TRIGGER';
+    }, null, 3.5);
+
+    // Void alert triggers & shockwave ripples
+    tl.to(statusPill, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.7)" }, 3.6);
+    tl.fromTo(shockWave, { r: 15, opacity: 0.9 }, { r: 160, opacity: 0, duration: 1.2, repeat: 2, ease: "power2.out" }, 3.6);
+    tl.to(ghostPhone, { x: 3, duration: 0.05, repeat: 9, yoyo: true, ease: "rough" }, 3.6);
+
+    // Somatic pulse spikes (Heart rate rises from 68 to 134 BPM)
+    tl.to(pulseCard, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 4.0);
+    const hrObj = { hr: 68 };
+    tl.to(hrObj, {
+      hr: 134,
+      duration: 2.5,
+      ease: "power2.out",
+      onUpdate: function() {
+        pulseVal.innerText = Math.round(hrObj.hr) + " BPM";
+      }
+    }, 4.2);
+  </script>
+</template>

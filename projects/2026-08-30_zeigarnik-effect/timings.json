@@ -1,0 +1,35 @@
+{
+  "total_duration": 40.9,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Midnight Loop",
+      "start": 0.0,
+      "duration": 6.66
+    },
+    {
+      "id": "shot_02",
+      "name": "The Asymmetry",
+      "start": 6.66,
+      "duration": 7.14
+    },
+    {
+      "id": "shot_03",
+      "name": "The Berlin Waiter",
+      "start": 13.8,
+      "duration": 10.82
+    },
+    {
+      "id": "shot_04",
+      "name": "The Open Mental Tab",
+      "start": 24.62,
+      "duration": 8.02
+    },
+    {
+      "id": "shot_05",
+      "name": "The Cognitive Closure",
+      "start": 32.64,
+      "duration": 8.26
+    }
+  ]
+}

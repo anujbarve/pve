@@ -1,0 +1,340 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #080808;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -60px;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(242, 210, 75, 0.14) 0%, transparent 60%),
+        radial-gradient(circle at 75% 25%, rgba(56, 114, 224, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #090a0f 0%, #040405 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .chart-stage {
+      position: relative;
+      width: 820px;
+      height: 720px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .axis-y-header {
+      width: 760px;
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .axis-label-y {
+      font-size: 15px;
+      font-weight: 700;
+      color: #A0A09C;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .chart-container {
+      position: relative;
+      width: 760px;
+      height: 440px;
+      border-left: 2px solid rgba(242, 241, 236, 0.3);
+      border-bottom: 2px solid rgba(242, 241, 236, 0.3);
+      background: rgba(242, 241, 236, 0.02);
+      border-radius: 4px;
+    }
+
+    .axis-x-row {
+      width: 760px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      padding: 0 4px;
+    }
+
+    .origin-label {
+      font-size: 16px;
+      font-weight: 800;
+      color: #F2D24B;
+      letter-spacing: 0.08em;
+    }
+
+    .future-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #A0A09C;
+      letter-spacing: 0.06em;
+    }
+
+    .axis-label-x {
+      font-size: 14px;
+      font-weight: 700;
+      color: #A0A09C;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .curve-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .spike-callout {
+      position: absolute;
+      top: 24px;
+      left: 36px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      background: rgba(242, 210, 75, 0.14);
+      border: 1px solid rgba(242, 210, 75, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spike-title {
+      font-family: "Playfair Display", serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .spike-desc {
+      font-size: 13px;
+      font-weight: 600;
+      color: #F2F1EC;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .legend-bar {
+      margin-top: 36px;
+      width: 760px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .legend-line-rational {
+      width: 32px;
+      height: 3px;
+      background: #A0A09C;
+      border-radius: 2px;
+    }
+
+    .legend-line-hyperbolic {
+      width: 32px;
+      height: 4px;
+      background: #F2D24B;
+      box-shadow: 0 0 10px #F2D24B;
+      border-radius: 2px;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-hyperbolic-cliff" data-width="1080" data-height="1920" data-duration="7.06">
+    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s03-stage" id="s03-stage" class="chart-stage">
+        <div class="axis-y-header">
+          <span class="axis-label-y">Subjective Value (V) ↑</span>
+        </div>
+
+        <div class="chart-container" data-layout-allow-overflow>
+          <!-- Dynamic SVG Coordinate Curves -->
+          <svg class="curve-svg" viewBox="0 0 760 440" fill="none">
+            <!-- Grid lines -->
+            <line x1="0" y1="110" x2="760" y2="110" stroke="rgba(242,241,236,0.06)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="0" y1="220" x2="760" y2="220" stroke="rgba(242,241,236,0.06)" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="0" y1="330" x2="760" y2="330" stroke="rgba(242,241,236,0.06)" stroke-width="1" stroke-dasharray="4 4" />
+
+            <!-- Classical Linear / Exponential Curve (Gentle slope) -->
+            <path
+              id="s03-rational-path"
+              d="M 20 200 Q 380 310 740 370"
+              stroke="#A0A09C"
+              stroke-width="3"
+              stroke-dasharray="6 6"
+              stroke-linecap="round"
+            />
+
+            <!-- Hyperbolic Curve (Steep vertical spike near t=0) -->
+            <path
+              id="s03-hyper-path"
+              d="M 20 30 Q 60 330 740 390"
+              stroke="#F2D24B"
+              stroke-width="6"
+              stroke-linecap="round"
+              filter="drop-shadow(0px 0px 14px rgba(242, 210, 75, 0.8))"
+            />
+
+            <!-- Glowing Point at t=0 -->
+            <circle id="s03-peak-dot" cx="20" cy="30" r="10" fill="#F2D24B" filter="drop-shadow(0px 0px 18px #F2D24B)" />
+          </svg>
+
+          <!-- Spike Callout -->
+          <div id="s03-spike-box" class="spike-callout" data-layout-allow-overlap>
+            <span class="spike-title">Immediate Comfort Spike</span>
+            <span class="spike-desc">Value → ∞ at t = NOW</span>
+          </div>
+        </div>
+
+        <div class="axis-x-row">
+          <span class="origin-label">t = 0 (NOW)</span>
+          <span class="future-label">Future (+7h)</span>
+          <span class="axis-label-x">Delay Time →</span>
+        </div>
+
+        <div class="legend-bar">
+          <div class="legend-item">
+            <div class="legend-line-rational"></div>
+            <span>Classical Rational Model</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-line-hyperbolic"></div>
+            <span style="color: #F2D24B;">Hyperbolic Discounting</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optical Safe-Zone Captions (bottom: 480px) -->
+      <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">Your brain doesn't value time in a straight line...</p>
+        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">The Temporal Discounting Trap</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-hyperbolic-cliff"] = tl;
+
+    const env = document.getElementById("s03-env");
+    const stage = document.getElementById("s03-stage");
+    const hyperPath = document.getElementById("s03-hyper-path");
+    const rationalPath = document.getElementById("s03-rational-path");
+    const peakDot = document.getElementById("s03-peak-dot");
+    const spikeBox = document.getElementById("s03-spike-box");
+    const caption = document.getElementById("s03-caption");
+    const sub = document.getElementById("s03-sub");
+
+    // Setup initial path length animation
+    const hyperLength = hyperPath.getTotalLength();
+    gsap.set(hyperPath, { strokeDasharray: hyperLength, strokeDashoffset: hyperLength });
+    const rationalLength = rationalPath.getTotalLength();
+    gsap.set(rationalPath, { strokeDasharray: rationalLength, strokeDashoffset: rationalLength });
+    gsap.set(peakDot, { scale: 0, opacity: 0 });
+    gsap.set(spikeBox, { opacity: 0, y: 15 });
+    gsap.set(stage, { scale: 0.95 });
+
+    // Slow push
+    tl.to(env, { scale: 1.05, duration: 7.06, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 7.06, ease: "power1.out" }, 0);
+
+    // Draw rational curve 0.4s to 2.0s
+    tl.to(rationalPath, { strokeDashoffset: 0, duration: 1.6, ease: "power2.out" }, 0.4);
+
+    // 2.6s - 3.2s: "it drops rewards off a steep hyperbolic cliff"
+    tl.call(() => {
+      caption.innerHTML = 'it drops rewards off a <span class="accent">steep hyperbolic cliff</span>.';
+      sub.innerHTML = 'Subjective Valuation · V = A / (1 + kD)';
+    }, null, 2.6);
+
+    // Explode hyperbolic curve upward from 2.5s to 4.5s
+    tl.to(hyperPath, { strokeDashoffset: 0, duration: 2.0, ease: "power3.inOut" }, 2.5);
+    tl.to(peakDot, { scale: 1.4, opacity: 1, duration: 0.5, ease: "back.out(2)" }, 4.2);
+    tl.to(spikeBox, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }, 4.3);
+  </script>
+</template>

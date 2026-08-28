@@ -1,0 +1,294 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08090d;
+      font-family: "Inter", sans-serif;
+      color: #F2F1EC;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: -40px;
+      background: 
+        radial-gradient(circle at 60% 40%, rgba(242, 210, 75, 0.10) 0%, transparent 60%),
+        radial-gradient(circle at 30% 70%, rgba(160, 160, 156, 0.05) 0%, transparent 50%),
+        linear-gradient(180deg, #07080b 0%, #0c0d12 100%);
+    }
+
+    .scene-viewport {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .asymmetry-stage {
+      position: relative;
+      width: 820px;
+      height: 740px;
+      margin-top: -120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+
+    .metrics-header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 10px;
+    }
+
+    .metric-pill {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 20px;
+    }
+
+    .metric-completed {
+      background: rgba(40, 44, 56, 0.6);
+      color: #A0A09C;
+      border: 1px solid rgba(160, 160, 156, 0.2);
+    }
+
+    .metric-incomplete {
+      background: rgba(212, 98, 43, 0.15);
+      color: #F2D24B;
+      border: 1px solid rgba(242, 210, 75, 0.4);
+    }
+
+    .task-grid-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .completed-tasks-wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      width: 100%;
+      transition: opacity 1s ease;
+    }
+
+    .task-item-done {
+      background: rgba(18, 20, 28, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #A0A09C;
+      font-size: 15px;
+      text-decoration: line-through;
+    }
+
+    .task-check {
+      color: #A0A09C;
+      font-weight: 700;
+    }
+
+    .open-task-hero {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(135deg, rgba(32, 26, 18, 0.9) 0%, rgba(18, 16, 14, 0.95) 100%);
+      border: 2px solid #F2D24B;
+      border-radius: 14px;
+      padding: 24px 28px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(242, 210, 75, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .open-task-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .open-task-tag {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #D4622B;
+      text-transform: uppercase;
+    }
+
+    .open-task-name {
+      font-family: "Playfair Display", serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: #F2F1EC;
+    }
+
+    .open-task-badge {
+      font-family: "Inter", monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #F2D24B;
+      background: rgba(242, 210, 75, 0.15);
+      border: 1px solid #F2D24B;
+      padding: 8px 16px;
+      border-radius: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .tension-ring {
+      position: absolute;
+      inset: -15px;
+      border-radius: 20px;
+      border: 2px dashed #F2D24B;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .film-caption-block {
+      position: absolute;
+      bottom: 480px;
+      left: 100px;
+      right: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .caption-line {
+      font-family: "Playfair Display", serif;
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.25;
+      color: #F2F1EC;
+      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.9);
+    }
+
+    .caption-line .accent {
+      color: #F2D24B;
+      font-style: italic;
+    }
+
+    .caption-sub {
+      font-family: "Inter", sans-serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: #A0A09C;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-asymmetry" data-width="1080" data-height="1920" data-duration="7.14">
+    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
+
+    <div class="scene-viewport">
+      <div data-hf-id="hf-s02-stage" id="s02-stage" class="asymmetry-stage">
+        <div class="metrics-header">
+          <div data-hf-id="hf-s02-pill1" id="s02-pill-done" class="metric-pill metric-completed">10 Done • Erased from Buffer</div>
+          <div data-hf-id="hf-s02-pill2" id="s02-pill-open" class="metric-pill metric-incomplete">1 Incomplete • Locked in RAM</div>
+        </div>
+
+        <div class="task-grid-container">
+          <!-- 10 Completed tasks (fade to dust) -->
+          <div data-hf-id="hf-s02-donewrap" id="s02-done-grid" class="completed-tasks-wrapper">
+            <div class="task-item-done"><span>Client Meeting</span><span class="task-check">✓</span></div>
+            <div class="task-item-done"><span>Q3 Budget Review</span><span class="task-check">✓</span></div>
+            <div class="task-item-done"><span>Code Deployment</span><span class="task-check">✓</span></div>
+            <div class="task-item-done"><span>Team Standup</span><span class="task-check">✓</span></div>
+            <div class="task-item-done"><span>Invoice Signed</span><span class="task-check">✓</span></div>
+            <div class="task-item-done"><span>Sync Architecture</span><span class="task-check">✓</span></div>
+          </div>
+
+          <!-- Single Burning Open Loop -->
+          <div data-hf-id="hf-s02-openhero" id="s02-open-hero" class="open-task-hero">
+            <div class="open-task-info">
+              <span class="open-task-tag">Unfinished Task • High Tension</span>
+              <div class="open-task-name">Launch Proposal Draft</div>
+            </div>
+            <div class="open-task-badge">OPEN LOOP</div>
+            <div data-hf-id="hf-s02-tring" id="s02-tension-ring" class="tension-ring"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Subtitles -->
+      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
+        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">You forgot the 10 tasks you finished...</p>
+        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">Selective Recall Asymmetry</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-asymmetry"] = tl;
+
+    const env = document.getElementById("s02-env");
+    const stage = document.getElementById("s02-stage");
+    const doneGrid = document.getElementById("s02-done-grid");
+    const openHero = document.getElementById("s02-open-hero");
+    const tensionRing = document.getElementById("s02-tension-ring");
+    const caption = document.getElementById("s02-caption");
+    const sub = document.getElementById("s02-sub");
+
+    gsap.set(stage, { scale: 0.95 });
+    gsap.set(openHero, { scale: 1.0 });
+
+    // Camera push-in
+    tl.to(env, { scale: 1.06, duration: 7.14, ease: "none" }, 0);
+    tl.to(stage, { scale: 1.02, duration: 7.14, ease: "power1.out" }, 0);
+
+    // 0.8s - 2.5s: Completed tasks dissolve into darkness
+    tl.to(doneGrid, { opacity: 0.15, filter: "blur(4px)", duration: 2.0, ease: "power2.inOut" }, 0.8);
+
+    // 3.5s: "yet this one open loop refuses to let you rest"
+    tl.call(() => {
+      caption.innerHTML = 'yet this <span class="accent">one open loop</span> refuses to let you rest.';
+      sub.innerHTML = 'Working Memory Retention';
+    }, null, 3.5);
+
+    // Open hero springs forward & pulses
+    tl.to(openHero, {
+      scale: 1.06,
+      boxShadow: "0 25px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(242, 210, 75, 0.5)",
+      duration: 1.2,
+      ease: "back.out(1.5)"
+    }, 3.5);
+
+    tl.fromTo(tensionRing, { opacity: 0, scale: 0.95 }, { opacity: 0.8, scale: 1.05, duration: 1.5, repeat: 1, yoyo: true, ease: "power1.inOut" }, 3.5);
+  </script>
+</template>
