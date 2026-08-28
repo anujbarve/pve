@@ -20,7 +20,7 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #08080a;
+      background: #06080d;
       font-family: "Inter", sans-serif;
       color: #F2F1EC;
     }
@@ -31,16 +31,16 @@
       background: 
         radial-gradient(circle at 70% 40%, rgba(242, 210, 75, 0.16) 0%, transparent 60%),
         radial-gradient(circle at 30% 60%, rgba(56, 189, 248, 0.14) 0%, transparent 55%),
-        linear-gradient(180deg, #0e0f14 0%, #050608 100%);
+        linear-gradient(180deg, #0a0d14 0%, #030407 100%);
     }
 
     .somato-grid {
       position: absolute;
       inset: 0;
-      opacity: 0.2;
+      opacity: 0.18;
       background-image: 
-        linear-gradient(rgba(242, 210, 75, 0.2) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(242, 210, 75, 0.2) 1px, transparent 1px);
+        linear-gradient(rgba(56, 189, 248, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.25) 1px, transparent 1px);
       background-size: 60px 60px;
     }
 
@@ -69,7 +69,7 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: rgba(14, 16, 22, 0.85);
+      background: rgba(10, 14, 22, 0.88);
       border: 1px solid rgba(242, 210, 75, 0.4);
       padding: 10px 18px;
       border-radius: 8px;
@@ -93,7 +93,7 @@
     }
 
     .schema-status-pill {
-      background: rgba(14, 16, 22, 0.85);
+      background: rgba(10, 14, 22, 0.88);
       border: 1px solid rgba(242, 210, 75, 0.4);
       padding: 10px 18px;
       border-radius: 8px;
@@ -107,7 +107,7 @@
     /* Adoption Stage */
     .adoption-stage {
       position: relative;
-      width: 780px;
+      width: 820px;
       height: 640px;
       margin-top: -60px;
       display: flex;
@@ -119,9 +119,9 @@
     .hand-box-real {
       position: absolute;
       left: 20px;
-      width: 320px;
-      height: 520px;
-      background: rgba(10, 14, 22, 0.7);
+      width: 350px;
+      height: 540px;
+      background: rgba(6, 10, 18, 0.75);
       border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 24px;
       display: flex;
@@ -133,7 +133,7 @@
 
     .temp-drop-callout {
       position: absolute;
-      top: 20px;
+      top: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -150,7 +150,7 @@
 
     .temp-value {
       font-family: "Inter", monospace;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       color: #38BDF8;
     }
@@ -159,9 +159,9 @@
     .hand-box-rubber {
       position: absolute;
       right: 20px;
-      width: 320px;
-      height: 520px;
-      background: rgba(22, 18, 12, 0.7);
+      width: 350px;
+      height: 540px;
+      background: rgba(20, 16, 10, 0.75);
       border: 2px solid rgba(242, 210, 75, 0.6);
       box-shadow: 0 15px 50px rgba(242, 210, 75, 0.25);
       border-radius: 24px;
@@ -174,7 +174,7 @@
 
     .adoption-callout {
       position: absolute;
-      top: 20px;
+      top: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -197,64 +197,19 @@
       text-transform: uppercase;
     }
 
-    /* Hands Models */
-    .hand-schematic {
-      position: relative;
-      width: 170px;
-      height: 320px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 40px;
+    .hand-vector-art {
+      width: 240px;
+      height: 380px;
+      margin-top: 35px;
     }
-
-    .palm-schematic {
-      width: 130px;
-      height: 150px;
-      border-radius: 36px 36px 18px 18px;
-    }
-
-    .fingers-schematic {
-      display: flex;
-      gap: 10px;
-      margin-top: -10px;
-    }
-
-    .f-sch {
-      width: 20px;
-      border-radius: 10px 10px 5px 5px;
-    }
-
-    /* Real Hand Styling (Cooling Down) */
-    .palm-real-cool {
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.15) 0%, rgba(14, 20, 32, 0.9) 100%);
-      border: 1.5px solid rgba(56, 189, 248, 0.3);
-    }
-
-    .f-rc1 { height: 95px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .f-rc2 { height: 125px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .f-rc3 { height: 115px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
-    .f-rc4 { height: 85px; background: rgba(56, 189, 248, 0.2); border: 1px solid rgba(56, 189, 248, 0.3); }
-
-    /* Rubber Hand Styling (Adopted & Glowing) */
-    .palm-rubber-glow {
-      background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%);
-      border: 2px solid #F2D24B;
-      box-shadow: 0 0 35px rgba(242, 210, 75, 0.6);
-    }
-
-    .f-rg1 { height: 95px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
-    .f-rg2 { height: 125px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
-    .f-rg3 { height: 115px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
-    .f-rg4 { height: 85px; background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%); border: 1px solid #F2D24B; box-shadow: 0 0 15px rgba(242, 210, 75, 0.5); }
 
     /* Proprioceptive Drift Ruler / Shift Vector */
     .proprio-drift-hud {
       position: absolute;
       bottom: 24px;
-      left: 60px;
-      right: 60px;
-      background: rgba(14, 16, 22, 0.9);
+      left: 70px;
+      right: 70px;
+      background: rgba(10, 14, 22, 0.95);
       border: 1px solid rgba(242, 210, 75, 0.4);
       padding: 12px 24px;
       border-radius: 12px;
@@ -361,32 +316,37 @@
             <span class="temp-label">Real Limb Temp</span>
             <span id="s03-temp-val" class="temp-value">-0.7°C [Cooling]</span>
           </div>
-          <div class="hand-schematic">
-            <div class="fingers-schematic">
-              <div class="f-sch f-rc1"></div>
-              <div class="f-sch f-rc2"></div>
-              <div class="f-sch f-rc3"></div>
-              <div class="f-sch f-rc4"></div>
-            </div>
-            <div class="palm-schematic palm-real-cool"></div>
-          </div>
+          <svg class="hand-vector-art" viewBox="0 0 240 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M75 280 C55 240 50 200 55 160 C65 150 85 150 95 160 C100 140 120 140 130 160 C135 140 155 140 165 160 C170 150 190 150 195 170 C205 210 200 250 175 280 Z" fill="rgba(56, 189, 248, 0.04)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2"/>
+            <path d="M85 160 L80 70 Q92 55 102 70 L100 160" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2"/>
+            <path d="M115 155 L112 40 Q125 25 136 40 L132 155" stroke="rgba(56, 189, 248, 0.35)" stroke-width="1.2"/>
+            <path d="M148 160 L148 65 Q158 52 168 65 L164 160" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2"/>
+            <!-- Attenuated neural lines -->
+            <path d="M110 320 Q120 220 124 80" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1" stroke-dasharray="4 4"/>
+          </svg>
         </div>
 
         <!-- Rubber Hand Box (Golden Biological Adoption) -->
         <div data-hf-id="hf-s03-bg" id="s03-box-rubber" class="hand-box-rubber">
           <div class="adoption-callout">
             <span class="adopt-label">Cortical Representation</span>
-            <span id="s03-adopt-val" class="adopt-value">Biological Self</span>
+            <span id="s03-adopt-val" class="adopt-value">Adopted As Self</span>
           </div>
-          <div class="hand-schematic">
-            <div class="fingers-schematic">
-              <div class="f-sch f-rg1"></div>
-              <div class="f-sch f-rg2"></div>
-              <div class="f-sch f-rg3"></div>
-              <div class="f-sch f-rg4"></div>
-            </div>
-            <div class="palm-schematic palm-rubber-glow"></div>
-          </div>
+          <svg class="hand-vector-art" viewBox="0 0 240 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M75 280 C55 240 50 200 55 160 C65 150 85 150 95 160 C100 140 120 140 130 160 C135 140 155 140 165 160 C170 150 190 150 195 170 C205 210 200 250 175 280 Z" fill="rgba(242, 210, 75, 0.12)" stroke="#F2D24B" stroke-width="2" filter="drop-shadow(0 0 12px rgba(242, 210, 75, 0.5))"/>
+            <!-- Radiant golden phalanges -->
+            <path d="M85 160 L80 70 Q92 55 102 70 L100 160" stroke="#F2D24B" stroke-width="2.2"/>
+            <path d="M115 155 L112 40 Q125 25 136 40 L132 155" stroke="#F2D24B" stroke-width="2.5"/>
+            <path d="M148 160 L148 65 Q158 52 168 65 L164 160" stroke="#F2D24B" stroke-width="2.2"/>
+            <path d="M60 210 Q30 190 25 140 Q35 125 50 145 Q65 180 75 205" stroke="#F2D24B" stroke-width="2"/>
+            <!-- Glowing biological vascular tree -->
+            <path d="M110 320 Q110 230 85 100" stroke="#F2D24B" stroke-width="1.8"/>
+            <path d="M110 320 Q120 220 124 70" stroke="#F2D24B" stroke-width="2"/>
+            <path d="M110 320 Q135 230 158 90" stroke="#F2D24B" stroke-width="1.8"/>
+            <circle cx="124" cy="70" r="5" fill="#F2D24B" filter="drop-shadow(0 0 10px #F2D24B)"/>
+            <circle cx="85" cy="100" r="4" fill="#F2D24B"/>
+            <circle cx="158" cy="90" r="4" fill="#F2D24B"/>
+          </svg>
         </div>
 
         <!-- Proprioceptive Drift Vector HUD -->
@@ -432,7 +392,7 @@
 
     // Rubber hand begins to warm and pulse
     tl.to(boxRubber, { scale: 1.03, duration: 2.0, ease: "power2.out" }, 1.5);
-    tl.to(boxReal, { opacity: 0.5, duration: 2.0, ease: "power2.out" }, 2.0);
+    tl.to(boxReal, { opacity: 0.45, duration: 2.0, ease: "power2.out" }, 2.0);
 
     // 4.6s: "...severing ownership of your real flesh and adopting cold rubber as living biology."
     tl.call(() => {

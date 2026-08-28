@@ -20,7 +20,7 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #08080a;
+      background: #06080d;
       font-family: "Inter", sans-serif;
       color: #F2F1EC;
     }
@@ -30,8 +30,8 @@
       inset: -40px;
       background: 
         radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.14) 0%, transparent 60%),
-        radial-gradient(circle at 20% 70%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
-        linear-gradient(180deg, #0d0f14 0%, #050608 100%);
+        radial-gradient(circle at 20% 70%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
+        linear-gradient(180deg, #0a0d14 0%, #030407 100%);
     }
 
     .neural-wave-grid {
@@ -67,7 +67,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(14, 16, 22, 0.85);
+      background: rgba(10, 14, 22, 0.88);
       border: 1px solid rgba(242, 210, 75, 0.4);
       padding: 10px 20px;
       border-radius: 30px;
@@ -92,7 +92,7 @@
     }
 
     .phase-lock-counter {
-      background: rgba(14, 16, 22, 0.85);
+      background: rgba(10, 14, 22, 0.88);
       border: 1px solid rgba(56, 189, 248, 0.4);
       padding: 10px 18px;
       border-radius: 30px;
@@ -106,7 +106,7 @@
     /* Synchrony Main Stage */
     .sync-stage {
       position: relative;
-      width: 780px;
+      width: 820px;
       height: 640px;
       margin-top: -60px;
       display: flex;
@@ -119,10 +119,10 @@
       left: 50%;
       top: 10px;
       bottom: 10px;
-      width: 20px;
+      width: 24px;
       transform: translateX(-50%);
-      background: linear-gradient(90deg, #1c1814 0%, #3a3229 50%, #1c1814 100%);
-      border: 1px solid rgba(242, 210, 75, 0.3);
+      background: linear-gradient(90deg, #121620 0%, #2b3345 50%, #121620 100%);
+      border: 1px solid rgba(56, 189, 248, 0.3);
       border-radius: 4px;
       z-index: 10;
     }
@@ -130,15 +130,15 @@
     /* Hand Beds */
     .sync-hand-bed {
       position: absolute;
-      width: 320px;
-      height: 520px;
+      width: 350px;
+      height: 540px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: rgba(14, 16, 22, 0.65);
+      background: rgba(10, 14, 22, 0.7);
       border-radius: 24px;
-      padding: 20px;
+      padding: 16px;
     }
 
     .bed-left {
@@ -164,61 +164,18 @@
     .lbl-left { color: #38BDF8; }
     .lbl-right { color: #F2D24B; }
 
-    /* Hand Illustrations */
-    .hand-silhouette {
-      position: relative;
-      width: 170px;
-      height: 340px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 30px;
+    .hand-svg-render {
+      width: 240px;
+      height: 400px;
+      margin-top: 20px;
     }
 
-    .hand-palm-sync {
-      width: 130px;
-      height: 160px;
-      border-radius: 36px 36px 18px 18px;
-    }
-
-    .palm-left {
-      background: linear-gradient(180deg, rgba(56, 189, 248, 0.25) 0%, rgba(10, 14, 20, 0.9) 100%);
-      border: 1.5px solid rgba(56, 189, 248, 0.5);
-    }
-
-    .palm-right {
-      background: linear-gradient(180deg, #9e724b 0%, #5e4028 100%);
-      border: 2px solid rgba(242, 210, 75, 0.6);
-      box-shadow: 0 0 25px rgba(242, 210, 75, 0.25);
-    }
-
-    .hand-fingers-sync {
-      display: flex;
-      gap: 10px;
-      margin-top: -10px;
-    }
-
-    .finger-sync {
-      width: 20px;
-      border-radius: 10px 10px 5px 5px;
-    }
-
-    .f-l1 { height: 95px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
-    .f-l2 { height: 125px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
-    .f-l3 { height: 115px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
-    .f-l4 { height: 85px; background: rgba(56, 189, 248, 0.35); border: 1px solid rgba(56, 189, 248, 0.5); }
-
-    .f-r1 { height: 95px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
-    .f-r2 { height: 125px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
-    .f-r3 { height: 115px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
-    .f-r4 { height: 85px; background: #b88b62; border: 1.5px solid rgba(242, 210, 75, 0.6); }
-
-    /* Paintbrush Elements */
+    /* Precision Stylus Paintbrushes */
     .brush-assembly {
       position: absolute;
-      top: 140px;
-      width: 28px;
-      height: 180px;
+      top: 120px;
+      width: 24px;
+      height: 200px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -227,51 +184,51 @@
     }
 
     .brush-handle {
-      width: 10px;
-      height: 130px;
-      background: linear-gradient(180deg, #d4a373 0%, #8b5a2b 100%);
+      width: 8px;
+      height: 140px;
+      background: linear-gradient(180deg, #d4a373 0%, #78350f 100%);
       border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
     .brush-ferrule {
-      width: 14px;
-      height: 24px;
-      background: linear-gradient(90deg, #c0c0c0 0%, #e8e8e8 50%, #909090 100%);
+      width: 12px;
+      height: 28px;
+      background: linear-gradient(90deg, #cbd5e1 0%, #f8fafc 50%, #94a3b8 100%);
       border-radius: 2px;
     }
 
     .brush-bristles {
-      width: 16px;
+      width: 14px;
       height: 32px;
       background: linear-gradient(180deg, #fef08a 0%, #ca8a04 100%);
       border-radius: 2px 2px 8px 8px;
       box-shadow: 0 0 16px rgba(242, 210, 75, 0.8);
     }
 
-    .brush-left { left: 160px; }
-    .brush-right { right: 160px; }
+    .brush-left { left: 180px; }
+    .brush-right { right: 180px; }
 
     /* Tactile Contact Ripple */
     .tactile-ripple {
       position: absolute;
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       border: 2px solid rgba(242, 210, 75, 0.8);
-      box-shadow: 0 0 20px rgba(242, 210, 75, 0.5);
-      top: 290px;
+      box-shadow: 0 0 24px rgba(242, 210, 75, 0.6);
+      top: 270px;
       opacity: 0;
       pointer-events: none;
     }
 
-    .ripple-l { left: 144px; border-color: rgba(56, 189, 248, 0.8); box-shadow: 0 0 20px rgba(56, 189, 248, 0.5); }
-    .ripple-r { right: 144px; }
+    .ripple-l { left: 160px; border-color: rgba(56, 189, 248, 0.8); box-shadow: 0 0 24px rgba(56, 189, 248, 0.6); }
+    .ripple-r { right: 160px; }
 
     /* Crossmodal Fusion Arc */
     .fusion-arc-beam {
       position: absolute;
-      top: 290px;
+      top: 270px;
       left: 200px;
       right: 200px;
       height: 3px;
@@ -338,32 +295,38 @@
       <div data-hf-id="hf-s02-stage" id="s02-stage" class="sync-stage" data-layout-allow-overlap>
         <div class="sync-divider"></div>
 
-        <!-- Left Hand Bed -->
+        <!-- Left Hand Bed (Tactile Input) -->
         <div data-hf-id="hf-s02-bl" class="sync-hand-bed bed-left">
-          <span class="bed-label lbl-left">Tactile Input [Skin]</span>
-          <div class="hand-silhouette">
-            <div class="hand-fingers-sync">
-              <div class="finger-sync f-l1"></div>
-              <div class="finger-sync f-l2"></div>
-              <div class="finger-sync f-l3"></div>
-              <div class="finger-sync f-l4"></div>
-            </div>
-            <div class="hand-palm-sync palm-left"></div>
-          </div>
+          <span class="bed-label lbl-left">Tactile Input [Mechanoreceptors]</span>
+          <svg class="hand-svg-render" viewBox="0 0 240 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M75 290 C55 250 50 210 55 170 C65 160 85 160 95 170 C100 150 120 150 130 170 C135 150 155 150 165 170 C170 160 190 160 195 180 C205 220 200 260 175 290 Z" fill="rgba(56, 189, 248, 0.08)" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.5"/>
+            <!-- Phalanges -->
+            <path d="M85 170 L80 70 Q92 55 102 70 L100 170" stroke="rgba(56, 189, 248, 0.7)" stroke-width="1.5"/>
+            <path d="M115 165 L112 40 Q125 25 136 40 L132 165" stroke="rgba(56, 189, 248, 0.8)" stroke-width="1.5"/>
+            <path d="M148 170 L148 65 Q158 52 168 65 L164 170" stroke="rgba(56, 189, 248, 0.7)" stroke-width="1.5"/>
+            <!-- Axon lines -->
+            <path d="M110 330 Q110 240 85 120" stroke="rgba(56, 189, 248, 0.5)" stroke-width="1"/>
+            <path d="M110 330 Q120 230 124 80" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.2"/>
+            <circle cx="124" cy="80" r="4" fill="#38BDF8" filter="drop-shadow(0 0 8px #38BDF8)"/>
+            <circle cx="91" cy="95" r="3.5" fill="#38BDF8"/>
+          </svg>
         </div>
 
-        <!-- Right Hand Bed -->
+        <!-- Right Hand Bed (Visual Input) -->
         <div data-hf-id="hf-s02-br" class="sync-hand-bed bed-right">
-          <span class="bed-label lbl-right">Visual Input [Retina]</span>
-          <div class="hand-silhouette">
-            <div class="hand-fingers-sync">
-              <div class="finger-sync f-r1"></div>
-              <div class="finger-sync f-r2"></div>
-              <div class="finger-sync f-r3"></div>
-              <div class="finger-sync f-r4"></div>
-            </div>
-            <div class="hand-palm-sync palm-right"></div>
-          </div>
+          <span class="bed-label lbl-right">Visual Input [Retinal Stream]</span>
+          <svg class="hand-svg-render" viewBox="0 0 240 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M75 290 C55 250 50 210 55 170 C65 160 85 160 95 170 C100 150 120 150 130 170 C135 150 155 150 165 170 C170 160 190 160 195 180 C205 220 200 260 175 290 Z" fill="rgba(242, 210, 75, 0.1)" stroke="rgba(242, 210, 75, 0.8)" stroke-width="1.8"/>
+            <!-- Phalanges -->
+            <path d="M85 170 L80 70 Q92 55 102 70 L100 170" stroke="#F2D24B" stroke-width="2"/>
+            <path d="M115 165 L112 40 Q125 25 136 40 L132 165" stroke="#F2D24B" stroke-width="2.2"/>
+            <path d="M148 170 L148 65 Q158 52 168 65 L164 170" stroke="#F2D24B" stroke-width="2"/>
+            <!-- Axon lines -->
+            <path d="M110 330 Q110 240 85 120" stroke="#F2D24B" stroke-width="1.2"/>
+            <path d="M110 330 Q120 230 124 80" stroke="#F2D24B" stroke-width="1.5"/>
+            <circle cx="124" cy="80" r="4" fill="#F2D24B" filter="drop-shadow(0 0 8px #F2D24B)"/>
+            <circle cx="91" cy="95" r="3.5" fill="#F2D24B"/>
+          </svg>
         </div>
 
         <!-- Synchronous Paintbrushes -->

@@ -120,8 +120,8 @@
     /* Direction Giver (Left) */
     .person-giver {
       position: relative;
-      width: 180px;
-      height: 480px;
+      width: 220px;
+      height: 520px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -131,8 +131,8 @@
     /* Strangers Container (Right) */
     .stranger-target-area {
       position: relative;
-      width: 200px;
-      height: 480px;
+      width: 220px;
+      height: 520px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -142,8 +142,8 @@
     .stranger-a, .stranger-b {
       position: absolute;
       bottom: 0;
-      width: 180px;
-      height: 480px;
+      width: 220px;
+      height: 520px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -154,15 +154,15 @@
     .silhouette-svg {
       width: 100%;
       height: 100%;
-      filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.8));
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
     }
 
     /* Conversation Beam */
     .convo-beam-container {
       position: absolute;
       top: 240px;
-      left: 190px;
-      right: 200px;
+      left: 200px;
+      right: 210px;
       height: 60px;
       display: flex;
       align-items: center;
@@ -192,11 +192,11 @@
     /* The Wooden Door passing through */
     .door-rig {
       position: absolute;
-      top: 40px;
-      left: -400px;
-      width: 380px;
-      height: 600px;
-      transform: perspective(800px) rotateY(-18deg) rotateZ(3deg);
+      top: 20px;
+      left: -420px;
+      width: 440px;
+      height: 640px;
+      transform: perspective(900px) rotateY(-18deg) rotateZ(2deg);
       z-index: 20;
       pointer-events: none;
       display: flex;
@@ -244,20 +244,20 @@
 
     .worker-carrier-front {
       position: absolute;
-      left: -70px;
-      bottom: 20px;
-      width: 90px;
-      height: 380px;
-      opacity: 0.85;
+      left: -90px;
+      bottom: 0px;
+      width: 140px;
+      height: 480px;
+      opacity: 0.95;
     }
 
     .worker-carrier-back {
       position: absolute;
-      right: -70px;
-      bottom: 40px;
-      width: 90px;
-      height: 380px;
-      opacity: 0.85;
+      right: -90px;
+      bottom: 20px;
+      width: 140px;
+      height: 480px;
+      opacity: 0.95;
     }
 
     /* Subtitle block at bottom: 480px */
@@ -316,13 +316,39 @@
       <!-- Interaction Stage -->
       <div data-hf-id="hf-s01-stage" id="s01-stage" class="interaction-stage" data-layout-allow-overlap>
         
-        <!-- Direction Giver -->
+        <!-- Direction Giver: Sophisticated Human Form with Tailored Coat & Gesturing Arm -->
         <div data-hf-id="hf-s01-giver" id="s01-giver" class="person-giver">
-          <svg class="silhouette-svg" viewBox="0 0 160 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="80" cy="55" r="32" fill="#E2E8F0"/>
-            <path d="M40 120 C40 95, 120 95, 120 120 L135 240 L115 245 L105 160 L105 380 L85 380 L80 260 L75 380 L55 380 L55 160 L45 245 L25 240 Z" fill="#38BDF8"/>
-            <!-- Arm giving directions -->
-            <path d="M110 135 L155 125 L158 135 L112 150 Z" fill="#E2E8F0"/>
+          <svg class="silhouette-svg" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="giverGrad" x1="40" y1="50" x2="160" y2="450" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1E293B"/>
+                <stop offset="60%" stop-color="#0F172A"/>
+                <stop offset="100%" stop-color="#050811"/>
+              </linearGradient>
+              <linearGradient id="giverRim" x1="0" y1="0" x2="200" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.9"/>
+                <stop offset="15%" stop-color="#38BDF8" stop-opacity="0.3"/>
+                <stop offset="85%" stop-color="#F2D24B" stop-opacity="0.1"/>
+                <stop offset="100%" stop-color="#F2D24B" stop-opacity="0.8"/>
+              </linearGradient>
+            </defs>
+            <!-- Head & Sleek Hair Contour -->
+            <path d="M92 42 C92 25, 115 22, 122 36 C126 44, 125 58, 120 66 C114 74, 102 76, 94 70 C88 64, 88 50, 92 42 Z" fill="url(#giverGrad)" stroke="#38BDF8" stroke-width="1.5"/>
+            <!-- Neck & Collar -->
+            <path d="M102 68 L108 88 L94 88 Z" fill="#0F172A"/>
+            <!-- Coat Collar Lapels -->
+            <path d="M82 92 L106 130 L118 90 Z" fill="#334155" opacity="0.6"/>
+            <!-- Torso / Tailored Overcoat -->
+            <path d="M72 90 C72 85, 132 85, 136 96 L144 180 L146 290 C146 300, 64 300, 66 290 L70 180 Z" fill="url(#giverGrad)" stroke="url(#giverRim)" stroke-width="1.8"/>
+            <!-- Gesturing Right Arm pointing forward -->
+            <path d="M128 100 C138 100, 160 115, 175 118 L194 116 C198 116, 198 122, 192 124 L170 130 L136 125 Z" fill="#1E293B" stroke="#38BDF8" stroke-width="1.5"/>
+            <!-- Left Arm in Pocket / Stance -->
+            <path d="M72 100 C64 110, 60 140, 62 170 C64 185, 75 185, 76 170 L78 120 Z" fill="#0F172A" stroke="#38BDF8" stroke-width="1.2"/>
+            <!-- Tailored Trousers with Crease & Volumetric Depth -->
+            <path d="M76 290 L72 445 C72 452, 94 452, 94 445 L98 330 L102 330 L108 445 C108 452, 130 452, 130 445 L134 290 Z" fill="#0A0F1D" stroke="url(#giverRim)" stroke-width="1.5"/>
+            <!-- Dress Shoes -->
+            <path d="M68 445 L94 445 C98 445, 98 455, 92 458 L64 458 C60 458, 60 445, 68 445 Z" fill="#020617"/>
+            <path d="M106 445 L132 445 C136 445, 136 455, 130 458 L102 458 C98 458, 98 445, 106 445 Z" fill="#020617"/>
           </svg>
         </div>
 
@@ -335,32 +361,144 @@
 
         <!-- Strangers Stage (Right) -->
         <div data-hf-id="hf-s01-strangers" id="s01-strangers" class="stranger-target-area">
-          <!-- Stranger A (Original asking directions) -->
+          
+          <!-- Stranger A: Tall, Tailored Overcoat, Attentive Posture -->
           <div data-hf-id="hf-s01-stra" id="s01-stranger-a" class="stranger-a">
-            <svg class="silhouette-svg" viewBox="0 0 160 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="80" cy="55" r="32" fill="#E2E8F0"/>
-              <!-- Blue Jacket -->
-              <path d="M35 120 C35 95, 125 95, 125 120 L138 235 L120 240 L110 160 L110 380 L90 380 L80 260 L70 380 L50 380 L50 160 L40 240 L22 235 Z" fill="#64748B"/>
+            <svg class="silhouette-svg" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="straGrad" x1="160" y1="40" x2="40" y2="450" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#334155"/>
+                  <stop offset="50%" stop-color="#1E293B"/>
+                  <stop offset="100%" stop-color="#090D16"/>
+                </linearGradient>
+                <linearGradient id="straRim" x1="200" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#64748B" stop-opacity="0.9"/>
+                  <stop offset="30%" stop-color="#64748B" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#38BDF8" stop-opacity="0.6"/>
+                </linearGradient>
+              </defs>
+              <!-- Head with Profile Silhouette facing left -->
+              <path d="M105 38 C105 20, 80 18, 72 32 C68 40, 68 56, 74 64 C80 72, 94 74, 102 68 C108 62, 108 48, 105 38 Z" fill="url(#straGrad)" stroke="url(#straRim)" stroke-width="1.5"/>
+              <!-- Neck & Scarf detail -->
+              <path d="M94 65 L88 86 L102 86 Z" fill="#1E293B"/>
+              <path d="M84 86 C84 84, 106 84, 106 86 L104 110 L86 110 Z" fill="#475569" opacity="0.7"/>
+              <!-- Structured Overcoat Silhouette -->
+              <path d="M62 90 C62 84, 126 84, 126 90 L132 180 L130 300 C130 308, 54 308, 54 300 L56 180 Z" fill="url(#straGrad)" stroke="url(#straRim)" stroke-width="1.8"/>
+              <!-- Arms in Natural Listening Posture -->
+              <path d="M60 98 C50 110, 48 140, 52 175 C54 185, 66 185, 68 175 L70 115 Z" fill="#1E293B" stroke="url(#straRim)" stroke-width="1.2"/>
+              <path d="M124 98 C132 110, 134 140, 130 175 C128 185, 116 185, 114 175 L116 115 Z" fill="#0F172A" stroke="url(#straRim)" stroke-width="1.2"/>
+              <!-- Tailored Trousers -->
+              <path d="M62 300 L66 450 C66 456, 88 456, 88 450 L94 335 L98 335 L104 450 C104 456, 126 456, 126 450 L124 300 Z" fill="#0B0F19" stroke="url(#straRim)" stroke-width="1.5"/>
+              <!-- Shoes -->
+              <path d="M62 450 L88 450 C92 450, 92 460, 86 462 L58 462 C54 462, 54 450, 62 450 Z" fill="#020617"/>
+              <path d="M102 450 L128 450 C132 450, 132 460, 126 462 L98 462 C94 462, 94 450, 102 450 Z" fill="#020617"/>
             </svg>
           </div>
 
-          <!-- Stranger B (New Person swapped behind door) -->
+          <!-- Stranger B: Noticeably Shorter, Workwear Jacket with Amber/Orange Rim Lighting -->
           <div data-hf-id="hf-s01-strb" id="s01-stranger-b" class="stranger-b">
-            <svg class="silhouette-svg" viewBox="0 0 160 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="80" cy="62" r="30" fill="#F2D24B"/>
-              <!-- Amber / Orange Construction Jacket, shorter height -->
-              <path d="M40 128 C40 102, 120 102, 120 128 L132 230 L115 235 L106 165 L106 370 L86 370 L80 255 L74 370 L54 370 L54 165 L45 235 L28 230 Z" fill="#D4622B"/>
+            <svg class="silhouette-svg" viewBox="0 0 200 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="strbGrad" x1="160" y1="60" x2="40" y2="450" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#431407"/>
+                  <stop offset="40%" stop-color="#271008"/>
+                  <stop offset="100%" stop-color="#0C0502"/>
+                </linearGradient>
+                <linearGradient id="strbRim" x1="200" y1="0" x2="0" y2="0" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#F2D24B" stop-opacity="0.95"/>
+                  <stop offset="25%" stop-color="#D4622B" stop-opacity="0.8"/>
+                  <stop offset="100%" stop-color="#D4622B" stop-opacity="0.3"/>
+                </linearGradient>
+              </defs>
+              <!-- Head (Lower by 25px for noticeable height difference) -->
+              <path d="M106 58 C106 42, 84 40, 76 52 C72 60, 72 74, 78 82 C84 90, 96 92, 104 86 C110 80, 110 68, 106 58 Z" fill="url(#strbGrad)" stroke="url(#strbRim)" stroke-width="1.8"/>
+              <!-- Neck & Jacket Collar -->
+              <path d="M96 82 L90 102 L104 102 Z" fill="#271008"/>
+              <path d="M78 100 L112 100 L116 116 L74 116 Z" fill="#7C2D12" stroke="#F2D24B" stroke-width="1.2"/>
+              <!-- Puffer / Utility Jacket Silhouette (Broader, shorter) -->
+              <path d="M54 106 C54 100, 136 100, 136 106 L144 190 L140 270 C140 278, 50 278, 50 270 L48 190 Z" fill="url(#strbGrad)" stroke="url(#strbRim)" stroke-width="2"/>
+              <!-- Utility Horizontal Seams -->
+              <line x1="50" y1="160" x2="142" y2="160" stroke="rgba(242, 210, 75, 0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <line x1="50" y1="215" x2="140" y2="215" stroke="rgba(242, 210, 75, 0.4)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <!-- Hands in Pockets Stance -->
+              <path d="M48 115 C38 128, 38 170, 52 200 C56 208, 68 208, 66 195 L62 135 Z" fill="#1C0A04" stroke="url(#strbRim)" stroke-width="1.5"/>
+              <path d="M138 115 C148 128, 148 170, 134 200 C130 208, 118 208, 120 195 L124 135 Z" fill="#1C0A04" stroke="url(#strbRim)" stroke-width="1.5"/>
+              <!-- Heavy Jeans / Utility Pants -->
+              <path d="M56 272 L58 435 C58 442, 82 442, 82 435 L88 315 L94 315 L98 435 C98 442, 122 442, 122 435 L124 272 Z" fill="#0A0604" stroke="url(#strbRim)" stroke-width="1.8"/>
+              <!-- Work Boots -->
+              <path d="M54 435 L82 435 C86 435, 86 448, 80 450 L50 450 C46 450, 46 435, 54 435 Z" fill="#000000" stroke="#F2D24B" stroke-width="1"/>
+              <path d="M96 435 L124 435 C128 435, 128 448, 122 450 L92 450 C88 450, 88 435, 96 435 Z" fill="#000000" stroke="#F2D24B" stroke-width="1"/>
             </svg>
           </div>
         </div>
 
-        <!-- The Door & Workers Moving Across -->
+        <!-- The Door & Muscular Realistic Workers Moving Across -->
         <div data-hf-id="hf-s01-door" id="s01-door-rig" class="door-rig" data-layout-allow-overflow data-layout-allow-overlap>
+          <!-- Front Worker Carrying Door -->
           <div class="worker-carrier-front">
-            <svg viewBox="0 0 100 350" fill="none">
-              <circle cx="50" cy="45" r="24" fill="#64748B"/>
-              <path d="M25 90 C25 70, 75 70, 75 90 L85 200 L65 205 L60 330 L40 330 L35 205 L15 200 Z" fill="#334155"/>
-            </svg>
+            <svg viewBox="0 0 140 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="wfBodyGrad-CB1" cx="50%" cy="40%" r="60%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#1E2D42"/>
+      <stop offset="100%" stop-color="#040810"/>
+    </radialGradient>
+    <linearGradient id="wfRim-CB1" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="rgba(242,210,75,0.75)"/>
+      <stop offset="100%" stop-color="rgba(242,210,75,0.05)"/>
+    </linearGradient>
+    <filter id="wfGlow-CB1">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Head shape — slightly forward-tilted from carrying load -->
+  <path d="M58 56 C58 40, 72 34, 82 38 C90 42, 94 54, 90 64 C86 74, 74 76, 66 72 C58 68, 56 62, 58 56 Z"
+        fill="url(#wfBodyGrad-CB1)" stroke="rgba(100,116,139,0.9)" stroke-width="1.4"/>
+  <!-- Hard hat / cap -->
+  <path d="M52 50 L92 50 C95 50, 96 56, 93 58 L50 56 C48 56, 48 50, 52 50 Z"
+        fill="#F2D24B" opacity="0.9"/>
+  <!-- Cap brim -->
+  <path d="M48 58 L100 58 L98 63 L50 63 Z" fill="#D4A017" opacity="0.8"/>
+
+  <!-- Neck -->
+  <path d="M70 72 L67 86 L77 86 Z" fill="#0F172A"/>
+
+  <!-- Collar (jacket V-shape) -->
+  <path d="M60 90 L72 115 L82 90 Z" fill="#334155" opacity="0.5"/>
+
+  <!-- Torso: forward lean (load carrying posture) — volumetric jacket -->
+  <path d="M44 90 C44 84, 104 82, 108 90
+           L114 185 L112 270 C112 278, 38 280, 36 270 L40 185 Z"
+        fill="url(#wfBodyGrad-CB1)" stroke="url(#wfRim-CB1)" stroke-width="1.8"/>
+
+  <!-- High-visibility diagonal harness straps -->
+  <path d="M58 88 L72 185 L82 185 L64 88 Z" fill="#F2D24B" opacity="0.75"/>
+  <path d="M98 88 L84 185 L74 185 L90 88 Z" fill="#F2D24B" opacity="0.75"/>
+  <!-- Horizontal reflective band across chest -->
+  <path d="M38 155 L112 150" stroke="#F2D24B" stroke-width="5" stroke-linecap="round" opacity="0.6"/>
+
+  <!-- Right arm extended outward holding door (power pose) -->
+  <path d="M104 96 C118 100, 136 118, 136 148 L130 152 L120 125 L108 112 Z"
+        fill="#1E2D42" stroke="rgba(148,163,184,0.8)" stroke-width="1.5"/>
+  <!-- Gloved hand grip -->
+  <path d="M130 148 C134 152, 138 158, 134 164 C130 170, 124 166, 122 160 C120 154, 124 148, 130 148 Z"
+        fill="#0F172A" stroke="#F2D24B" stroke-width="1.2"/>
+
+  <!-- Left arm naturally down and bracing -->
+  <path d="M42 96 C32 110, 30 148, 34 175 C36 185, 48 185, 50 172 L54 125 Z"
+        fill="#142033" stroke="rgba(100,116,139,0.7)" stroke-width="1.2"/>
+
+  <!-- Legs in stride (mid-step walk pose) -->
+  <!-- Left leg forward -->
+  <path d="M42 272 L36 430 L56 430 L64 315 L70 315 L80 430 L100 430 L96 272 Z"
+        fill="#08111D" stroke="rgba(71,85,105,0.8)" stroke-width="1.5"/>
+  <!-- Boot details -->
+  <path d="M32 430 L56 430 C60 430, 60 445, 54 448 L28 448 C24 448, 24 430, 32 430 Z"
+        fill="#020617" stroke="#F2D24B" stroke-width="1"/>
+  <path d="M78 430 L102 430 C106 430, 106 445, 100 448 L74 448 C70 448, 70 430, 78 430 Z"
+        fill="#020617" stroke="#F2D24B" stroke-width="1"/>
+</svg>
           </div>
 
           <div class="door-slab" data-layout-allow-overflow>
@@ -370,11 +508,65 @@
             <div class="door-knob"></div>
           </div>
 
+          <!-- Rear Worker Carrying Door -->
           <div class="worker-carrier-back">
-            <svg viewBox="0 0 100 350" fill="none">
-              <circle cx="50" cy="45" r="24" fill="#64748B"/>
-              <path d="M25 90 C25 70, 75 70, 75 90 L85 200 L65 205 L60 330 L40 330 L35 205 L15 200 Z" fill="#334155"/>
-            </svg>
+            <svg viewBox="0 0 140 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="wbBodyGrad-CB1" cx="50%" cy="40%" r="60%" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="#161E2A"/>
+      <stop offset="100%" stop-color="#030609"/>
+    </radialGradient>
+    <linearGradient id="wbRim-CB1" x1="1" y1="0" x2="0" y2="0" gradientUnits="objectBoundingBox">
+      <stop offset="0%" stop-color="rgba(242,210,75,0.6)"/>
+      <stop offset="100%" stop-color="rgba(242,210,75,0.04)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Head — slightly turned away from viewer -->
+  <path d="M58 52 C58 36, 72 30, 82 34 C91 38, 95 52, 91 62 C87 72, 74 75, 66 70 C57 65, 56 58, 58 52 Z"
+        fill="url(#wbBodyGrad-CB1)" stroke="rgba(71,85,105,0.85)" stroke-width="1.4"/>
+  <!-- Hard hat -->
+  <path d="M52 46 L92 46 C95 46, 96 52, 93 54 L50 52 C47 52, 47 46, 52 46 Z"
+        fill="#F2D24B" opacity="0.85"/>
+  <path d="M47 54 L100 54 L98 60 L50 60 Z" fill="#D4A017" opacity="0.75"/>
+
+  <!-- Neck -->
+  <path d="M70 68 L67 82 L77 82 Z" fill="#0B1220"/>
+
+  <!-- Collar -->
+  <path d="M60 86 L72 110 L82 86 Z" fill="#334155" opacity="0.45"/>
+
+  <!-- Torso: from behind, leaning with upper load hold -->
+  <path d="M40 86 C40 80, 106 78, 110 88
+           L116 182 L114 268 C114 276, 36 278, 34 268 L36 182 Z"
+        fill="url(#wbBodyGrad-CB1)" stroke="url(#wbRim-CB1)" stroke-width="1.8"/>
+
+  <!-- High-vis harness straps (reverse angle) -->
+  <path d="M56 84 L68 180 L78 180 L62 84 Z" fill="#F2D24B" opacity="0.7"/>
+  <path d="M96 84 L82 180 L72 180 L88 84 Z" fill="#F2D24B" opacity="0.7"/>
+  <!-- Reflective chest band -->
+  <path d="M36 150 L114 145" stroke="#F2D24B" stroke-width="5" stroke-linecap="round" opacity="0.55"/>
+
+  <!-- Left arm reaching up holding top of door frame -->
+  <path d="M42 92 C30 100, 24 128, 28 162 L44 162 L50 120 Z"
+        fill="#1A2535" stroke="rgba(148,163,184,0.75)" stroke-width="1.5"/>
+  <!-- Gloved hand -->
+  <path d="M26 158 C22 164, 24 172, 30 172 C36 172, 40 164, 38 158 C36 150, 28 150, 26 158 Z"
+        fill="#0F172A" stroke="#F2D24B" stroke-width="1.2"/>
+
+  <!-- Right arm down stabilizing -->
+  <path d="M106 94 C118 108, 122 148, 116 175 C114 186, 102 186, 100 172 L106 130 Z"
+        fill="#111B28" stroke="rgba(100,116,139,0.65)" stroke-width="1.2"/>
+
+  <!-- Legs — opposite stride from front worker -->
+  <path d="M40 270 L34 430 L54 430 L62 315 L68 315 L78 430 L100 430 L94 270 Z"
+        fill="#060D18" stroke="rgba(71,85,105,0.75)" stroke-width="1.5"/>
+  <!-- Boots -->
+  <path d="M30 430 L54 430 C58 430, 58 444, 52 447 L26 447 C22 447, 22 430, 30 430 Z"
+        fill="#020617" stroke="#F2D24B" stroke-width="1"/>
+  <path d="M76 430 L100 430 C104 430, 104 444, 98 447 L72 447 C68 447, 68 430, 76 430 Z"
+        fill="#020617" stroke="#F2D24B" stroke-width="1"/>
+</svg>
           </div>
         </div>
 
@@ -405,7 +597,7 @@
 
     gsap.set(strangerA, { opacity: 1, x: 0 });
     gsap.set(strangerB, { opacity: 0, x: 0 });
-    gsap.set(doorRig, { x: -350, opacity: 0 });
+    gsap.set(doorRig, { x: -380, opacity: 0 });
     gsap.set(stage, { scale: 0.95 });
 
     // Slow push-in on scene
@@ -417,7 +609,7 @@
 
     // 4.6s: Door enters and sweeps across the interaction line
     tl.to(doorRig, { opacity: 1, duration: 0.4 }, 4.4);
-    tl.to(doorRig, { x: 1200, duration: 3.4, ease: "power1.inOut" }, 4.5);
+    tl.to(doorRig, { x: 1250, duration: 3.4, ease: "power1.inOut" }, 4.5);
 
     // Swap occurs right behind the door at 6.0s
     tl.call(() => {

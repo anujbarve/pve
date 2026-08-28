@@ -54,8 +54,8 @@
     }
 
     .optic-badge {
-      background: rgba(14, 18, 26, 0.85);
-      border: 1px solid rgba(242, 241, 236, 0.15);
+      background: #0E121A;
+      border: 1px solid rgba(242, 241, 236, 0.2);
       padding: 10px 18px;
       border-radius: 6px;
       display: flex;
@@ -81,7 +81,7 @@
     /* Main Optical Cone Stage */
     .fovea-stage {
       position: relative;
-      width: 900px;
+      width: 920px;
       height: 660px;
       margin-top: -60px;
       display: flex;
@@ -98,24 +98,24 @@
     /* Physical Thumbnail Overlay */
     .thumb-scale-card {
       position: absolute;
-      right: 50px;
+      right: 40px;
       top: 50%;
       transform: translateY(-50%);
-      width: 270px;
-      background: rgba(12, 15, 22, 0.95);
-      border: 1px solid rgba(242, 210, 75, 0.4);
+      width: 290px;
+      background: #0C0F16;
+      border: 1px solid rgba(242, 210, 75, 0.45);
       border-radius: 12px;
-      padding: 20px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(242, 210, 75, 0.15);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(242, 210, 75, 0.15);
     }
 
     .thumb-icon-wrap {
-      width: 70px;
-      height: 90px;
+      width: 120px;
+      height: 100px;
       position: relative;
       display: flex;
       align-items: center;
@@ -124,10 +124,13 @@
 
     .thumb-reticle {
       position: absolute;
-      inset: -6px;
+      top: 6px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
       border: 2px dashed #F2D24B;
       border-radius: 50%;
-      box-shadow: 0 0 16px rgba(242, 210, 75, 0.4);
+      box-shadow: 0 0 16px rgba(242, 210, 75, 0.5);
     }
 
     .thumb-label {
@@ -205,43 +208,50 @@
       <!-- Main Foveal Stage -->
       <div data-hf-id="hf-s03-stage" id="s03-stage" class="fovea-stage" data-layout-allow-overlap>
         
-        <svg class="optic-svg" viewBox="0 0 900 660" fill="none">
+        <svg class="optic-svg" viewBox="0 0 920 660" fill="none">
           <defs>
             <!-- 2° Foveal Laser Beam Gradient -->
-            <linearGradient id="foveaBeamGrad" x1="120" y1="330" x2="850" y2="330" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#F2D24B" stop-opacity="0.9"/>
-              <stop offset="100%" stop-color="#F2D24B" stop-opacity="0.3"/>
+            <linearGradient id="foveaBeamGrad" x1="160" y1="330" x2="880" y2="330" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#F2D24B" stop-opacity="0.95"/>
+              <stop offset="100%" stop-color="#F2D24B" stop-opacity="0.25"/>
             </linearGradient>
 
             <!-- 180° Peripheral Field Gradient -->
-            <radialGradient id="periphGrad" cx="120" cy="330" r="700" gradientUnits="userSpaceOnUse">
+            <radialGradient id="periphGrad" cx="160" cy="330" r="720" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.2"/>
               <stop offset="50%" stop-color="#64748B" stop-opacity="0.08"/>
               <stop offset="100%" stop-color="#0F172A" stop-opacity="0"/>
             </radialGradient>
+
+            <!-- Human Head Profile Gradient -->
+            <linearGradient id="headProfileGrad" x1="20" y1="200" x2="160" y2="450" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1E293B"/>
+              <stop offset="60%" stop-color="#0F172A"/>
+              <stop offset="100%" stop-color="#050811"/>
+            </linearGradient>
           </defs>
 
           <!-- Peripheral Wide Cone (Blur Field) -->
-          <path data-hf-id="hf-s03-periph" id="s03-periph-cone" d="M120 330 L850 60 L850 600 Z" fill="url(#periphGrad)" stroke="rgba(100, 116, 139, 0.25)" stroke-width="1.5" stroke-dasharray="6 6"/>
+          <path data-hf-id="hf-s03-periph" id="s03-periph-cone" d="M160 330 L880 70 L880 590 Z" fill="url(#periphGrad)" stroke="rgba(100, 116, 139, 0.25)" stroke-width="1.5" stroke-dasharray="6 6"/>
 
           <!-- Peripheral Grid Lines representing degraded sampling -->
-          <line x1="120" y1="330" x2="850" y2="180" stroke="rgba(100, 116, 139, 0.2)" stroke-width="1"/>
-          <line x1="120" y1="330" x2="850" y2="480" stroke="rgba(100, 116, 139, 0.2)" stroke-width="1"/>
+          <line x1="160" y1="330" x2="880" y2="190" stroke="rgba(100, 116, 139, 0.2)" stroke-width="1"/>
+          <line x1="160" y1="330" x2="880" y2="470" stroke="rgba(100, 116, 139, 0.2)" stroke-width="1"/>
 
-          <!-- Eyeball Diagram (Left) -->
-          <g data-hf-id="hf-s03-eye" id="s03-eye-rig" transform="translate(60, 270)">
-            <ellipse cx="60" cy="60" rx="55" ry="55" fill="#0D1117" stroke="rgba(242, 241, 236, 0.4)" stroke-width="2"/>
-            <path d="M95 30 C115 45, 115 75, 95 90" fill="none" stroke="#38BDF8" stroke-width="4"/> <!-- Cornea -->
-            <ellipse cx="82" cy="60" rx="10" ry="24" fill="#1E293B" stroke="#F2D24B" stroke-width="2"/> <!-- Lens -->
-            <!-- Retina foveal center -->
-            <circle cx="10" cy="60" r="5" fill="#F2D24B"/>
+          <!-- Sleek Cinematic Human Head & Eye Profile (Left) -->
+          <g data-hf-id="hf-s03-eye" id="s03-eye-rig" transform="translate(10, 200)">
+            <!-- Head & Forehead, Nose, Lips, Chin, Neck Contour -->
+            <path d="M40 260 C38 230, 42 200, 48 180 C55 155, 75 90, 110 75 C135 65, 150 70, 155 85 C158 95, 152 110, 158 118 C165 125, 172 130, 168 138 C162 144, 154 145, 158 152 C164 158, 158 168, 148 170 C140 172, 142 185, 148 195 C140 210, 115 230, 105 260 Z" fill="url(#headProfileGrad)" stroke="#38BDF8" stroke-width="1.8"/>
+            <!-- Eye Socket & Glowing Lens Structure -->
+            <path d="M142 125 C146 122, 154 122, 158 126 C154 130, 146 130, 142 125 Z" fill="#38BDF8" stroke="#F2D24B" stroke-width="1.5"/>
+            <circle cx="150" cy="126" r="3.5" fill="#F2D24B"/>
           </g>
 
           <!-- Razor 2° Foveal Spotlight -->
-          <polygon data-hf-id="hf-s03-fbeam" id="s03-fovea-beam" points="120,330 850,290 850,370" fill="url(#foveaBeamGrad)" stroke="#F2D24B" stroke-width="2"/>
+          <polygon data-hf-id="hf-s03-fbeam" id="s03-fovea-beam" points="160,326 880,290 880,362" fill="url(#foveaBeamGrad)" stroke="#F2D24B" stroke-width="2"/>
 
           <!-- Target Reticle positioned cleanly -->
-          <g data-hf-id="hf-s03-ret" id="s03-target-reticle" transform="translate(360, 330)">
+          <g data-hf-id="hf-s03-ret" id="s03-target-reticle" transform="translate(380, 326)">
             <circle cx="0" cy="0" r="40" stroke="#F2D24B" stroke-width="2" stroke-dasharray="4 4" fill="rgba(242, 210, 75, 0.1)"/>
             <circle cx="0" cy="0" r="6" fill="#F2D24B"/>
             <line x1="-50" y1="0" x2="50" y2="0" stroke="#F2D24B" stroke-width="1.5"/>
@@ -250,14 +260,30 @@
           </g>
         </svg>
 
-        <!-- Thumbnail Metaphor Card -->
+        <!-- Thumbnail Metaphor Card with Anatomical Hand Silhouette -->
         <div data-hf-id="hf-s03-thumb" id="s03-thumb-card" class="thumb-scale-card" data-layout-allow-overlap>
           <div class="thumb-icon-wrap">
             <div class="thumb-reticle"></div>
-            <!-- Thumb graphic -->
-            <svg viewBox="0 0 50 70" width="44" height="60" fill="none">
-              <path d="M15 65 L15 25 C15 15, 35 15, 35 25 L35 65 Z" fill="#E2E8F0" stroke="#F2D24B" stroke-width="2"/>
-              <ellipse cx="25" cy="24" rx="7" ry="9" fill="#CBD5E1"/>
+            <!-- Anatomical Hand Silhouette Vector with Sleeve Cuff and Upraised Thumb -->
+            <svg viewBox="0 0 120 100" width="105" height="88" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="handGrad" x1="0" y1="80" x2="100" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#0F172A"/>
+                  <stop offset="60%" stop-color="#1E293B"/>
+                  <stop offset="100%" stop-color="#334155"/>
+                </linearGradient>
+              </defs>
+              <!-- Forearm & Sleeve Cuff -->
+              <path d="M5 80 L35 70 L40 92 L10 98 Z" fill="#090D16" stroke="#475569" stroke-width="1.2"/>
+              <!-- Fist Palm & Curled Fingers -->
+              <path d="M35 70 C40 60, 55 58, 68 62 C78 65, 82 74, 76 85 C68 94, 48 92, 40 90 Z" fill="url(#handGrad)" stroke="#64748B" stroke-width="1.5"/>
+              <!-- Curled Knuckle Details -->
+              <path d="M58 64 C62 62, 68 64, 70 70" stroke="#94A3B8" stroke-width="1.2"/>
+              <path d="M50 68 C54 66, 60 68, 62 74" stroke="#94A3B8" stroke-width="1.2"/>
+              <!-- Upraised Thumb (Aiming at 2° cone) -->
+              <path d="M60 62 C64 50, 72 32, 78 18 C82 10, 94 10, 96 20 C97 28, 92 42, 82 58 Z" fill="url(#handGrad)" stroke="#F2D24B" stroke-width="1.8"/>
+              <!-- Golden Thumbnail Highlight -->
+              <path d="M84 18 C86 14, 92 14, 94 18 C95 24, 90 28, 86 28 Z" fill="#F2D24B" opacity="0.85"/>
             </svg>
           </div>
           <span class="thumb-label">Thumbnail Rule</span>
