@@ -1,99 +1,126 @@
-# HyperFrames Video SOP — The Filmmaking Standard (Do's & Don'ts)
+# HyperFrames Master Video Standard Operating Procedure (SOP)
 
-Standard operating procedure for producing high-retention, cinematic explainer films
-and visual essays in HyperFrames. Distilled from real production lessons.
-
-> [!CAUTION]
-> ### 🚨 THE 5 NON-NEGOTIABLES (NEVER FORGET)
-> 1. **Filmmaking First (Anti-PowerPoint Doctrine)**: The fundamental unit of production is a **SHOT**, NOT a card or slide. If 5 consecutive frames can be screenshotted and understood as a slide deck, **the video has failed**. Avoid the "Card Prison" (floating rounded boxes in a black void with engineering grids).
-> 2. **Reality-First Visual Hierarchy**: Always open with a visceral human experience or physical event in a believable environment. Conceptual graphics and diagrams must emerge *directly from the physical geometry of the scene*, not as isolated UI widgets.
-> 3. **1080×1920 Vertical Canvas @ 60 FPS**: Standard is **1080×1920** (FHD 9:16 vertical), 60 FPS. Full-bleed spatial environments across the entire canvas.
-> 4. **Optical Safe Zone & Halfway Captions**: Captions and key focal action MUST sit near the lower third of the center 1:1 square (**`bottom: 480px` / Y = 1350px–1440px**). Never push text to the bottom edge where platform chrome (Reels/TikTok/Shorts UI) will cover it.
-> 5. **Audio Mastering (-14 LUFS) & Zero Dead Air**: Master voiceover to **-14.0 LUFS to -16.0 LUFS** using `normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7`. Measure exact TTS durations with `ffprobe` to ensure zero dead air pauses.
-
-Sections: [0. Intake](#0-intake--ask-first) · [1. Setup](#1-setup) ·
-[2. The Anti-PowerPoint Filmmaking Doctrine](#2-the-anti-powerpoint-filmmaking-doctrine) ·
-[3. Authoring Do's](#3-authoring-dos) · [4. Authoring Don'ts](#4-authoring-donts) ·
-[5. Camera, Safe Zones & Motion Architecture](#5-camera-safe-zones--motion-architecture) ·
-[6. Audio & Narration Workflow](#6-audio--narration-workflow) ·
-[7. Verification Gate](#7-verification-gate--done-is-rendered).
+A comprehensive, production-tested manual for producing elite faceless short-form videos, visual essays, and explainer films.
 
 ---
 
-## 0. Intake — ASK FIRST
+## 🚨 THE CORE NON-NEGOTIABLES
 
-Before touching any file, confirm the requirements:
-1. **Topic & Narrative Arc**: What is the core mystery, human experience, and revelation?
-2. **Deliverable Format**: 1080×1920 vertical (9:16), 60 FPS, ~45–60s runtime.
-3. **Voiceover**: Voice clone reference or TTS preset. Mastered to -14 LUFS.
-4. **Visual Sourcing**: Authentic archival, documentary, or physical spatial environments. Zero synthetic/AI artifacts.
-
----
-
-## 1. Setup
-
-- Check `package.json` scripts:
-  - `npm run dev` → preview server (**run in background**).
-  - `npm run check` → lint + runtime + layout + motion + contrast in one shot.
-  - `npm run render` → MP4 export.
-  - `npm run publish` → shareable link.
-- Structure: `index.html` (master timeline), `compositions/frames/` (sub-compositions), `meta.json`, `.temp_audio/`.
+1. **The Anti-PowerPoint Filmmaking Doctrine**: The fundamental unit of production is a **SHOT**, not a "card" or "slide". If 5 consecutive frames can be screenshotted and understood as a slide deck, **the video has failed**. Eliminate the "Card Prison" (floating rounded rectangles in a black void with engineering grids).
+2. **Reality-First Hierarchy**: Always open with a visceral human experience or physical event in a full-bleed spatial environment. Conceptual animations and diagrams must emerge *directly from the physical geometry of the objects*, not as isolated UI widgets.
+3. **The 3-Layer Audio & Sound Design Architecture**: Audio carries 50% of the video's bandwidth. Every film must feature three synchronized layers: **Foreground Voiceover (-14 LUFS) + Cinematic BGM Score (-22 dB) + Procedural Sound Design SFX (-14 dB to -20 dB)**.
+4. **Canvas Standard (1080×1920 @ 60 FPS)**: Vertical 9:16 FHD at 60 FPS with full-bleed environments.
+5. **Optical Safe-Zone Captions (`bottom: 480px`)**: Subtitles and core focal action MUST be positioned along the lower third of the 1:1 center square (**`bottom: 480px` / Y = 1350px–1440px**), completely immune to Instagram Reels, TikTok, and YouTube Shorts UI overlays.
+6. **Zero Dead Air & Exact Timestamp Sync**: Timings are measured from the TTS engine with millisecond precision before authoring visuals.
 
 ---
 
-## 2. The Anti-PowerPoint Filmmaking Doctrine
+## 1. Production Pipeline: Step-by-Step Order
 
-### The Card Prison Fallacy:
-Never build a video by placing a photo in a box on the left, a diagram in a box on the right, a giant headline underneath, and a caption pill at the bottom. That is a **McKinsey dashboard**, not a film.
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 1. SCRIPT AUTHORING (Punchy, Visceral, Shot-by-Shot)        │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────┐
+│ 2. TTS GENERATION & DURATION MEASUREMENT (ffprobe / SRT)   │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────┐
+│ 3. SOUND DESIGN & BGM SYNTHESIS (SFX Library + Score)       │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────┐
+│ 4. 3-LAYER MASTER AUDIO MIXING (normalize=0, loudnorm=-14)  │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────┐
+│ 5. VISUAL COMPOSITIONS (Full-Bleed HTML / GSAP Camera)      │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────┐
+│ 6. VERIFICATION GATE (npm run check: 0 errors, 0 warnings)  │
+└──────────────────────────────┬──────────────────────────────┘
+                               │
+┌──────────────────────────────▼──────────────────────────────┐
+│ 7. FINAL RENDER & MP4 EXPORT (npm run render)               │
+└─────────────────────────────────────────────────────────────┘
+```
 
-### The Shot Specification:
+---
+
+## 2. The 3-Layer Audio & Sound Design Standard
+
+### Layer 1: Foreground Voiceover (Narration)
+- **Standard**: 24 kHz mono WAV, mastered to **-14.0 LUFS to -16.0 LUFS** (integrated loudness) and **-1.0 dB true peak**.
+- **Timing**: Add **0.3s pre-roll** and **0.4s tail** to each phrase. Measure exact durations with `ffprobe`.
+- **Zero Dead Air**: Never hardcode arbitrary scene lengths. The visual timeline duration in `index.html` must match the master audio duration to the hundredth of a second.
+
+### Layer 2: Cinematic Background Music (BGM Score)
+- **Role**: Provides continuous emotional texture, harmonic warmth, and pacing so there is never dry, dead silence.
+- **Mix Volume**: Mixed at **-22 dB to -24 dB** relative to the master voiceover.
+- **Structure**:
+  - *Act 1 (The Hook)*: Sparse, warm sub-drone bed (`D-minor` chord: 36.7Hz / 73.4Hz / 110Hz).
+  - *Act 2 (The Fracture)*: Subtle 120 BPM heartbeat / sub-pulse kicks in.
+  - *Act 3 (The Mechanism)*: Ethereal piano / glass arpeggio sequence enters the mid-range.
+  - *Act 4 (The Glitch)*: High-frequency tension string / harmonic overtone.
+  - *Act 5 (The Climax)*: Cinematic crescendo swell peaking during the final revelation, followed by a smooth 3-second fade out.
+
+### Layer 3: Procedural Sound Design (SFX)
+SFX hits are synchronized to the exact millisecond timestamps of on-screen physical and conceptual transformations:
+- **Sub-Bass Impacts (`-14 dB`)**: Deep 90Hz → 32Hz exponential pitch drop on major camera pushes or revelation scenes.
+- **Air Whooshes (`-18 dB`)**: Bandpass-filtered noise sweeps on fast camera movements, reach trajectories, or spatial matrix reveals.
+- **Resonant Chimes / Shimmers (`-15 dB to -16 dB`)**: Multi-harmonic modal sines (880Hz, 1320Hz, 1760Hz) when phantom objects, predictions, or golden highlights materialize.
+- **Digital Glitches / Zaps (`-15 dB`)**: Frequency-modulated chirps with amplitude gating when perceptual mismatches or errors occur.
+- **Tactile Snaps / Clicks (`-16 dB to -18 dB`)**: High-frequency mechanical impulses (4.2kHz) on typographic infilling, reticle locks, or vector snaps.
+- **Sonar / Radar Pings (`-20 dB`)**: Rhythmic harmonic pulses on expanding forward-model waves.
+
+### Automated FFmpeg Mastering Filter:
+```bash
+ffmpeg -y \
+  -i narration_full.wav \
+  -i cinematic_bgm.wav \
+  -i sfx_01.wav -i sfx_02.wav ... \
+  -filter_complex "\
+    [0:a]volume=1.0[voice];\
+    [1:a]volume=0.0794[bgm];\
+    [2:a]volume=0.1259,adelay=400|400[sfx1];\
+    [3:a]volume=0.1585,adelay=4000|4000[sfx2];\
+    [voice][bgm][sfx1][sfx2]amix=inputs=4:duration=first:dropout_transition=0:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7[out]" \
+  -map "[out]" -ar 24000 -ac 1 master_sound_design.wav
+```
+*(CRITICAL: `normalize=0` prevents FFmpeg `amix` from dividing audio by N inputs, and `loudnorm` locks broadcast loudness).*
+
+---
+
+## 3. The Anti-PowerPoint Filmmaking Doctrine
+
+### What Fails the Anti-PowerPoint Test:
+- Floating white/grey cards inside a black void.
+- Faint engineering SaaS grids (`linear-gradient(rgba(255,255,255,0.03)...)`).
+- Multiple redundant explanation layers (Voiceover says it + Headline repeats it + Diagram draws it + Pill captions it + Badge brands it).
+- Fake corporate telemetry badges (`ACT-99`, `BANDWIDTH DIRECTIVE`, `COGNITIVE OVERRIDE`).
+- Static photographs sitting passively inside rounded rectangles.
+
+### The Shot-Based Standard:
 Every shot must define:
-1. **SUBJECT**: What physical object, person, or phenomenon is in focus?
-2. **ENVIRONMENT**: What full-bleed atmosphere (warm table, study, laboratory, street) fills the 1080×1920 canvas?
-3. **ACTION**: What physical event occurs (reaching, missing, stopping, breaking, revealing)?
-4. **CAMERA**: How does the lens move (macro tracking, push-in, parallax pan, pull-back)?
+1. **SUBJECT**: The central physical object, hand, text, or phenomenon.
+2. **ENVIRONMENT**: Full-bleed spatial atmosphere (warm desk, ambient study, printed paper, spatial grid) filling the entire 1080×1920 canvas.
+3. **ACTION**: A physical occurrence (reaching blindly, missing, freezing, sweeping, coalescing).
+4. **CAMERA**: Physical lens dynamics (macro tracking, parallax angle shifts, push-ins, pull-backs).
 5. **LIGHT**: Directional rim lighting, shadow contrast, depth of field.
-6. **TRANSFORMATION**: How does the scene physically or conceptually evolve over time?
-7. **PURPOSE**: What does the viewer experience before reading any text?
+6. **TRANSFORMATION**: Real-time visual evolution (empty air materializing a phantom wireframe, error vector connecting objects, expectation beam painting typos).
+7. **PURPOSE**: Communicates the core insight before any typography is read.
 
 ---
 
-## 3. Authoring DO's
+## 4. Optical Safe Zones & Subtitles (`bottom: 480px`)
 
-- **Every timed element** needs `data-start`, `data-duration`, and `data-track-index`.
-- Elements with timing **MUST** have `class="clip"`.
-- **Register and pause every timeline** on `window.__timelines`:
-  ```js
-  window.__timelines = window.__timelines || {};
-  window.__timelines["composition-id"] = gsap.timeline({ paused: true });
-  ```
-- **Full-Bleed 1080×1920 Canvas**: Let environments and lighting fill the entire frame.
-- **Dynamic Transforms on GSAP Targets**: Never mix static CSS `transform` (like `scale` or `translate`) on elements animated by GSAP. Set initial states dynamically via `gsap.set()`.
-- **Sub-Pixel Smooth Motion**: Always animate CSS transforms (`x`, `y`, `scale`, `rotation`, `opacity`) instead of layout properties (`left`, `top`, `width`) to prevent integer-pixel snapping.
-- **Allow Intentional Overlaps**: Mark layering with `data-layout-allow-overlap` and background environments with `data-layout-allow-overflow`.
-
----
-
-## 4. Authoring DON'Ts
-
-1. **NO "Card inside Card" Dashboard UI**: No fake tech telemetry badges (`ACT-99`, `BANDWIDTH DIRECTIVE`), no floating UI windows.
-2. **NO Repetitive Engineering Grids in a Black Void**: Avoid making every scene look like an AI SaaS landing page. Use real atmospheric gradients, materials, and lighting.
-3. **NO Redundant Explanation Layers**: Do not have Voiceover + Headline + Diagram + Caption pill all repeating the identical phrase simultaneously.
-4. **NO Captions at the Extreme Bottom**: Do not place text below Y = 1450px where platform chrome (Reels/Shorts/TikTok description and buttons) will obstruct it.
-5. **NO Unverified / Fabricated Statistics**: Never invent fake percentages or metrics just to make an infographic look scientific.
-6. **NO AI-Generated Images**: Strictly use authentic historical, scientific, or public domain archives (e.g. Wikimedia Commons, Library of Congress, museum archives, scientific micrographs).
-7. **NO CSS pseudo-elements (`::before`/`::after`) as GSAP targets**: Target real DOM elements.
-8. **NO Un-normalized Audio Mixing**: Never mix with default `amix` without `normalize=0`.
-
----
-
-## 5. Camera, Safe Zones & Motion Architecture
-
-### 5.1 Vertical Feed Safe Zones (9:16 Canvas · 1080×1920)
-- **Top Unsafe Zone (0 – 300px)**: Platform search bars, audio pills, camera buttons.
-- **Bottom Unsafe Zone (1450 – 1920px)**: User handle, caption text, sound tickers, right-side action buttons.
-- **Center 1:1 Focal Square (Y = 420px to 1500px)**: The primary visual action zone.
-- **Subtitles Placement**: Position subtitles at **`bottom: 480px` (Y ≈ 1350px–1440px)**, landing right on the lower third of the center square.
+### The 1080×1920 Geometry:
+- **Top Unsafe Zone (0 – 300px)**: Platform search bars, status icons, audio pills.
+- **Bottom Unsafe Zone (1450 – 1920px)**: User handle, description text, audio marquee, like/comment/share buttons.
+- **Center 1:1 Focal Square (Y = 420px to 1500px)**: The primary visual stage.
+- **Subtitles Placement**: Anchored at **`bottom: 480px` (Y ≈ 1350px–1440px)**, sitting on the lower third of the center square.
 
 ```css
 .film-caption-block {
@@ -121,33 +148,46 @@ Every shot must define:
   color: #F2D24B;
   font-style: italic;
 }
+
+.caption-sub {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #A0A09C;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 ```
 
 ---
 
-## 6. Audio & Narration Workflow
+## 5. Technical Authoring DO's & DON'Ts
 
-**THE GOLDEN RULE: Script → Audio → Visuals.**
+### DO:
+- Give every timed element `data-start`, `data-duration`, `data-track-index`, and `class="clip"`.
+- Pause and register all timelines on `window.__timelines`:
+  ```js
+  window.__timelines = window.__timelines || {};
+  window.__timelines["composition-id"] = gsap.timeline({ paused: true });
+  ```
+- Animate transform properties (`x`, `y`, `scale`, `rotation`, `opacity`) instead of layout properties (`left`, `top`, `width`) to ensure sub-pixel motion.
+- Set initial element states in GSAP using `gsap.set()` rather than mixing CSS `transform` rules in `<style>`.
+- Mark intentional layering with `data-layout-allow-overlap` and background containers with `data-layout-allow-overflow`.
 
-1. **Write concise, visceral narration script** (1 short punchy sentence per shot).
-2. **Generate & measure TTS audio**:
-   ```bash
-   pocket-tts generate --voice reference_clean.wav --text "..." --output-path out.wav
-   ```
-3. **Measure exact clip duration with `ffprobe`** and pad 0.3s pre-roll + 0.4s tail.
-4. **Master audio to -14 LUFS**:
-   ```bash
-   ffmpeg -y -i clip1.wav -i clip2.wav ... -filter_complex "amix=inputs=N:duration=longest:dropout_transition=0:normalize=0,loudnorm=I=-14:TP=-1.0:LRA=7" -ar 24000 -ac 1 narration_full.wav
-   ```
-5. **Sync master timeline duration** in `index.html` to the exact hundredth of a second.
+### DON'T:
+- **NO AI-Generated Images**: Use authentic historical, archival, or scientific media (e.g. Wikimedia Commons, Library of Congress, museum archives, scientific micrographs).
+- **NO CSS Pseudo-elements (`::before`/`::after`) as GSAP targets**: Always target real DOM elements.
+- **NO Non-deterministic Logic**: Never use `Date.now()`, `Math.random()`, or network fetches in compositions.
+- **NO Fabricated Numbers**: Never invent unverified percentages or metrics to decorate a scene.
 
 ---
 
-## 7. Verification Gate — DONE IS RENDERED
+## 6. Verification Gate — DONE IS RENDERED
 
-Before presenting the result:
-- [ ] `npm run check` passes with **0 errors, 0 warnings (100% WCAG AA contrast passing)**.
-- [ ] Captions and visual focal points live within the **Optical Safe Zone** (`bottom: 480px` / Y = 325px–1440px).
-- [ ] Voiceover is mastered at **-14.0 LUFS to -16.0 LUFS** with zero dead air.
-- [ ] The composition is designed as a **continuous film of dynamic shots**, not a PowerPoint presentation.
-- [ ] `npm run render` outputs a verified, playable MP4 file.
+Before declaring any video complete:
+- [ ] **Linter & Motion Check**: `npm run check` passes with **0 errors, 0 warnings, and 100% WCAG AA contrast**.
+- [ ] **Audio Loudness**: Master soundtrack meets **-14.0 LUFS to -16.0 LUFS** with zero clipping.
+- [ ] **Sound Design Check**: Background music sits warmly at `-22 dB`; SFX hits land on the exact visual transformation frames.
+- [ ] **Safe-Zone Check**: Captions are anchored at `bottom: 480px`, clear of all platform UI chrome.
+- [ ] **Filmmaking Litmus Test**: The video operates as a continuous shot-by-shot film, not a PowerPoint slide deck.
+- [ ] **Render Verification**: `npm run render` completes successfully and the final MP4 plays back cleanly.
