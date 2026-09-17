@@ -1,0 +1,35 @@
+{
+  "total_duration": 56.74,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Tasting Number",
+      "start": 0.0,
+      "duration": 9.46
+    },
+    {
+      "id": "shot_02",
+      "name": "The Crossed Board",
+      "start": 9.46,
+      "duration": 12.9
+    },
+    {
+      "id": "shot_03",
+      "name": "The Remapping Engine",
+      "start": 22.36,
+      "duration": 9.94
+    },
+    {
+      "id": "shot_04",
+      "name": "The Creativity Boost",
+      "start": 32.3,
+      "duration": 13.86
+    },
+    {
+      "id": "shot_05",
+      "name": "The Universal Connection",
+      "start": 46.16,
+      "duration": 10.58
+    }
+  ]
+}

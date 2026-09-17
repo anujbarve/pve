@@ -1,0 +1,35 @@
+{
+  "total_duration": 60.74,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Flash Word",
+      "start": 0.0,
+      "duration": 9.38
+    },
+    {
+      "id": "shot_02",
+      "name": "The Spreading Activation",
+      "start": 9.38,
+      "duration": 11.38
+    },
+    {
+      "id": "shot_03",
+      "name": "The Semantic Distance Map",
+      "start": 20.76,
+      "duration": 15.22
+    },
+    {
+      "id": "shot_04",
+      "name": "The Implicit Bias Machine",
+      "start": 35.98,
+      "duration": 14.34
+    },
+    {
+      "id": "shot_05",
+      "name": "The Awareness",
+      "start": 50.32,
+      "duration": 10.42
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "total_duration": 49.38,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Wall of Jars",
+      "start": 0.0,
+      "duration": 10.98
+    },
+    {
+      "id": "shot_02",
+      "name": "The Decision Freeze",
+      "start": 10.98,
+      "duration": 9.3
+    },
+    {
+      "id": "shot_03",
+      "name": "The Opportunity Cost Machine",
+      "start": 20.28,
+      "duration": 10.5
+    },
+    {
+      "id": "shot_04",
+      "name": "Maximizers vs Satisficers",
+      "start": 30.78,
+      "duration": 11.94
+    },
+    {
+      "id": "shot_05",
+      "name": "The Liberation",
+      "start": 42.72,
+      "duration": 6.66
+    }
+  ]
+}

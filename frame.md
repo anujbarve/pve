@@ -99,7 +99,7 @@ This is the **broadside** preset remixed onto the captured brand. The YAML front
 - **Fonts** — already set to **Playfair Display** (display) / **Inter** (body); ignore any preset font name lingering in prose.
 - **Weights** — the brand font ships `{400, 500, 700}` only; every weight is clamped to these — ignore higher preset weights (e.g. 600/700) in prose.
 - **Colors** — use the frontmatter hex; preset color NAMES in prose (e.g. "cobalt", "cream") mean the remapped brand values.
-- **Case** — display is **sentence / title case** per Anuj-style.md; do NOT apply broadside's all-lowercase display rule.
+- **Case** — display is **uppercase / title case** per MINIMAL-STYLE.md; do NOT apply broadside's all-lowercase display rule.
 
 
 ## Overview

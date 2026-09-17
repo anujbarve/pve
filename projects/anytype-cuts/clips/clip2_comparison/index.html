@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Clip 2: Comparison Matrix</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000000;
+        color: #ffffff;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        background: #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+      }
+      .badge {
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #888890;
+        border: 1px solid #33333a;
+        padding: 8px 24px;
+        border-radius: 999px;
+        margin-bottom: 24px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .title {
+        font-size: 56px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 50px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .matrix {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1.2fr;
+        gap: 32px;
+        width: 1500px;
+      }
+      .col {
+        background: #08080a;
+        border: 2px solid #222228;
+        border-radius: 16px;
+        padding: 40px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .col.highlight {
+        border-color: #ffffff;
+        background: #0f0f14;
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+      }
+      .col-header {
+        border-bottom: 1px solid #222228;
+        padding-bottom: 20px;
+      }
+      .col.highlight .col-header {
+        border-bottom-color: #444450;
+      }
+      .col-name {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      .col-sub {
+        font-size: 14px;
+        color: #888890;
+        font-weight: 600;
+        margin-top: 6px;
+      }
+      .col-item {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .item-label {
+        font-size: 12px;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: #666670;
+        font-weight: 700;
+      }
+      .item-val {
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .col.highlight .item-val {
+        color: #ffffff;
+      }
+      .item-bad {
+        color: #888890;
+      }
+      .tag-pro {
+        display: inline-block;
+        padding: 4px 12px;
+        background: #ffffff;
+        color: #000000;
+        font-weight: 900;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        border-radius: 4px;
+        margin-top: 8px;
+        width: fit-content;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="clip2-comparison"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="24"
+    >
+      <div class="badge" id="badge">KNOWLEDGE TOOL ARCHITECTURE</div>
+      <h1 class="title" id="title">OBSIDIAN VS NOTION VS ANYTYPE</h1>
+
+      <div class="matrix">
+        <!-- Obsidian -->
+        <div class="col" id="col1">
+          <div class="col-header">
+            <div class="col-name">OBSIDIAN</div>
+            <div class="col-sub">Markdown Local Files</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Data Storage</div>
+            <div class="item-val">Local Plaintext Markdown</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Multi-Device Sync</div>
+            <div class="item-val item-bad">Manual / Paid / Community Plugins</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Database & Types</div>
+            <div class="item-val item-bad">Text-Only (Requires Plugins)</div>
+          </div>
+        </div>
+
+        <!-- Notion -->
+        <div class="col" id="col2">
+          <div class="col-header">
+            <div class="col-name">NOTION</div>
+            <div class="col-sub">Centralized Cloud Workspace</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Data Storage</div>
+            <div class="item-val item-bad">Central Corporate Servers</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Offline Capability</div>
+            <div class="item-val item-bad">Poor / Requires Constant Connection</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Data Ownership</div>
+            <div class="item-val item-bad">Vendor Locked & Unencrypted</div>
+          </div>
+        </div>
+
+        <!-- Anytype -->
+        <div class="col highlight" id="col3">
+          <div class="col-header">
+            <div class="col-name">ANYTYPE</div>
+            <div class="col-sub">Local-First P2P Operating System</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Data Storage</div>
+            <div class="item-val">Local On-Device Database</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Multi-Device Sync</div>
+            <div class="item-val">Encrypted Peer-to-Peer Mesh</div>
+          </div>
+          <div class="col-item">
+            <div class="item-label">Architecture</div>
+            <div class="item-val">100% Object-Oriented + Open Source</div>
+            <div class="tag-pro">ZERO SERVERS NEEDED</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["clip2-comparison"] = tl;
+
+      tl.to("#badge", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4)
+        .to("#title", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.8)
+        .to("#col1", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 1.8)
+        .to("#col2", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 2.8)
+        .to("#col3", { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, 4.0);
+    </script>
+  </body>
+</html>

@@ -98,3 +98,4 @@ Fix all errors before presenting the result. Warnings should be reviewed before 
 8. Sub-compositions use `data-composition-src="compositions/file.html"`.
 9. Only deterministic logic — no `Date.now()`, no `Math.random()`, no network fetches.
 10. **Verification Gate**: Run `npm run check` $\to$ **0 errors, 0 warnings (100% WCAG AA)** before rendering with `npm run render`.
+11. 🔒 **WRITTEN IN STONE: ZERO AI-INVENTED SVG/ANATOMY**: Never write raw SVG `<path d="...">` coordinates from scratch. Every vector (hands, figures, eyes, tools) MUST be an authentic SVG downloaded via `curl` from Iconify/FontAwesome/MDI (e.g. `curl -s 'https://api.iconify.design/mdi:hand-back-left.svg?color=%2338BDF8' > assets/hand_left.svg`) into `assets/` and referenced via `<img src="assets/<name>.svg" />`. See `HUMAN-REPRESENTATION-SOP.md`.

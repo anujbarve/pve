@@ -1,0 +1,35 @@
+{
+  "total_duration": 53.36,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Gut-Punch Hook",
+      "start": 0.0,
+      "duration": 6.16
+    },
+    {
+      "id": "shot_02",
+      "name": "The Reality Check",
+      "start": 6.16,
+      "duration": 9.76
+    },
+    {
+      "id": "shot_03",
+      "name": "The Mechanism",
+      "start": 15.92,
+      "duration": 18.48
+    },
+    {
+      "id": "shot_04",
+      "name": "The Guilt Release",
+      "start": 34.4,
+      "duration": 8.64
+    },
+    {
+      "id": "shot_05",
+      "name": "The Anchor and Rebuild",
+      "start": 43.04,
+      "duration": 10.32
+    }
+  ]
+}

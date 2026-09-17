@@ -1,0 +1,216 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 310px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .meta-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 24px;
+    }
+
+    .diagram-frame {
+      width: 820px;
+      height: 480px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    /* Central Chosen Node */
+    .chosen-box {
+      width: 320px;
+      height: 90px;
+      background: #FFFFFF;
+      color: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .chosen-title {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .chosen-sub {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* Ghost Nodes */
+    .ghost-node {
+      position: absolute;
+      width: 220px;
+      height: 64px;
+      border: 2px dashed #555560;
+      color: #888890;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0;
+    }
+
+    .gn-top-left { top: 40px; left: 40px; }
+    .gn-top-right { top: 40px; right: 40px; }
+    .gn-bottom-left { bottom: 40px; left: 40px; }
+    .gn-bottom-right { bottom: 40px; right: 40px; }
+
+    /* Connecting straight lines */
+    .connector-line {
+      position: absolute;
+      background: #333338;
+      z-index: 1;
+    }
+
+    .cl-tl { width: 140px; height: 2px; top: 100px; left: 180px; transform: rotate(30deg); }
+    .cl-tr { width: 140px; height: 2px; top: 100px; right: 180px; transform: rotate(-30deg); }
+    .cl-bl { width: 140px; height: 2px; bottom: 100px; left: 180px; transform: rotate(-30deg); }
+    .cl-br { width: 140px; height: 2px; bottom: 100px; right: 180px; transform: rotate(30deg); }
+
+    /* Footer Metric */
+    .metric-panel {
+      width: 820px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 32px 40px;
+      text-align: center;
+    }
+
+    .metric-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .metric-detail {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.35;
+    }
+  </style>
+
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-opportunity-cost" data-width="1080" data-height="1920" data-duration="10.50">
+    <div data-hf-id="s03-content" id="s03-content" class="clip canvas-center" data-start="0" data-duration="10.50" data-track-index="1">
+      <div class="meta-tag">THE OPPORTUNITY COST MACHINE</div>
+
+      <div class="diagram-frame">
+        <div class="connector-line cl-tl"></div>
+        <div class="connector-line cl-tr"></div>
+        <div class="connector-line cl-bl"></div>
+        <div class="connector-line cl-br"></div>
+
+        <div class="ghost-node gn-top-left" id="gn1">PHANTOM CHOICE A</div>
+        <div class="ghost-node gn-top-right" id="gn2">PHANTOM CHOICE B</div>
+        <div class="ghost-node gn-bottom-left" id="gn3">PHANTOM CHOICE C</div>
+        <div class="ghost-node gn-bottom-right" id="gn4">PHANTOM CHOICE D</div>
+
+        <div class="chosen-box" id="chosen-core">
+          <span class="chosen-title">CHOSEN PATH</span>
+          <span class="chosen-sub">[1 SINGLE REALITY]</span>
+        </div>
+      </div>
+
+      <div class="metric-panel">
+        <div class="metric-title" id="m-title">SIMULATION ENGINE: ACTIVE</div>
+        <div class="metric-detail" id="m-desc">REJECTED OPTIONS NEVER DIE // THEY MULTIPLY REGRET</div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Every option you choose means all the others become ghosts of what you didn't pick.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-opportunity-cost"] = tl;
+
+    tl.fromTo("#s03-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+    tl.fromTo("#chosen-core", { scale: 0.8 }, { scale: 1.0, duration: 0.4, ease: "back.out(2)" }, 0.2);
+
+    // Ghost nodes fade in and pulse
+    tl.to([".ghost-node"], { opacity: 1, duration: 0.6, stagger: 0.15, ease: "power2.out" }, 1.5);
+
+    // Simulation pulse loop
+    tl.to(".ghost-node", { borderColor: "#FFFFFF", color: "#FFFFFF", duration: 0.3, stagger: 0.2, repeat: 3, yoyo: true }, 4.5);
+
+    tl.call(() => {
+      document.getElementById("m-title").innerText = "THE ROAD NOT TAKEN // PERPETUAL SIMULATION";
+      document.getElementById("m-desc").innerText = "THE BRAIN CANNOT STOP CALCULATING PHANTOM GAINS";
+      document.getElementById("cap-text").innerHTML = "Your brain runs a simulation of the road not taken — and it never stops.";
+    }, null, 5.0);
+  </script>
+</template>

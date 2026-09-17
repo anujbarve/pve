@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,242 +14,135 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #08080a;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.2) 0%, transparent 60%),
-        radial-gradient(circle at 20% 80%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
-        linear-gradient(180deg, #100f14 0%, #050508 100%);
-    }
-
-    .plasticity-particle-grid {
-      position: absolute;
-      inset: 0;
-      opacity: 0.25;
-      background-image: radial-gradient(rgba(242, 210, 75, 0.4) 1px, transparent 1px);
-      background-size: 32px 32px;
-    }
-
-    .scene-viewport {
-      position: absolute;
-      inset: 0;
+      top: 300px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 0 80px;
     }
 
-    /* Revelation Header */
-    .revelation-header {
-      position: absolute;
-      top: 310px;
+    .plasticity-comparison {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .compare-box {
+      width: 100%;
+      height: 110px;
+      border: 3px solid #FFFFFF;
       display: flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(18, 17, 24, 0.85);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 10px 24px;
-      border-radius: 30px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 30px rgba(242, 210, 75, 0.2);
-    }
-
-    .revelation-icon {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #F2D24B;
-      box-shadow: 0 0 14px #F2D24B;
-    }
-
-    .revelation-title {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: #F2F1EC;
-    }
-
-    /* Central Revelation Stage */
-    .plasticity-stage {
+      justify-content: space-between;
+      padding: 0 36px;
       position: relative;
-      width: 720px;
-      height: 640px;
-      margin-top: -60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* Core Insight Monolith */
-    .insight-card {
-      position: relative;
-      width: 580px;
-      height: 480px;
-      border-radius: 32px;
-      background: linear-gradient(180deg, #181720 0%, #0d0c12 100%);
-      border: 2px solid rgba(242, 210, 75, 0.5);
-      box-shadow: 0 25px 80px rgba(0,0,0,0.95), 0 0 50px rgba(242, 210, 75, 0.2);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      gap: 24px;
-      overflow: hidden;
-    }
-
-    .golden-halo-sheen {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 50% 30%, rgba(242, 210, 75, 0.25) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .fluid-hand-lattice {
-      position: relative;
-      width: 220px;
-      height: 240px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .golden-mesh-palm {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(242, 210, 75, 0.8) 0%, rgba(212, 98, 43, 0.3) 70%, transparent 100%);
-      border: 2px dashed #F2D24B;
-      box-shadow: 0 0 40px rgba(242, 210, 75, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .mesh-core-node {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #F2D24B;
-      box-shadow: 0 0 30px #F2D24B;
-    }
-
-    .plasticity-nodes-ring {
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      border-radius: 50%;
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      animation: spin 20s linear infinite;
-    }
-
-    .insight-statement {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      text-align: center;
-      z-index: 10;
-    }
-
-    .insight-pill {
-      font-size: 11px;
-      font-weight: 800;
-      color: #A0A09C;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .insight-hero {
-      font-size: 20px;
-      font-weight: 800;
-      color: #F2D24B;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      text-shadow: 0 0 20px rgba(242, 210, 75, 0.6);
-    }
-
-    /* Subtitle block at bottom: 480px */
-    .film-caption-block {
-      position: absolute;
-      bottom: 480px;
-      left: 90px;
-      right: 90px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
-    }
-
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
+    .box-title {
+      font-size: 24px;
+      font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
+
+    .box-tag {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #A0A0B0;
+      text-transform: uppercase;
+    }
+
+    .strike-line {
+      position: absolute;
+      top: 50%;
+      left: -8px;
+      right: -8px;
+      height: 4px;
+      background: #FFFFFF;
+      transform: translateY(-50%);
+    }
+
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="s05-root" id="root" data-composition-id="shot-05-plasticity" data-width="1080" data-height="1920" data-duration="8.98">
+    <div data-hf-id="s05-content" id="s05-content" class="clip canvas-center" data-start="0" data-duration="8.98" data-track-index="1">
+      <div class="plasticity-comparison">
+        <!-- False Paradigm -->
+        <div class="compare-box" style="border-color: #888890;">
+          <span class="box-title" style="color: #888890;" data-layout-allow-occlusion>FIXED ANATOMICAL FACT</span>
+          <span class="box-tag" style="color: #888890;" data-layout-allow-occlusion>FALSE PARADIGM</span>
+          <div class="strike-line" data-layout-allow-occlusion></div>
+        </div>
 
-  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-plasticity" data-width="1080" data-height="1920" data-duration="8.98">
-    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s05-grid" class="plasticity-particle-grid" data-layout-allow-overflow></div>
-
-    <div class="scene-viewport">
-      <!-- Revelation Header -->
-      <div data-hf-id="hf-s05-hdr" class="revelation-header" data-layout-allow-overlap>
-        <div class="revelation-icon"></div>
-        <span class="revelation-title">The Constructed Self</span>
-      </div>
-
-      <!-- Main Stage -->
-      <div data-hf-id="hf-s05-stage" id="s05-stage" class="plasticity-stage" data-layout-allow-overlap>
-        <div data-hf-id="hf-s05-card" id="s05-card" class="insight-card">
-          <div class="golden-halo-sheen"></div>
-
-          <div class="fluid-hand-lattice">
-            <div data-hf-id="hf-s05-ring" id="s05-ring" class="plasticity-nodes-ring"></div>
-            <div data-hf-id="hf-s05-palm" id="s05-palm" class="golden-mesh-palm">
-              <div class="mesh-core-node"></div>
-            </div>
-          </div>
-
-          <div class="insight-statement">
-            <span class="insight-pill">Neuroplastic Architecture</span>
-            <span id="s05-hero-txt" class="insight-hero">Body Schema = Active Prediction</span>
-          </div>
+        <!-- Reality -->
+        <div class="compare-box" id="reality-box">
+          <span class="box-title">REAL-TIME PREDICTION</span>
+          <span class="box-tag" style="color: #FFFFFF;">PLASTIC SCHEMA // 60S RESET</span>
         </div>
       </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">Your physical body is not a fixed anatomical fact...</p>
-        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">Neuroplasticity & The Fluid Self</span>
+      <div class="callout-box">
+        <h1 class="callout-title">THE FRAGILITY OF SELF</h1>
+        <p class="callout-sub">YOUR BODY IS NOT HARDWARE // IT IS A REAL-TIME COMPUTED HYPOTHESIS</p>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Your physical body is not a fixed anatomical fact.
       </div>
     </div>
   </div>
@@ -265,31 +152,12 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-05-plasticity"] = tl;
 
-    const env = document.getElementById("s05-env");
-    const stage = document.getElementById("s05-stage");
-    const card = document.getElementById("s05-card");
-    const palm = document.getElementById("s05-palm");
-    const ring = document.getElementById("s05-ring");
-    const caption = document.getElementById("s05-caption");
-    const sub = document.getElementById("s05-sub");
+    tl.fromTo("#s05-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
 
-    gsap.set(stage, { scale: 0.94 });
-    gsap.set(palm, { scale: 0.85 });
-
-    // Smooth pull out & elevation
-    tl.to(env, { scale: 1.05, duration: 8.98, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, duration: 8.98, ease: "power1.out" }, 0);
-
-    // Golden mesh breathing glow
-    tl.to(palm, { scale: 1.1, duration: 2.0, ease: "sine.inOut", repeat: 3, yoyo: true }, 0.5);
-    tl.to(ring, { rotation: 180, duration: 8.98, ease: "none" }, 0);
-
-    // 4.0s: "it is a fragile, real-time prediction that your brain can rewrite in a single minute."
     tl.call(() => {
-      caption.innerHTML = 'it is a <span class="accent">fragile, real-time prediction</span> rewritten in a single minute.';
-      sub.innerText = 'Neuroplasticity: Limitless Ownership';
+      document.getElementById("cap-text").innerHTML = "It is a fragile, real-time prediction that your brain can rewrite in a single minute.";
     }, null, 4.0);
 
-    tl.to(card, { borderColor: "#F2D24B", boxShadow: "0 25px 80px rgba(0,0,0,0.95), 0 0 70px rgba(242, 210, 75, 0.4)", duration: 2.0, ease: "power2.out" }, 4.0);
+    tl.fromTo("#reality-box", { scale: 0.98 }, { scale: 1.02, yoyo: true, repeat: 3, duration: 0.5 }, 4.0);
   </script>
 </template>

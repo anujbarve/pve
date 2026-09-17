@@ -1,0 +1,188 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .crowd-bg {
+      position: absolute;
+      inset: -50px;
+      overflow: hidden;
+    }
+
+    .crowd-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(150%) brightness(35%);
+    }
+
+    .vignette-heavy {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, transparent 20%, #000000 90%);
+      pointer-events: none;
+    }
+
+    .center-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 70px;
+    }
+
+    .comparison-card {
+      width: 880px;
+      padding: 40px;
+      background: rgba(16, 17, 24, 0.85);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9);
+      margin-bottom: 35px;
+    }
+
+    .track-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .track-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .bar-fill-others {
+      width: 88%;
+      height: 100%;
+      background: #E2FD52;
+      box-shadow: 0 0 20px rgba(226, 253, 82, 0.5);
+    }
+
+    .bar-fill-you {
+      width: 30%;
+      height: 100%;
+      background: #FF5722;
+      box-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
+    }
+
+    .headline {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.05;
+      text-align: center;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .hl-yellow {
+      color: #E2FD52;
+      text-shadow: 0 0 40px rgba(226, 253, 82, 0.4);
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-pill {
+      background: rgba(14, 14, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 16px 42px;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+  </style>
+
+  <div data-hf-id="s04-root" id="root" data-composition-id="shot-04-crowd-comparison" data-width="1080" data-height="1920" data-duration="3.60">
+    <div data-hf-id="s04-media" id="s04-media" class="clip crowd-bg" data-start="0" data-duration="3.60" data-track-index="0">
+      <img src="assets/city_crowd.jpg" class="crowd-img" id="crowd-photo" alt="Crowd" />
+      <div class="vignette-heavy"></div>
+    </div>
+
+    <div data-hf-id="s04-content" id="s04-content" class="clip center-stage" data-start="0" data-duration="3.60" data-track-index="1">
+      <div class="comparison-card">
+        <div class="track-row">
+          <div class="track-label">
+            <span>Everyone Else</span>
+            <span style="color:#E2FD52;">Ahead</span>
+          </div>
+          <div class="bar-bg"><div class="bar-fill-others" id="bar-others"></div></div>
+        </div>
+        <div class="track-row" style="margin-bottom:0;">
+          <div class="track-label">
+            <span>Your Perceived Pace</span>
+            <span style="color:#FF5722;">Falling Behind</span>
+          </div>
+          <div class="bar-bg"><div class="bar-fill-you" id="bar-you"></div></div>
+        </div>
+      </div>
+      <h1 class="headline">
+        THINK YOU'RE<br />
+        <span class="hl-yellow">FALLING BEHIND.</span>
+      </h1>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-pill">
+        <span class="caption-text">Convinced you’re <span style="color:#FF5722;">falling behind</span> everyone...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-crowd-comparison"] = tl;
+
+    tl.fromTo("#crowd-photo", { scale: 1.05, x: -20 }, { scale: 1.20, x: 20, duration: 3.60, ease: "none" }, 0.0);
+    tl.fromTo("#s04-content", { scale: 0.90, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.20, ease: "power3.out" }, 0.0);
+    tl.fromTo("#bar-others", { width: "45%" }, { width: "92%", duration: 1.4, ease: "power2.out" }, 0.1);
+  </script>
+</template>

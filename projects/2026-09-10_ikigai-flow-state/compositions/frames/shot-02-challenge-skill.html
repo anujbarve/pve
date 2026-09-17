@@ -1,0 +1,223 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 310px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .meta-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 24px;
+    }
+
+    /* Csikszentmihalyi Matrix */
+    .matrix-box {
+      width: 820px;
+      height: 480px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      position: relative;
+      padding: 30px;
+      margin-bottom: 36px;
+    }
+
+    .axis-y-label {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    .axis-x-label {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    /* Zones */
+    .zone-anxiety {
+      position: absolute;
+      top: 60px;
+      left: 60px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    .zone-boredom {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    /* Flow Channel corridor */
+    .flow-channel {
+      position: absolute;
+      left: 140px;
+      right: 140px;
+      top: 90px;
+      bottom: 90px;
+      border-top: 3px dashed #FFFFFF;
+      border-bottom: 3px dashed #FFFFFF;
+      transform: rotate(-30deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .channel-beam {
+      width: 0%;
+      height: 6px;
+      background: #FFFFFF;
+    }
+
+    .channel-text {
+      position: absolute;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: #000000;
+      padding: 4px 16px;
+      border: 2px solid #FFFFFF;
+    }
+
+    /* Bottom Panel */
+    .readout-card {
+      width: 820px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 32px 40px;
+      text-align: center;
+    }
+
+    .readout-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .readout-sub {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.35;
+    }
+  </style>
+
+  <div data-hf-id="s02-root" id="root" data-composition-id="shot-02-challenge-skill" data-width="1080" data-height="1920" data-duration="8.02">
+    <div data-hf-id="s02-content" id="s02-content" class="clip canvas-center" data-start="0" data-duration="8.02" data-track-index="1">
+      <div class="meta-tag">CSIKSZENTMIHALYI FLOW CORRIDOR</div>
+
+      <div class="matrix-box">
+        <span class="axis-y-label">↑ CHALLENGE LEVEL</span>
+        <span class="axis-x-label">SKILL LEVEL →</span>
+
+        <span class="zone-anxiety">ANXIETY [OVERLOAD]</span>
+        <span class="zone-boredom">BOREDOM [APATHY]</span>
+
+        <div class="flow-channel" id="flow-channel">
+          <div class="channel-beam" id="channel-beam"></div>
+          <div class="channel-text" id="channel-text">FLOW CHANNEL</div>
+        </div>
+      </div>
+
+      <div class="readout-card">
+        <div class="readout-title" id="r-title">THE EQUILIBRIUM CORRIDOR</div>
+        <div class="readout-sub" id="r-sub">MAXIMUM DEMAND // MAXIMUM MASTERY</div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Flow lives in a narrow channel:
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-challenge-skill"] = tl;
+
+    tl.fromTo("#s02-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+    tl.fromTo("#flow-channel", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.2);
+
+    // Channel beam draws through
+    tl.to("#channel-beam", { width: "100%", duration: 2.0, ease: "power2.inOut" }, 1.0);
+
+    tl.call(() => {
+      document.getElementById("r-title").innerText = "THE RAZOR'S EDGE";
+      document.getElementById("r-sub").innerText = "HARD ENOUGH TO DEMAND ALL // NOT SO HARD IT BREAKS YOU";
+      document.getElementById("cap-text").innerHTML = "The task must be hard enough to demand everything you have, but not so hard it overwhelms you.";
+    }, null, 3.2);
+  </script>
+</template>

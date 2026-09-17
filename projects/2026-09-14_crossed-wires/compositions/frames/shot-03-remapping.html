@@ -1,0 +1,204 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 240px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .prune-container {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .prune-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .prune-card {
+      border: 2px solid #555560;
+      padding: 24px;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .prune-card.highlight {
+      border-color: #FFFFFF;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .card-title {
+      font-size: 26px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .bridge-bar-outer {
+      width: 100%;
+      height: 40px;
+      border: 2px solid #FFFFFF;
+      padding: 4px;
+    }
+
+    .bridge-bar-fill {
+      height: 100%;
+      background: #FFFFFF;
+    }
+
+    .prune-footer {
+      margin-top: 16px;
+      border-top: 2px solid #333338;
+      padding-top: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .footer-sub {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-remapping" data-width="1080" data-height="1920" data-duration="9.94">
+    <div data-hf-id="s03-content" id="s03-content" class="clip canvas-center" data-start="0" data-duration="9.94" data-track-index="1">
+      <div class="prune-container">
+        <div class="prune-header">
+          <span>DEVELOPMENTAL SYNAPTIC PRUNING</span>
+          <span style="color: #888890;">NEURAL HARDWARE</span>
+        </div>
+
+        <!-- Typical Pruning -->
+        <div class="prune-card" id="card-std">
+          <div class="card-meta">
+            <span>STANDARD DEVELOPMENT</span>
+            <span style="color: #888890;">15% CROSS-BRIDGES RETAINED</span>
+          </div>
+          <div class="card-title">AGGRESSIVE SYNAPSE REMOVAL</div>
+          <div class="bridge-bar-outer">
+            <div class="bridge-bar-fill" id="bar-std" style="width: 15%;"></div>
+          </div>
+        </div>
+
+        <!-- Synesthetic Pruning -->
+        <div class="prune-card highlight" id="card-syn">
+          <div class="card-meta">
+            <span style="color: #FFFFFF;">SYNESTHETIC WIRING</span>
+            <span style="color: #FFFFFF;">82% CROSS-BRIDGES RETAINED</span>
+          </div>
+          <div class="card-title">LIVE CONNECTION PRESERVATION</div>
+          <div class="bridge-bar-outer">
+            <div class="bridge-bar-fill" id="bar-syn" style="width: 82%;"></div>
+          </div>
+        </div>
+
+        <div class="prune-footer" id="prune-footer">
+          <span class="footer-title">NOT A DISORDER // DIFFERENT CABLING</span>
+          <span class="footer-sub">THE HARDWARE LEFT MORE BRIDGES ALIVE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Synesthesia isn't a disorder — it's a different wiring of the same hardware.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-remapping"] = tl;
+
+    tl.fromTo("#s03-content", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+
+    // Initial state
+    tl.fromTo("#bar-std", { width: "100%" }, { width: "15%", duration: 2.0, ease: "power2.inOut" }, 1.0);
+
+    // Synesthete preservation
+    tl.fromTo("#bar-syn", { width: "100%" }, { width: "82%", duration: 2.0, ease: "power2.out" }, 3.5);
+
+    tl.fromTo("#prune-footer", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.45 }, 5.5);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "The brain's pruning process simply left more connections alive than usual.";
+    }, null, 4.5);
+  </script>
+</template>

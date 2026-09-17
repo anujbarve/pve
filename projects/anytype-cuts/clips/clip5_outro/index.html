@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Clip 5: Final Verdict</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000000;
+        color: #ffffff;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        background: #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+      }
+      .badge {
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #888890;
+        border: 1px solid #33333a;
+        padding: 8px 24px;
+        border-radius: 999px;
+        margin-bottom: 24px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .title {
+        font-size: 64px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 1.1;
+        margin-bottom: 50px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .pillars {
+        display: flex;
+        gap: 32px;
+        width: 1300px;
+      }
+      .pillar {
+        flex: 1;
+        background: #09090c;
+        border: 2px solid #ffffff;
+        border-radius: 16px;
+        padding: 36px 28px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .pillar-num {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        color: #888890;
+      }
+      .pillar-title {
+        font-size: 24px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+      }
+      .pillar-desc {
+        font-size: 15px;
+        color: #888890;
+        line-height: 1.4;
+      }
+      .footer-quote {
+        margin-top: 50px;
+        font-size: 20px;
+        font-weight: 700;
+        color: #666670;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="clip5-outro"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="16"
+    >
+      <div class="badge" id="badge">THE VERDICT</div>
+      <h1 class="title" id="title">YOUR DATA. YOUR KEYS. YOUR BRAIN.</h1>
+
+      <div class="pillars">
+        <div class="pillar" id="p1">
+          <div class="pillar-num">01 / SOVEREIGNTY</div>
+          <div class="pillar-title">LOCAL-FIRST</div>
+          <div class="pillar-desc">Offline execution with zero central server vulnerability.</div>
+        </div>
+
+        <div class="pillar" id="p2">
+          <div class="pillar-num">02 / ARCHITECTURE</div>
+          <div class="pillar-title">OBJECT GRAPH</div>
+          <div class="pillar-desc">Custom relational types handling 10,000+ linked knowledge nodes.</div>
+        </div>
+
+        <div class="pillar" id="p3">
+          <div class="pillar-num">03 / OPEN PROTOCOL</div>
+          <div class="pillar-title">PEER-TO-PEER</div>
+          <div class="pillar-desc">100% open-source protocol with native encrypted sync.</div>
+        </div>
+      </div>
+
+      <div class="footer-quote" id="quote">ANYTYPE.IO • OPEN SOURCE SECOND BRAIN</div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["clip5-outro"] = tl;
+
+      tl.to("#badge", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4)
+        .to("#title", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.8)
+        .to("#p1", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 1.8)
+        .to("#p2", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 2.4)
+        .to("#p3", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 3.0)
+        .to("#quote", { opacity: 1, duration: 1.0, ease: "power2.out" }, 3.8);
+    </script>
+  </body>
+</html>

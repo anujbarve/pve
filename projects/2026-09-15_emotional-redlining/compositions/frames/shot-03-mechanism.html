@@ -1,0 +1,385 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08080A;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 45%, rgba(255, 87, 34, 0.12) 0%, transparent 65%),
+                  linear-gradient(180deg, #050507 0%, #0F0F14 100%);
+    }
+
+    .grain-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 8px 8px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .cut-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 87, 34, 0.15);
+      border: 1px solid rgba(255, 87, 34, 0.5);
+      padding: 8px 22px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FF5722;
+      margin-bottom: 28px;
+    }
+
+    .tag-badge img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .mech-title {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.08;
+      text-align: center;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      max-width: 940px;
+    }
+
+    .hl-red {
+      color: #FF5722;
+      text-shadow: 0 0 40px rgba(255, 87, 34, 0.6);
+    }
+    .hl-yellow {
+      color: #E2FD52;
+      text-shadow: 0 0 40px rgba(226, 253, 82, 0.5);
+    }
+
+    /* Cut 3A: Diagnosis Card */
+    .diagnosis-card {
+      width: 880px;
+      padding: 50px 40px;
+      background: #111218;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+    }
+
+    .strike-row {
+      font-size: 48px;
+      font-weight: 800;
+      color: #666670;
+      text-decoration: line-through;
+      text-decoration-color: #FF5722;
+      text-decoration-thickness: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .arrow-down {
+      font-size: 40px;
+      color: #E2FD52;
+    }
+
+    .redline-label {
+      font-size: 64px;
+      font-weight: 900;
+      color: #FF5722;
+      letter-spacing: -0.02em;
+      text-shadow: 0 0 40px rgba(255, 87, 34, 0.5);
+    }
+
+    /* Cut 3B: Tachometer Dial */
+    .gauge-wrapper {
+      width: 880px;
+      height: 480px;
+      background: #0F1016;
+      border: 2px solid rgba(255, 87, 34, 0.3);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 30px;
+      box-shadow: 0 25px 70px rgba(255, 87, 34, 0.15);
+    }
+
+    .gauge-icon {
+      width: 160px;
+      height: 160px;
+      margin-bottom: 20px;
+    }
+
+    .rpm-number {
+      font-size: 80px;
+      font-weight: 900;
+      color: #FF5722;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .rpm-sub {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #A0A0AA;
+    }
+
+    .redline-warning-pill {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      background: #FF5722;
+      color: #000000;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      padding: 6px 14px;
+      border-radius: 4px;
+    }
+
+    /* Cut 3C: Power Grid Shutdown */
+    .shutdown-card {
+      width: 880px;
+      height: 460px;
+      background: #0D0E14;
+      border: 2px solid rgba(255, 87, 34, 0.4);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .powerdown-icon {
+      width: 140px;
+      height: 140px;
+    }
+
+    .status-text {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #FF5722;
+      text-transform: uppercase;
+    }
+
+    /* Cut 3D: Engine Shield Protection */
+    .shield-card {
+      width: 880px;
+      height: 480px;
+      background: linear-gradient(180deg, #12151D 0%, #090B10 100%);
+      border: 2px solid rgba(226, 253, 82, 0.4);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 60px rgba(226, 253, 82, 0.15);
+    }
+
+    .shield-icon {
+      width: 150px;
+      height: 150px;
+    }
+
+    /* Safe Zone Subtitles (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .caption-pill {
+      background: rgba(14, 14, 18, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 16px 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+  </style>
+
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-mechanism" data-width="1080" data-height="1920" data-duration="18.48">
+    <div data-hf-id="s03-env" id="s03-env" class="clip film-env" data-start="0" data-duration="18.48" data-track-index="0">
+      <div class="grain-overlay"></div>
+    </div>
+
+    <!-- Cut 3A: Diagnosis (0.00s - 4.50s) -->
+    <div data-hf-id="cut-3a" id="cut-3a" class="clip cut-scene" data-start="0.00" data-duration="4.50" data-track-index="1">
+      <div class="tag-badge">
+        <img src="assets/activity.svg" alt="Activity" />
+        Psychological Diagnosis
+      </div>
+      <div class="diagnosis-card">
+        <div class="strike-row">LAZINESS</div>
+        <div class="arrow-down">↓</div>
+        <div class="redline-label">EMOTIONAL REDLINING</div>
+      </div>
+      <h1 class="mech-title">
+        IT'S NOT LAZINESS.<br />
+        <span class="hl-red">IT'S REDLINING.</span>
+      </h1>
+    </div>
+
+    <!-- Cut 3B: Tachometer Overload (4.50s - 9.00s) -->
+    <div data-hf-id="cut-3b" id="cut-3b" class="clip cut-scene" data-start="4.50" data-duration="4.50" data-track-index="2">
+      <div class="tag-badge" style="border-color: #FF5722; color: #FF5722;">Thermal Engine Strain</div>
+      <div class="gauge-wrapper">
+        <div class="redline-warning-pill">REDLINE</div>
+        <img src="assets/gauge.svg" class="gauge-icon" alt="Gauge" />
+        <div class="rpm-number" id="rpm-val">7,850</div>
+        <div class="rpm-sub">Continuous Stress Load // Critical</div>
+      </div>
+      <h1 class="mech-title" style="font-size: 58px;">
+        MASKING STRESS &<br />
+        <span class="hl-red">CARRYING UNSPOKEN WEIGHT.</span>
+      </h1>
+    </div>
+
+    <!-- Cut 3C: Power Grid Shutdown (9.00s - 13.80s) -->
+    <div data-hf-id="cut-3c" id="cut-3c" class="clip cut-scene" data-start="9.00" data-duration="4.80" data-track-index="1">
+      <div class="tag-badge" style="border-color: #FF5722; color: #FF5722;">Emergency Powerdown</div>
+      <div class="shutdown-card">
+        <img src="assets/powerdown.svg" class="powerdown-icon" id="pw-icon" alt="Powerdown" />
+        <div class="status-text">MOTIVATION FORCIBLY CUT</div>
+      </div>
+      <h1 class="mech-title">
+        YOUR BRAIN<br />
+        <span class="hl-red">SHUTS DOWN THE ENGINE.</span>
+      </h1>
+    </div>
+
+    <!-- Cut 3D: Shield Protection (13.80s - 18.48s) -->
+    <div data-hf-id="cut-3d" id="cut-3d" class="clip cut-scene" data-start="13.80" data-duration="4.68" data-track-index="2">
+      <div class="tag-badge" style="border-color: #E2FD52; color: #E2FD52; background: rgba(226, 253, 82, 0.1);">
+        Protective Protocol
+      </div>
+      <div class="shield-card">
+        <img src="assets/shield.svg" class="shield-icon" id="sh-icon" alt="Shield" />
+        <div style="font-size: 24px; font-weight: 800; color: #E2FD52; letter-spacing: 0.1em;">
+          BIOLOGICAL DEFENSE ENGAGED
+        </div>
+      </div>
+      <h1 class="mech-title">
+        TO PREVENT YOUR ENGINE<br />
+        <span class="hl-yellow">FROM BLOWING UP.</span>
+      </h1>
+    </div>
+
+    <!-- Safe-Zone Captions (bottom: 480px) -->
+    <div class="caption-zone">
+      <div class="caption-pill" id="cap-pill">
+        <span class="caption-text" id="cap-content">
+          Here’s what psychology actually calls this...
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-mechanism"] = tl;
+
+    const cut3a = document.getElementById("cut-3a");
+    const cut3b = document.getElementById("cut-3b");
+    const cut3c = document.getElementById("cut-3c");
+    const cut3d = document.getElementById("cut-3d");
+    const capContent = document.getElementById("cap-content");
+
+    gsap.set(cut3a, { opacity: 1 });
+    gsap.set(cut3b, { opacity: 0, scale: 1.05 });
+    gsap.set(cut3c, { opacity: 0, scale: 0.95 });
+    gsap.set(cut3d, { opacity: 0, scale: 1.05 });
+
+    // Cut 3A (0.00s - 4.50s)
+    tl.call(() => {
+      capContent.innerHTML = 'It’s not laziness, it’s <span style="color:#FF5722;font-weight:900;">emotional redlining.</span>';
+    }, null, 1.20);
+
+    // Fast Cut 3B (4.50s)
+    tl.fromTo(cut3b, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1.0, duration: 0.25, ease: "power3.out" }, 4.50);
+    tl.fromTo("#rpm-val", { innerText: 3200 }, { innerText: 8400, snap: { innerText: 50 }, duration: 2.0, ease: "power2.out" }, 4.60);
+    tl.call(() => {
+      capContent.innerHTML = 'Months masking stress and <span style="color:#FF5722;font-weight:900;">carrying unspoken weight...</span>';
+    }, null, 4.50);
+
+    // Fast Cut 3C (9.00s)
+    tl.fromTo(cut3c, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1.0, duration: 0.25, ease: "back.out(1.4)" }, 9.00);
+    tl.to("#pw-icon", { opacity: 0.4, repeat: 3, yoyo: true, duration: 0.4, ease: "sine.inOut" }, 9.20);
+    tl.call(() => {
+      capContent.innerHTML = 'Your brain <span style="color:#FF5722;font-weight:900;">forcibly shuts down motivation...</span>';
+    }, null, 9.00);
+
+    // Fast Cut 3D (13.80s)
+    tl.fromTo(cut3d, { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1.0, duration: 0.25, ease: "power3.out" }, 13.80);
+    tl.fromTo("#sh-icon", { scale: 0.8 }, { scale: 1.05, repeat: 2, yoyo: true, duration: 0.9, ease: "sine.inOut" }, 14.00);
+    tl.call(() => {
+      capContent.innerHTML = 'To protect your engine <span style="color:#E2FD52;font-weight:900;">from blowing up.</span>';
+    }, null, 13.80);
+  </script>
+</template>

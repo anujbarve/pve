@@ -3,15 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
-    <title>Decision Fatigue — Why Willpower Drains by 9 PM</title>
+    <title>Decision Fatigue — Jack Butcher Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      @font-face {
-        font-family: "Playfair Display";
-        font-style: normal;
-        font-weight: 400 900;
-        src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-      }
       @font-face {
         font-family: "Inter";
         font-style: normal;
@@ -141,18 +135,11 @@
       const s04 = document.getElementById("s04");
       const s05 = document.getElementById("s05");
 
-      // Crossfades between shots
-      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 10.58);
-      masterTl.to(s01, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 10.58);
-
-      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 21.16);
-      masterTl.to(s02, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 21.16);
-
-      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 31.74);
-      masterTl.to(s03, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 31.74);
-
-      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 44.72);
-      masterTl.to(s04, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 44.72);
+      // Crisp cuts between mental model diagrams
+      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 10.58);
+      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 21.16);
+      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 31.74);
+      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 44.72);
     </script>
   </body>
 </html>

@@ -1,0 +1,35 @@
+{
+  "total_duration": 55.22,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Face in the Static",
+      "start": 0.0,
+      "duration": 11.22
+    },
+    {
+      "id": "shot_02",
+      "name": "The Pattern Detection Machine",
+      "start": 11.22,
+      "duration": 7.94
+    },
+    {
+      "id": "shot_03",
+      "name": "The Pareidolia Engine",
+      "start": 19.16,
+      "duration": 13.22
+    },
+    {
+      "id": "shot_04",
+      "name": "The Conspiracy Spiral",
+      "start": 32.38,
+      "duration": 11.06
+    },
+    {
+      "id": "shot_05",
+      "name": "The Epistemic Humility",
+      "start": 43.44,
+      "duration": 11.78
+    }
+  ]
+}

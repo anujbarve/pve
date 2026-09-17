@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,161 +14,102 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #060709;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 45%, rgba(242, 210, 75, 0.14) 0%, transparent 65%),
-        radial-gradient(circle at 50% 25%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #090c12 0%, #030304 100%);
-    }
-
-    .scene-viewport {
-      position: absolute;
-      inset: 0;
+      top: 320px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
 
-    /* Coalescing Golden Rings & Manifesto Core */
-    .manifesto-stage {
-      position: relative;
-      width: 860px;
-      height: 640px;
-      margin-top: -60px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 30px;
-    }
-
-    .golden-ring-outer {
-      position: absolute;
-      width: 540px;
-      height: 540px;
-      border-radius: 50%;
-      border: 1px solid rgba(242, 210, 75, 0.25);
-      box-shadow: 0 0 50px rgba(242, 210, 75, 0.1);
-      pointer-events: none;
-    }
-
-    .golden-ring-inner {
-      position: absolute;
-      width: 380px;
+    .manifesto-container {
+      width: 780px;
       height: 380px;
-      border-radius: 50%;
-      border: 2px dashed rgba(242, 210, 75, 0.4);
-      pointer-events: none;
-    }
-
-    .hero-manifesto-card {
-      position: relative;
-      background: rgba(14, 17, 24, 0.9);
-      border: 2px solid rgba(242, 210, 75, 0.5);
-      border-radius: 16px;
-      padding: 40px 50px;
+      border: 3px solid #FFFFFF;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
-      text-align: center;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.95), 0 0 40px rgba(242, 210, 75, 0.2);
-      max-width: 680px;
+      justify-content: center;
+      padding: 40px;
+      background: #000000;
+      margin-bottom: 50px;
     }
 
-    .manifesto-pill {
-      background: rgba(242, 210, 75, 0.15);
-      border: 1px solid #F2D24B;
-      color: #F2D24B;
-      font-size: 11px;
+    .manifesto-title {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .manifesto-divider {
+      width: 140px;
+      height: 4px;
+      background: #FFFFFF;
+      margin-bottom: 24px;
+    }
+
+    .manifesto-sub {
+      font-size: 20px;
       font-weight: 800;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 20px;
+      color: #888890;
+      text-align: center;
     }
 
-    .manifesto-hero-title {
-      font-family: "Playfair Display", serif;
-      font-size: 46px;
-      font-weight: 800;
-      line-height: 1.25;
-      color: #F2F1EC;
+    .summary-badge {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      padding: 16px 36px;
     }
 
-    .manifesto-hero-title .gold-text {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    /* Subtitle block at bottom: 480px */
-    .film-caption-block {
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-summary" data-width="1080" data-height="1920" data-duration="7.62">
-    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
-
-    <div class="scene-viewport">
-      <div data-hf-id="hf-s05-stage" id="s05-stage" class="manifesto-stage" data-layout-allow-overlap>
-        <div data-hf-id="hf-s05-ringout" id="s05-ring-outer" class="golden-ring-outer"></div>
-        <div data-hf-id="hf-s05-ringin" id="s05-ring-inner" class="golden-ring-inner"></div>
-
-        <div data-hf-id="hf-s05-card" id="s05-card" class="hero-manifesto-card">
-          <div class="manifesto-pill">Perceptual Law</div>
-          <h1 class="manifesto-hero-title">
-            You don't see reality.<br/>
-            <span class="gold-text">You see expectation.</span>
-          </h1>
-        </div>
+  <div data-hf-id="s05-root" id="root" data-composition-id="shot-05-summary" data-width="1080" data-height="1920" data-duration="7.62">
+    <div data-hf-id="s05-content" id="s05-content" class="clip canvas-center" data-start="0" data-duration="7.62" data-track-index="1">
+      <div class="manifesto-container" id="manifesto-box">
+        <h1 class="manifesto-title">YOU DO NOT SEE REALITY</h1>
+        <div class="manifesto-divider"></div>
+        <p class="manifesto-sub">YOU SEE A FLEETING SUMMARY</p>
       </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">You don't see reality as it exists...</p>
-        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">Change Blindness</span>
+      <div class="summary-badge" id="summary-badge">WHAT YOUR BRAIN ASSUMES IS THERE</div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        You don’t see reality as it exists...
       </div>
     </div>
   </div>
@@ -184,30 +119,12 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-05-summary"] = tl;
 
-    const env = document.getElementById("s05-env");
-    const stage = document.getElementById("s05-stage");
-    const ringOuter = document.getElementById("s05-ring-outer");
-    const ringInner = document.getElementById("s05-ring-inner");
-    const card = document.getElementById("s05-card");
-    const caption = document.getElementById("s05-caption");
-    const sub = document.getElementById("s05-sub");
+    tl.fromTo("#s05-content", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.0);
+    tl.fromTo("#manifesto-box", { scale: 0.85, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.4);
+    tl.fromTo("#summary-badge", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 1.0);
 
-    gsap.set(stage, { scale: 0.92 });
-    gsap.set(card, { opacity: 0, scale: 0.9 });
-    gsap.set([ringOuter, ringInner], { opacity: 0, scale: 0.7 });
-
-    // Cinematic wide pull-back
-    tl.to(stage, { scale: 1.02, duration: 7.62, ease: "power1.out" }, 0);
-    tl.to(env, { scale: 1.04, duration: 7.62, ease: "none" }, 0);
-
-    // Golden rings expand smoothly
-    tl.to([ringOuter, ringInner], { opacity: 1, scale: 1, duration: 1.6, ease: "back.out(1.4)" }, 0.4);
-    tl.to(card, { opacity: 1, scale: 1, duration: 1.2, ease: "power2.out" }, 0.6);
-
-    // Caption transition at 3.2s
     tl.call(() => {
-      caption.innerHTML = 'you see a <span class="accent">fleeting summary</span> of what your brain assumes is still there.';
-      sub.innerText = 'The Reality Illusion';
-    }, null, 3.2);
+      document.getElementById("cap-text").innerHTML = "You see a fleeting summary of what your brain assumes is still there.";
+    }, null, 3.5);
   </script>
 </template>

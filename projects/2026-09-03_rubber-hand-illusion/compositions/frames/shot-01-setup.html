@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,589 +14,181 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #06080d;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 45%, rgba(56, 189, 248, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 75% 25%, rgba(242, 210, 75, 0.1) 0%, transparent 50%),
-        linear-gradient(180deg, #0a0d14 0%, #030407 100%);
-    }
-
-    .lab-table-perspective {
-      position: absolute;
-      bottom: 0;
-      left: -120px;
-      right: -120px;
-      height: 1080px;
-      background: linear-gradient(180deg, #131722 0%, #0a0c12 40%, #040508 100%);
-      transform: perspective(1100px) rotateX(52deg);
-      border-top: 1.5px solid rgba(56, 189, 248, 0.25);
-      box-shadow: 0 -40px 140px rgba(0, 0, 0, 0.95);
-    }
-
-    .table-sub-grid {
-      position: absolute;
-      inset: 0;
-      opacity: 0.15;
-      background-image: 
-        linear-gradient(rgba(56, 189, 248, 0.3) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.3) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .light-cone {
-      position: absolute;
-      top: 280px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 1120px;
-      background: radial-gradient(ellipse at 50% 20%, rgba(242, 210, 75, 0.16) 0%, rgba(56, 189, 248, 0.06) 50%, transparent 75%);
-      pointer-events: none;
-    }
-
-    .scene-viewport {
-      position: absolute;
-      inset: 0;
+      top: 300px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 0 80px;
     }
 
-    /* Lab Protocol Telemetry */
-    .lab-protocol-header {
-      position: absolute;
-      top: 310px;
-      left: 90px;
-      right: 90px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .protocol-badge {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(10, 14, 22, 0.88);
-      border: 1px solid rgba(242, 210, 75, 0.35);
-      padding: 10px 18px;
-      border-radius: 8px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    }
-
-    .badge-icon {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #F2D24B;
-      box-shadow: 0 0 10px #F2D24B;
-    }
-
-    .badge-text {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #F2F1EC;
-    }
-
-    .occlusion-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(10, 14, 22, 0.88);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      padding: 10px 18px;
-      border-radius: 8px;
-    }
-
-    .status-text {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      color: #38BDF8;
-      text-transform: uppercase;
-    }
-
-    /* Central Experiment Stage */
-    .experiment-stage {
+    .setup-stage {
+      width: 760px;
+      height: 480px;
       position: relative;
-      width: 820px;
-      height: 640px;
-      margin-top: -60px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
     }
 
-    /* Vertical Partition / Cardboard Divider Monolith */
+    /* Screen Divider */
     .screen-divider {
       position: absolute;
+      top: 0;
+      bottom: 0;
       left: 50%;
-      top: 15px;
-      bottom: 15px;
-      width: 28px;
+      width: 4px;
+      background: #FFFFFF;
       transform: translateX(-50%);
-      background: linear-gradient(90deg, #181d29 0%, #2b3345 50%, #121620 100%);
-      border-radius: 6px;
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      box-shadow: 0 0 45px rgba(0,0,0,0.95), inset 0 0 12px rgba(0,0,0,0.8);
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    .divider-ruler {
+    .screen-tag {
       position: absolute;
-      inset: 8px 4px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      opacity: 0.4;
-    }
-
-    .ruler-tick {
-      width: 12px;
-      height: 1px;
-      background: #F2D24B;
-    }
-
-    .divider-label {
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      font-size: 10px;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #000000;
+      padding: 4px 14px;
+      font-size: 14px;
       font-weight: 800;
-      letter-spacing: 0.25em;
-      color: #A0A09C;
+      letter-spacing: 0.2em;
+      color: #A0A0B0;
+      white-space: nowrap;
       text-transform: uppercase;
-      z-index: 2;
     }
 
-    /* Left Zone: Real Hand (Occluded & Neural Mesh) */
-    .hand-zone-left {
-      position: absolute;
-      left: 20px;
-      width: 350px;
-      height: 540px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(8, 12, 20, 0.7);
-      border: 1px dashed rgba(56, 189, 248, 0.35);
-      border-radius: 24px;
-      padding: 16px;
-    }
-
-    .hand-svg-container {
-      width: 260px;
-      height: 420px;
-      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.25));
-    }
-
-    .occlusion-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(4, 6, 10, 0.78);
-      backdrop-filter: blur(6px);
+    .hand-box {
+      width: 320px;
+      height: 380px;
+      border: 3px solid #FFFFFF;
       border-radius: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 16px;
+      padding: 24px;
+      text-align: center;
     }
 
-    .occlusion-tag {
-      font-size: 12px;
-      font-weight: 800;
-      color: #38BDF8;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      padding: 8px 16px;
-      border-radius: 6px;
-      background: rgba(10, 16, 26, 0.95);
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+    .hand-icon-circle {
+      width: 80px;
+      height: 80px;
+      border: 2px solid #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .occlusion-subtag {
-      font-size: 10px;
-      font-weight: 600;
-      color: #A0A09C;
+    .hand-dot {
+      width: 16px;
+      height: 16px;
+      background: #FFFFFF;
+      border-radius: 50%;
+    }
+
+    .hand-title {
+      font-size: 22px;
+      font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    /* Right Zone: Rubber Hand (Visible Anatomical Prosthetic) */
-    .hand-zone-right {
-      position: absolute;
-      right: 20px;
-      width: 350px;
-      height: 540px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(18, 16, 12, 0.7);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      border-radius: 24px;
-      padding: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.85);
-    }
-
-    .rubber-svg-container {
-      width: 260px;
-      height: 420px;
-      filter: drop-shadow(0 0 25px rgba(242, 210, 75, 0.3));
-    }
-
-    .rubber-tag-block {
-      position: absolute;
-      bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(242, 210, 75, 0.5);
-      padding: 6px 16px;
-      border-radius: 6px;
-      background: rgba(22, 18, 12, 0.95);
-      box-shadow: 0 0 20px rgba(242, 210, 75, 0.25);
-    }
-
-    .rubber-tag-txt {
-      font-size: 11px;
+    .hand-tag {
+      font-size: 14px;
       font-weight: 800;
-      color: #F2D24B;
       letter-spacing: 0.18em;
       text-transform: uppercase;
+      color: #A0A0B0;
     }
 
-    /* Scientific Scan Reticle */
-    .scan-reticle {
-      position: absolute;
-      width: 280px;
-      height: 440px;
-      border: 1px dashed rgba(242, 210, 75, 0.7);
-      border-radius: 16px;
-      pointer-events: none;
-      opacity: 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 8px;
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
     }
 
-    .reticle-corner {
-      width: 14px;
-      height: 14px;
-      border: 2px solid #F2D24B;
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
-    .rc-tl { border-right: none; border-bottom: none; }
-    .rc-tr { border-left: none; border-bottom: none; }
-    .rc-bl { border-right: none; border-top: none; align-self: flex-end; }
-    .rc-br { border-left: none; border-top: none; align-self: flex-end; }
 
-    /* Subtitle block at bottom: 480px */
-    .film-caption-block {
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-setup" data-width="1080" data-height="1920" data-duration="8.74">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="8.74" data-track-index="1">
+      <div class="setup-stage">
+        <!-- Left: Real Hand (Hidden) -->
+        <div class="hand-box" style="border-style: dashed; border-color: #888890;">
+          <div class="hand-icon-circle" style="border-color: #888890;">
+            <div class="hand-dot" style="background: #888890;"></div>
+          </div>
+          <span class="hand-title" style="color: #888890;">REAL HAND</span>
+          <span class="hand-tag">HIDDEN BEHIND SCREEN</span>
+        </div>
 
-  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-setup" data-width="1080" data-height="1920" data-duration="8.74">
-    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s01-plane" id="s01-plane" class="lab-table-perspective" data-layout-allow-overflow>
-      <div class="table-sub-grid"></div>
+        <div class="screen-divider"></div>
+        <span class="screen-tag">OPAQUE SCREEN</span>
+
+        <!-- Right: Rubber Hand (Visible) -->
+        <div class="hand-box" id="rubber-box">
+          <div class="hand-icon-circle">
+            <div class="hand-dot"></div>
+          </div>
+          <span class="hand-title">RUBBER HAND</span>
+          <span class="hand-tag" style="color: #FFFFFF;">IN PLAIN SIGHT</span>
+        </div>
+      </div>
+
+      <div class="callout-box">
+        <h1 class="callout-title">THE SENSORY DECOUPLING</h1>
+        <p class="callout-sub">PROPRIOCEPTION AND VISION FORCIBLY SEPARATED IN SPACE</p>
+      </div>
     </div>
-    <div data-hf-id="hf-s01-cone" id="s01-cone" class="light-cone" data-layout-allow-overflow></div>
 
-    <div class="scene-viewport">
-      <!-- Header telemetry -->
-      <div data-hf-id="hf-s01-hdr" class="lab-protocol-header" data-layout-allow-overlap>
-        <div class="protocol-badge">
-          <div class="badge-icon"></div>
-          <span class="badge-text">Botvinick & Cohen Protocol</span>
-        </div>
-        <div class="occlusion-status">
-          <span class="status-text">Visual Occlusion: 100%</span>
-        </div>
-      </div>
-
-      <!-- Main Stage -->
-      <div data-hf-id="hf-s01-stage" id="s01-stage" class="experiment-stage" data-layout-allow-overlap>
-        <!-- Center Divider Monolith -->
-        <div data-hf-id="hf-s01-div" id="s01-divider" class="screen-divider">
-          <div class="divider-ruler">
-            <div class="ruler-tick"></div>
-            <div class="ruler-tick"></div>
-            <div class="ruler-tick"></div>
-            <div class="ruler-tick"></div>
-            <div class="ruler-tick"></div>
-            <div class="ruler-tick"></div>
-          </div>
-          <span class="divider-label">OPAQUE PARTITION</span>
-        </div>
-
-        <!-- Left Zone (Hidden Real Hand Anatomical Mesh) -->
-        <div data-hf-id="hf-s01-zl" id="s01-zone-left" class="hand-zone-left">
-          <svg class="hand-svg-container" viewBox="0 0 260 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Palm body gradient: dark core with cyan edge glow -->
-    <radialGradient id="palmGradR-S1" cx="50%" cy="60%" r="55%" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="rgba(2,8,18,0.95)"/>
-      <stop offset="60%" stop-color="rgba(8,28,52,0.88)"/>
-      <stop offset="100%" stop-color="rgba(32,96,140,0.6)"/>
-    </radialGradient>
-    <radialGradient id="sssR-S1" cx="50%" cy="50%" r="55%" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="rgba(56,189,248,0.0)"/>
-      <stop offset="70%" stop-color="rgba(56,189,248,0.05)"/>
-      <stop offset="100%" stop-color="rgba(56,189,248,0.22)"/>
-    </radialGradient>
-    <filter id="glowR-S1" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="3.5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
-  <!-- Wrist cylinder base -->
-  <path d="M82 410 C78 380 76 360 80 338 L140 338 C144 360 142 380 138 410 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.5)" stroke-width="1.5"/>
-
-  <!-- Main palm body — full volumetric closed shape -->
-  <path d="M68 338
-           C48 305 42 265 46 220
-           C50 185 62 168 80 160
-           C85 148 94 140 105 138
-           C116 140 124 148 128 160
-           C146 166 158 184 164 220
-           C168 265 162 305 142 338 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.7)" stroke-width="1.8"/>
-
-  <!-- Subsurface scatter inner glow layer -->
-  <path d="M68 338
-           C48 305 42 265 46 220
-           C50 185 62 168 80 160
-           C85 148 94 140 105 138
-           C116 140 124 148 128 160
-           C146 166 158 184 164 220
-           C168 265 162 305 142 338 Z"
-        fill="url(#sssR-S1)"/>
-
-  <!-- Thumb — filled volumetric, not just an outline -->
-  <path d="M68 240 C52 226 38 208 28 182 C22 162 26 148 38 148
-           C50 148 58 164 62 186 C66 208 68 225 70 240 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.65)" stroke-width="1.5"/>
-
-  <!-- Index finger — volumetric filled finger shape -->
-  <path d="M76 160 C72 138 70 112 72 84 C74 68 82 58 92 58
-           C102 58 108 68 108 84 C108 112 106 138 102 160 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.7)" stroke-width="1.5"/>
-
-  <!-- Middle finger — tallest, widest -->
-  <path d="M102 158 C100 130 100 100 102 68 C104 50 112 40 122 40
-           C132 40 138 50 138 68 C138 100 136 130 132 158 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.8)" stroke-width="1.8"/>
-
-  <!-- Ring finger -->
-  <path d="M132 160 C130 136 130 110 132 84 C134 68 142 58 152 58
-           C162 58 166 68 166 84 C164 110 162 136 160 160 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.7)" stroke-width="1.5"/>
-
-  <!-- Little finger — slightly shorter -->
-  <path d="M160 170 C160 150 162 128 165 106 C167 92 174 84 182 84
-           C190 84 194 92 192 106 C190 128 188 150 186 170 Z"
-        fill="url(#palmGradR-S1)" stroke="rgba(56,189,248,0.6)" stroke-width="1.4"/>
-
-  <!-- Neural tractography mesh lines radiating from palm center -->
-  <path d="M105 338 Q92 250 88 90" stroke="rgba(56,189,248,0.45)" stroke-width="1" stroke-dasharray="4 6"/>
-  <path d="M105 338 Q110 240 122 55" stroke="rgba(56,189,248,0.55)" stroke-width="1.2" stroke-dasharray="4 6"/>
-  <path d="M105 338 Q128 250 148 90" stroke="rgba(56,189,248,0.45)" stroke-width="1" stroke-dasharray="4 6"/>
-  <path d="M105 338 Q78 265 45 185" stroke="rgba(56,189,248,0.45)" stroke-width="1" stroke-dasharray="4 6"/>
-  <path d="M105 338 Q168 270 180 110" stroke="rgba(56,189,248,0.35)" stroke-width="1" stroke-dasharray="3 7"/>
-
-  <!-- Knuckle articulation nodes with glow -->
-  <circle cx="105" cy="340" r="5" fill="#38BDF8" filter="url(#glowR-S1)"/>
-  <circle cx="91" cy="162" r="4" fill="#38BDF8" filter="url(#glowR-S1)"/>
-  <circle cx="120" cy="158" r="4" fill="#38BDF8" filter="url(#glowR-S1)"/>
-  <circle cx="149" cy="162" r="4" fill="#38BDF8" filter="url(#glowR-S1)"/>
-  <circle cx="174" cy="172" r="3.5" fill="#38BDF8" filter="url(#glowR-S1)"/>
-  <circle cx="60" cy="248" r="3.5" fill="#38BDF8" filter="url(#glowR-S1)"/>
-
-  <!-- Distal phalange tip nodes -->
-  <circle cx="92" cy="62" r="3" fill="rgba(56,189,248,0.85)"/>
-  <circle cx="122" cy="44" r="3" fill="rgba(56,189,248,0.85)"/>
-  <circle cx="152" cy="62" r="3" fill="rgba(56,189,248,0.85)"/>
-  <circle cx="183" cy="88" r="3" fill="rgba(56,189,248,0.7)"/>
-</svg>
-
-          <div data-hf-id="hf-s01-occ" id="s01-occlusion" class="occlusion-overlay">
-            <span class="occlusion-tag">Real Limb [Occluded]</span>
-            <span class="occlusion-subtag">Direct View: Suppressed</span>
-          </div>
-        </div>
-
-        <!-- Right Zone (Visible Rubber Hand Anatomical Wireframe) -->
-        <div data-hf-id="hf-s01-zr" id="s01-zone-right" class="hand-zone-right">
-          <svg class="rubber-svg-container" viewBox="0 0 260 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <!-- Prosthetic silicone skin — warm amber tones with depth -->
-    <radialGradient id="palmGradRH-S1" cx="45%" cy="55%" r="58%" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="rgba(80,45,8,0.9)"/>
-      <stop offset="50%" stop-color="rgba(55,32,5,0.95)"/>
-      <stop offset="100%" stop-color="rgba(30,15,2,0.98)"/>
-    </radialGradient>
-    <!-- Subsurface amber scatter -->
-    <radialGradient id="sssRH-S1" cx="50%" cy="45%" r="55%" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="rgba(242,180,40,0.0)"/>
-      <stop offset="60%" stop-color="rgba(242,180,40,0.07)"/>
-      <stop offset="100%" stop-color="rgba(242,180,40,0.28)"/>
-    </radialGradient>
-    <!-- Edge highlight gradient (left rim-lit) -->
-    <linearGradient id="rimRH-S1" x1="0" y1="0" x2="1" y2="0" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="rgba(242,210,75,0.65)"/>
-      <stop offset="25%" stop-color="rgba(242,210,75,0.15)"/>
-      <stop offset="100%" stop-color="rgba(180,100,20,0.08)"/>
-    </linearGradient>
-    <filter id="glowRH-S1" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="4" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-  </defs>
-
-  <!-- Wrist / forearm stub -->
-  <path d="M82 410 C78 380 76 358 80 336 L140 336 C144 358 142 380 138 410 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.55)" stroke-width="1.8"/>
-
-  <!-- Main palm — full volumetric prosthetic skin body -->
-  <path d="M68 336
-           C46 302 40 260 44 216
-           C48 182 62 165 80 157
-           C85 145 94 136 105 134
-           C116 136 124 145 128 157
-           C147 163 160 182 165 216
-           C170 260 164 302 142 336 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.75)" stroke-width="2"/>
-
-  <!-- Inner subsurface scatter glow -->
-  <path d="M68 336
-           C46 302 40 260 44 216
-           C48 182 62 165 80 157
-           C85 145 94 136 105 134
-           C116 136 124 145 128 157
-           C147 163 160 182 165 216
-           C170 260 164 302 142 336 Z"
-        fill="url(#sssRH-S1)"/>
-
-  <!-- Rim light layer -->
-  <path d="M68 336 C46 302 40 260 44 216 C48 182 62 165 80 157 C85 145 94 136 105 134"
-        stroke="url(#rimRH-S1)" stroke-width="3" fill="none"/>
-
-  <!-- Thumb — filled prosthetic rubber volume -->
-  <path d="M68 238 C52 224 36 206 26 180 C20 160 25 146 38 146
-           C51 146 60 163 64 186 C68 208 68 224 70 238 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.65)" stroke-width="1.8"/>
-
-  <!-- Index finger — volumetric rubber skin -->
-  <path d="M76 158 C72 136 70 110 72 82 C74 65 83 55 93 55
-           C103 55 109 65 109 82 C109 110 107 136 103 158 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.72)" stroke-width="1.8"/>
-
-  <!-- Middle finger — tallest -->
-  <path d="M103 156 C101 128 101 98 103 66 C105 48 113 37 123 37
-           C133 37 139 48 139 66 C139 98 137 128 133 156 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.85)" stroke-width="2"/>
-
-  <!-- Ring finger -->
-  <path d="M133 158 C131 134 131 108 133 82 C135 65 143 55 153 55
-           C163 55 167 65 167 82 C165 108 163 134 161 158 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.72)" stroke-width="1.8"/>
-
-  <!-- Little finger — shorter -->
-  <path d="M161 168 C161 148 163 126 167 104 C169 90 176 82 184 82
-           C192 82 196 90 194 104 C192 126 190 148 187 168 Z"
-        fill="url(#palmGradRH-S1)" stroke="rgba(242,210,75,0.62)" stroke-width="1.6"/>
-
-  <!-- Tendon crease lines on back of hand (realistic detail) -->
-  <path d="M93 158 Q95 200 97 240" stroke="rgba(242,210,75,0.35)" stroke-width="1" stroke-dasharray="3 5"/>
-  <path d="M123 155 Q124 200 125 240" stroke="rgba(242,210,75,0.42)" stroke-width="1.2" stroke-dasharray="3 5"/>
-  <path d="M153 158 Q152 200 150 240" stroke="rgba(242,210,75,0.35)" stroke-width="1" stroke-dasharray="3 5"/>
-
-  <!-- Knuckle joint highlights — amber glowing nodes -->
-  <circle cx="105" cy="338" r="5.5" fill="#F2D24B" filter="url(#glowRH-S1)"/>
-  <circle cx="91" cy="160" r="4.5" fill="#F2D24B" filter="url(#glowRH-S1)"/>
-  <circle cx="121" cy="156" r="4.5" fill="#F2D24B" filter="url(#glowRH-S1)"/>
-  <circle cx="151" cy="160" r="4.5" fill="#F2D24B" filter="url(#glowRH-S1)"/>
-  <circle cx="175" cy="170" r="4" fill="#F2D24B" filter="url(#glowRH-S1)"/>
-  <circle cx="60" cy="245" r="4" fill="#F2D24B" filter="url(#glowRH-S1)"/>
-
-  <!-- Fingertip terminal nodes -->
-  <circle cx="93" cy="58" r="3.5" fill="rgba(242,210,75,0.9)"/>
-  <circle cx="123" cy="40" r="3.5" fill="rgba(242,210,75,0.9)"/>
-  <circle cx="153" cy="58" r="3.5" fill="rgba(242,210,75,0.9)"/>
-  <circle cx="184" cy="85" r="3" fill="rgba(242,210,75,0.75)"/>
-</svg>
-
-          <div class="rubber-tag-block">
-            <span class="rubber-tag-txt">Rubber Hand [Visible]</span>
-          </div>
-
-          <div data-hf-id="hf-s01-ret" id="s01-reticle" class="scan-reticle">
-            <div class="reticle-corner rc-tl"></div>
-            <div class="reticle-corner rc-tr"></div>
-            <div class="reticle-corner rc-bl"></div>
-            <div class="reticle-corner rc-br"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Caption -->
-      <div data-hf-id="hf-s01-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">You place your left hand behind an opaque screen...</p>
-        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">The Sensory Decoupling Setup</span>
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        You place your left hand behind an opaque screen...
       </div>
     </div>
   </div>
@@ -612,37 +198,12 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-01-setup"] = tl;
 
-    const env = document.getElementById("s01-env");
-    const stage = document.getElementById("s01-stage");
-    const divider = document.getElementById("s01-divider");
-    const occlusion = document.getElementById("s01-occlusion");
-    const reticle = document.getElementById("s01-reticle");
-    const zoneRight = document.getElementById("s01-zone-right");
-    const caption = document.getElementById("s01-caption");
-    const sub = document.getElementById("s01-sub");
-    const cone = document.getElementById("s01-cone");
+    tl.fromTo("#s01-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
 
-    gsap.set(stage, { scale: 0.94, y: 10 });
-    gsap.set(divider, { y: -30, opacity: 0.5 });
-    gsap.set(occlusion, { opacity: 0 });
-    gsap.set(reticle, { opacity: 0, scale: 1.15 });
-
-    // Smooth forward push-in
-    tl.to(env, { scale: 1.05, duration: 8.74, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, y: 0, duration: 8.74, ease: "power1.out" }, 0);
-
-    // Divider locks into place
-    tl.to(divider, { y: 0, opacity: 1, duration: 1.0, ease: "power2.out" }, 0.8);
-    tl.to(occlusion, { opacity: 1, duration: 1.2, ease: "power2.inOut" }, 1.4);
-
-    // 4.2s: "...while a lifelike rubber hand rests in plain view directly on the table before you."
     tl.call(() => {
-      caption.innerHTML = 'while a lifelike rubber hand rests <span class="accent">directly in plain view before you</span>.';
-      sub.innerText = 'Visual Focus: Rubber Prosthesis';
-    }, null, 4.2);
+      document.getElementById("cap-text").innerHTML = "...while a lifelike rubber hand rests in plain view on the table.";
+    }, null, 4.0);
 
-    tl.to(zoneRight, { scale: 1.03, duration: 1.2, ease: "power2.out" }, 4.2);
-    tl.to(reticle, { opacity: 0.95, scale: 1.0, duration: 0.8, ease: "back.out(1.5)" }, 4.5);
-    tl.to(cone, { scale: 1.08, opacity: 1.0, duration: 2.0, ease: "power1.inOut" }, 4.5);
+    tl.fromTo("#rubber-box", { scale: 0.96 }, { scale: 1.04, yoyo: true, repeat: 3, duration: 0.5 }, 4.0);
   </script>
 </template>

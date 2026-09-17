@@ -1,0 +1,201 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 300px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .meta-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 24px;
+    }
+
+    /* Side-by-side architecture */
+    .dual-box {
+      width: 820px;
+      display: flex;
+      gap: 24px;
+      margin-bottom: 36px;
+    }
+
+    .aspect-card {
+      flex: 1;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-title {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-bottom: 2px solid #222226;
+      padding-bottom: 12px;
+    }
+
+    .card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .list-item-val {
+      color: #FFFFFF;
+    }
+
+    .card-footer {
+      margin-top: auto;
+      padding: 12px;
+      border: 2px solid #FFFFFF;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .card-footer.white {
+      background: #FFFFFF;
+      color: #000000;
+    }
+
+    /* Bottom Synthesis */
+    .synthesis-card {
+      width: 820px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 32px 40px;
+      text-align: center;
+    }
+
+    .syn-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .syn-sub {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.35;
+    }
+  </style>
+
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-pareidolia" data-width="1080" data-height="1920" data-duration="13.22">
+    <div data-hf-id="s03-content" id="s03-content" class="clip canvas-center" data-start="0" data-duration="13.22" data-track-index="1">
+      <div class="meta-tag">FUSIFORM FACE AREA // DUAL EXPRESSION</div>
+
+      <div class="dual-box">
+        <!-- Apparent Bug -->
+        <div class="aspect-card" id="card-bug">
+          <div class="card-title">THE "BUG"</div>
+          <div class="card-list">
+            <div>INPUT 01: <span class="list-item-val">TOAST SHADOW</span></div>
+            <div>INPUT 02: <span class="list-item-val">WATER STAINS</span></div>
+            <div>INPUT 03: <span class="list-item-val">CLOUD FORMATION</span></div>
+          </div>
+          <div class="card-footer">PERCEIVED AS FACE</div>
+        </div>
+
+        <!-- Vital Feature -->
+        <div class="aspect-card" id="card-feature">
+          <div class="card-title">THE SURVIVAL FEATURE</div>
+          <div class="card-list">
+            <div>SCENARIO: <span class="list-item-val">CROWDED ROOM</span></div>
+            <div>SCAN: <span class="list-item-val">100 STRANGERS</span></div>
+            <div>LATENCY: <span class="list-item-val">50 MILLISECONDS</span></div>
+          </div>
+          <div class="card-footer white">FRIEND DETECTED</div>
+        </div>
+      </div>
+
+      <div class="synthesis-card">
+        <div class="syn-title" id="syn-t">ONE SINGLE NEURAL CIRCUIT</div>
+        <div class="syn-sub" id="syn-s">PAREIDOLIA IS THE SPILLOVER OF HYPER-ACUTE SOCIAL SURVIVAL</div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Pareidolia — seeing faces in toast, Jesus in water stains, meaning in randomness — isn't a bug.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-03-pareidolia"] = tl;
+
+    tl.fromTo("#s03-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+    tl.fromTo(["#card-bug", "#card-feature"], { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.15, ease: "power2.out" }, 0.1);
+
+    tl.call(() => {
+      document.getElementById("syn-t").innerText = "THE PRICE OF SOCIAL RECOGNITION";
+      document.getElementById("syn-s").innerText = "YOUR BRAIN MUST OVER-INTERPRET TO NEVER MISS A FRIEND";
+      document.getElementById("cap-text").innerHTML = "It's the same neural wiring that lets you recognize a friend across a crowded room.";
+    }, null, 6.8);
+  </script>
+</template>

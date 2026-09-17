@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Clip 1: The Second Brain</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000000;
+        color: #ffffff;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        background: #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .badge {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #888890;
+        border: 1px solid #33333a;
+        padding: 8px 24px;
+        border-radius: 999px;
+        margin-bottom: 28px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .title {
+        font-size: 64px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        text-align: center;
+        line-height: 1.1;
+        max-width: 1200px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .diagram-grid {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 60px;
+        margin-top: 60px;
+        width: 1300px;
+      }
+      .card {
+        flex: 1;
+        height: 240px;
+        border: 2px solid #222228;
+        background: #08080a;
+        border-radius: 12px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      .card.active {
+        border-color: #ffffff;
+        background: #0e0e12;
+      }
+      .card-tag {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        color: #888890;
+        text-transform: uppercase;
+      }
+      .card.active .card-tag {
+        color: #ffffff;
+      }
+      .card-val {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+      }
+      .card-sub {
+        font-size: 16px;
+        font-weight: 500;
+        color: #666670;
+      }
+      .arrow {
+        font-size: 28px;
+        color: #444450;
+        font-weight: 700;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="clip1-intro"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="15"
+    >
+      <div class="badge" id="badge">PARADIGM SHIFT</div>
+      <h1 class="title" id="title">THE SECOND BRAIN IN THE AGE OF AI</h1>
+
+      <div class="diagram-grid">
+        <div class="card" id="card1">
+          <div class="card-tag">01 / INPUT OVERLOAD</div>
+          <div class="card-val">EXPONENTIAL AI</div>
+          <div class="card-sub">Infinite daily context & interactions</div>
+        </div>
+
+        <div class="arrow" id="arrow1">→</div>
+
+        <div class="card" id="card2">
+          <div class="card-tag">02 / BOTTLENECK</div>
+          <div class="card-val">HUMAN MEMORY</div>
+          <div class="card-sub">Finite retention & fragmented access</div>
+        </div>
+
+        <div class="arrow" id="arrow2">→</div>
+
+        <div class="card active" id="card3">
+          <div class="card-tag">03 / SOLUTION</div>
+          <div class="card-val">ANYTYPE</div>
+          <div class="card-sub">Local-first, structured second brain</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["clip1-intro"] = tl;
+
+      tl.to("#badge", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4)
+        .to("#title", { opacity: 1, y: 0, duration: 1.0, ease: "power3.out" }, 0.8)
+        .to("#card1", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 1.8)
+        .to("#arrow1", { opacity: 1, duration: 0.5 }, 2.6)
+        .to("#card2", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 3.2)
+        .to("#arrow2", { opacity: 1, duration: 0.5 }, 4.0)
+        .to("#card3", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 4.6);
+    </script>
+  </body>
+</html>

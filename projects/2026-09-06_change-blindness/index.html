@@ -3,15 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
-    <title>Change Blindness — The Illusion of Seeing Everything</title>
+    <title>Change Blindness — Jack Butcher Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      @font-face {
-        font-family: "Playfair Display";
-        font-style: normal;
-        font-weight: 400 900;
-        src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-      }
       @font-face {
         font-family: "Inter";
         font-style: normal;
@@ -118,7 +112,7 @@
         data-layout-allow-overlap
       ></div>
 
-      <!-- Master 3-Layer Audio Soundtrack (VO + BGM + SFX) -->
+      <!-- Master 3-Layer Audio Soundtrack -->
       <audio
         data-hf-id="audio-master"
         id="audio-master"
@@ -141,18 +135,11 @@
       const s04 = document.getElementById("s04");
       const s05 = document.getElementById("s05");
 
-      // Crossfades between shots
-      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 9.62);
-      masterTl.to(s01, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 9.62);
-
-      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 18.60);
-      masterTl.to(s02, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 18.60);
-
-      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 28.86);
-      masterTl.to(s03, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 28.86);
-
-      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 37.04);
-      masterTl.to(s04, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 37.04);
+      // Crisp cuts between mental model diagrams
+      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 9.62);
+      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 18.60);
+      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 28.86);
+      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 37.04);
     </script>
   </body>
 </html>

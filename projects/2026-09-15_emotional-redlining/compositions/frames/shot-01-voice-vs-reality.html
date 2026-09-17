@@ -1,0 +1,172 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 280px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Diagram Geometry */
+    .diagram-stage {
+      width: 580px;
+      height: 580px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .life-circle {
+      position: absolute;
+      width: 560px;
+      height: 560px;
+      border: 3px solid #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .life-label {
+      position: absolute;
+      top: 35px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .voice-circle {
+      position: absolute;
+      width: 65px;
+      height: 65px;
+      border: 3px dashed #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .voice-dot {
+      width: 14px;
+      height: 14px;
+      background: #FFFFFF;
+      border-radius: 50%;
+    }
+
+    .voice-callout {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .callout-sub {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #777780;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+  </style>
+
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-voice-vs-reality" data-width="1080" data-height="1920" data-duration="6.16">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="6.16" data-track-index="1">
+      <div class="diagram-stage">
+        <!-- Outer Circle: Life -->
+        <div class="life-circle" id="life-circle">
+          <span class="life-label">YOUR ACTUAL LIFE</span>
+        </div>
+
+        <!-- Inner Tiny Circle: The Voice in Your Head -->
+        <div class="voice-circle" id="voice-circle">
+          <div class="voice-dot"></div>
+        </div>
+      </div>
+
+      <div class="voice-callout" id="callout-box">
+        <span class="callout-title">THE VOICE IN YOUR HEAD</span>
+        <span class="callout-sub">0.01% OF REALITY // 100% OF SUFFERING</span>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Most people don’t hate their lives.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-voice-vs-reality"] = tl;
+
+    // Outer circle draws in smoothly
+    tl.fromTo("#life-circle", { scale: 0.6, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.0);
+
+    // Inner voice appears and pulses
+    tl.fromTo("#voice-circle", { scale: 0, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.3, ease: "back.out(2.0)" }, 1.8);
+    tl.fromTo("#callout-box", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 2.0);
+
+    // "That never shuts up" pulse
+    tl.to("#voice-circle", { scale: 1.25, repeat: 5, yoyo: true, duration: 0.35, ease: "sine.inOut" }, 3.5);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "They hate the voice in their head that never shuts up.";
+    }, null, 2.4);
+  </script>
+</template>

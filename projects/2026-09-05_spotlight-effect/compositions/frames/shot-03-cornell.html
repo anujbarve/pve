@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,263 +14,156 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #080808;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .archive-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 30%, rgba(242, 210, 75, 0.08) 0%, transparent 60%),
-        linear-gradient(180deg, #11100f 0%, #060606 100%);
-    }
-
-    .ledger-grid {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(242, 241, 236, 0.03) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(242, 241, 236, 0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.5;
-    }
-
-    .study-stage {
-      position: absolute;
-      inset: 0;
+      top: 320px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 0 80px;
     }
 
-    /* Study Dossier Card */
-    .dossier-card {
-      position: relative;
-      width: 680px;
-      margin-top: -60px;
-      background: rgba(18, 17, 15, 0.9);
-      border: 1px solid rgba(242, 241, 236, 0.15);
-      border-radius: 18px;
-      padding: 36px 40px;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95);
+    .study-badge {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 40px;
+    }
+
+    .bars-container {
+      width: 780px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 36px;
+      margin-bottom: 50px;
     }
 
-    .dossier-header {
+    .bar-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bar-header {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      border-bottom: 1px solid rgba(242, 241, 236, 0.1);
-      padding-bottom: 18px;
-    }
-
-    .dossier-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .dossier-tag {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 18px;
+      font-weight: 800;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: #F2D24B;
     }
 
-    .dossier-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: #A0A09C;
+    .bar-frame {
+      width: 100%;
+      height: 60px;
+      border: 3px solid #FFFFFF;
+      padding: 5px;
+      background: #000000;
     }
 
-    .study-cite {
-      font-size: 11px;
-      font-family: "Inter", monospace;
-      color: #A0A09C;
-      text-align: right;
+    .bar-fill-predicted {
+      height: 100%;
+      width: 0%;
+      background: #FFFFFF;
     }
 
-    /* Side by Side Chart Comparison */
-    .comparison-container {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-end;
-      height: 320px;
-      padding: 20px 0 10px 0;
-      position: relative;
+    .bar-fill-actual {
+      height: 100%;
+      width: 0%;
+      background: #888890;
     }
 
-    .chart-column {
+    .callout-box {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 220px;
-      gap: 14px;
-    }
-
-    .bar-wrapper {
-      width: 100px;
-      height: 220px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 12px;
-      border: 1px solid rgba(242, 241, 236, 0.1);
-      display: flex;
-      align-items: flex-end;
-      padding: 4px;
-      position: relative;
-    }
-
-    .bar-fill {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    .bar-predicted {
-      background: linear-gradient(180deg, #F2D24B 0%, #D4622B 100%);
-      box-shadow: 0 0 25px rgba(242, 210, 75, 0.35);
-      height: 0%;
-    }
-
-    .bar-actual {
-      background: linear-gradient(180deg, #A0A09C 0%, #404040 100%);
-      box-shadow: 0 0 15px rgba(160, 160, 156, 0.2);
-      height: 0%;
-    }
-
-    .column-value {
-      font-size: 34px;
-      font-weight: 800;
-      font-family: "Playfair Display", serif;
-    }
-
-    .val-predicted { color: #F2D24B; }
-    .val-actual { color: #F2F1EC; }
-
-    .column-label {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #A0A09C;
+      gap: 12px;
       text-align: center;
+      width: 780px;
+      border-top: 2px solid #222226;
+      padding-top: 35px;
     }
 
-    /* Gap Highlight Pill */
-    .gap-badge {
-      position: absolute;
-      top: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(212, 98, 43, 0.2);
-      border: 1px solid #D4622B;
-      padding: 6px 14px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .gap-text {
-      font-size: 11px;
-      font-weight: 700;
-      color: #F2D24B;
+    .callout-title {
+      font-size: 44px;
+      font-weight: 900;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: #FFFFFF;
     }
 
-    /* Safe Zone Captions */
-    .film-caption-block {
+    .callout-sub {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 14px;
+      justify-content: center;
       pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 40px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-cornell" data-width="1080" data-height="1920" data-duration="11.06">
+    <div data-hf-id="s03-content" id="s03-content" class="clip canvas-center" data-start="0" data-duration="11.06" data-track-index="1">
+      <div class="study-badge">CORNELL EXPERIMENTAL DATA (GILOVICH ET AL.)</div>
 
-  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-cornell" data-width="1080" data-height="1920" data-duration="11.06">
-    <div data-hf-id="hf-s03-env" id="s03-env" class="archive-env" data-layout-allow-overflow>
-      <div class="ledger-grid"></div>
-    </div>
-
-    <!-- Central Stage -->
-    <div data-hf-id="hf-s03-stage" id="s03-stage" class="study-stage" data-layout-allow-overlap data-layout-allow-overflow>
-      <div class="dossier-card" data-layout-allow-overlap>
-        <div class="dossier-header">
-          <div class="dossier-meta">
-            <span class="dossier-tag">Cornell Psychology Experiment</span>
-            <span class="dossier-title">The Barry Manilow T-Shirt Study</span>
+      <div class="bars-container">
+        <div class="bar-group">
+          <div class="bar-header">
+            <span>PREDICTED AUDIENCE NOTICE</span>
+            <span id="pct-predicted">0%</span>
           </div>
-          <div class="study-cite">Gilovich et al.<br>JPSP (2000)</div>
+          <div class="bar-frame">
+            <div class="bar-fill-predicted" id="fill-predicted"></div>
+          </div>
         </div>
 
-        <div class="comparison-container" data-layout-allow-overlap>
-          <!-- Gap Badge -->
-          <div data-hf-id="hf-s03-gap" id="s03-gap" class="gap-badge" data-layout-allow-overlap>
-            <span class="gap-text">+117% Overestimation Gap</span>
+        <div class="bar-group">
+          <div class="bar-header">
+            <span>ACTUAL GLANCES RECORDED</span>
+            <span id="pct-actual" style="color: #888890;">0%</span>
           </div>
-
-          <!-- Column 1: Predicted -->
-          <div class="chart-column">
-            <span class="column-value val-predicted" id="s03-val-pred">0%</span>
-            <div class="bar-wrapper">
-              <div class="bar-fill bar-predicted" id="s03-bar-pred"></div>
-            </div>
-            <span class="column-label">Perceived Notice</span>
-          </div>
-
-          <!-- Column 2: Actual -->
-          <div class="chart-column">
-            <span class="column-value val-actual" id="s03-val-act">0%</span>
-            <div class="bar-wrapper">
-              <div class="bar-fill bar-actual" id="s03-bar-act"></div>
-            </div>
-            <span class="column-label">Actual Reality</span>
+          <div class="bar-frame">
+            <div class="bar-fill-actual" id="fill-actual"></div>
           </div>
         </div>
       </div>
+
+      <div class="callout-box" id="callout-box">
+        <span class="callout-title" id="diff-title">THE ILLUSION GAP: 27%</span>
+        <span class="callout-sub">OVER HALF THE AUDIENCE NEVER EVEN NOTICED</span>
+      </div>
     </div>
 
-    <!-- Safe Zone Captions -->
-    <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
-      <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">In landmark Cornell experiments, subjects wearing humiliating shirts...</p>
-      <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">03 / The Empirical Evidence</span>
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        In landmark Cornell experiments, subjects wearing humiliating shirts predicted 50% noticed...
+      </div>
     </div>
   </div>
 
@@ -285,51 +172,21 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-03-cornell"] = tl;
 
-    const env = document.getElementById("s03-env");
-    const stage = document.getElementById("s03-stage");
-    const barPred = document.getElementById("s03-bar-pred");
-    const barAct = document.getElementById("s03-bar-act");
-    const valPred = document.getElementById("s03-val-pred");
-    const valAct = document.getElementById("s03-val-act");
-    const gap = document.getElementById("s03-gap");
-    const caption = document.getElementById("s03-caption");
-    const sub = document.getElementById("s03-sub");
+    tl.fromTo("#s03-content", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.0);
 
-    gsap.set(gap, { scale: 0.5, opacity: 0 });
-    gsap.set(stage, { scale: 0.94 });
-
-    tl.to(env, { scale: 1.05, duration: 11.06, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.03, duration: 11.06, ease: "power1.out" }, 0);
-
-    // Predicted 50% bar grows at 2.0s
-    tl.to(barPred, { height: "75%", duration: 1.8, ease: "power2.out" }, 2.0);
-    tl.to({ val: 0 }, {
-      val: 50,
-      duration: 1.8,
-      ease: "power2.out",
-      onUpdate: function() {
-        valPred.innerText = Math.round(this.targets()[0].val) + "%";
-      }
-    }, 2.0);
-
-    // 5.5s: "...predicted 50% noticed—yet barely 23% ever even glanced."
+    // Predicted bar fills to 50%
+    tl.to("#fill-predicted", { width: "50%", duration: 0.8, ease: "power3.out" }, 0.5);
     tl.call(() => {
-      caption.innerHTML = 'predicted <span class="accent">50% noticed</span>—yet barely <span class="accent">23% ever glanced</span>.';
-      sub.innerText = '03 / The Spotlight Effect (Gilovich et al.)';
-    }, null, 5.5);
+      document.getElementById("pct-predicted").innerText = "50%";
+    }, null, 1.2);
 
-    // Actual 23% bar grows at 5.5s
-    tl.to(barAct, { height: "35%", duration: 1.6, ease: "power2.out" }, 5.5);
-    tl.to({ val: 0 }, {
-      val: 23,
-      duration: 1.6,
-      ease: "power2.out",
-      onUpdate: function() {
-        valAct.innerText = Math.round(this.targets()[0].val) + "%";
-      }
-    }, 5.5);
+    // Actual bar fills to 23%
+    tl.to("#fill-actual", { width: "23%", duration: 0.8, ease: "power3.out" }, 5.5);
+    tl.call(() => {
+      document.getElementById("pct-actual").innerText = "23%";
+      document.getElementById("cap-text").innerHTML = "Yet barely twenty-three percent ever even glanced.";
+    }, null, 6.2);
 
-    // Gap badge pops in
-    tl.to(gap, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.8)" }, 7.2);
+    tl.fromTo("#callout-box", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 }, 6.8);
   </script>
 </template>

@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,349 +14,144 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #06080d;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 70% 40%, rgba(242, 210, 75, 0.16) 0%, transparent 60%),
-        radial-gradient(circle at 30% 60%, rgba(56, 189, 248, 0.14) 0%, transparent 55%),
-        linear-gradient(180deg, #0a0d14 0%, #030407 100%);
-    }
-
-    .somato-grid {
-      position: absolute;
-      inset: 0;
-      opacity: 0.18;
-      background-image: 
-        linear-gradient(rgba(56, 189, 248, 0.25) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 189, 248, 0.25) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-
-    .scene-viewport {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Telemetry Header */
-    .schema-header {
-      position: absolute;
-      top: 310px;
-      left: 90px;
-      right: 90px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .timer-badge {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(10, 14, 22, 0.88);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 10px 18px;
-      border-radius: 8px;
-      backdrop-filter: blur(8px);
-    }
-
-    .timer-icon {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #F2D24B;
-      box-shadow: 0 0 10px #F2D24B;
-    }
-
-    .timer-val {
-      font-family: "Inter", monospace;
-      font-size: 14px;
-      font-weight: 800;
-      color: #F2D24B;
-      letter-spacing: 0.1em;
-    }
-
-    .schema-status-pill {
-      background: rgba(10, 14, 22, 0.88);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 10px 18px;
-      border-radius: 8px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #F2F1EC;
-    }
-
-    /* Adoption Stage */
-    .adoption-stage {
-      position: relative;
-      width: 820px;
-      height: 640px;
-      margin-top: -60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Left Real Hand: Decoupling & Cooling */
-    .hand-box-real {
-      position: absolute;
-      left: 20px;
-      width: 350px;
-      height: 540px;
-      background: rgba(6, 10, 18, 0.75);
-      border: 1px solid rgba(56, 189, 248, 0.35);
-      border-radius: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .temp-drop-callout {
-      position: absolute;
-      top: 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .temp-label {
-      font-size: 10px;
-      font-weight: 700;
-      color: #A0A09C;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .temp-value {
-      font-family: "Inter", monospace;
-      font-size: 14px;
-      font-weight: 800;
-      color: #38BDF8;
-    }
-
-    /* Right Rubber Hand: Golden Biological Adoption */
-    .hand-box-rubber {
-      position: absolute;
-      right: 20px;
-      width: 350px;
-      height: 540px;
-      background: rgba(20, 16, 10, 0.75);
-      border: 2px solid rgba(242, 210, 75, 0.6);
-      box-shadow: 0 15px 50px rgba(242, 210, 75, 0.25);
-      border-radius: 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .adoption-callout {
-      position: absolute;
-      top: 18px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .adopt-label {
-      font-size: 10px;
-      font-weight: 700;
-      color: #A0A09C;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .adopt-value {
-      font-size: 14px;
-      font-weight: 800;
-      color: #F2D24B;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .hand-vector-art {
-      width: 240px;
-      height: 380px;
-      margin-top: 35px;
-    }
-
-    /* Proprioceptive Drift Ruler / Shift Vector */
-    .proprio-drift-hud {
-      position: absolute;
-      bottom: 24px;
-      left: 70px;
-      right: 70px;
-      background: rgba(10, 14, 22, 0.95);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 12px 24px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
-
-    .drift-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #A0A09C;
-    }
-
-    .drift-arrow-track {
-      position: relative;
-      width: 240px;
-      height: 6px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .drift-arrow-fill {
-      position: absolute;
+      top: 300px;
       left: 0;
-      top: 0;
-      bottom: 0;
-      width: 0%;
-      background: linear-gradient(90deg, #38BDF8 0%, #F2D24B 100%);
-      box-shadow: 0 0 10px #F2D24B;
-    }
-
-    .drift-value {
-      font-family: "Inter", monospace;
-      font-size: 14px;
-      font-weight: 800;
-      color: #F2D24B;
-    }
-
-    /* Subtitle block at bottom: 480px */
-    .film-caption-block {
-      position: absolute;
-      bottom: 480px;
-      left: 90px;
-      right: 90px;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      text-align: center;
-      gap: 12px;
+      padding: 0 80px;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+    .schema-stage {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-bottom: 40px;
     }
 
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
+    .schema-box {
+      width: 100%;
+      height: 110px;
+      border: 3px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
+      position: relative;
     }
 
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
+    .schema-title {
+      font-size: 24px;
+      font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
+
+    .schema-tag {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+    }
+
+    .timer-frame {
+      width: 100%;
+      height: 60px;
+      border: 2px solid #888890;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+    }
+
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-adoption" data-width="1080" data-height="1920" data-duration="9.86">
-    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s03-grid" class="somato-grid" data-layout-allow-overflow></div>
-
-    <div class="scene-viewport">
-      <!-- Header telemetry -->
-      <div data-hf-id="hf-s03-hdr" class="schema-header" data-layout-allow-overlap>
-        <div class="timer-badge">
-          <div class="timer-icon"></div>
-          <span id="s03-timer-txt" class="timer-val">TIME: 00:58s</span>
-        </div>
-        <div class="schema-status-pill">
-          <span>Body Schema: Rewriting</span>
-        </div>
-      </div>
-
-      <!-- Main Stage -->
-      <div data-hf-id="hf-s03-stage" id="s03-stage" class="adoption-stage" data-layout-allow-overlap>
-        <!-- Real Hand Box (Cooling & Decoupled) -->
-        <div data-hf-id="hf-s03-br" id="s03-box-real" class="hand-box-real">
-          <div class="temp-drop-callout">
-            <span class="temp-label">Real Limb Temp</span>
-            <span id="s03-temp-val" class="temp-value">-0.7°C [Cooling]</span>
-          </div>
-          <svg class="hand-vector-art" viewBox="0 0 240 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M75 280 C55 240 50 200 55 160 C65 150 85 150 95 160 C100 140 120 140 130 160 C135 140 155 140 165 160 C170 150 190 150 195 170 C205 210 200 250 175 280 Z" fill="rgba(56, 189, 248, 0.04)" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2"/>
-            <path d="M85 160 L80 70 Q92 55 102 70 L100 160" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2"/>
-            <path d="M115 155 L112 40 Q125 25 136 40 L132 155" stroke="rgba(56, 189, 248, 0.35)" stroke-width="1.2"/>
-            <path d="M148 160 L148 65 Q158 52 168 65 L164 160" stroke="rgba(56, 189, 248, 0.3)" stroke-width="1.2"/>
-            <!-- Attenuated neural lines -->
-            <path d="M110 320 Q120 220 124 80" stroke="rgba(56, 189, 248, 0.2)" stroke-width="1" stroke-dasharray="4 4"/>
-          </svg>
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-adoption" data-width="1080" data-height="1920" data-duration="9.86">
+    <div data-hf-id="s03-content" id="s03-content" class="clip canvas-center" data-start="0" data-duration="9.86" data-track-index="1">
+      <div class="schema-stage">
+        <div class="timer-frame">
+          <span>BODY SCHEMA UPDATE LATENCY</span>
+          <span style="color: #FFFFFF;">< 60 SECONDS</span>
         </div>
 
-        <!-- Rubber Hand Box (Golden Biological Adoption) -->
-        <div data-hf-id="hf-s03-bg" id="s03-box-rubber" class="hand-box-rubber">
-          <div class="adoption-callout">
-            <span class="adopt-label">Cortical Representation</span>
-            <span id="s03-adopt-val" class="adopt-value">Adopted As Self</span>
-          </div>
-          <svg class="hand-vector-art" viewBox="0 0 240 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M75 280 C55 240 50 200 55 160 C65 150 85 150 95 160 C100 140 120 140 130 160 C135 140 155 140 165 160 C170 150 190 150 195 170 C205 210 200 250 175 280 Z" fill="rgba(242, 210, 75, 0.12)" stroke="#F2D24B" stroke-width="2" filter="drop-shadow(0 0 12px rgba(242, 210, 75, 0.5))"/>
-            <!-- Radiant golden phalanges -->
-            <path d="M85 160 L80 70 Q92 55 102 70 L100 160" stroke="#F2D24B" stroke-width="2.2"/>
-            <path d="M115 155 L112 40 Q125 25 136 40 L132 155" stroke="#F2D24B" stroke-width="2.5"/>
-            <path d="M148 160 L148 65 Q158 52 168 65 L164 160" stroke="#F2D24B" stroke-width="2.2"/>
-            <path d="M60 210 Q30 190 25 140 Q35 125 50 145 Q65 180 75 205" stroke="#F2D24B" stroke-width="2"/>
-            <!-- Glowing biological vascular tree -->
-            <path d="M110 320 Q110 230 85 100" stroke="#F2D24B" stroke-width="1.8"/>
-            <path d="M110 320 Q120 220 124 70" stroke="#F2D24B" stroke-width="2"/>
-            <path d="M110 320 Q135 230 158 90" stroke="#F2D24B" stroke-width="1.8"/>
-            <circle cx="124" cy="70" r="5" fill="#F2D24B" filter="drop-shadow(0 0 10px #F2D24B)"/>
-            <circle cx="85" cy="100" r="4" fill="#F2D24B"/>
-            <circle cx="158" cy="90" r="4" fill="#F2D24B"/>
-          </svg>
+        <!-- Real Flesh -->
+        <div class="schema-box" id="flesh-box">
+          <span class="schema-title" id="flesh-title">BIOLOGICAL FLESH</span>
+          <span class="schema-tag" id="flesh-tag">OWNERSHIP: ACTIVE</span>
         </div>
 
-        <!-- Proprioceptive Drift Vector HUD -->
-        <div data-hf-id="hf-s03-pd" id="s03-proprio-hud" class="proprio-drift-hud">
-          <span class="drift-title">Proprioceptive Drift</span>
-          <div class="drift-arrow-track">
-            <div id="s03-drift-fill" class="drift-arrow-fill"></div>
-          </div>
-          <span id="s03-drift-val" class="drift-value">+6.8 cm</span>
+        <!-- Cold Rubber -->
+        <div class="schema-box" id="rubber-box" style="border-color: #888890;">
+          <span class="schema-title" id="rubber-title" style="color: #888890;">COLD RUBBER PROSTHETIC</span>
+          <span class="schema-tag" id="rubber-tag">EXTERNAL OBJECT</span>
         </div>
       </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s03-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">In less than sixty seconds, your brain rewrites its body schema...</p>
-        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">Cortical Plasticity & Ownership Transfer</span>
+      <div class="callout-box">
+        <h1 class="callout-title">BODY OWNERSHIP PLASTICITY</h1>
+        <p class="callout-sub">THE BRAIN DISOWNS REAL FLESH // ADOPTS RUBBER AS LIVING TISSUE</p>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        In less than sixty seconds, your brain rewrites its body schema...
       </div>
     </div>
   </div>
@@ -372,36 +161,20 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-03-adoption"] = tl;
 
-    const env = document.getElementById("s03-env");
-    const stage = document.getElementById("s03-stage");
-    const boxReal = document.getElementById("s03-box-real");
-    const boxRubber = document.getElementById("s03-box-rubber");
-    const proprioHud = document.getElementById("s03-proprio-hud");
-    const driftFill = document.getElementById("s03-drift-fill");
-    const caption = document.getElementById("s03-caption");
-    const sub = document.getElementById("s03-sub");
+    tl.fromTo("#s03-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
 
-    gsap.set(stage, { scale: 0.95 });
-    gsap.set(boxRubber, { scale: 0.96 });
-    gsap.set(proprioHud, { opacity: 0, y: 15 });
-    gsap.set(driftFill, { width: "0%" });
-
-    // Smooth forward push
-    tl.to(env, { scale: 1.05, duration: 9.86, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, duration: 9.86, ease: "power1.out" }, 0);
-
-    // Rubber hand begins to warm and pulse
-    tl.to(boxRubber, { scale: 1.03, duration: 2.0, ease: "power2.out" }, 1.5);
-    tl.to(boxReal, { opacity: 0.45, duration: 2.0, ease: "power2.out" }, 2.0);
-
-    // 4.6s: "...severing ownership of your real flesh and adopting cold rubber as living biology."
+    // At 4.5s: Schema rewrite
     tl.call(() => {
-      caption.innerHTML = 'severing ownership of real flesh and <span class="accent">adopting rubber as living biology</span>.';
-      sub.innerText = 'Body Schema Plasticity: Complete';
-    }, null, 4.6);
+      document.getElementById("cap-text").innerHTML = "...severing ownership of your real flesh and adopting cold rubber as living biology.";
+      document.getElementById("flesh-box").style.borderColor = "#888890";
+      document.getElementById("flesh-title").style.color = "#888890";
+      document.getElementById("flesh-tag").innerHTML = "DISOWNED [0% OWNERSHIP]";
+      document.getElementById("rubber-box").style.borderColor = "#FFFFFF";
+      document.getElementById("rubber-title").style.color = "#FFFFFF";
+      document.getElementById("rubber-tag").innerHTML = "ADOPTED [LIVING SELF]";
+      document.getElementById("rubber-tag").style.color = "#FFFFFF";
+    }, null, 4.5);
 
-    // Proprioceptive Drift activates
-    tl.to(proprioHud, { opacity: 1, y: 0, duration: 0.8, ease: "back.out(1.4)" }, 5.0);
-    tl.to(driftFill, { width: "100%", duration: 2.2, ease: "power2.out" }, 5.4);
+    tl.fromTo("#rubber-box", { scale: 0.98 }, { scale: 1.02, yoyo: true, repeat: 3, duration: 0.4 }, 4.5);
   </script>
 </template>

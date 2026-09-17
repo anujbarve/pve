@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Clip 3: Zero-Server P2P Security</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000000;
+        color: #ffffff;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+        overflow: hidden;
+        width: 1920px;
+        height: 1080px;
+      }
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        background: #000000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px;
+      }
+      .badge {
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: #888890;
+        border: 1px solid #33333a;
+        padding: 8px 24px;
+        border-radius: 999px;
+        margin-bottom: 24px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .title {
+        font-size: 56px;
+        font-weight: 900;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 60px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .architecture {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 1400px;
+        position: relative;
+      }
+      .node-box {
+        width: 380px;
+        height: 280px;
+        background: #08080a;
+        border: 2px solid #ffffff;
+        border-radius: 16px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      .node-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .node-tag {
+        font-size: 13px;
+        letter-spacing: 0.15em;
+        color: #888890;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+      .node-title {
+        font-size: 28px;
+        font-weight: 900;
+        letter-spacing: -0.01em;
+      }
+      .node-sub {
+        font-size: 16px;
+        color: #888890;
+        line-height: 1.4;
+      }
+      .status-pill {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 800;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #000000;
+        width: fit-content;
+      }
+      .center-connector {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        opacity: 0;
+      }
+      .wire {
+        width: 320px;
+        height: 4px;
+        background: repeating-linear-gradient(90deg, #ffffff, #ffffff 12px, transparent 12px, transparent 24px);
+      }
+      .connector-label {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #ffffff;
+        background: #111116;
+        padding: 6px 16px;
+        border: 1px solid #33333a;
+        border-radius: 6px;
+      }
+      .server-cut {
+        margin-top: 50px;
+        border: 1px dashed #444450;
+        border-radius: 12px;
+        padding: 16px 36px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .strike {
+        text-decoration: line-through;
+        color: #666670;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .safe-tag {
+        color: #ffffff;
+        font-weight: 800;
+        font-size: 16px;
+        letter-spacing: 0.05em;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="clip3-security"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="27"
+    >
+      <div class="badge" id="badge">CRYPTOGRAPHIC SOVEREIGNTY</div>
+      <h1 class="title" id="title">LOCAL-FIRST P2P ENCRYPTION</h1>
+
+      <div class="architecture">
+        <!-- Node 1 -->
+        <div class="node-box" id="node1">
+          <div class="node-header">
+            <div class="node-tag">CLIENT A</div>
+            <div class="status-pill">PRIVATE KEY</div>
+          </div>
+          <div>
+            <div class="node-title">DESKTOP</div>
+            <div class="node-sub">Local SQLite Database<br />Decrypted in Memory</div>
+          </div>
+        </div>
+
+        <!-- Direct P2P Pipe -->
+        <div class="center-connector" id="connector">
+          <div class="connector-label">DIRECT ENCRYPTED MESH</div>
+          <div class="wire"></div>
+          <div class="connector-label">0-KNOWLEDGE HANDSHAKE</div>
+        </div>
+
+        <!-- Node 2 -->
+        <div class="node-box" id="node2">
+          <div class="node-header">
+            <div class="node-tag">CLIENT B</div>
+            <div class="status-pill">PRIVATE KEY</div>
+          </div>
+          <div>
+            <div class="node-title">MOBILE</div>
+            <div class="node-sub">Local Mobile Storage<br />Encrypted Transit</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="server-cut" id="serverCut">
+        <div class="strike">THIRD-PARTY CLOUD SERVERS</div>
+        <div class="safe-tag">➔ ZERO ACCESS • ZERO DEPENDENCY</div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["clip3-security"] = tl;
+
+      tl.to("#badge", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.4)
+        .to("#title", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 0.8)
+        .to("#node1", { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" }, 1.6)
+        .to("#node2", { opacity: 1, scale: 1, duration: 0.8, ease: "power3.out" }, 2.2)
+        .to("#connector", { opacity: 1, duration: 1.0, ease: "power2.out" }, 2.8)
+        .to("#serverCut", { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }, 3.6);
+    </script>
+  </body>
+</html>

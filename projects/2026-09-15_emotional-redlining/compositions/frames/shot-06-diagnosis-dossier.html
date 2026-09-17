@@ -1,0 +1,149 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .paper-bg {
+      position: absolute;
+      inset: -50px;
+      overflow: hidden;
+    }
+
+    .paper-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(160%) brightness(30%);
+    }
+
+    .center-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 70px;
+    }
+
+    .dossier-card {
+      width: 880px;
+      padding: 50px 40px;
+      background: rgba(18, 19, 26, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.15);
+      border-radius: 24px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.95);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 35px;
+    }
+
+    .stamp-box {
+      border: 4px solid #FF5722;
+      color: #FF5722;
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.15em;
+      padding: 12px 36px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      transform: rotate(-4deg);
+      box-shadow: 0 0 30px rgba(255, 87, 34, 0.4);
+    }
+
+    .headline {
+      font-size: 76px;
+      font-weight: 900;
+      line-height: 1.02;
+      text-align: center;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .hl-white {
+      color: #FFFFFF;
+      text-decoration: underline;
+      text-decoration-color: #FF5722;
+      text-underline-offset: 12px;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-pill {
+      background: rgba(14, 14, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 16px 42px;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+  </style>
+
+  <div data-hf-id="s06-root" id="root" data-composition-id="shot-06-diagnosis-dossier" data-width="1080" data-height="1920" data-duration="3.88">
+    <div data-hf-id="s06-media" id="s06-media" class="clip paper-bg" data-start="0" data-duration="3.88" data-track-index="0">
+      <img src="assets/paper_dossier.jpg" class="paper-img" id="paper-photo" alt="Paper Manuscript" />
+    </div>
+
+    <div data-hf-id="s06-content" id="s06-content" class="clip center-stage" data-start="0" data-duration="3.88" data-track-index="1">
+      <div class="dossier-card">
+        <div style="font-size: 15px; font-weight: 800; letter-spacing: 0.25em; text-transform: uppercase; color: #94A3B8;">
+          Clinical Case File // Review
+        </div>
+        <div class="stamp-box" id="stamp-box">REJECTED: LAZINESS</div>
+      </div>
+      <h1 class="headline">
+        IT IS <span class="hl-white">NOT LAZINESS.</span>
+      </h1>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-pill">
+        <span class="caption-text">Here’s what psychology calls this: <span style="color:#FF5722;">it’s not laziness.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-06-diagnosis-dossier"] = tl;
+
+    tl.fromTo("#s06-content", { scale: 0.90, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.20, ease: "power3.out" }, 0.0);
+    // Stamp slams down violently
+    tl.fromTo("#stamp-box", { scale: 2.2, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.22, ease: "back.out(2.0)" }, 0.15);
+  </script>
+</template>

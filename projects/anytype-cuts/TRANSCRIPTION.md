@@ -1,0 +1,175 @@
+# High-Precision Audio Transcription: anytype.mp4
+
+**Total Duration:** 10 minutes 43 seconds (643.39s)
+
+**Model:** Whisper Base MLX (Word & Segment Timestamps)
+
+---
+
+- **[00:00.00 - 00:03.82]** `000.00s - 003.82s`: Is this day and age, You are interacting with AI more and more.
+- **[00:04.56 - 00:10.58]** `004.56s - 010.58s`: But as we are interacting with AI, we are increasing our knowledge of things.
+- **[00:11.74 - 00:15.32]** `011.74s - 015.32s`: And we have to handle all of those things, all of the knowledge.
+- **[00:16.10 - 00:20.08]** `016.10s - 020.08s`: And sometimes we want to just access those things.
+- **[00:20.60 - 00:24.60]** `020.60s - 024.60s`: So hence the concept of second brain was popularized.
+- **[00:25.48 - 00:27.96]** `025.48s - 027.96s`: Many people choose obsidian notion.
+- **[00:28.60 - 00:40.20]** `028.60s - 040.20s`: But one tool that was really like important and that fits the job very well is any type.
+- **[00:41.82 - 00:49.50]** `041.82s - 049.50s`: It's an open source tool that stores all of your knowledge in a really concise and proper way.
+- **[00:50.20 - 00:56.72]** `050.20s - 056.72s`: So if you just search any type on Google or any search engine or for choice,
+- **[00:57.34 - 00:59.34]** `057.34s - 059.34s`: you'll find this beautiful website.
+- **[01:00.68 - 01:02.52]** `060.68s - 062.52s`: It's completely open source.
+- **[01:02.66 - 01:04.34]** `062.66s - 064.34s`: So you could find it source would on GitHub.
+- **[01:05.82 - 01:07.44]** `065.82s - 067.44s`: It's offline and online.
+- **[01:09.02 - 01:18.06]** `069.02s - 078.06s`: So you might see that for obsidian, you need to sync manually or you have to add a plugin or something.
+- **[01:18.96 - 01:23.62]** `078.96s - 083.62s`: And for notion, everything is synced nicely, but it is always online.
+- **[01:24.46 - 01:25.86]** `084.46s - 085.86s`: It doesn't work well offline.
+- **[01:27.92 - 01:31.10]** `087.92s - 091.10s`: All of your data is basically on someone else's server.
+- **[01:32.04 - 01:35.98]** `092.04s - 095.98s`: But how this works, it is completely peer-to-peer.
+- **[01:39.06 - 01:47.96]** `099.06s - 107.96s`: So only you have the encryption keys to your data and the devices where you log in with those encryption keys,
+- **[01:48.64 - 01:52.96]** `108.64s - 112.96s`: only those devices have your data.
+- **[01:53.44 - 01:54.70]** `113.44s - 114.70s`: And it is synced nicely.
+- **[01:55.10 - 01:57.98]** `115.10s - 117.98s`: So it is properly peer-to-peer synced.
+- **[01:58.26 - 02:03.96]** `118.26s - 123.96s`: There are no servers, there are no dependencies on other people.
+- **[02:06.92 - 02:09.18]** `126.92s - 129.18s`: So it's a really great tool.
+- **[02:09.90 - 02:12.30]** `129.90s - 132.30s`: And the account creation is also offline.
+- **[02:12.56 - 02:14.74]** `132.56s - 134.74s`: So you control your keys and your data.
+- **[02:14.94 - 02:16.48]** `134.94s - 136.48s`: You never can lose your access.
+- **[02:17.44 - 02:21.52]** `137.44s - 141.52s`: So enough talking, I will show you my initip instance.
+- **[02:22.42 - 02:25.48]** `142.42s - 145.48s`: So it's just a simple project that I created.
+- **[02:27.64 - 02:32.58]** `147.64s - 152.58s`: And I wanted to show you how much amount of data it can handle.
+- **[02:32.80 - 02:39.04]** `152.80s - 159.04s`: So I am a programmer and I check often on a daily basis with charge.
+- **[02:39.68 - 02:46.54]** `159.68s - 166.54s`: So I thought that what if I could just export the data and put it into my own knowledge base.
+- **[02:47.26 - 02:49.44]** `167.26s - 169.44s`: So hence I created this AI chance.
+- **[02:49.94 - 02:52.70]** `169.94s - 172.70s`: Now in any type, everything has an object.
+- **[02:53.94 - 02:55.24]** `173.94s - 175.24s`: What do I mean by that?
+- **[02:55.92 - 03:01.50]** `175.92s - 181.50s`: So suppose if I want to create a page or create a new object.
+- **[03:04.44 - 03:05.24]** `184.44s - 185.24s`: Like here.
+- **[03:05.90 - 03:07.02]** `185.90s - 187.02s`: And it has created a page.
+- **[03:07.48 - 03:09.88]** `187.48s - 189.88s`: This page is an object or type.
+- **[03:11.00 - 03:14.36]** `191.00s - 194.36s`: You could change the type of object to anything.
+- **[03:14.66 - 03:16.90]** `194.66s - 196.90s`: These are all custom objects that I have created.
+- **[03:18.22 - 03:21.02]** `198.22s - 201.02s`: And there are also some default objects.
+- **[03:22.60 - 03:24.96]** `202.60s - 204.96s`: Like node, bookmarks and so on.
+- **[03:27.16 - 03:31.48]** `207.16s - 211.48s`: And the great thing about objects is you can change the property.
+- **[03:32.38 - 03:37.46]** `212.38s - 217.46s`: So you can see page only has these object properties.
+- **[03:38.20 - 03:41.34]** `218.20s - 221.34s`: So you could type the tag, backlinks and so on.
+- **[03:42.36 - 03:44.10]** `222.36s - 224.10s`: And then there is creation data and so on.
+- **[03:44.36 - 03:47.66]** `224.36s - 227.66s`: But if I can add any type of property to it.
+- **[03:49.44 - 03:54.26]** `229.44s - 234.26s`: Which data type it would be text number, select, multi-select, date.
+- **[03:55.24 - 03:56.94]** `235.24s - 236.94s`: Okay, so I've created like
+- **[03:58.34 - 04:00.92]** `238.34s - 240.92s`: hundreds of properties according to my object.
+- **[04:00.92 - 04:03.14]** `240.92s - 243.14s`: So let me show you one of my objects.
+- **[04:03.78 - 04:05.42]** `243.78s - 245.42s`: That is the AI chance.
+- **[04:07.22 - 04:10.80]** `247.22s - 250.80s`: Okay, I've created this type and I can edit this type.
+- **[04:11.32 - 04:12.74]** `251.32s - 252.74s`: Right from the symbols.
+- **[04:12.78 - 04:13.80]** `252.78s - 253.80s`: So I'll just.
+- **[04:14.64 - 04:15.52]** `254.64s - 255.52s`: So I'll drop it.
+- **[04:19.58 - 04:25.78]** `259.58s - 265.78s`: You can see I have created a custom properties like title.
+- **[04:25.78 - 04:27.18]** `265.78s - 267.18s`: Some of the work count.
+- **[04:27.18 - 04:32.00]** `267.18s - 272.00s`: If it has some sort of code in it, which language it is, which is a topic.
+- **[04:33.48 - 04:37.50]** `273.48s - 277.50s`: What is the date, content, source, file and so on.
+- **[04:38.74 - 04:39.76]** `278.74s - 279.76s`: Let's save it.
+- **[04:41.74 - 04:42.92]** `281.74s - 282.92s`: Anyone of it.
+- **[04:44.04 - 04:46.90]** `284.04s - 286.90s`: I could access all of its properties as well.
+- **[04:57.18 - 04:59.06]** `297.18s - 299.06s`: Backlink summary, word count.
+- **[05:00.20 - 05:01.74]** `300.20s - 301.74s`: All of those properties.
+- **[05:02.72 - 05:06.98]** `302.72s - 306.98s`: And there are also some hidden property that's well, like what was the last modified date.
+- **[05:07.78 - 05:10.00]** `307.78s - 310.00s`: When who modified it and so on.
+- **[05:11.18 - 05:13.40]** `311.18s - 313.40s`: So it has also collaborative properties.
+- **[05:14.74 - 05:19.26]** `314.74s - 319.26s`: And if you somehow mess up something, there is also version history.
+- **[05:22.12 - 05:24.10]** `322.12s - 324.10s`: So that's a really neat feature.
+- **[05:25.74 - 05:28.68]** `325.74s - 328.68s`: And if you go to the main types page, you could just.
+- **[05:30.06 - 05:32.96]** `330.06s - 332.96s`: Like filters like what was the chat date.
+- **[05:35.78 - 05:40.24]** `335.78s - 340.24s`: Like this is a really new feature that you could.
+- **[05:42.54 - 05:44.36]** `342.54s - 344.36s`: Change the layouts and so on.
+- **[05:44.50 - 05:45.86]** `344.50s - 345.86s`: Like if you go to the website.
+- **[05:49.70 - 05:51.90]** `349.70s - 351.90s`: And all of this protocols are completely open source.
+- **[05:51.90 - 05:54.66]** `351.90s - 354.66s`: So you could just go to GitHub and take a look at it yourself.
+- **[05:56.68 - 05:58.74]** `356.68s - 358.74s`: And there is literally no code.
+- **[05:59.34 - 06:03.34]** `359.34s - 363.34s`: You just put text directly on.
+- **[06:03.84 - 06:04.14]** `363.84s - 364.14s`: Maldon.
+- **[06:04.54 - 06:06.26]** `364.54s - 366.26s`: So if I just go here.
+- **[06:07.88 - 06:09.36]** `367.88s - 369.36s`: This is a code block.
+- **[06:15.66 - 06:21.14]** `375.66s - 381.14s`: And if you put slash, you could give any type of.
+- **[06:23.42 - 06:24.90]** `383.42s - 384.90s`: Or I think you would like.
+- **[06:25.52 - 06:27.04]** `385.52s - 387.04s`: So fine images.
+- **[06:28.36 - 06:28.86]** `388.36s - 388.86s`: List.
+- **[06:31.34 - 06:34.52]** `391.34s - 394.52s`: All of the good properties of Maldon.
+- **[06:37.14 - 06:37.94]** `397.14s - 397.94s`: And even.
+- **[06:39.68 - 06:41.10]** `399.68s - 401.10s`: External properties as well.
+- **[06:41.72 - 06:47.12]** `401.72s - 407.12s`: So if you want to link in the second video, Facebook video, YouTube video, and so on.
+- **[06:47.12 - 06:47.86]** `407.12s - 407.86s`: So.
+- **[06:48.74 - 06:53.32]** `408.74s - 413.32s`: It's a touch functionality is really fast too.
+- **[06:53.78 - 06:55.60]** `413.78s - 415.60s`: So if I open the graph.
+- **[06:56.66 - 07:01.02]** `416.66s - 421.02s`: You can see there are almost 1,200 objects.
+- **[07:02.02 - 07:02.88]** `422.02s - 422.88s`: Pardon.
+- **[07:03.34 - 07:07.12]** `423.34s - 427.12s`: There are almost 1,200 objects of AI chats.
+- **[07:09.94 - 07:11.70]** `429.94s - 431.70s`: People like graphs.
+- **[07:12.70 - 07:14.66]** `432.70s - 434.66s`: So I could just link the graph.
+- **[07:15.66 - 07:17.16]** `435.66s - 437.16s`: To another object.
+- **[07:17.46 - 07:20.60]** `437.46s - 440.60s`: So this is LLM distillation.
+- **[07:23.66 - 07:24.36]** `443.66s - 444.36s`: Third.
+- **[07:27.66 - 07:28.60]** `447.66s - 448.60s`: The blank.
+- **[07:45.82 - 07:46.40]** `465.82s - 466.40s`: Project.
+- **[07:47.26 - 07:50.76]** `467.26s - 470.76s`: And so in this way, I was linked to this project.
+- **[07:51.32 - 07:52.44]** `471.32s - 472.44s`: So if I go here.
+- **[07:54.02 - 07:55.50]** `474.02s - 475.50s`: I'm not here graph.
+- **[07:56.88 - 07:57.78]** `476.88s - 477.78s`: You can see.
+- **[07:59.54 - 08:03.06]** `479.54s - 483.06s`: This AI chat is now linked with the project alpha.
+- **[08:04.38 - 08:05.78]** `484.38s - 485.78s`: You can enter link.
+- **[08:06.28 - 08:07.86]** `486.28s - 487.86s`: Any object anything.
+- **[08:08.44 - 08:09.96]** `488.44s - 489.96s`: And it would be able to turn on the graph.
+- **[08:10.78 - 08:12.28]** `490.78s - 492.28s`: And it runs really smoothly too.
+- **[08:15.46 - 08:18.34]** `495.46s - 498.34s`: So this is my temporary graph.
+- **[08:18.82 - 08:21.50]** `498.82s - 501.50s`: And all of these types have been created by me.
+- **[08:21.74 - 08:23.28]** `501.74s - 503.28s`: So suppose these are the tasks.
+- **[08:24.80 - 08:27.06]** `504.80s - 507.06s`: I could open a task.
+- **[08:28.12 - 08:28.66]** `508.12s - 508.66s`: At checkpoints.
+- **[08:31.18 - 08:32.38]** `511.18s - 512.38s`: Take a look.
+- **[08:33.12 - 08:34.38]** `513.12s - 514.38s`: Whether it is done.
+- **[08:35.32 - 08:36.04]** `515.32s - 516.04s`: We'll progress.
+- **[08:36.66 - 08:37.60]** `516.66s - 517.60s`: At tags.
+- **[08:40.66 - 08:40.76]** `520.66s - 520.76s`: Literally.
+- **[08:42.98 - 08:45.12]** `522.98s - 525.12s`: Whatever is the imagination, you could just.
+- **[08:45.92 - 08:47.16]** `525.92s - 527.16s`: Make it true with an it.
+- **[08:47.62 - 08:49.62]** `527.62s - 529.62s`: It's completely object oriented.
+- **[08:52.56 - 08:56.72]** `532.56s - 536.72s`: Open source and it syncs everything to the any network.
+- **[08:58.42 - 09:00.16]** `538.42s - 540.16s`: So it's a completely peer to peer.
+- **[09:00.96 - 09:01.62]** `540.96s - 541.62s`: Sinking.
+- **[09:01.86 - 09:03.22]** `541.86s - 543.22s`: So if you just open your device.
+- **[09:04.86 - 09:07.58]** `544.86s - 547.58s`: So I will now open the.
+- **[09:08.58 - 09:10.90]** `548.58s - 550.90s`: Android instance of an it.
+- **[09:16.16 - 09:17.08]** `556.16s - 557.08s`: See.
+- **[09:17.90 - 09:18.98]** `557.90s - 558.98s`: One device connected.
+- **[09:19.58 - 09:20.46]** `559.58s - 560.46s`: That is the.
+- **[09:21.32 - 09:23.58]** `561.32s - 563.58s`: Android device that I've connected.
+- **[09:24.24 - 09:26.52]** `564.24s - 566.52s`: So it syncs directly on network.
+- **[09:27.32 - 09:29.20]** `567.32s - 569.20s`: So no external server is involved.
+- **[09:30.54 - 09:31.88]** `570.54s - 571.88s`: That's what you need.
+- **[09:32.50 - 09:35.98]** `572.50s - 575.98s`: And they have added multiple features.
+- **[09:35.98 - 09:37.98]** `575.98s - 577.98s`: Which I haven't touched on.
+- **[09:38.96 - 09:42.14]** `578.96s - 582.14s`: There's tables, there's can, there's gallery.
+- **[09:43.16 - 09:44.40]** `583.16s - 584.40s`: It's completely off.
+- **[09:44.48 - 09:46.10]** `584.48s - 586.10s`: And first fasting, native mobile.
+- **[09:46.84 - 09:48.06]** `586.84s - 588.06s`: And even.
+- **[09:48.88 - 09:50.50]** `588.88s - 590.50s`: I think it was right here.
+- **[09:51.02 - 09:51.16]** `591.02s - 591.16s`: Yeah.
+- **[09:51.66 - 09:54.32]** `591.66s - 594.32s`: There are no private chats type of.
+- **[09:55.22 - 09:57.74]** `595.22s - 597.74s`: Feature to peer to peer communication or chats.
+- **[09:59.20 - 10:00.96]** `599.20s - 600.96s`: So it's a completely new feature.
+- **[10:01.72 - 10:03.38]** `601.72s - 603.38s`: I haven't touched on it much.
+- **[10:03.54 - 10:03.66]** `603.54s - 603.66s`: But.
+- **[10:04.92 - 10:06.46]** `604.92s - 606.46s`: Yeah, it's pretty good.
+- **[10:08.50 - 10:10.50]** `608.50s - 610.50s`: So that is pretty much in a type.
+- **[10:11.78 - 10:12.70]** `611.78s - 612.70s`: You can.
+- **[10:14.00 - 10:15.72]** `614.00s - 615.72s`: Take a look for yourself.
+- **[10:16.38 - 10:17.50]** `616.38s - 617.50s`: It's really.
+- **[10:19.36 - 10:21.64]** `619.36s - 621.64s`: Like underrated tool in my opinion.
+- **[10:22.26 - 10:24.50]** `622.26s - 624.50s`: And once you take a look at it.
+- **[10:24.82 - 10:26.04]** `624.82s - 626.04s`: Have a use for it.
+- **[10:26.48 - 10:27.08]** `626.48s - 627.08s`: Then.
+- **[10:27.90 - 10:29.88]** `627.90s - 629.88s`: Pretty sure you would find it more.
+- **[10:31.02 - 10:31.58]** `631.02s - 631.58s`: Useful.
+- **[10:31.80 - 10:33.22]** `631.80s - 633.22s`: Then obsidian on notion.
+- **[10:33.94 - 10:36.68]** `633.94s - 636.68s`: For your knowledge management needs.
+- **[10:37.90 - 10:39.90]** `637.90s - 639.90s`: So that is for today's video.
+- **[10:40.70 - 10:41.62]** `640.70s - 641.62s`: See you in the next one.

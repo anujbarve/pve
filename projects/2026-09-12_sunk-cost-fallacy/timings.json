@@ -1,0 +1,35 @@
+{
+  "total_duration": 48.26,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Two-Hour Meal",
+      "start": 0.0,
+      "duration": 10.18
+    },
+    {
+      "id": "shot_02",
+      "name": "The Investment Ledger",
+      "start": 10.18,
+      "duration": 12.26
+    },
+    {
+      "id": "shot_03",
+      "name": "The Concorde Trap",
+      "start": 22.44,
+      "duration": 9.54
+    },
+    {
+      "id": "shot_04",
+      "name": "The Escalation Ladder",
+      "start": 31.98,
+      "duration": 9.46
+    },
+    {
+      "id": "shot_05",
+      "name": "The Walking Away",
+      "start": 41.44,
+      "duration": 6.82
+    }
+  ]
+}

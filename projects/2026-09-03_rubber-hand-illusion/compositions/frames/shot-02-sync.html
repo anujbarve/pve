@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,339 +14,161 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #06080d;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.14) 0%, transparent 60%),
-        radial-gradient(circle at 20% 70%, rgba(56, 189, 248, 0.12) 0%, transparent 50%),
-        linear-gradient(180deg, #0a0d14 0%, #030407 100%);
-    }
-
-    .neural-wave-grid {
-      position: absolute;
-      inset: 0;
-      opacity: 0.15;
-      background-image: radial-gradient(rgba(242, 210, 75, 0.35) 1px, transparent 1px);
-      background-size: 36px 36px;
-    }
-
-    .scene-viewport {
-      position: absolute;
-      inset: 0;
+      top: 300px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 0 80px;
     }
 
-    /* Crossmodal Telemetry Header */
-    .crossmodal-header {
-      position: absolute;
-      top: 310px;
-      left: 90px;
-      right: 90px;
+    .tracks-stage {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+
+    .track-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .track-meta {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      pointer-events: none;
-    }
-
-    .binding-status-pill {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(10, 14, 22, 0.88);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 10px 20px;
-      border-radius: 30px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(242, 210, 75, 0.15);
-    }
-
-    .status-pulse-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #F2D24B;
-      box-shadow: 0 0 12px #F2D24B;
-    }
-
-    .status-text-val {
-      font-size: 12px;
+      font-size: 16px;
       font-weight: 800;
-      letter-spacing: 0.15em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: #F2F1EC;
+      color: #A0A0B0;
     }
 
-    .phase-lock-counter {
-      background: rgba(10, 14, 22, 0.88);
-      border: 1px solid rgba(56, 189, 248, 0.4);
-      padding: 10px 18px;
-      border-radius: 30px;
-      font-family: "Inter", monospace;
-      font-size: 13px;
-      font-weight: 800;
-      color: #38BDF8;
-      letter-spacing: 0.08em;
-    }
-
-    /* Synchrony Main Stage */
-    .sync-stage {
+    .track-line-box {
+      width: 100%;
+      height: 60px;
+      border: 3px solid #FFFFFF;
       position: relative;
-      width: 820px;
-      height: 640px;
-      margin-top: -60px;
       display: flex;
       align-items: center;
-      justify-content: center;
+      padding: 0 20px;
     }
 
-    .sync-divider {
-      position: absolute;
-      left: 50%;
-      top: 10px;
-      bottom: 10px;
+    .stroke-indicator {
       width: 24px;
-      transform: translateX(-50%);
-      background: linear-gradient(90deg, #121620 0%, #2b3345 50%, #121620 100%);
-      border: 1px solid rgba(56, 189, 248, 0.3);
-      border-radius: 4px;
-      z-index: 10;
-    }
-
-    /* Hand Beds */
-    .sync-hand-bed {
-      position: absolute;
-      width: 350px;
-      height: 540px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: rgba(10, 14, 22, 0.7);
-      border-radius: 24px;
-      padding: 16px;
-    }
-
-    .bed-left {
-      left: 20px;
-      border: 1px dashed rgba(56, 189, 248, 0.4);
-    }
-
-    .bed-right {
-      right: 20px;
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-    }
-
-    .bed-label {
-      position: absolute;
-      top: 16px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .lbl-left { color: #38BDF8; }
-    .lbl-right { color: #F2D24B; }
-
-    .hand-svg-render {
-      width: 240px;
-      height: 400px;
-      margin-top: 20px;
-    }
-
-    /* Precision Stylus Paintbrushes */
-    .brush-assembly {
-      position: absolute;
-      top: 120px;
-      width: 24px;
-      height: 200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      z-index: 20;
-      pointer-events: none;
-    }
-
-    .brush-handle {
-      width: 8px;
-      height: 140px;
-      background: linear-gradient(180deg, #d4a373 0%, #78350f 100%);
-      border-radius: 4px;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .brush-ferrule {
-      width: 12px;
-      height: 28px;
-      background: linear-gradient(90deg, #cbd5e1 0%, #f8fafc 50%, #94a3b8 100%);
-      border-radius: 2px;
-    }
-
-    .brush-bristles {
-      width: 14px;
-      height: 32px;
-      background: linear-gradient(180deg, #fef08a 0%, #ca8a04 100%);
-      border-radius: 2px 2px 8px 8px;
-      box-shadow: 0 0 16px rgba(242, 210, 75, 0.8);
-    }
-
-    .brush-left { left: 180px; }
-    .brush-right { right: 180px; }
-
-    /* Tactile Contact Ripple */
-    .tactile-ripple {
-      position: absolute;
-      width: 70px;
-      height: 70px;
+      height: 24px;
+      background: #FFFFFF;
       border-radius: 50%;
-      border: 2px solid rgba(242, 210, 75, 0.8);
-      box-shadow: 0 0 24px rgba(242, 210, 75, 0.6);
-      top: 270px;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .ripple-l { left: 160px; border-color: rgba(56, 189, 248, 0.8); box-shadow: 0 0 24px rgba(56, 189, 248, 0.6); }
-    .ripple-r { right: 160px; }
-
-    /* Crossmodal Fusion Arc */
-    .fusion-arc-beam {
       position: absolute;
-      top: 270px;
-      left: 200px;
-      right: 200px;
-      height: 3px;
-      background: linear-gradient(90deg, #38BDF8 0%, #F2D24B 50%, #38BDF8 100%);
-      box-shadow: 0 0 24px #F2D24B;
-      opacity: 0;
-      z-index: 15;
+      left: 20px;
     }
 
-    /* Subtitle block at bottom: 480px */
-    .film-caption-block {
+    .sync-status-box {
+      width: 100%;
+      height: 70px;
+      border: 2px solid #888890;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-sync" data-width="1080" data-height="1920" data-duration="9.86">
-    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s02-grid" class="neural-wave-grid" data-layout-allow-overflow></div>
-
-    <div class="scene-viewport">
-      <!-- Header telemetry -->
-      <div data-hf-id="hf-s02-hdr" class="crossmodal-header" data-layout-allow-overlap>
-        <div class="binding-status-pill">
-          <div id="s02-pulse-dot" class="status-pulse-dot"></div>
-          <span id="s02-status-txt" class="status-text-val">Synchronous Stroking</span>
+  <div data-hf-id="s02-root" id="root" data-composition-id="shot-02-sync" data-width="1080" data-height="1920" data-duration="9.86">
+    <div data-hf-id="s02-content" id="s02-content" class="clip canvas-center" data-start="0" data-duration="9.86" data-track-index="1">
+      <div class="tracks-stage">
+        <!-- Visual Stream -->
+        <div class="track-row">
+          <div class="track-meta">
+            <span>VISUAL STREAM (EYES WATCH BRUSH ON RUBBER)</span>
+            <span>CHANNEL A</span>
+          </div>
+          <div class="track-line-box">
+            <div class="stroke-indicator" id="ind-a"></div>
+          </div>
         </div>
-        <div id="s02-lock-counter" class="phase-lock-counter">Phase Lock: 100.0%</div>
+
+        <!-- Tactile Stream -->
+        <div class="track-row">
+          <div class="track-meta">
+            <span>TACTILE STREAM (SKIN FEELS BRUSH ON FLESH)</span>
+            <span>CHANNEL B</span>
+          </div>
+          <div class="track-line-box">
+            <div class="stroke-indicator" id="ind-b"></div>
+          </div>
+        </div>
+
+        <div class="sync-status-box" id="sync-status">
+          Δt = 0.00 MS // MILLISECOND SYNCHRONY
+        </div>
       </div>
 
-      <!-- Main Stage -->
-      <div data-hf-id="hf-s02-stage" id="s02-stage" class="sync-stage" data-layout-allow-overlap>
-        <div class="sync-divider"></div>
-
-        <!-- Left Hand Bed (Tactile Input) -->
-        <div data-hf-id="hf-s02-bl" class="sync-hand-bed bed-left">
-          <span class="bed-label lbl-left">Tactile Input [Mechanoreceptors]</span>
-          <svg class="hand-svg-render" viewBox="0 0 240 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M75 290 C55 250 50 210 55 170 C65 160 85 160 95 170 C100 150 120 150 130 170 C135 150 155 150 165 170 C170 160 190 160 195 180 C205 220 200 260 175 290 Z" fill="rgba(56, 189, 248, 0.08)" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.5"/>
-            <!-- Phalanges -->
-            <path d="M85 170 L80 70 Q92 55 102 70 L100 170" stroke="rgba(56, 189, 248, 0.7)" stroke-width="1.5"/>
-            <path d="M115 165 L112 40 Q125 25 136 40 L132 165" stroke="rgba(56, 189, 248, 0.8)" stroke-width="1.5"/>
-            <path d="M148 170 L148 65 Q158 52 168 65 L164 170" stroke="rgba(56, 189, 248, 0.7)" stroke-width="1.5"/>
-            <!-- Axon lines -->
-            <path d="M110 330 Q110 240 85 120" stroke="rgba(56, 189, 248, 0.5)" stroke-width="1"/>
-            <path d="M110 330 Q120 230 124 80" stroke="rgba(56, 189, 248, 0.6)" stroke-width="1.2"/>
-            <circle cx="124" cy="80" r="4" fill="#38BDF8" filter="drop-shadow(0 0 8px #38BDF8)"/>
-            <circle cx="91" cy="95" r="3.5" fill="#38BDF8"/>
-          </svg>
-        </div>
-
-        <!-- Right Hand Bed (Visual Input) -->
-        <div data-hf-id="hf-s02-br" class="sync-hand-bed bed-right">
-          <span class="bed-label lbl-right">Visual Input [Retinal Stream]</span>
-          <svg class="hand-svg-render" viewBox="0 0 240 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M75 290 C55 250 50 210 55 170 C65 160 85 160 95 170 C100 150 120 150 130 170 C135 150 155 150 165 170 C170 160 190 160 195 180 C205 220 200 260 175 290 Z" fill="rgba(242, 210, 75, 0.1)" stroke="rgba(242, 210, 75, 0.8)" stroke-width="1.8"/>
-            <!-- Phalanges -->
-            <path d="M85 170 L80 70 Q92 55 102 70 L100 170" stroke="#F2D24B" stroke-width="2"/>
-            <path d="M115 165 L112 40 Q125 25 136 40 L132 165" stroke="#F2D24B" stroke-width="2.2"/>
-            <path d="M148 170 L148 65 Q158 52 168 65 L164 170" stroke="#F2D24B" stroke-width="2"/>
-            <!-- Axon lines -->
-            <path d="M110 330 Q110 240 85 120" stroke="#F2D24B" stroke-width="1.2"/>
-            <path d="M110 330 Q120 230 124 80" stroke="#F2D24B" stroke-width="1.5"/>
-            <circle cx="124" cy="80" r="4" fill="#F2D24B" filter="drop-shadow(0 0 8px #F2D24B)"/>
-            <circle cx="91" cy="95" r="3.5" fill="#F2D24B"/>
-          </svg>
-        </div>
-
-        <!-- Synchronous Paintbrushes -->
-        <div data-hf-id="hf-s02-brl" id="s02-brush-left" class="brush-assembly brush-left">
-          <div class="brush-handle"></div>
-          <div class="brush-ferrule"></div>
-          <div class="brush-bristles"></div>
-        </div>
-        <div data-hf-id="hf-s02-brr" id="s02-brush-right" class="brush-assembly brush-right">
-          <div class="brush-handle"></div>
-          <div class="brush-ferrule"></div>
-          <div class="brush-bristles"></div>
-        </div>
-
-        <!-- Contact Ripples -->
-        <div data-hf-id="hf-s02-rpl" id="s02-ripple-l" class="tactile-ripple ripple-l"></div>
-        <div data-hf-id="hf-s02-rpr" id="s02-ripple-r" class="tactile-ripple ripple-r"></div>
-
-        <!-- Fusion Beam Arc -->
-        <div data-hf-id="hf-s02-fbeam" id="s02-fusion-beam" class="fusion-arc-beam"></div>
+      <div class="callout-box">
+        <h1 class="callout-title">TACTILE BINDING</h1>
+        <p class="callout-sub">WHEN VISION AND TOUCH COINCIDE // SENSES MERGE INTO ONE</p>
       </div>
+    </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">Two paintbrushes stroke both hands in exact synchrony...</p>
-        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">Multisensory Binding Mechanism</span>
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Two paintbrushes stroke both hands in exact, millisecond synchrony...
       </div>
     </div>
   </div>
@@ -362,51 +178,15 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-02-sync"] = tl;
 
-    const env = document.getElementById("s02-env");
-    const stage = document.getElementById("s02-stage");
-    const brushL = document.getElementById("s02-brush-left");
-    const brushR = document.getElementById("s02-brush-right");
-    const rippleL = document.getElementById("s02-ripple-l");
-    const rippleR = document.getElementById("s02-ripple-r");
-    const fusionBeam = document.getElementById("s02-fusion-beam");
-    const statusTxt = document.getElementById("s02-status-txt");
-    const caption = document.getElementById("s02-caption");
-    const sub = document.getElementById("s02-sub");
+    tl.fromTo("#s02-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
 
-    gsap.set(stage, { scale: 0.95 });
-    gsap.set([brushL, brushR], { y: 0 });
-    gsap.set([rippleL, rippleR], { scale: 0.5, opacity: 0 });
-    gsap.set(fusionBeam, { scaleX: 0, opacity: 0 });
+    // Synchronous stroke sweeps
+    tl.to(["#ind-a", "#ind-b"], { x: 670, duration: 2.2, ease: "power1.inOut", repeat: 3, yoyo: true }, 0.5);
 
-    // Smooth forward push
-    tl.to(env, { scale: 1.05, duration: 9.86, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, duration: 9.86, ease: "power1.out" }, 0);
-
-    // Stroke 1 (0.5s - 2.5s)
-    tl.to([brushL, brushR], { y: 110, duration: 1.4, ease: "power1.inOut" }, 0.5);
-    tl.fromTo([rippleL, rippleR], { opacity: 0.9, scale: 0.5 }, { opacity: 0, scale: 1.8, duration: 1.0, ease: "power2.out" }, 0.9);
-
-    // Stroke 1 reset (2.5s - 3.5s)
-    tl.to([brushL, brushR], { y: 0, duration: 1.0, ease: "power1.inOut" }, 2.2);
-
-    // Stroke 2 (3.6s - 5.5s)
-    tl.to([brushL, brushR], { y: 120, duration: 1.4, ease: "power1.inOut" }, 3.6);
-    tl.fromTo([rippleL, rippleR], { opacity: 0.9, scale: 0.5 }, { opacity: 0, scale: 2.0, duration: 1.0, ease: "power2.out" }, 4.0);
-
-    // 4.8s: "what your eyes see and what your skin feels fuse into a single neural event."
     tl.call(() => {
-      caption.innerHTML = 'what your eyes see and skin feels <span class="accent">fuse into a single neural event</span>.';
-      sub.innerText = 'Crossmodal Temporal Binding';
-      statusTxt.innerText = 'CROSSMODAL FUSION ACTIVE';
-      statusTxt.style.color = '#F2D24B';
-    }, null, 4.8);
-
-    // Crossmodal Fusion Beam Ignites
-    tl.to(fusionBeam, { scaleX: 1, opacity: 1, duration: 0.8, ease: "back.out(1.4)" }, 5.0);
-
-    // Stroke 3 (6.0s - 8.2s)
-    tl.to([brushL, brushR], { y: 20, duration: 1.0, ease: "power1.inOut" }, 5.5);
-    tl.to([brushL, brushR], { y: 130, duration: 1.4, ease: "power1.inOut" }, 6.6);
-    tl.fromTo([rippleL, rippleR], { opacity: 1, scale: 0.5 }, { opacity: 0, scale: 2.2, duration: 1.0, ease: "power2.out" }, 7.0);
+      document.getElementById("cap-text").innerHTML = "...what your eyes see and what your skin feels fuse into a single neural event.";
+      document.getElementById("sync-status").innerHTML = "MULTISENSORY FUSION [100% COMPLETE]";
+      document.getElementById("sync-status").style.borderColor = "#FFFFFF";
+    }, null, 4.5);
   </script>
 </template>

@@ -1,0 +1,130 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 320px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .manifesto-container {
+      width: 780px;
+      height: 380px;
+      border: 3px solid #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: #000000;
+      margin-bottom: 50px;
+    }
+
+    .manifesto-title {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .manifesto-divider {
+      width: 140px;
+      height: 4px;
+      background: #FFFFFF;
+      margin-bottom: 24px;
+    }
+
+    .manifesto-sub {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+      text-align: center;
+    }
+
+    .gap-badge {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      padding: 16px 36px;
+    }
+
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+  </style>
+
+  <div data-hf-id="s05-root" id="root" data-composition-id="shot-05-synthesis" data-width="1080" data-height="1920" data-duration="8.74">
+    <div data-hf-id="s05-content" id="s05-content" class="clip canvas-center" data-start="0" data-duration="8.74" data-track-index="1">
+      <div class="manifesto-container" id="manifesto-box">
+        <h1 class="manifesto-title">IGNORANCE BREEDS CERTAINTY</h1>
+        <div class="manifesto-divider"></div>
+        <p class="manifesto-sub">EXPERTISE BREEDS HUMILITY</p>
+      </div>
+
+      <div class="gap-badge" id="gap-badge">KNOWING WHAT YOU DON'T KNOW</div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Ignorance breeds certainty; expertise breeds humility...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-synthesis"] = tl;
+
+    tl.fromTo("#s05-content", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.0);
+    tl.fromTo("#manifesto-box", { scale: 0.85, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.4);
+    tl.fromTo("#gap-badge", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 1.0);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "The gap isn't your intelligence, it's knowing what you don't know.";
+    }, null, 4.0);
+  </script>
+</template>

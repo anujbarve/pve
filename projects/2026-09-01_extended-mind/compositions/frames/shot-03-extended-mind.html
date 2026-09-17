@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,186 +14,189 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #080808;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -50px;
-      background: 
-        radial-gradient(circle at 50% 35%, rgba(242, 210, 75, 0.18) 0%, transparent 65%),
-        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.04) 0%, transparent 50%),
-        linear-gradient(180deg, #0d0d0d 0%, #050505 100%);
-    }
-
-    .scene-viewport {
-      position: absolute;
-      inset: 0;
+      top: 300px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 0 80px;
     }
 
-    .bridge-stage {
+    /* System Boundary */
+    .system-frame {
+      width: 760px;
+      height: 440px;
+      border: 3px solid #FFFFFF;
       position: relative;
-      margin-top: 300px;
-      width: 880px;
-      height: 860px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
+      padding: 40px;
+      margin-bottom: 50px;
     }
 
-    .bridge-svg {
-      width: 880px;
-      height: 480px;
-      overflow: visible;
+    .system-label {
+      position: absolute;
+      top: 20px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #A0A0B0;
     }
 
-    /* Parity Principle Banner */
-    .parity-banner {
-      position: relative;
-      margin-top: 20px;
+    .nodes-row {
       display: flex;
       align-items: center;
-      gap: 16px;
-      background: rgba(14, 14, 16, 0.9);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      border-radius: 100px;
-      padding: 14px 32px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(242, 210, 75, 0.15);
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 20px;
     }
 
-    .parity-pill-left {
-      font-size: 13px;
-      font-weight: 700;
+    .node-box {
+      width: 220px;
+      height: 160px;
+      border: 3px solid #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .node-circle {
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
+    }
+
+    .node-title {
+      font-size: 20px;
+      font-weight: 900;
       letter-spacing: 0.15em;
-      color: #F2F1EC;
       text-transform: uppercase;
     }
 
-    .parity-equal {
-      font-family: "Playfair Display", serif;
-      font-size: 24px;
+    .node-sub {
+      font-size: 14px;
       font-weight: 700;
-      color: #F2D24B;
-    }
-
-    .parity-pill-right {
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: #F2D24B;
+      letter-spacing: 0.12em;
+      color: #A0A0B0;
       text-transform: uppercase;
     }
 
-    /* Subtitles (bottom: 480px) */
-    .film-caption-block {
+    .equals-bridge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .equals-line {
+      width: 100px;
+      height: 4px;
+      background: #FFFFFF;
+    }
+
+    .system-footer {
+      position: absolute;
+      bottom: 24px;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 100px;
-      right: 100px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
+      justify-content: center;
       pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 44px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-      letter-spacing: 0.01em;
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      color: #A0A09C;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s03-root" id="root" data-composition-id="shot-03-extended-mind" data-width="1080" data-height="1920" data-duration="9.54">
-    <div data-hf-id="hf-s03-env" id="s03-env" class="film-env" data-layout-allow-overflow></div>
-
-    <div data-hf-id="hf-s03-view" class="scene-viewport">
-      <div data-hf-id="hf-s03-stage" id="s03-stage" class="bridge-stage">
+  <div data-hf-id="s03-root" id="root" data-composition-id="shot-03-extended-mind" data-width="1080" data-height="1920" data-duration="9.54">
+    <div data-hf-id="s03-content" id="s03-content" class="clip canvas-center" data-start="0" data-duration="9.54" data-track-index="1">
+      <div class="system-frame" id="system-frame">
+        <span class="system-label">UNIFIED COGNITIVE SYSTEM</span>
         
-        <svg data-hf-id="hf-s03-svg" class="bridge-svg" viewBox="0 0 880 480" fill="none">
-          <!-- Biological Substrate (Left) -->
-          <g id="s03-bio-cortex">
-            <ellipse cx="200" cy="240" rx="130" ry="150" stroke="#F2D24B" stroke-width="2" stroke-dasharray="6 6" fill="rgba(242, 210, 75, 0.04)" />
-            <!-- Neural network branches -->
-            <path d="M 130 210 L 180 180 L 240 220 L 200 290 L 140 280 Z" stroke="rgba(242, 241, 236, 0.5)" stroke-width="2" />
-            <path d="M 180 180 L 200 130 L 260 160 L 240 220" stroke="rgba(242, 241, 236, 0.5)" stroke-width="2" />
-            
-            <circle cx="180" cy="180" r="7" fill="#F2D24B" />
-            <circle cx="240" cy="220" r="8" fill="#F2D24B" />
-            <circle cx="200" cy="290" r="7" fill="#F2D24B" />
-            <circle cx="260" cy="160" r="6" fill="#F2D24B" />
+        <div class="nodes-row">
+          <!-- Internal Biology -->
+          <div class="node-box node-circle" id="bio-node">
+            <span class="node-title">BIOLOGY</span>
+            <span class="node-sub">SYNAPSE</span>
+          </div>
 
-            <text x="200" y="420" fill="#F2F1EC" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">INTERNAL BIOLOGY</text>
-          </g>
+          <!-- Equivalence Connection -->
+          <div class="equals-bridge" id="equals-bridge">
+            <div class="equals-line"></div>
+            <div class="equals-line"></div>
+          </div>
 
-          <!-- Active Synaptic Bridge Lines -->
-          <g id="s03-bridge-lines">
-            <path id="s03-bridge-1" d="M 330 170 C 430 150, 530 150, 630 170" stroke="#F2D24B" stroke-width="3.5" />
-            <path id="s03-bridge-2" d="M 330 240 C 430 240, 530 240, 630 240" stroke="#F2D24B" stroke-width="4" />
-            <path id="s03-bridge-3" d="M 330 310 C 430 330, 530 330, 630 310" stroke="#F2D24B" stroke-width="3.5" />
-
-            <!-- Flowing packet particles -->
-            <circle id="s03-pkt-1" cx="330" cy="170" r="6" fill="#F2F1EC" filter="drop-shadow(0 0 10px #F2D24B)" />
-            <circle id="s03-pkt-2" cx="630" cy="240" r="6" fill="#F2D24B" filter="drop-shadow(0 0 10px #F2D24B)" />
-            <circle id="s03-pkt-3" cx="330" cy="310" r="6" fill="#F2F1EC" filter="drop-shadow(0 0 10px #F2D24B)" />
-          </g>
-
-          <!-- Silicon Monolith Substrate (Right) -->
-          <g id="s03-silicon-monolith">
-            <rect x="630" y="100" width="160" height="280" rx="28" stroke="#F2D24B" stroke-width="3" fill="rgba(242, 210, 75, 0.06)" />
-            <rect x="650" y="125" width="120" height="230" rx="14" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1.5" />
-            
-            <line x1="670" y1="160" x2="730" y2="160" stroke="#F2D24B" stroke-width="2" />
-            <line x1="730" y1="160" x2="730" y2="210" stroke="#F2D24B" stroke-width="2" />
-            <circle cx="730" cy="210" r="5" fill="#F2D24B" />
-            
-            <line x1="750" y1="260" x2="690" y2="260" stroke="#F2D24B" stroke-width="2" />
-            <line x1="690" y1="260" x2="690" y2="300" stroke="#F2D24B" stroke-width="2" />
-            <circle cx="690" cy="300" r="5" fill="#F2D24B" />
-
-            <text x="710" y="420" fill="#F2D24B" font-size="13" font-weight="700" letter-spacing="2" text-anchor="middle">EXTERNAL SILICON</text>
-          </g>
-        </svg>
-
-        <!-- Functional Parity Banner -->
-        <div data-hf-id="hf-s03-banner" id="s03-banner" class="parity-banner" data-layout-allow-overlap>
-          <span class="parity-pill-left">BIOLOGICAL RETRIEVAL</span>
-          <span class="parity-equal">≡</span>
-          <span class="parity-pill-right">SILICON RETRIEVAL</span>
+          <!-- External Tool -->
+          <div class="node-box" id="tool-node">
+            <span class="node-title">EXTERNAL</span>
+            <span class="node-sub">SILICON</span>
+          </div>
         </div>
 
+        <span class="system-footer" id="system-footer">FUNCTIONAL EQUIVALENCE</span>
       </div>
 
-      <!-- Captions (bottom: 480px) -->
-      <div data-hf-id="hf-s03-caption-box" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s03-line" id="s03-caption" class="caption-line">This is the <span class="accent">Extended Mind Thesis</span>.</p>
-        <span data-hf-id="hf-s03-sub" id="s03-sub" class="caption-sub">CLARK & CHALMERS (1998)</span>
+      <div class="callout-box">
+        <h1 class="callout-title">THE EXTENDED MIND THESIS</h1>
+        <p class="callout-sub">WHEN STORAGE & RECALL ARE SEAMLESS // TOOLS BECOME BIOLOGY</p>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        This is the Extended Mind Thesis.
       </div>
     </div>
   </div>
@@ -209,34 +206,14 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-03-extended-mind"] = tl;
 
-    const env = document.getElementById("s03-env");
-    const stage = document.getElementById("s03-stage");
-    const pkt1 = document.getElementById("s03-pkt-1");
-    const pkt2 = document.getElementById("s03-pkt-2");
-    const pkt3 = document.getElementById("s03-pkt-3");
-    const banner = document.getElementById("s03-banner");
-    const caption = document.getElementById("s03-caption");
-    const sub = document.getElementById("s03-sub");
+    tl.fromTo("#s03-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+    tl.fromTo("#system-frame", { scale: 0.9, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power2.out" }, 0.1);
 
-    // Camera initial
-    gsap.set(stage, { scale: 0.95, y: 15 });
-    gsap.set(banner, { opacity: 0, scale: 0.9 });
-
-    tl.to(env, { scale: 1.06, duration: 9.54, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, y: 0, duration: 9.54, ease: "power1.out" }, 0);
-
-    // Continuous packet flow across synaptic bridge
-    tl.to(pkt1, { x: 300, duration: 1.5, repeat: 5, ease: "power1.inOut" }, 0.2);
-    tl.to(pkt2, { x: -300, duration: 1.5, repeat: 5, ease: "power1.inOut" }, 0.5);
-    tl.to(pkt3, { x: 300, duration: 1.5, repeat: 5, ease: "power1.inOut" }, 0.8);
-
-    // 0.0s - 3.8s: "This is the Extended Mind Thesis."
-    tl.to(banner, { opacity: 1, scale: 1, duration: 0.8, ease: "back.out(1.4)" }, 0.6);
-
-    // 3.8s - 9.54s: "When an external tool reliably stores and recalls data, it functions as literal biology."
     tl.call(() => {
-      caption.innerHTML = 'When an external tool recalls data, it functions as <span class="accent">literal biology</span>.';
-      sub.innerHTML = 'THE PARITY PRINCIPLE';
-    }, null, 3.8);
+      document.getElementById("cap-text").innerHTML = "When an external tool reliably stores data, it functions as literal biology.";
+      document.getElementById("system-footer").innerHTML = "LITERAL BIOLOGICAL FUNCTION";
+    }, null, 3.5);
+
+    tl.to("#equals-bridge", { scale: 1.25, yoyo: true, repeat: 3, duration: 0.4 }, 3.5);
   </script>
 </template>

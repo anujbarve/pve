@@ -1,0 +1,10 @@
+{
+  "name": "2026-09-09_paradox-of-choice",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "hyperframes dev --port 3006",
+    "check": "hyperframes check",
+    "render": "hyperframes render",
+    "publish": "hyperframes publish"
+  }
+}

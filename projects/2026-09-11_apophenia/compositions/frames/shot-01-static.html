@@ -1,0 +1,207 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 300px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .meta-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 24px;
+    }
+
+    /* Dot Matrix Frame */
+    .matrix-frame {
+      width: 820px;
+      height: 480px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 36px;
+    }
+
+    .dot-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(7, 1fr);
+      gap: 24px;
+    }
+
+    .matrix-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #333338;
+      transition: all 0.3s ease;
+    }
+
+    .matrix-dot.face-feature {
+      transition: all 0.4s ease;
+    }
+
+    .matrix-dot.active {
+      background: #FFFFFF;
+      transform: scale(1.6);
+    }
+
+    /* Face bounding bracket */
+    .face-bracket {
+      position: absolute;
+      width: 260px;
+      height: 280px;
+      border: 2px dashed #FFFFFF;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .bracket-label {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: #888890;
+    }
+
+    /* Readout Panel */
+    .telemetry-panel {
+      width: 820px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 32px 40px;
+      text-align: center;
+    }
+
+    .telemetry-main {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .telemetry-sub {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.35;
+    }
+  </style>
+
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-static" data-width="1080" data-height="1920" data-duration="11.22">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="11.22" data-track-index="1">
+      <div class="meta-tag">PERCEPTUAL ILLUSION // RANDOMNESS TO SIGNAL</div>
+
+      <div class="matrix-frame">
+        <div class="face-bracket" id="face-bracket" data-layout-allow-overlap>
+          <span class="bracket-label" data-layout-allow-overlap>PATTERN RECOGNIZED</span>
+        </div>
+
+        <div class="dot-grid">
+          <!-- Row 1 -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+          <!-- Row 2: Eyes -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot face-feature" id="eye-1"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot face-feature" id="eye-2"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+          <!-- Row 3 -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+          <!-- Row 4: Nose -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot face-feature" id="nose"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+          <!-- Row 5 -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+          <!-- Row 6: Mouth -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot face-feature" id="mouth-1"></div><div class="matrix-dot face-feature" id="mouth-2"></div><div class="matrix-dot face-feature" id="mouth-3"></div><div class="matrix-dot face-feature" id="mouth-4"></div><div class="matrix-dot face-feature" id="mouth-5"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+          <!-- Row 7 -->
+          <div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div><div class="matrix-dot"></div>
+        </div>
+      </div>
+
+      <div class="telemetry-panel">
+        <div class="telemetry-main" id="tel-main">RAW INPUT: STATIC NOISE</div>
+        <div class="telemetry-sub" id="tel-sub">NO ORGANIZED SIGNAL DETECTED</div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        You stare at television static and see a face.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-static"] = tl;
+
+    tl.fromTo("#s01-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+
+    // At 3.8s: The face features illuminate and lock in!
+    tl.to(".face-feature", { className: "matrix-dot face-feature active", duration: 0.4, stagger: 0.08 }, 3.8);
+    tl.to("#face-bracket", { opacity: 1, duration: 0.4 }, 4.5);
+
+    tl.call(() => {
+      document.getElementById("tel-main").innerText = "APOPHENIA: SIGNAL INJECTED BY BRAIN";
+      document.getElementById("tel-sub").innerText = "CONFIDENCE: 99.9% // REALITY: 0%";
+      document.getElementById("cap-text").innerHTML = "It's not there — but your brain insists it is, with the same conviction it uses to recognize your own mother.";
+    }, null, 3.8);
+  </script>
+</template>

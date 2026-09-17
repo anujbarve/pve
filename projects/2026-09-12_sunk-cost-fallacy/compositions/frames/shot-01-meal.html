@@ -1,0 +1,173 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 260px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .diagram-stage {
+      width: 560px;
+      height: 560px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .clock-circle {
+      position: absolute;
+      width: 520px;
+      height: 520px;
+      border: 3px solid #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .clock-time {
+      font-size: 80px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: #FFFFFF;
+    }
+
+    .clock-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .value-box {
+      margin-top: 50px;
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .row-metric {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .capacity-frame {
+      width: 100%;
+      height: 48px;
+      border: 3px solid #FFFFFF;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+    }
+
+    .capacity-fill {
+      height: 100%;
+      background: #FFFFFF;
+      width: 0%;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-meal" data-width="1080" data-height="1920" data-duration="10.18">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="10.18" data-track-index="1">
+      <div class="diagram-stage">
+        <div class="clock-circle" id="clock-circle">
+          <span class="clock-time" id="clock-num">120 MIN</span>
+          <span class="clock-tag">TIME INVESTED [SPENT]</span>
+        </div>
+      </div>
+
+      <div class="value-box" id="value-box">
+        <div class="row-metric">
+          <span>EXPERIENCE QUALITY</span>
+          <span style="color: #FFFFFF;">0% [TERRIBLE]</span>
+        </div>
+        <div class="capacity-frame">
+          <div class="capacity-fill" id="quality-fill" style="width: 2%;"></div>
+        </div>
+
+        <div class="row-metric" style="margin-top: 10px;">
+          <span>PLATE CONSUMED</span>
+          <span id="consumed-label">100% [EATEN ANYWAY]</span>
+        </div>
+        <div class="capacity-frame">
+          <div class="capacity-fill" id="consumed-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        You waited two hours. The food is terrible.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-meal"] = tl;
+
+    tl.fromTo("#clock-circle", { scale: 0.7, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.0);
+    tl.fromTo("#value-box", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.4);
+
+    // Plate consumption bar fills because you already spent the time
+    tl.fromTo("#consumed-fill", { width: "0%" }, { width: "100%", duration: 4.5, ease: "power2.inOut" }, 3.8);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "You eat every bite anyway — because you already invested the time.";
+    }, null, 4.2);
+  </script>
+</template>

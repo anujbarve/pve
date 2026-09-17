@@ -7,12 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
       @font-face {
-        font-family: "Playfair Display";
-        font-style: normal;
-        font-weight: 400 900;
-        src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-      }
-      @font-face {
         font-family: "Inter";
         font-style: normal;
         font-weight: 100 900;
@@ -141,18 +135,11 @@
       const s04 = document.getElementById("s04");
       const s05 = document.getElementById("s05");
 
-      // Crossfades between shots
-      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 9.62);
-      masterTl.to(s01, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 9.62);
-
-      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 17.64);
-      masterTl.to(s02, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 17.64);
-
-      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 28.70);
-      masterTl.to(s03, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 28.70);
-
-      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.inOut" }, 37.84);
-      masterTl.to(s04, { opacity: 0, duration: 0.4, ease: "power2.inOut" }, 37.84);
+      // Crisp cuts between mental model diagrams
+      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 9.62);
+      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 17.64);
+      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 28.70);
+      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 37.84);
     </script>
   </body>
 </html>

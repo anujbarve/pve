@@ -1,0 +1,221 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 240px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .convergence-container {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .convergence-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .senses-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .sense-cell {
+      border: 2px solid #555560;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: #050505;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+    }
+
+    .sense-cell.active {
+      border-color: #FFFFFF;
+    }
+
+    .continent-box {
+      margin-top: 10px;
+      width: 100%;
+      height: 110px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .continent-title {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .continent-sub {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    .manifesto-box {
+      margin-top: 24px;
+      text-align: center;
+      border-top: 2px solid #333338;
+      padding-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .manifesto-title {
+      font-size: 46px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.15;
+    }
+
+    .manifesto-sub {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s05-root" id="root" data-composition-id="shot-05-convergence" data-width="1080" data-height="1920" data-duration="10.58">
+    <div data-hf-id="s05-content" id="s05-content" class="clip canvas-center" data-start="0" data-duration="10.58" data-track-index="1">
+      <div class="convergence-container">
+        <div class="convergence-header">
+          <span>THE UNIFIED SENSORY CONTINENT</span>
+          <span style="color: #888890;">5 INTEGRATED MODALITIES</span>
+        </div>
+
+        <div class="senses-grid">
+          <div class="sense-cell active" id="sc1">
+            <span>1. SIGHT</span>
+            <span style="color: #888890;">OPTIC STREAM</span>
+          </div>
+          <div class="sense-cell active" id="sc2">
+            <span>2. SOUND</span>
+            <span style="color: #888890;">ACOUSTIC STREAM</span>
+          </div>
+          <div class="sense-cell active" id="sc3">
+            <span>3. TASTE</span>
+            <span style="color: #888890;">GUSTATORY STREAM</span>
+          </div>
+          <div class="sense-cell active" id="sc4">
+            <span>4. TOUCH</span>
+            <span style="color: #888890;">TACTILE STREAM</span>
+          </div>
+        </div>
+
+        <!-- Unified Continuous Mind -->
+        <div class="continent-box" id="continent-box">
+          <span class="continent-title">ONE INTEGRATED REALITY</span>
+          <span class="continent-sub">THE SENSES WERE NEVER MEANT TO BE SEPARATE</span>
+        </div>
+
+        <div class="manifesto-box" id="manifesto-box">
+          <h1 class="manifesto-title">YOUR SENSES ARE NOT ISLANDS.</h1>
+          <p class="manifesto-sub">THEY ARE A CONTINENT.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Maybe synesthesia isn't the anomaly.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-convergence"] = tl;
+
+    tl.fromTo("#s05-content", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+
+    // Light up cells
+    tl.to("#sc1", { borderColor: "#FFFFFF", duration: 0.25 }, 1.0);
+    tl.to("#sc2", { borderColor: "#FFFFFF", duration: 0.25 }, 1.8);
+    tl.to("#sc3", { borderColor: "#FFFFFF", duration: 0.25 }, 2.6);
+    tl.to("#sc4", { borderColor: "#FFFFFF", duration: 0.25 }, 3.4);
+
+    // Merge into continent
+    tl.fromTo("#continent-box", { scale: 0.95 }, { scale: 1.04, repeat: 2, yoyo: true, duration: 0.4, ease: "sine.inOut" }, 4.5);
+    tl.fromTo("#manifesto-box", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.5 }, 5.5);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "Your senses were never meant to be separate.";
+    }, null, 3.5);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "The world is richer than any single sense can capture.";
+    }, null, 7.0);
+  </script>
+</template>

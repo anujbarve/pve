@@ -1,0 +1,208 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 240px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .stage-container {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-digit-box {
+      width: 100%;
+      height: 160px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .digit-giant {
+      font-size: 96px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .bridge-signal {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .signal-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .signal-meta {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    .crossover-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cross-row {
+      border: 2px solid #555560;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: #050505;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      opacity: 0.35;
+    }
+
+    .cross-row.active {
+      border-color: #FFFFFF;
+      opacity: 1;
+    }
+
+    .footer-manifesto {
+      margin-top: 18px;
+      border-top: 2px solid #333338;
+      padding-top: 24px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-tasting-number" data-width="1080" data-height="1920" data-duration="9.46">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="9.46" data-track-index="1">
+      <div class="stage-container">
+        <div class="stage-header">
+          <span>SYNESTHESIA ARCHITECTURE</span>
+          <span style="color: #888890;">1 IN 2,000 HUMANS</span>
+        </div>
+
+        <div class="hero-digit-box" id="hero-box">
+          <span class="digit-giant">7</span>
+          <div class="bridge-signal">
+            <span class="signal-title">TASTES LIKE COPPER</span>
+            <span class="signal-meta">NUMERIC // GUSTATORY BRIDGE</span>
+          </div>
+        </div>
+
+        <div class="crossover-rows">
+          <div class="cross-row active" id="cr1">
+            <span>WEDNESDAY</span>
+            <span style="color: #888890;">SALMON-COLORED HUE</span>
+          </div>
+          <div class="cross-row" id="cr2">
+            <span>G-MAJOR CHORD</span>
+            <span style="color: #888890;">BRIGHT ORANGE LIGHT</span>
+          </div>
+          <div class="cross-row" id="cr3">
+            <span>LETTER 'B'</span>
+            <span style="color: #888890;">NAVY BLUE TEXTURE</span>
+          </div>
+        </div>
+
+        <div class="footer-manifesto" id="footer-manifesto">
+          CROSS-MODAL NEURAL SENSORY COUPLING
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        For one in two thousand people, the number seven tastes like copper.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-tasting-number"] = tl;
+
+    tl.fromTo("#s01-content", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+    tl.fromTo("#hero-box", { scale: 0.95 }, { scale: 1.0, duration: 0.4, ease: "power2.out" }, 0.3);
+
+    // Progressive lighting of sensory pairs
+    tl.to("#cr2", { opacity: 1, borderColor: "#FFFFFF", duration: 0.35 }, 3.5);
+    tl.to("#cr3", { opacity: 1, borderColor: "#FFFFFF", duration: 0.35 }, 5.5);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "Wednesday is salmon-colored. A G-major chord is bright orange.";
+    }, null, 3.8);
+  </script>
+</template>

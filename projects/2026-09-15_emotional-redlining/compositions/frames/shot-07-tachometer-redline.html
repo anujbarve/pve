@@ -1,0 +1,163 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #08080A;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .redline-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(255, 87, 34, 0.22) 0%, transparent 65%),
+                  linear-gradient(180deg, #050507 0%, #0E0E14 100%);
+    }
+
+    .center-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 70px;
+    }
+
+    .tachometer-card {
+      width: 880px;
+      height: 480px;
+      background: #111218;
+      border: 3px solid rgba(255, 87, 34, 0.5);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 35px;
+      box-shadow: 0 25px 80px rgba(255, 87, 34, 0.25);
+    }
+
+    .gauge-icon {
+      width: 150px;
+      height: 150px;
+      margin-bottom: 15px;
+    }
+
+    .rpm-text {
+      font-size: 88px;
+      font-weight: 900;
+      color: #FF5722;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 0 40px rgba(255, 87, 34, 0.6);
+    }
+
+    .rpm-label {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+
+    .redline-pill {
+      position: absolute;
+      top: 25px;
+      right: 25px;
+      background: #FF5722;
+      color: #000000;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 0.15em;
+      padding: 6px 14px;
+      border-radius: 4px;
+    }
+
+    .headline {
+      font-size: 68px;
+      font-weight: 900;
+      line-height: 1.05;
+      text-align: center;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .hl-red {
+      color: #FF5722;
+      text-shadow: 0 0 50px rgba(255, 87, 34, 0.7);
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-pill {
+      background: rgba(14, 14, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 16px 42px;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+  </style>
+
+  <div data-hf-id="s07-root" id="root" data-composition-id="shot-07-tachometer-redline" data-width="1080" data-height="1920" data-duration="7.00">
+    <div data-hf-id="s07-bg" id="s07-bg" class="clip redline-bg" data-start="0" data-duration="7.00" data-track-index="0"></div>
+
+    <div data-hf-id="s07-content" id="s07-content" class="clip center-stage" data-start="0" data-duration="7.00" data-track-index="1">
+      <div class="tachometer-card" id="s07-card">
+        <div class="redline-pill">REDLINE</div>
+        <img src="assets/gauge.svg" class="gauge-icon" id="gauge-icon" alt="Gauge" />
+        <div class="rpm-text" id="rpm-num">8,450</div>
+        <div class="rpm-label">Thermal Load // Critical Strain</div>
+      </div>
+      <h1 class="headline">
+        IT IS <span class="hl-red">EMOTIONAL REDLINING.</span>
+      </h1>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-pill">
+        <span class="caption-text">It’s <span style="color:#FF5722;">emotional redlining</span> from masking stress...</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-07-tachometer-redline"] = tl;
+
+    tl.fromTo("#s07-content", { scale: 0.90, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.22, ease: "power3.out" }, 0.0);
+    // Gauge needle vibration & RPM climb
+    tl.fromTo("#rpm-num", { innerText: 3200 }, { innerText: 8800, snap: { innerText: 40 }, duration: 2.5, ease: "power2.out" }, 0.1);
+    tl.to("#gauge-icon", { x: -3, duration: 0.05, repeat: 40, yoyo: true, ease: "rough" }, 0.2);
+  </script>
+</template>

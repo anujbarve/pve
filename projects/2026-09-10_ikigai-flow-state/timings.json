@@ -1,0 +1,35 @@
+{
+  "total_duration": 48.98,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Vanishing Clock",
+      "start": 0.0,
+      "duration": 10.58
+    },
+    {
+      "id": "shot_02",
+      "name": "The Challenge-Skill Balance",
+      "start": 10.58,
+      "duration": 8.02
+    },
+    {
+      "id": "shot_03",
+      "name": "Transient Hypofrontality",
+      "start": 18.6,
+      "duration": 10.98
+    },
+    {
+      "id": "shot_04",
+      "name": "The Neurochemical Flood",
+      "start": 29.58,
+      "duration": 11.22
+    },
+    {
+      "id": "shot_05",
+      "name": "The Ikigai Anchor",
+      "start": 40.8,
+      "duration": 8.18
+    }
+  ]
+}

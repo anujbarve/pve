@@ -1,0 +1,35 @@
+{
+  "total_duration": 44.98,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The Number Drop",
+      "start": 0.0,
+      "duration": 8.9
+    },
+    {
+      "id": "shot_02",
+      "name": "The Judgment Warp",
+      "start": 8.9,
+      "duration": 9.78
+    },
+    {
+      "id": "shot_03",
+      "name": "The Neural Mechanism",
+      "start": 18.68,
+      "duration": 9.78
+    },
+    {
+      "id": "shot_04",
+      "name": "The Real-World Damage",
+      "start": 28.46,
+      "duration": 9.06
+    },
+    {
+      "id": "shot_05",
+      "name": "The Liberation",
+      "start": 37.52,
+      "duration": 7.46
+    }
+  ]
+}

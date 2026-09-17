@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,299 +14,162 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #080808;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 40%, rgba(242, 210, 75, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 20% 70%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
-        linear-gradient(180deg, #0a0c10 0%, #050507 100%);
-    }
-
-    .lab-floor {
-      position: absolute;
-      bottom: 0;
-      left: -100px;
-      right: -100px;
-      height: 960px;
-      background: linear-gradient(180deg, rgba(16, 20, 26, 0.95) 0%, #040507 100%);
-      transform: perspective(1000px) rotateX(58deg);
-      border-top: 1px solid rgba(242, 210, 75, 0.2);
-      box-shadow: 0 -40px 120px rgba(0, 0, 0, 0.95);
-    }
-
-    .stage-center {
-      position: absolute;
-      inset: 0;
+      top: 300px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 0 80px;
     }
 
-    /* Lab Metadata HUD */
-    .lab-hud {
-      position: absolute;
-      top: 320px;
-      left: 90px;
-      right: 90px;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .hud-chip {
-      background: rgba(14, 17, 23, 0.85);
-      border: 1px solid rgba(242, 241, 236, 0.15);
-      padding: 10px 18px;
-      border-radius: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      backdrop-filter: blur(8px);
-    }
-
-    .hud-title {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #A0A09C;
-    }
-
-    .hud-val {
-      font-size: 15px;
-      font-weight: 700;
-      color: #F2D24B;
-    }
-
-    /* Visual Split Screen Simulator */
-    .tachistoscope-stage {
-      position: relative;
+    .hemispheres-stage {
       width: 760px;
-      height: 640px;
-      margin-top: -60px;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 40px;
+    }
+
+    .hemi-box {
+      width: 340px;
+      height: 420px;
+      border: 3px solid #FFFFFF;
+      border-radius: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      padding: 30px 20px;
+      text-align: center;
     }
 
-    .field-partition {
-      position: relative;
-      width: 680px;
-      height: 280px;
-      background: rgba(10, 12, 16, 0.9);
-      border: 2px solid rgba(242, 241, 236, 0.2);
-      border-radius: 12px;
-      display: flex;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), inset 0 0 50px rgba(0,0,0,0.8);
-      overflow: hidden;
-    }
-
-    .field-left, .field-right {
-      flex: 1;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .field-left {
-      border-right: 2px dashed rgba(242, 210, 75, 0.4);
-      background: radial-gradient(circle at 50% 50%, rgba(242, 210, 75, 0.15) 0%, transparent 80%);
-    }
-
-    .field-right {
-      background: rgba(5, 5, 5, 0.6);
-    }
-
-    .field-tag {
-      position: absolute;
-      top: 14px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .tag-left { color: #F2D24B; left: 20px; }
-    .tag-right { color: #A0A09C; right: 20px; }
-
-    .flash-word {
-      font-family: "Inter", sans-serif;
-      font-size: 58px;
+    .hemi-title {
+      font-size: 20px;
       font-weight: 900;
-      color: #F2D24B;
-      letter-spacing: 0.2em;
-      text-shadow: 0 0 35px rgba(242, 210, 75, 0.8);
-      opacity: 0;
-      transform: scale(0.85);
-    }
-
-    .blank-placeholder {
-      font-size: 16px;
-      color: #A0A09C;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      font-weight: 600;
     }
 
-    .optic-pathway-svg {
-      position: absolute;
-      bottom: 20px;
-      width: 580px;
-      height: 220px;
-      pointer-events: none;
+    .hemi-sub {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
     }
 
-    /* Floor Stepping Vector */
-    .footstep-track {
-      position: absolute;
-      bottom: -40px;
-      width: 520px;
-      height: 140px;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      transform: perspective(800px) rotateX(45deg);
-      pointer-events: none;
-    }
-
-    .step-node {
-      width: 80px;
+    .flash-command-box {
+      width: 240px;
       height: 100px;
-      border-radius: 40px 40px 25px 25px;
-      border: 2px solid rgba(242, 210, 75, 0.5);
-      background: rgba(20, 24, 32, 0.95);
+      border: 3px solid #FFFFFF;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      box-shadow: 0 0 25px rgba(242, 210, 75, 0.3);
-      opacity: 0;
-      transform: translateY(30px);
-    }
-
-    .step-label {
-      font-size: 11px;
-      font-weight: 800;
-      color: #F2D24B;
-      letter-spacing: 0.1em;
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
+      background: #050505;
     }
 
-    .step-time {
-      font-size: 10px;
-      color: #F2F1EC;
-      font-weight: 600;
+    .action-badge {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #FFFFFF;
     }
 
-    /* Subtitles at bottom: 480px */
-    .film-caption-block {
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s01-root" id="root" data-composition-id="shot-01-command" data-width="1080" data-height="1920" data-duration="10.26">
-    <div data-hf-id="hf-s01-env" id="s01-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s01-floor" id="s01-floor" class="lab-floor" data-layout-allow-overflow></div>
-
-    <div class="stage-center">
-      <!-- Metadata chips -->
-      <div data-hf-id="hf-s01-hud" id="s01-hud" class="lab-hud" data-layout-allow-overlap>
-        <div class="hud-chip">
-          <span class="hud-title">EXPERIMENT PROTOCOL</span>
-          <span class="hud-val">Tachistoscope Flash</span>
-        </div>
-        <div class="hud-chip">
-          <span class="hud-title">TARGET CORTEX</span>
-          <span class="hud-val">Right Hemisphere</span>
-        </div>
-      </div>
-
-      <!-- Tachistoscope Visual Split Screen -->
-      <div data-hf-id="hf-s01-stage" id="s01-stage" class="tachistoscope-stage" data-layout-allow-overlap>
-        <div class="field-partition" data-layout-allow-overlap>
-          <div class="field-left" data-layout-allow-overlap>
-            <span class="field-tag tag-left">Left Field &rarr; Right Brain</span>
-            <div id="s01-flash" class="flash-word" data-layout-allow-overlap>WALK</div>
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-command" data-width="1080" data-height="1920" data-duration="10.26">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="10.26" data-track-index="1">
+      <div class="hemispheres-stage">
+        <!-- Left Hemisphere (Speech) -->
+        <div class="hemi-box" style="border-color: #888890;">
+          <div>
+            <div class="hemi-title" style="color: #888890;">LEFT BRAIN</div>
+            <div class="hemi-sub">VERBAL / CONSCIOUS SPEECH</div>
           </div>
-          <div class="field-right" data-layout-allow-overlap>
-            <span class="field-tag tag-right">Right Field &rarr; Left Brain</span>
-            <div class="blank-placeholder">[ BLANK ]</div>
+          <div style="font-size: 16px; font-weight: 800; letter-spacing: 0.15em; color: #888890;">
+            KNOWLEDGE: NONE
           </div>
+          <div class="action-badge" style="color: #888890;">BLIND TO COMMAND</div>
         </div>
 
-        <!-- Optical Retinal Split Vector Paths -->
-        <svg class="optic-pathway-svg" viewBox="0 0 580 220" fill="none" data-layout-allow-overlap>
-          <path id="s01-path-left" d="M 140 10 C 140 100, 380 120, 420 200" stroke="#F2D24B" stroke-width="3" stroke-dasharray="6 6" opacity="0.4" />
-          <path id="s01-path-right" d="M 440 10 C 440 100, 180 120, 160 200" stroke="#A0A09C" stroke-width="2" stroke-dasharray="4 4" opacity="0.2" />
-          <circle id="s01-pulse-node" cx="420" cy="200" r="8" fill="#F2D24B" opacity="0" />
-        </svg>
-
-        <!-- Stepping Footstep Coordinates -->
-        <div data-hf-id="hf-s01-feet" class="footstep-track" data-layout-allow-overlap>
-          <div id="s01-step1" class="step-node" data-layout-allow-overlap>
-            <span class="step-label">Step 01</span>
-            <span class="step-time">t = +0.8s</span>
+        <!-- Right Hemisphere (Non-verbal) -->
+        <div class="hemi-box" id="right-hemi">
+          <div>
+            <div class="hemi-title">RIGHT BRAIN</div>
+            <div class="hemi-sub">SPATIAL / MOTOR CONTROL</div>
           </div>
-          <div id="s01-step2" class="step-node" data-layout-allow-overlap>
-            <span class="step-label">Step 02</span>
-            <span class="step-time">t = +1.6s</span>
+          <div class="flash-command-box" id="cmd-box">
+            WALK
           </div>
-          <div id="s01-step3" class="step-node" data-layout-allow-overlap>
-            <span class="step-label">Step 03</span>
-            <span class="step-time">t = +2.4s</span>
-          </div>
+          <div class="action-badge" id="action-badge">STIMULUS RECEIVED</div>
         </div>
       </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s01-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s01-line" id="s01-caption" class="caption-line">When neuroscientists flashed the word 'WALK'...</p>
-        <span data-hf-id="hf-s01-sub" id="s01-sub" class="caption-sub">The Split-Brain Experiment (1977)</span>
+      <div class="callout-box">
+        <h1 class="callout-title">THE SILENT COMMAND</h1>
+        <p class="callout-sub">COMMAND RECEIVED BY RIGHT HEMISPHERE // INVISIBLE TO VERBAL SPEECH</p>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        When neuroscientists flashed the word 'WALK' into a patient's right hemisphere...
       </div>
     </div>
   </div>
@@ -322,39 +179,12 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-01-command"] = tl;
 
-    const env = document.getElementById("s01-env");
-    const stage = document.getElementById("s01-stage");
-    const flash = document.getElementById("s01-flash");
-    const pulseNode = document.getElementById("s01-pulse-node");
-    const step1 = document.getElementById("s01-step1");
-    const step2 = document.getElementById("s01-step2");
-    const step3 = document.getElementById("s01-step3");
-    const caption = document.getElementById("s01-caption");
-    const sub = document.getElementById("s01-sub");
+    tl.fromTo("#s01-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+    tl.fromTo("#cmd-box", { scale: 0.8 }, { scale: 1.1, yoyo: true, repeat: 5, duration: 0.4 }, 0.5);
 
-    gsap.set(flash, { opacity: 0, scale: 0.8 });
-    gsap.set([step1, step2, step3], { opacity: 0, y: 30 });
-    gsap.set(pulseNode, { opacity: 0, scale: 0.5 });
-    gsap.set(stage, { scale: 0.95 });
-
-    // Continuous camera push
-    tl.to(env, { scale: 1.05, duration: 10.26, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, duration: 10.26, ease: "power1.out" }, 0);
-
-    // 0.4s: Tachistoscope flash of "WALK"
-    tl.to(flash, { opacity: 1, scale: 1.08, duration: 0.25, ease: "power2.out" }, 0.4);
-    tl.to(flash, { scale: 1.0, duration: 0.4, ease: "power1.inOut" }, 0.65);
-    tl.to(pulseNode, { opacity: 1, scale: 1.4, duration: 0.5, ease: "back.out(2)" }, 1.0);
-
-    // 5.4s: Second half of sentence: "...the patient stood up and began walking."
     tl.call(() => {
-      caption.innerHTML = '...the patient <span class="accent">stood up and began walking</span>.';
-      sub.innerText = 'Immediate Motor Execution';
-    }, null, 5.4);
-
-    // Stepping footprint nodes light up sequentially
-    tl.to(step1, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 5.8);
-    tl.to(step2, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 6.8);
-    tl.to(step3, { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }, 7.8);
+      document.getElementById("cap-text").innerHTML = "...the patient stood up and began walking.";
+      document.getElementById("action-badge").innerHTML = "ACTION: STAND & WALK [EXECUTING]";
+    }, null, 5.0);
   </script>
 </template>

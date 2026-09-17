@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,253 +14,175 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #080706;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .cafe-isometric-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 50%, rgba(242, 210, 75, 0.08) 0%, transparent 65%),
-        radial-gradient(circle at 80% 20%, rgba(212, 98, 43, 0.06) 0%, transparent 45%),
-        linear-gradient(180deg, #120f0d 0%, #060504 100%);
-    }
-
-    .spatial-stage {
-      position: absolute;
-      inset: 0;
+      top: 320px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
+      align-items: center;
+    }
+
+    .diagram-stage {
+      width: 640px;
+      height: 600px;
+      position: relative;
+      display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* 4-Corner Patron Grid */
-    .bubble-grid {
-      position: relative;
-      width: 820px;
-      height: 700px;
-      margin-top: -60px;
+    .target-center {
+      width: 130px;
+      height: 130px;
+      border: 3px solid #FFFFFF;
+      background: #000000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
     }
 
-    .person-station {
+    .target-dot {
+      width: 14px;
+      height: 14px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      margin-bottom: 6px;
+    }
+
+    .target-label {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #FFFFFF;
+    }
+
+    /* Private Anxiety Bubbles */
+    .bubble {
       position: absolute;
-      width: 360px;
+      width: 130px;
+      height: 130px;
+      border: 2px dashed #888890;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+    }
+
+    .bubble-dot {
+      width: 10px;
+      height: 10px;
+      background: #888890;
+      border-radius: 50%;
+    }
+
+    .bubble-tag {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .b-top { top: 10px; left: 255px; }
+    .b-right { top: 235px; right: 10px; }
+    .b-bottom { bottom: 10px; left: 255px; }
+    .b-left { top: 235px; left: 10px; }
+
+    .callout-box {
+      margin-top: 50px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
+      text-align: center;
+      width: 780px;
+      border-top: 2px solid #222226;
+      padding-top: 35px;
     }
 
-    .station-top-left { top: 30px; left: 20px; }
-    .station-top-right { top: 30px; right: 20px; }
-    .station-bot-left { bottom: 40px; left: 20px; }
-    .station-bot-right { bottom: 40px; right: 20px; }
-
-    /* Anxiety Sphere Bubble */
-    .anxiety-bubble {
-      position: relative;
-      background: rgba(22, 19, 16, 0.9);
-      border: 1.5px solid rgba(242, 210, 75, 0.35);
-      border-radius: 14px;
-      padding: 16px 20px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(242, 210, 75, 0.1);
-      backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: 100%;
-    }
-
-    .bubble-tag {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+    .callout-title {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #F2D24B;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      color: #FFFFFF;
     }
 
-    .bubble-tag::before {
-      content: "";
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #D4622B;
-    }
-
-    .bubble-quote {
-      font-family: "Playfair Display", serif;
-      font-size: 16px;
-      font-style: italic;
-      line-height: 1.35;
-      color: #F2F1EC;
-    }
-
-    /* Person Silhouette with Inward Gaze Ring */
-    .person-avatar {
-      position: relative;
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-head {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: #1e1b17;
-      border: 1px solid rgba(242, 241, 236, 0.2);
-    }
-
-    .inward-loop-ring {
-      position: absolute;
-      inset: 0;
-      border: 2px dashed rgba(212, 98, 43, 0.7);
-      border-radius: 50%;
-    }
-
-    /* Central Axis Indicator */
-    .center-vector-marker {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(14, 12, 10, 0.9);
-      border: 1px solid rgba(242, 241, 236, 0.15);
-      padding: 10px 18px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-    }
-
-    .marker-text {
-      font-size: 11px;
+    .callout-sub {
+      font-size: 18px;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: #A0A09C;
+      color: #888890;
     }
 
-    .marker-val {
-      font-size: 13px;
-      font-weight: 800;
-      color: #F2D24B;
-    }
-
-    /* Safe Zone Captions */
-    .film-caption-block {
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 14px;
+      justify-content: center;
       pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 40px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 16px;
-      font-weight: 600;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s04-root" id="root" data-composition-id="shot-04-inward" data-width="1080" data-height="1920" data-duration="9.14">
-    <div data-hf-id="hf-s04-env" id="s04-env" class="cafe-isometric-env" data-layout-allow-overflow></div>
-
-    <div data-hf-id="hf-s04-stage" id="s04-stage" class="spatial-stage" data-layout-allow-overlap data-layout-allow-overflow>
-      <div class="bubble-grid" data-layout-allow-overlap>
-        <!-- Center Marker -->
-        <div data-hf-id="hf-s04-marker" id="s04-marker" class="center-vector-marker" data-layout-allow-overlap>
-          <span class="marker-text">External Gaze Vectors:</span>
-          <span class="marker-val">0.00%</span>
+  <div data-hf-id="s04-root" id="root" data-composition-id="shot-04-inward" data-width="1080" data-height="1920" data-duration="9.14">
+    <div data-hf-id="s04-content" id="s04-content" class="clip canvas-center" data-start="0" data-duration="9.14" data-track-index="1">
+      <div class="diagram-stage">
+        <div class="target-center" id="target-center">
+          <div class="target-dot"></div>
+          <span class="target-label">YOU [UNSEEN]</span>
         </div>
 
-        <!-- Station 1: Top Left -->
-        <div data-hf-id="hf-s04-st1" id="s04-st1" class="person-station station-top-left" data-layout-allow-overlap>
-          <div class="anxiety-bubble">
-            <span class="bubble-tag">Self-Absorption Node 01</span>
-            <p class="bubble-quote">“Did my email sound aggressive?”</p>
-          </div>
-          <div class="person-avatar">
-            <div class="inward-loop-ring" id="s04-ring1"></div>
-            <div class="avatar-head"></div>
-          </div>
+        <div class="bubble b-top">
+          <div class="bubble-dot"></div>
+          <span class="bubble-tag">MY DEADLINE</span>
         </div>
+        <div class="bubble b-right">
+          <div class="bubble-dot"></div>
+          <span class="bubble-tag">MY HAIRCUT</span>
+        </div>
+        <div class="bubble b-bottom">
+          <div class="bubble-dot"></div>
+          <span class="bubble-tag">DID I SOUND DUMB?</span>
+        </div>
+        <div class="bubble b-left">
+          <div class="bubble-dot"></div>
+          <span class="bubble-tag">MY INBOX</span>
+        </div>
+      </div>
 
-        <!-- Station 2: Top Right -->
-        <div data-hf-id="hf-s04-st2" id="s04-st2" class="person-station station-top-right" data-layout-allow-overlap>
-          <div class="anxiety-bubble">
-            <span class="bubble-tag">Self-Absorption Node 02</span>
-            <p class="bubble-quote">“Everyone is judging my haircut.”</p>
-          </div>
-          <div class="person-avatar">
-            <div class="inward-loop-ring" id="s04-ring2"></div>
-            <div class="avatar-head"></div>
-          </div>
-        </div>
-
-        <!-- Station 3: Bottom Left -->
-        <div data-hf-id="hf-s04-st3" id="s04-st3" class="person-station station-bot-left" data-layout-allow-overlap>
-          <div class="person-avatar">
-            <div class="inward-loop-ring" id="s04-ring3"></div>
-            <div class="avatar-head"></div>
-          </div>
-          <div class="anxiety-bubble">
-            <span class="bubble-tag">Self-Absorption Node 03</span>
-            <p class="bubble-quote">“Did I say something awkward?”</p>
-          </div>
-        </div>
-
-        <!-- Station 4: Bottom Right -->
-        <div data-hf-id="hf-s04-st4" id="s04-st4" class="person-station station-bot-right" data-layout-allow-overlap>
-          <div class="person-avatar">
-            <div class="inward-loop-ring" id="s04-ring4"></div>
-            <div class="avatar-head"></div>
-          </div>
-          <div class="anxiety-bubble">
-            <span class="bubble-tag">Self-Absorption Node 04</span>
-            <p class="bubble-quote">“Forgot to review my slides.”</p>
-          </div>
-        </div>
+      <div class="callout-box" id="callout-box">
+        <span class="callout-title">THE INWARD VECTORS</span>
+        <span class="callout-sub">GAZE AT YOU: 0% // OBSESSION WITH SELF: 100%</span>
       </div>
     </div>
 
-    <!-- Safe Zone Captions -->
-    <div data-hf-id="hf-s04-capwrap" class="film-caption-block" data-layout-allow-overlap>
-      <p data-hf-id="hf-s04-line" id="s04-caption" class="caption-line">The truth is nobody is watching you...</p>
-      <span data-hf-id="hf-s04-sub" id="s04-sub" class="caption-sub">04 / The Inward Vectors</span>
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        The truth is nobody is watching you.
+      </div>
     </div>
   </div>
 
@@ -275,40 +191,11 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-04-inward"] = tl;
 
-    const env = document.getElementById("s04-env");
-    const stage = document.getElementById("s04-stage");
-    const st1 = document.getElementById("s04-st1");
-    const st2 = document.getElementById("s04-st2");
-    const st3 = document.getElementById("s04-st3");
-    const st4 = document.getElementById("s04-st4");
-    const r1 = document.getElementById("s04-ring1");
-    const r2 = document.getElementById("s04-ring2");
-    const r3 = document.getElementById("s04-ring3");
-    const r4 = document.getElementById("s04-ring4");
-    const marker = document.getElementById("s04-marker");
-    const caption = document.getElementById("s04-caption");
-    const sub = document.getElementById("s04-sub");
+    tl.fromTo("#s04-content", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.0);
+    tl.fromTo(".bubble", { scale: 0.4, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" }, 0.4);
 
-    gsap.set([st1, st2, st3, st4], { scale: 0.85, opacity: 0 });
-    gsap.set(marker, { scale: 0.8, opacity: 0 });
-    gsap.set(stage, { scale: 0.94 });
-    gsap.set([r1, r2, r3, r4], { rotation: 0 });
-
-    tl.to(env, { scale: 1.05, duration: 9.14, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.03, duration: 9.14, ease: "power1.out" }, 0);
-    tl.to([r1, r2, r3, r4], { rotation: 180, duration: 9.14, ease: "none" }, 0);
-
-    // Nodes appear sequentially
-    tl.to(marker, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.5)" }, 0.5);
-    tl.to(st1, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 1.0);
-    tl.to(st2, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 1.6);
-    tl.to(st3, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 2.2);
-    tl.to(st4, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, 2.8);
-
-    // 4.0s: "...trapped in their own private anxiety bubble, obsessing over their own flaws."
     tl.call(() => {
-      caption.innerHTML = 'everyone is trapped in their <span class="accent">own private anxiety bubble</span>.';
-      sub.innerText = '04 / Universal Egocentricity';
-    }, null, 4.0);
+      document.getElementById("cap-text").innerHTML = "Everyone around you is trapped in their own private anxiety bubble.";
+    }, null, 3.5);
   </script>
 </template>

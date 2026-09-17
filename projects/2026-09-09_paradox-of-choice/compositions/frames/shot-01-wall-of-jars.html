@@ -1,0 +1,230 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 300px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .section-label {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 24px;
+    }
+
+    /* Option Cluster A: 24 choices */
+    .cluster-box {
+      width: 820px;
+      border: 3px solid #FFFFFF;
+      padding: 36px 40px;
+      margin-bottom: 40px;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .cluster-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #222226;
+      padding-bottom: 14px;
+    }
+
+    .cluster-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .cluster-stat {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      color: #888890;
+    }
+
+    .grid-dense {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .jar-dot {
+      width: 100%;
+      aspect-ratio: 1;
+      border: 2px solid #FFFFFF;
+      opacity: 0.4;
+    }
+
+    .jar-dot.active {
+      opacity: 1;
+      background: #FFFFFF;
+    }
+
+    .cluster-result {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888890;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .result-alert {
+      color: #FFFFFF;
+    }
+
+    /* Option Cluster B: 6 choices */
+    .strip-six {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      padding: 10px 0;
+    }
+
+    .jar-box-large {
+      height: 64px;
+      border: 3px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      transition: all 0.2s ease;
+    }
+
+    .jar-box-large.purchased {
+      background: #FFFFFF;
+      color: #000000;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.35;
+    }
+  </style>
+
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-wall-of-jars" data-width="1080" data-height="1920" data-duration="10.98">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="10.98" data-track-index="1">
+      <div class="section-label">THE JAM EXPERIMENT // COLUMBIA UNIVERSITY</div>
+
+      <!-- Case 1: Overload -->
+      <div class="cluster-box" id="box-overload">
+        <div class="cluster-header">
+          <span class="cluster-title">EXCESSIVE OPTIONS</span>
+          <span class="cluster-stat">N = 24 JARS</span>
+        </div>
+        <div class="grid-dense" id="dense-grid">
+          <!-- 24 small boxes -->
+          <div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div>
+          <div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div>
+          <div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div>
+          <div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div>
+          <div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div>
+          <div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div><div class="jar-dot"></div>
+        </div>
+        <div class="cluster-result">
+          <span>INTEREST: 60% HIGH</span>
+          <span class="result-alert" id="res-overload">PURCHASE: 3% (PARALYSIS)</span>
+        </div>
+      </div>
+
+      <!-- Case 2: Minimal Choices -->
+      <div class="cluster-box" id="box-minimal" style="opacity: 0;">
+        <div class="cluster-header">
+          <span class="cluster-title">CONSTRAINED OPTIONS</span>
+          <span class="cluster-stat">N = 6 JARS</span>
+        </div>
+        <div class="strip-six">
+          <div class="jar-box-large purchased" id="jar-p1">01</div>
+          <div class="jar-box-large purchased" id="jar-p2">02</div>
+          <div class="jar-box-large">03</div>
+          <div class="jar-box-large">04</div>
+          <div class="jar-box-large">05</div>
+          <div class="jar-box-large">06</div>
+        </div>
+        <div class="cluster-result">
+          <span>INTEREST: 40%</span>
+          <span class="result-alert" style="color: #FFFFFF;">PURCHASE: 31% (10X CONVERSION)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Two hundred jams on a wall. You taste thirty. You walk out with nothing.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-wall-of-jars"] = tl;
+
+    // Initial entrance
+    tl.fromTo("#s01-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+    tl.fromTo("#box-overload", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 0.1);
+
+    // Stagger dots in 24-jar display
+    tl.fromTo(".jar-dot", { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 0.4, duration: 0.3, stagger: 0.02 }, 0.2);
+
+    // Freeze effect on overload
+    tl.to("#res-overload", { color: "#888890", duration: 0.3 }, 3.5);
+
+    // 6.0s: Constrained options reveal
+    tl.fromTo("#box-minimal", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power2.out" }, 6.0);
+    tl.fromTo(["#jar-p1", "#jar-p2"], { scale: 0.8 }, { scale: 1.0, duration: 0.25, stagger: 0.15, ease: "back.out(2)" }, 6.8);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "Meanwhile, someone who saw six jars bought two and felt perfectly satisfied.";
+    }, null, 6.0);
+  </script>
+</template>

@@ -1,0 +1,174 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 320px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .scale-container {
+      width: 780px;
+      height: 280px;
+      border: 3px solid #FFFFFF;
+      background: #000000;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 40px;
+      margin-bottom: 50px;
+    }
+
+    .scale-axis {
+      width: 100%;
+      height: 6px;
+      background: #222226;
+      position: relative;
+    }
+
+    .anchor-marker {
+      position: absolute;
+      left: 65%;
+      top: -30px;
+      width: 4px;
+      height: 66px;
+      background: #FFFFFF;
+    }
+
+    .anchor-pill {
+      position: absolute;
+      left: 65%;
+      top: -75px;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      background: #000000;
+      border: 2px solid #FFFFFF;
+      padding: 6px 14px;
+      white-space: nowrap;
+    }
+
+    .estimate-indicator {
+      position: absolute;
+      left: 65%;
+      bottom: -60px;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888890;
+      white-space: nowrap;
+    }
+
+    .callout-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      width: 780px;
+      border-top: 2px solid #222226;
+      padding-top: 35px;
+    }
+
+    .callout-title {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .callout-sub {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
+  </style>
+
+  <div data-hf-id="s02-root" id="root" data-composition-id="shot-02-judgment-warp" data-width="1080" data-height="1920" data-duration="9.78">
+    <div data-hf-id="s02-content" id="s02-content" class="clip canvas-center" data-start="0" data-duration="9.78" data-track-index="1">
+      <div class="scale-container">
+        <div class="scale-axis">
+          <div class="anchor-marker" id="anchor-mark"></div>
+          <div class="anchor-pill" id="anchor-pill">ANCHOR: 65%</div>
+          <div class="estimate-indicator" id="est-pill">YOUR ESTIMATE: 65% (GRAVITATIONAL PULL)</div>
+        </div>
+      </div>
+
+      <div class="callout-box" id="callout-box">
+        <span class="callout-title">THE JUDGMENT WARP</span>
+        <span class="callout-sub">ESTIMATES SHIFT WILDLY BASED ON UNRELATED NUMBERS</span>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Minutes later, you're asked to estimate something completely unrelated...
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-judgment-warp"] = tl;
+
+    tl.fromTo("#s02-content", { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.0);
+    tl.fromTo("#anchor-mark", { scaleY: 0 }, { scaleY: 1, duration: 0.4, ease: "power4.out" }, 0.5);
+    tl.fromTo("#anchor-pill", { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 0.8);
+    tl.fromTo("#est-pill", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.3 }, 1.2);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "And your answer is anchored to that random number like a ship tied to the ocean floor.";
+    }, null, 4.5);
+  </script>
+</template>

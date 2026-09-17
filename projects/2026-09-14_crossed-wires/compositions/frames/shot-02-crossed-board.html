@@ -1,0 +1,221 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 240px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .board-container {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .board-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .cortex-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      position: relative;
+    }
+
+    .cortex-card {
+      border: 3px solid #FFFFFF;
+      height: 180px;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      text-align: center;
+      position: relative;
+    }
+
+    .cortex-title {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .cortex-status {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    .cross-bridge-wire {
+      width: 100%;
+      height: 64px;
+      border: 2px dashed #444450;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #050505;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #888890;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    .cross-bridge-wire.active {
+      border: 2px solid #FFFFFF;
+      color: #FFFFFF;
+      opacity: 1;
+    }
+
+    .board-footer {
+      border-top: 2px solid #333338;
+      padding-top: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .footer-sub {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s02-root" id="root" data-composition-id="shot-02-crossed-board" data-width="1080" data-height="1920" data-duration="12.90">
+    <div data-hf-id="s02-content" id="s02-content" class="clip canvas-center" data-start="0" data-duration="12.90" data-track-index="1">
+      <div class="board-container">
+        <div class="board-header">
+          <span>CORTICAL REGION ARCHITECTURE</span>
+          <span style="color: #888890;">PARTITION MATRIX</span>
+        </div>
+
+        <div class="cortex-grid">
+          <div class="cortex-card" id="cortex-vis">
+            <span class="cortex-title">VISUAL</span>
+            <span class="cortex-status">OCCIPITAL</span>
+          </div>
+
+          <div class="cortex-card" id="cortex-aud">
+            <span class="cortex-title">AUDITORY</span>
+            <span class="cortex-status">TEMPORAL</span>
+          </div>
+
+          <div class="cortex-card" id="cortex-gus">
+            <span class="cortex-title">GUSTATORY</span>
+            <span class="cortex-status">INSULAR</span>
+          </div>
+        </div>
+
+        <div class="cross-bridge-wire" id="wire1">
+          <span>STANDARD BRAIN: RIGID PARTITIONS (ISOLATED)</span>
+        </div>
+
+        <div class="cross-bridge-wire" id="wire2">
+          <span>SYNESTHESIA: PERMEABLE WALLS (BLEEDING CHANNELS)</span>
+        </div>
+
+        <div class="board-footer" id="board-footer">
+          <span class="footer-title">THE WALLS ARE MISSING ENTIRELY</span>
+          <span class="footer-sub">DIRECT NEURAL BRIDGES ACROSS SENSORY NEIGHBORHOODS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        In a typical brain, the visual, auditory, and gustatory cortex are separate neighborhoods.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-crossed-board"] = tl;
+
+    tl.fromTo("#s02-content", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+
+    // Initial state: separate neighborhoods
+    tl.to("#wire1", { opacity: 1, borderColor: "#FFFFFF", duration: 0.4 }, 1.5);
+
+    // Transition: walls dissolve, permeable bridges activate
+    tl.to("#wire1", { opacity: 0.3, borderColor: "#444450", duration: 0.3 }, 5.5);
+    tl.to("#wire2", { opacity: 1, borderColor: "#FFFFFF", color: "#FFFFFF", duration: 0.5 }, 6.0);
+
+    tl.fromTo("#board-footer", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.45 }, 7.5);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "In synesthesia, the walls between them are thin — or missing entirely.";
+    }, null, 5.5);
+  </script>
+</template>

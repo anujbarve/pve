@@ -1,0 +1,190 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 300px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .meta-tag {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #888890;
+      margin-bottom: 24px;
+    }
+
+    /* Clock Stage */
+    .clock-stage {
+      width: 440px;
+      height: 440px;
+      border: 3px solid #FFFFFF;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 48px;
+    }
+
+    .clock-center-dot {
+      width: 16px;
+      height: 16px;
+      background: #FFFFFF;
+      border-radius: 50%;
+      z-index: 10;
+    }
+
+    .clock-hand-hour {
+      position: absolute;
+      width: 4px;
+      height: 120px;
+      background: #FFFFFF;
+      bottom: 220px;
+      left: 218px;
+      transform-origin: bottom center;
+      transform: rotate(270deg); /* 9 o'clock */
+    }
+
+    .clock-hand-minute {
+      position: absolute;
+      width: 3px;
+      height: 170px;
+      background: #FFFFFF;
+      bottom: 220px;
+      left: 218.5px;
+      transform-origin: bottom center;
+      transform: rotate(0deg); /* 12 o'clock */
+    }
+
+    /* Ticks */
+    .tick-12 { position: absolute; top: 12px; width: 4px; height: 16px; background: #888890; }
+    .tick-3  { position: absolute; right: 12px; width: 16px; height: 4px; background: #888890; }
+    .tick-6  { position: absolute; bottom: 12px; width: 4px; height: 16px; background: #888890; }
+    .tick-9  { position: absolute; left: 12px; width: 16px; height: 4px; background: #888890; }
+
+    /* Telemetry readout */
+    .readout-panel {
+      width: 820px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 36px 40px;
+      text-align: center;
+    }
+
+    .readout-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .readout-sub {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.35;
+    }
+  </style>
+
+  <div data-hf-id="s01-root" id="root" data-composition-id="shot-01-vanishing-clock" data-width="1080" data-height="1920" data-duration="10.58">
+    <div data-hf-id="s01-content" id="s01-content" class="clip canvas-center" data-start="0" data-duration="10.58" data-track-index="1">
+      <div class="meta-tag">PHENOMENOLOGY // TIME DILATION</div>
+
+      <div class="clock-stage" id="clock-stage">
+        <div class="tick-12"></div>
+        <div class="tick-3"></div>
+        <div class="tick-6"></div>
+        <div class="tick-9"></div>
+        <div class="clock-center-dot"></div>
+        <div class="clock-hand-hour" id="hand-hour"></div>
+        <div class="clock-hand-minute" id="hand-minute"></div>
+      </div>
+
+      <div class="readout-panel">
+        <div class="readout-title" id="readout-title">09:00 PM // FOCUS ONSET</div>
+        <div class="readout-sub" id="readout-sub">TEMPORAL PERCEPTION: NORMAL</div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        You sit down to write at nine o'clock.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-01-vanishing-clock"] = tl;
+
+    tl.fromTo("#s01-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
+
+    // At 2.8s: Hands spin rapidly as time dilates
+    tl.to("#hand-minute", { rotation: 1800, duration: 3.0, ease: "power2.inOut" }, 2.8);
+    tl.to("#hand-hour", { rotation: 420, duration: 3.0, ease: "power2.inOut" }, 2.8); /* 2 o'clock = 60 deg, +360 = 420 */
+
+    // Clock fades to translucent outline as time vanishes
+    tl.to("#clock-stage", { borderColor: "#444450", duration: 1.5 }, 4.5);
+
+    tl.call(() => {
+      document.getElementById("readout-title").innerText = "02:00 AM // 5 HOURS EVAPORATED";
+      document.getElementById("readout-sub").innerText = "FLOW STATE: INNER CLOCK DEACTIVATED";
+      document.getElementById("cap-text").innerHTML = "You look up and it's two in the morning.";
+    }, null, 2.8);
+
+    tl.call(() => {
+      document.getElementById("readout-title").innerText = "TIME CONSCIOUSNESS: 0%";
+      document.getElementById("readout-sub").innerText = "1,400 MINUTES EVAPORATED // PURE PRESENCE";
+      document.getElementById("cap-text").innerHTML = "Fourteen hundred minutes just evaporated — and you felt every second of it.";
+    }, null, 6.2);
+  </script>
+</template>

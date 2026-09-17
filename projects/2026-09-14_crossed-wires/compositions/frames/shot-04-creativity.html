@@ -1,0 +1,228 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 240px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .creativity-container {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .creativity-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 14px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .artist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .artist-card {
+      border: 2px solid #FFFFFF;
+      padding: 20px;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .artist-name {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .artist-crossover {
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      color: #888890;
+      text-transform: uppercase;
+    }
+
+    .bandwidth-section {
+      border: 2px solid #555560;
+      padding: 24px;
+      background: #050505;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bandwidth-section.highlight {
+      border-color: #FFFFFF;
+    }
+
+    .bandwidth-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    .bandwidth-bar-outer {
+      width: 100%;
+      height: 44px;
+      border: 2px solid #FFFFFF;
+      padding: 4px;
+    }
+
+    .bandwidth-bar-fill {
+      height: 100%;
+      background: #FFFFFF;
+    }
+
+    .creativity-footer {
+      border-top: 2px solid #333338;
+      padding-top: 24px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .footer-sub {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s04-root" id="root" data-composition-id="shot-04-creativity" data-width="1080" data-height="1920" data-duration="13.86">
+    <div data-hf-id="s04-content" id="s04-content" class="clip canvas-center" data-start="0" data-duration="13.86" data-track-index="1">
+      <div class="creativity-container">
+        <div class="creativity-header">
+          <span>COGNITIVE BANDWIDTH MULTIPLIER</span>
+          <span style="color: #888890;">ARTISTIC CONCURRENCY</span>
+        </div>
+
+        <div class="artist-grid">
+          <div class="artist-card" id="card-kandinsky">
+            <span class="artist-name">KANDINSKY</span>
+            <span class="artist-crossover">HEARD COLORS</span>
+          </div>
+          <div class="artist-card" id="card-pharrell">
+            <span class="artist-name">PHARRELL</span>
+            <span class="artist-crossover">TASTED SOUNDS</span>
+          </div>
+        </div>
+
+        <!-- Bandwidth Meter -->
+        <div class="bandwidth-section highlight" id="bandwidth-meter">
+          <div class="bandwidth-meta">
+            <span style="color: #FFFFFF;">THROUGHPUT: 3.5X BANDWIDTH</span>
+            <span style="color: #FFFFFF;">4 CONCURRENT DATA FEEDS</span>
+          </div>
+          <div class="bandwidth-bar-outer">
+            <div class="bandwidth-bar-fill" id="bar-bw" style="width: 92%;"></div>
+          </div>
+        </div>
+
+        <div class="creativity-footer" id="creativity-footer">
+          <span class="footer-title">THE CROSSED WIRES ARE NOT NOISE</span>
+          <span class="footer-sub">THEY ARE EXTRA SENSORY BANDWIDTH</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Synesthetes are disproportionately represented among artists, musicians, and poets.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-creativity"] = tl;
+
+    tl.fromTo("#s04-content", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+
+    // Artists highlight
+    tl.fromTo("#card-kandinsky", { scale: 0.95 }, { scale: 1.0, duration: 0.4 }, 2.0);
+    tl.fromTo("#card-pharrell", { scale: 0.95 }, { scale: 1.0, duration: 0.4 }, 3.5);
+
+    // Bandwidth expansion
+    tl.fromTo("#bar-bw", { width: "25%" }, { width: "95%", duration: 2.5, ease: "power2.out" }, 6.5);
+    tl.fromTo("#creativity-footer", { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.45 }, 8.0);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "Kandinsky heard colors. Pharrell tastes sounds.";
+    }, null, 4.0);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "The crossed wires aren't noise — they're extra bandwidth.";
+    }, null, 8.5);
+  </script>
+</template>

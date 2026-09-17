@@ -1,0 +1,186 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 250px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .ladder-container {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .ladder-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 14px;
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .step-box {
+      width: 100%;
+      height: 76px;
+      border: 2px solid #555560;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      background: #050505;
+      opacity: 0.3;
+    }
+
+    .step-box.active {
+      border-color: #FFFFFF;
+      opacity: 1;
+    }
+
+    .loss-tag {
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-warning {
+      margin-top: 36px;
+      width: 760px;
+      text-align: center;
+      border-top: 2px solid #333338;
+      padding-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-title {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    .footer-sub {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888890;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s04-root" id="root" data-composition-id="shot-04-ladder" data-width="1080" data-height="1920" data-duration="9.46">
+    <div data-hf-id="s04-content" id="s04-content" class="clip canvas-center" data-start="0" data-duration="9.46" data-track-index="1">
+      <div class="ladder-container">
+        <div class="ladder-header">
+          <span>THE DOWNWARD SPIRAL</span>
+          <span style="color: #888890;">CHASING SUNK LOSSES</span>
+        </div>
+
+        <div class="step-box active" id="step-1">
+          <span>RUNG 01: INITIAL SUNK COST</span>
+          <span class="loss-tag">-$10,000</span>
+        </div>
+
+        <div class="step-box" id="step-2">
+          <span>RUNG 02: DOUBLING DOWN</span>
+          <span class="loss-tag">-$25,000</span>
+        </div>
+
+        <div class="step-box" id="step-3">
+          <span>RUNG 03: CHASING LOSSES</span>
+          <span class="loss-tag">-$60,000</span>
+        </div>
+
+        <div class="step-box" id="step-4">
+          <span>RUNG 04: TOTAL PARALYSIS</span>
+          <span class="loss-tag">-$100,000</span>
+        </div>
+      </div>
+
+      <div class="footer-warning" id="warning-box">
+        <span class="footer-title">THE ESCALATION TRAP</span>
+        <span class="footer-sub">DESPERATION ACCELERATES THE DESCENT</span>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        The sunk cost fallacy makes you pour more in, chasing the losses.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-04-ladder"] = tl;
+
+    tl.fromTo("#s04-content", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power2.out" }, 0.0);
+
+    // Sequential descent down the rungs
+    tl.to("#step-2", { opacity: 1, borderColor: "#FFFFFF", duration: 0.3 }, 2.0);
+    tl.to("#step-3", { opacity: 1, borderColor: "#FFFFFF", duration: 0.3 }, 3.8);
+    tl.to("#step-4", { opacity: 1, borderColor: "#FFFFFF", duration: 0.3 }, 5.5);
+
+    tl.fromTo("#warning-box", { scale: 0.96 }, { scale: 1.04, repeat: 2, yoyo: true, duration: 0.4, ease: "sine.inOut" }, 5.8);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "Pouring more resources in with increasing desperation.";
+    }, null, 4.6);
+  </script>
+</template>

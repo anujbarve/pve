@@ -1,0 +1,230 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #000000;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .canvas-center {
+      position: absolute;
+      top: 260px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
+    }
+
+    .ledger-frame {
+      width: 760px;
+      border: 3px solid #FFFFFF;
+      background: #050505;
+      padding: 36px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .ledger-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #FFFFFF;
+      padding-bottom: 16px;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .columns-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .col-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #888890;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .entry-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .entry-box {
+      border: 2px solid #555560;
+      padding: 14px 18px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+
+    .strike-line {
+      position: absolute;
+      top: 50%;
+      left: -6px;
+      right: -6px;
+      height: 3px;
+      background: #FFFFFF;
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    .return-panel {
+      border: 2px solid #FFFFFF;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      height: 100%;
+    }
+
+    .return-zero {
+      font-size: 56px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      color: #FFFFFF;
+    }
+
+    .return-tag {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #888890;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .manifesto-tag {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+    }
+
+    /* Safe Zone Subtitle (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+      line-height: 1.4;
+    }
+  </style>
+
+  <div data-hf-id="s02-root" id="root" data-composition-id="shot-02-ledger" data-width="1080" data-height="1920" data-duration="12.26">
+    <div data-hf-id="s02-content" id="s02-content" class="clip canvas-center" data-start="0" data-duration="12.26" data-track-index="1">
+      <div class="ledger-frame" id="ledger-frame">
+        <div class="ledger-header">
+          <span>THE MENTAL LEDGER</span>
+          <span style="color: #888890;">AUDIT: FAILED</span>
+        </div>
+
+        <div class="columns-grid">
+          <!-- Sunk Column -->
+          <div>
+            <div class="col-title">SUNK OUTFLOW</div>
+            <div class="entry-list">
+              <div class="entry-box" id="e1" data-layout-allow-occlusion>
+                <span data-layout-allow-occlusion>DOLLARS</span>
+                <span data-layout-allow-occlusion style="color: #888890;">-$45,000</span>
+                <div class="strike-line" id="strike-1" data-layout-allow-occlusion></div>
+              </div>
+              <div class="entry-box" id="e2" data-layout-allow-occlusion>
+                <span data-layout-allow-occlusion>HOURS</span>
+                <span data-layout-allow-occlusion style="color: #888890;">-3,200 HR</span>
+                <div class="strike-line" id="strike-2" data-layout-allow-occlusion></div>
+              </div>
+              <div class="entry-box" id="e3" data-layout-allow-occlusion>
+                <span data-layout-allow-occlusion>EFFORT</span>
+                <span data-layout-allow-occlusion style="color: #888890;">100% GONE</span>
+                <div class="strike-line" id="strike-3" data-layout-allow-occlusion></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Demanded Return -->
+          <div>
+            <div class="col-title">FUTURE RETURN</div>
+            <div class="return-panel" id="return-box">
+              <span class="return-zero">$0.00</span>
+              <span class="return-tag">IRRETRIEVABLE SINKHOLE</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="manifesto-tag" id="manifesto-tag">
+        PAST EXPENDITURE CANNOT FORCE FUTURE VALUE
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Every dollar, every hour, every effort you've already spent is gone.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-02-ledger"] = tl;
+
+    tl.fromTo("#ledger-frame", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.0);
+    tl.fromTo("#manifesto-tag", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0.5);
+
+    // Striking out spent capital
+    tl.to("#strike-1", { scaleX: 1, duration: 0.35, ease: "power1.inOut" }, 1.8);
+    tl.to("#strike-2", { scaleX: 1, duration: 0.35, ease: "power1.inOut" }, 2.5);
+    tl.to("#strike-3", { scaleX: 1, duration: 0.35, ease: "power1.inOut" }, 3.2);
+
+    // Pulse return zero
+    tl.fromTo("#return-box", { scale: 0.95 }, { scale: 1.05, repeat: 3, yoyo: true, duration: 0.4, ease: "sine.inOut" }, 6.0);
+
+    tl.call(() => {
+      document.getElementById("cap-text").innerHTML = "Your brain keeps a running ledger — and demands a return on investment.";
+    }, null, 5.5);
+  </script>
+</template>

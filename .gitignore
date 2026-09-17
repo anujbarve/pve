@@ -22,3 +22,10 @@ renders/
 *.mp3
 !projects/*/assets/*.wav
 !projects/*/assets/*.mp3
+
+# Video binaries
+*.mp4
+*.mov
+*.m4v
+!projects/*/assets/*.mp4
+

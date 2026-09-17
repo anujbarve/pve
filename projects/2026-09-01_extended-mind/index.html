@@ -3,15 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
-    <title>The Extended Mind Thesis — Cinematic Explainer Film</title>
+    <title>The Extended Mind — Jack Butcher Edition</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <style>
-      @font-face {
-        font-family: "Playfair Display";
-        font-style: normal;
-        font-weight: 400 900;
-        src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-      }
       @font-face {
         font-family: "Inter";
         font-style: normal;
@@ -53,7 +47,7 @@
       data-start="0"
       data-duration="42.26"
     >
-      <!-- Shot 01: The Phantom Pocket -->
+      <!-- Shot 01: The Phantom Pocket (0.00s - 8.10s) -->
       <div
         data-hf-id="s01"
         id="s01"
@@ -66,7 +60,7 @@
         data-layout-allow-overlap
       ></div>
 
-      <!-- Shot 02: The Cognitive Amputation -->
+      <!-- Shot 02: The Cognitive Amputation (8.10s - 16.36s) -->
       <div
         data-hf-id="s02"
         id="s02"
@@ -79,7 +73,7 @@
         data-layout-allow-overlap
       ></div>
 
-      <!-- Shot 03: The Extended Mind Thesis -->
+      <!-- Shot 03: The Extended Mind Thesis (16.36s - 25.90s) -->
       <div
         data-hf-id="s03"
         id="s03"
@@ -92,7 +86,7 @@
         data-layout-allow-overlap
       ></div>
 
-      <!-- Shot 04: The Silicon Loop -->
+      <!-- Shot 04: The Silicon Loop (25.90s - 34.16s) -->
       <div
         data-hf-id="s04"
         id="s04"
@@ -105,7 +99,7 @@
         data-layout-allow-overlap
       ></div>
 
-      <!-- Shot 05: The Handheld Cyborg -->
+      <!-- Shot 05: The Handheld Cyborg (34.16s - 42.26s) -->
       <div
         data-hf-id="s05"
         id="s05"
@@ -118,10 +112,10 @@
         data-layout-allow-overlap
       ></div>
 
-      <!-- Master Narration Audio Track -->
+      <!-- Meditative Vocal-Forward Master Audio -->
       <audio
-        data-hf-id="audio-narration"
-        id="audio-narration"
+        data-hf-id="audio-master"
+        id="audio-master"
         src=".temp_audio/master_sound_design.wav"
         data-start="0"
         data-duration="42.26"
@@ -141,18 +135,11 @@
       const s04 = document.getElementById("s04");
       const s05 = document.getElementById("s05");
 
-      // Seamless film dissolves
-      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 8.10);
-      masterTl.to(s01, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 8.10);
-
-      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 16.36);
-      masterTl.to(s02, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 16.36);
-
-      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 25.90);
-      masterTl.to(s03, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 25.90);
-
-      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 34.16);
-      masterTl.to(s04, { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 34.16);
+      // Crisp cuts between mental model diagrams
+      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 8.10);
+      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 16.36);
+      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 25.90);
+      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 34.16);
     </script>
   </body>
 </html>

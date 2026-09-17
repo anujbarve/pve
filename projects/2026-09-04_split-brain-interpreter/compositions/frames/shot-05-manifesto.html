@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,172 +14,135 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #080808;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 50% 45%, rgba(242, 210, 75, 0.2) 0%, transparent 60%),
-        radial-gradient(circle at 50% 80%, rgba(212, 98, 43, 0.12) 0%, transparent 50%),
-        linear-gradient(180deg, #0d0e14 0%, #040507 100%);
-    }
-
-    .cosmos-floor {
-      position: absolute;
-      bottom: 0;
-      left: -100px;
-      right: -100px;
-      height: 900px;
-      background: linear-gradient(180deg, rgba(16, 18, 26, 0.95) 0%, #030406 100%);
-      transform: perspective(1000px) rotateX(55deg);
-      border-top: 1px solid rgba(242, 210, 75, 0.35);
-    }
-
-    .stage-center {
-      position: absolute;
-      inset: 0;
+      top: 300px;
+      left: 0;
+      right: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      padding: 0 80px;
     }
 
-    /* Manifesto Monumental Card Stage */
-    .manifesto-stage {
+    .reason-stage {
+      width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .model-box {
+      width: 100%;
+      height: 110px;
+      border: 3px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 36px;
       position: relative;
-      width: 780px;
-      height: 600px;
-      margin-top: -40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      text-align: center;
     }
 
-    .monument-pill {
-      background: rgba(14, 17, 24, 0.85);
-      border: 1px solid rgba(242, 210, 75, 0.4);
-      padding: 10px 24px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #F2D24B;
-      box-shadow: 0 0 30px rgba(242, 210, 75, 0.2);
-    }
-
-    .manifesto-hero-title {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-main {
-      font-family: "Playfair Display", serif;
-      font-size: 68px;
+    .model-title {
+      font-size: 24px;
       font-weight: 900;
-      color: #F2F1EC;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      text-shadow: 0 5px 35px rgba(0,0,0,0.9);
-    }
-
-    .hero-subline {
-      font-family: "Playfair Display", serif;
-      font-size: 58px;
-      font-weight: 700;
-      font-style: italic;
-      color: #F2D24B;
-      line-height: 1.1;
-      text-shadow: 0 0 40px rgba(242, 210, 75, 0.4);
-    }
-
-    .manifesto-rule {
-      width: 220px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent 0%, #F2D24B 50%, transparent 100%);
-      margin: 10px 0;
-    }
-
-    .manifesto-core-insight {
-      font-family: "Inter", sans-serif;
-      font-size: 18px;
-      font-weight: 500;
-      color: #A0A09C;
-      letter-spacing: 0.08em;
-      max-width: 540px;
-      line-height: 1.5;
-    }
-
-    /* Subtitles at bottom: 480px */
-    .film-caption-block {
-      position: absolute;
-      bottom: 480px;
-      left: 90px;
-      right: 90px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
-    }
-
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
-      font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
+
+    .model-tag {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      color: #A0A0B0;
+      text-transform: uppercase;
+    }
+
+    .strike-line {
+      position: absolute;
+      top: 50%;
+      left: -8px;
+      right: -8px;
+      height: 4px;
+      background: #FFFFFF;
+      transform: translateY(-50%);
+    }
+
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
+      text-align: center;
+    }
+
+    .callout-title {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
+    }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
-
-  <div data-hf-id="hf-s05-root" id="root" data-composition-id="shot-05-manifesto" data-width="1080" data-height="1920" data-duration="9.22">
-    <div data-hf-id="hf-s05-env" id="s05-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s05-floor" id="s05-floor" class="cosmos-floor" data-layout-allow-overflow></div>
-
-    <div class="stage-center">
-      <!-- Manifesto Stage -->
-      <div data-hf-id="hf-s05-stage" id="s05-stage" class="manifesto-stage" data-layout-allow-overlap>
-        <div class="monument-pill">THE NEUROLOGICAL REALITY</div>
-        <div class="manifesto-hero-title">
-          <span class="hero-main">THE NARRATOR</span>
-          <span class="hero-subline">NOT THE AUTHOR</span>
+  <div data-hf-id="s05-root" id="root" data-composition-id="shot-05-manifesto" data-width="1080" data-height="1920" data-duration="9.22">
+    <div data-hf-id="s05-content" id="s05-content" class="clip canvas-center" data-start="0" data-duration="9.22" data-track-index="1">
+      <div class="reason-stage">
+        <!-- False Model -->
+        <div class="model-box" style="border-color: #888890;">
+          <span class="model-title" style="color: #888890;" data-layout-allow-occlusion>REASON PRECEDES ACTION</span>
+          <span class="model-tag" style="color: #888890;" data-layout-allow-occlusion>ILLUSION</span>
+          <div class="strike-line" data-layout-allow-occlusion></div>
         </div>
-        <div class="manifesto-rule"></div>
-        <p class="manifesto-core-insight">
-          Conscious reason does not create our actions—it weaves the stories that explain them.
-        </p>
+
+        <!-- Reality -->
+        <div class="model-box" id="reality-model">
+          <span class="model-title">REASON JUSTIFIES ACTION</span>
+          <span class="model-tag" style="color: #FFFFFF;">NEURAL REALITY</span>
+        </div>
       </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s05-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s05-line" id="s05-caption" class="caption-line">You believe you act because you reason...</p>
-        <span data-hf-id="hf-s05-sub" id="s05-sub" class="caption-sub">The Illusion of Conscious Will</span>
+      <div class="callout-box">
+        <h1 class="callout-title">THE ILLUSION OF REASON</h1>
+        <p class="callout-sub">YOU ARE NOT A JUDGE // YOU ARE A PRESS SECRETARY</p>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        You believe you act because you reason...
       </div>
     </div>
   </div>
@@ -195,21 +152,12 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-05-manifesto"] = tl;
 
-    const env = document.getElementById("s05-env");
-    const stage = document.getElementById("s05-stage");
-    const caption = document.getElementById("s05-caption");
-    const sub = document.getElementById("s05-sub");
+    tl.fromTo("#s05-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
 
-    gsap.set(stage, { scale: 0.94, opacity: 0.8 });
-
-    // Majestic pull-back & push
-    tl.to(env, { scale: 1.06, duration: 9.22, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.02, opacity: 1, duration: 9.22, ease: "power1.out" }, 0);
-
-    // 4.2s: Second half of sentence
     tl.call(() => {
-      caption.innerHTML = '...but you reason to <span class="accent">justify what your brain already decided to do</span>.';
-      sub.innerText = 'The Ultimate Confabulation';
-    }, null, 4.2);
+      document.getElementById("cap-text").innerHTML = "...but most of the time, you reason simply to justify what your brain has already decided to do.";
+    }, null, 4.0);
+
+    tl.fromTo("#reality-model", { scale: 0.98 }, { scale: 1.02, yoyo: true, repeat: 3, duration: 0.5 }, 4.0);
   </script>
 </template>

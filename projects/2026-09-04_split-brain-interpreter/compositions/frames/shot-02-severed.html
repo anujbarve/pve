@@ -1,12 +1,6 @@
 <template>
   <style>
     @font-face {
-      font-family: "Playfair Display";
-      font-style: normal;
-      font-weight: 400 900;
-      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
-    }
-    @font-face {
       font-family: "Inter";
       font-style: normal;
       font-weight: 100 900;
@@ -20,244 +14,166 @@
       height: 1920px;
       position: relative;
       overflow: hidden;
-      background: #080808;
+      background: #000000;
       font-family: "Inter", sans-serif;
-      color: #F2F1EC;
+      color: #FFFFFF;
     }
 
-    .film-env {
+    .canvas-center {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 75% 45%, rgba(242, 210, 75, 0.14) 0%, transparent 60%),
-        radial-gradient(circle at 25% 45%, rgba(212, 98, 43, 0.12) 0%, transparent 55%),
-        linear-gradient(180deg, #0c0d12 0%, #050507 100%);
+      top: 300px;
+      left: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0 80px;
     }
 
-    .neural-floor {
-      position: absolute;
-      bottom: 0;
-      left: -100px;
-      right: -100px;
-      height: 900px;
-      background: linear-gradient(180deg, rgba(14, 16, 22, 0.95) 0%, #040507 100%);
-      transform: perspective(1000px) rotateX(55deg);
-      border-top: 1px solid rgba(212, 98, 43, 0.25);
-    }
-
-    .stage-center {
-      position: absolute;
-      inset: 0;
+    .bridge-stage {
+      width: 760px;
+      height: 440px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 36px;
+      margin-bottom: 40px;
     }
 
-    /* Brain Dual Chamber Stage */
-    .brain-stage {
-      position: relative;
-      width: 780px;
-      height: 600px;
-      margin-top: -60px;
+    .hemis-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      width: 100%;
     }
 
-    .hemisphere-pod {
-      position: relative;
-      width: 320px;
-      height: 480px;
-      border-radius: 160px 160px 80px 80px;
-      background: linear-gradient(180deg, #13161c 0%, #0b0c10 100%);
-      border: 2px solid rgba(242, 241, 236, 0.2);
+    .node-box {
+      width: 240px;
+      height: 140px;
+      border: 3px solid #FFFFFF;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 30px 20px;
-      gap: 16px;
-      box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), inset 0 0 40px rgba(0,0,0,0.8);
+      justify-content: center;
+      gap: 8px;
     }
 
-    .pod-left {
-      border-color: rgba(255, 162, 112, 0.5);
-    }
-
-    .pod-right {
-      border-color: rgba(242, 210, 75, 0.5);
-      box-shadow: 0 0 45px rgba(242, 210, 75, 0.15);
-    }
-
-    .pod-title {
-      font-size: 13px;
-      font-weight: 800;
+    .node-title {
+      font-size: 22px;
+      font-weight: 900;
       letter-spacing: 0.15em;
       text-transform: uppercase;
     }
 
-    .title-left { color: #FFA270; }
-    .title-right { color: #F2D24B; }
-
-    .pod-status {
-      font-size: 11px;
-      font-weight: 700;
-      color: #A0A09C;
-      letter-spacing: 0.1em;
+    .node-tag {
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      background: rgba(0, 0, 0, 0.5);
-      padding: 6px 12px;
-      border-radius: 4px;
-      border: 1px solid rgba(242, 241, 236, 0.1);
+      color: #A0A0B0;
     }
 
-    .pod-core {
-      flex: 1;
+    .severed-line-stage {
       width: 100%;
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      height: 70px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 16px;
+      gap: 16px;
+    }
+
+    .wire-seg {
+      flex: 1;
+      height: 4px;
+      background: #FFFFFF;
+    }
+
+    .gap-text {
+      width: 280px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      color: #FFFFFF;
+      border: 2px solid #FFFFFF;
+      padding: 10px 16px;
+    }
+
+    .callout-box {
+      width: 760px;
+      border-top: 2px solid rgba(255, 255, 255, 0.2);
+      padding-top: 36px;
       text-align: center;
     }
 
-    .core-highlight {
-      font-size: 20px;
-      font-weight: 800;
-      font-family: "Playfair Display", serif;
-    }
-
-    .core-sub {
-      font-size: 11px;
-      color: #A0A09C;
-      letter-spacing: 0.08em;
-    }
-
-    /* Severed Callosum Bridge */
-    .severed-gap {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      z-index: 10;
-    }
-
-    .gap-line {
-      width: 100%;
-      height: 3px;
-      background: repeating-linear-gradient(90deg, #FFA270 0, #FFA270 8px, transparent 8px, transparent 16px);
-      box-shadow: 0 0 16px rgba(255, 162, 112, 0.7);
-    }
-
-    .gap-badge {
-      background: #080808;
-      border: 1px solid rgba(255, 162, 112, 0.6);
-      padding: 6px 12px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 800;
-      color: #FFA270;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      box-shadow: 0 0 20px rgba(255, 162, 112, 0.3);
-      white-space: nowrap;
-    }
-
-    .gap-cross {
-      font-size: 24px;
-      color: #FFA270;
+    .callout-title {
+      font-size: 48px;
       font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
     }
 
-    /* Subtitles at bottom: 480px */
-    .film-caption-block {
+    .callout-sub {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #A0A0B0;
+      line-height: 1.4;
+    }
+
+    .caption-zone {
       position: absolute;
       bottom: 480px;
-      left: 90px;
-      right: 90px;
+      left: 60px;
+      right: 60px;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 12px;
+      justify-content: center;
+      pointer-events: none;
     }
 
-    .caption-line {
-      font-family: "Playfair Display", serif;
-      font-size: 42px;
+    .caption-text {
+      font-size: 32px;
       font-weight: 700;
-      line-height: 1.25;
-      color: #F2F1EC;
-      text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
-    }
-
-    .caption-line .accent {
-      color: #F2D24B;
-      font-style: italic;
-    }
-
-    .caption-sub {
-      font-family: "Inter", sans-serif;
-      font-size: 17px;
-      font-weight: 500;
-      color: #A0A09C;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      text-align: center;
     }
   </style>
 
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <div data-hf-id="s02-root" id="root" data-composition-id="shot-02-severed" data-width="1080" data-height="1920" data-duration="7.38">
+    <div data-hf-id="s02-content" id="s02-content" class="clip canvas-center" data-start="0" data-duration="7.38" data-track-index="1">
+      <div class="bridge-stage">
+        <div class="hemis-row">
+          <div class="node-box" id="node-left">
+            <span class="node-title">LEFT BRAIN</span>
+            <span class="node-tag" id="left-tag">VERBAL SPEECH</span>
+          </div>
 
-  <div data-hf-id="hf-s02-root" id="root" data-composition-id="shot-02-severed" data-width="1080" data-height="1920" data-duration="7.38">
-    <div data-hf-id="hf-s02-env" id="s02-env" class="film-env" data-layout-allow-overflow></div>
-    <div data-hf-id="hf-s02-floor" id="s02-floor" class="neural-floor" data-layout-allow-overflow></div>
-
-    <div class="stage-center">
-      <!-- Brain Dual Chamber Stage -->
-      <div data-hf-id="hf-s02-stage" id="s02-stage" class="brain-stage" data-layout-allow-overlap>
-        <!-- Left Verbal Pod -->
-        <div id="s02-pod-left" class="hemisphere-pod pod-left">
-          <span class="pod-title title-left">Left Hemisphere</span>
-          <span class="pod-status">Language & Verbal Speech</span>
-          <div class="pod-core">
-            <span class="core-highlight" style="color: #FFA270;">0% Knowledge</span>
-            <span class="core-sub">No Visual Input Received</span>
+          <div class="node-box" id="node-right">
+            <span class="node-title">RIGHT BRAIN</span>
+            <span class="node-tag">MOTOR EXECUTION</span>
           </div>
         </div>
 
-        <!-- Severed Corpus Callosum Gap -->
-        <div data-hf-id="hf-s02-gap" id="s02-gap" class="severed-gap">
-          <div class="gap-cross">&#10005;</div>
-          <div class="gap-line"></div>
-          <div class="gap-badge">Corpus Callosum Severed</div>
-        </div>
-
-        <!-- Right Motor Pod -->
-        <div id="s02-pod-right" class="hemisphere-pod pod-right">
-          <span class="pod-title title-right">Right Hemisphere</span>
-          <span class="pod-status">Spatial & Motor Command</span>
-          <div class="pod-core">
-            <span class="core-highlight" style="color: #F2D24B;">Action Active</span>
-            <span class="core-sub">Triggered by 'WALK'</span>
-          </div>
+        <div class="severed-line-stage">
+          <div class="wire-seg"></div>
+          <div class="gap-text" id="gap-text">// BRIDGE SEVERED //</div>
+          <div class="wire-seg"></div>
         </div>
       </div>
 
-      <!-- Caption -->
-      <div data-hf-id="hf-s02-capwrap" class="film-caption-block" data-layout-allow-overlap>
-        <p data-hf-id="hf-s02-line" id="s02-caption" class="caption-line">Because the neural bridge was severed...</p>
-        <span data-hf-id="hf-s02-sub" id="s02-sub" class="caption-sub">The Hemispheric Disconnection</span>
+      <div class="callout-box">
+        <h1 class="callout-title">THE SEVERED BRIDGE</h1>
+        <p class="callout-sub">ZERO DATA TRANSMISSION ACROSS HEMISPHERES</p>
+      </div>
+    </div>
+
+    <div class="caption-zone">
+      <div class="caption-text" id="cap-text">
+        Because the neural bridge between hemispheres was severed...
       </div>
     </div>
   </div>
@@ -267,31 +183,15 @@
     const tl = gsap.timeline({ paused: true });
     window.__timelines["shot-02-severed"] = tl;
 
-    const env = document.getElementById("s02-env");
-    const stage = document.getElementById("s02-stage");
-    const gap = document.getElementById("s02-gap");
-    const podLeft = document.getElementById("s02-pod-left");
-    const podRight = document.getElementById("s02-pod-right");
-    const caption = document.getElementById("s02-caption");
-    const sub = document.getElementById("s02-sub");
+    tl.fromTo("#s02-content", { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.0);
 
-    gsap.set(gap, { scale: 0.9, opacity: 0.8 });
-    gsap.set(stage, { scale: 0.96 });
-
-    // Slow push and parallax
-    tl.to(env, { scale: 1.05, duration: 7.38, ease: "none" }, 0);
-    tl.to(stage, { scale: 1.03, duration: 7.38, ease: "power1.out" }, 0);
-
-    // Callosum fracture pulse at 0.6s
-    tl.to(gap, { scale: 1.15, duration: 0.4, ease: "back.out(2)" }, 0.6);
-    tl.to(gap, { scale: 1.0, duration: 0.5, ease: "power1.inOut" }, 1.0);
-
-    // 3.4s: Second half of sentence: "...his verbal left brain had zero knowledge of the command."
     tl.call(() => {
-      caption.innerHTML = '...his verbal left brain had <span class="accent">zero knowledge of the command</span>.';
-      sub.innerText = 'Complete Information Barrier';
-    }, null, 3.4);
+      document.getElementById("cap-text").innerHTML = "...his verbal left brain had zero knowledge of the command.";
+      document.getElementById("node-left").style.borderColor = "#888890";
+      document.getElementById("left-tag").innerHTML = "KNOWLEDGE: ZERO [0%]";
+      document.getElementById("left-tag").style.color = "#FFFFFF";
+    }, null, 3.5);
 
-    tl.to(podLeft, { borderColor: "rgba(255, 162, 112, 0.9)", duration: 0.8, ease: "power2.out" }, 3.6);
+    tl.fromTo("#gap-text", { scale: 0.95 }, { scale: 1.05, yoyo: true, repeat: 3, duration: 0.4 }, 3.5);
   </script>
 </template>

@@ -1,0 +1,269 @@
+<template>
+  <style>
+    @font-face {
+      font-family: "Playfair Display";
+      font-style: normal;
+      font-weight: 400 900;
+      src: url(https://fonts.gstatic.com/s/playfairdisplay/v40/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYgEM86xQ.woff2) format("woff2");
+    }
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    #root {
+      width: 1080px;
+      height: 1920px;
+      position: relative;
+      overflow: hidden;
+      background: #070709;
+      font-family: "Inter", sans-serif;
+      color: #FFFFFF;
+    }
+
+    .film-env {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(226, 253, 82, 0.08) 0%, transparent 65%),
+                  linear-gradient(180deg, #050507 0%, #0E0E14 100%);
+    }
+
+    .grain-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 8px 8px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    .cut-scene {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 80px;
+    }
+
+    .tag-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(226, 253, 82, 0.12);
+      border: 1px solid rgba(226, 253, 82, 0.4);
+      padding: 8px 22px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #E2FD52;
+      margin-bottom: 28px;
+    }
+
+    .anchor-title {
+      font-size: 70px;
+      font-weight: 900;
+      line-height: 1.06;
+      text-align: center;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      max-width: 940px;
+    }
+
+    .hl-yellow {
+      color: #E2FD52;
+      text-shadow: 0 0 40px rgba(226, 253, 82, 0.5);
+    }
+    .hl-gold {
+      color: #FBBF24;
+      text-shadow: 0 0 40px rgba(251, 191, 36, 0.5);
+    }
+
+    /* Cut 5A: Ceasefire Card */
+    .ceasefire-card {
+      width: 880px;
+      height: 380px;
+      background: #101117;
+      border: 2px solid rgba(255, 255, 255, 0.12);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 30px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85);
+    }
+
+    .ceasefire-icon {
+      font-size: 64px;
+    }
+
+    /* Cut 5B: Credit Card */
+    .credit-card {
+      width: 880px;
+      height: 460px;
+      background: linear-gradient(180deg, #11141D 0%, #090B10 100%);
+      border: 2px solid rgba(226, 253, 82, 0.35);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 60px rgba(226, 253, 82, 0.15);
+    }
+
+    .shield-asset {
+      width: 130px;
+      height: 130px;
+    }
+
+    /* Cut 5C: Final Reset Card */
+    .reset-card {
+      width: 880px;
+      padding: 50px 40px;
+      background: radial-gradient(circle at 50% 30%, rgba(226, 253, 82, 0.15) 0%, #0E1018 70%);
+      border: 2px solid rgba(226, 253, 82, 0.4);
+      border-radius: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 80px rgba(226, 253, 82, 0.2);
+    }
+
+    /* Safe Zone Subtitles (bottom: 480px) */
+    .caption-zone {
+      position: absolute;
+      bottom: 480px;
+      left: 60px;
+      right: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .caption-pill {
+      background: rgba(14, 14, 18, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      border-radius: 999px;
+      padding: 16px 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+
+    .caption-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+    }
+  </style>
+
+  <div data-hf-id="s05-root" id="root" data-composition-id="shot-05-anchor" data-width="1080" data-height="1920" data-duration="10.32">
+    <div data-hf-id="s05-env" id="s05-env" class="clip film-env" data-start="0" data-duration="10.32" data-track-index="0">
+      <div class="grain-overlay"></div>
+    </div>
+
+    <!-- Cut 5A: Ceasefire (0.00s - 3.50s) -->
+    <div data-hf-id="cut-5a" id="cut-5a" class="clip cut-scene" data-start="0.00" data-duration="3.50" data-track-index="1">
+      <div class="tag-badge" style="border-color: #FF5722; color: #FF5722;">Immediate Ceasefire</div>
+      <div class="ceasefire-card">
+        <div class="ceasefire-icon">🛡️</div>
+        <div style="font-size: 24px; font-weight: 800; color: #8E8F98; letter-spacing: 0.15em; text-transform: uppercase;">
+          Drop The Weapons
+        </div>
+      </div>
+      <h1 class="anchor-title">
+        STOP FIGHTING<br />
+        <span class="hl-yellow">YOURSELF.</span>
+      </h1>
+    </div>
+
+    <!-- Cut 5B: Credit Validation (3.50s - 6.80s) -->
+    <div data-hf-id="cut-5b" id="cut-5b" class="clip cut-scene" data-start="3.50" data-duration="3.30" data-track-index="2">
+      <div class="tag-badge">The Grounded Truth</div>
+      <div class="credit-card">
+        <img src="assets/shield.svg" class="shield-asset" alt="Shield" />
+        <div style="font-size: 26px; font-weight: 800; color: #E2FD52; letter-spacing: 0.1em; text-transform: uppercase;">
+          Resilience Validated
+        </div>
+      </div>
+      <h1 class="anchor-title" style="font-size: 56px;">
+        YOU'RE DOING BETTER<br />
+        <span class="hl-yellow">THAN YOU THINK.</span>
+      </h1>
+    </div>
+
+    <!-- Cut 5C: Final Reset (6.80s - 10.32s) -->
+    <div data-hf-id="cut-5c" id="cut-5c" class="clip cut-scene" data-start="6.80" data-duration="3.52" data-track-index="1">
+      <div class="tag-badge" style="border-color: #E2FD52; color: #E2FD52;">Reset Protocol</div>
+      <div class="reset-card">
+        <div style="font-size: 42px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em;">
+          CLOSE YOUR EYES.
+        </div>
+        <div style="font-size: 54px; font-weight: 900; color: #E2FD52; letter-spacing: 0.02em;">
+          RESET TOMORROW.
+        </div>
+      </div>
+      <h1 class="anchor-title" style="font-size: 64px;">
+        YOU'VE GOT THIS.
+      </h1>
+    </div>
+
+    <!-- Safe-Zone Captions (bottom: 480px) -->
+    <div class="caption-zone">
+      <div class="caption-pill" id="cap-pill">
+        <span class="caption-text" id="cap-content">
+          Stop fighting yourself...
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["shot-05-anchor"] = tl;
+
+    const cut5a = document.getElementById("cut-5a");
+    const cut5b = document.getElementById("cut-5b");
+    const cut5c = document.getElementById("cut-5c");
+    const capContent = document.getElementById("cap-content");
+
+    gsap.set(cut5a, { opacity: 1, scale: 1 });
+    gsap.set(cut5b, { opacity: 0, scale: 1.05 });
+    gsap.set(cut5c, { opacity: 0, scale: 0.95 });
+
+    // Cut 5A
+    tl.fromTo(cut5a, { scale: 0.94, opacity: 0 }, { scale: 1.0, opacity: 1, duration: 0.25, ease: "power3.out" }, 0.0);
+
+    // Fast Cut 5B (3.50s)
+    tl.fromTo(cut5b, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1.0, duration: 0.25, ease: "power3.out" }, 3.50);
+    tl.call(() => {
+      capContent.innerHTML = 'You are doing <span style="color:#E2FD52;font-weight:900;">better than you think.</span>';
+    }, null, 3.50);
+
+    // Fast Cut 5C (6.80s)
+    tl.fromTo(cut5c, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1.0, duration: 0.25, ease: "back.out(1.4)" }, 6.80);
+    tl.call(() => {
+      capContent.innerHTML = 'Close your eyes. Reset tomorrow. <span style="color:#E2FD52;font-weight:900;">You’ve got this.</span>';
+    }, null, 6.80);
+  </script>
+</template>

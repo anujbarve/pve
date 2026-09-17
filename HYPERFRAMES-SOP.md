@@ -6,13 +6,21 @@ A comprehensive, production-tested manual for producing elite faceless short-for
 
 ## 🚨 THE CORE NON-NEGOTIABLES
 
-1. **The Anti-PowerPoint Filmmaking Doctrine**: The fundamental unit of production is a **SHOT**, not a "card" or "slide". If 5 consecutive frames can be screenshotted and understood as a slide deck, **the video has failed**. Eliminate the "Card Prison" (floating rounded rectangles in a black void with engineering grids).
-2. **Reality-First Hierarchy**: Always open with a visceral human experience or physical event in a full-bleed spatial environment. Conceptual animations and diagrams must emerge *directly from the physical geometry of the objects*, not as isolated UI widgets.
-3. **The 3-Layer Audio & Sound Design Architecture**: Audio carries 50% of the video's bandwidth. Every film must feature three synchronized layers: **Foreground Voiceover (-14 LUFS) + Cinematic BGM Score (-22 dB) + Procedural Sound Design SFX (-14 dB to -20 dB)**.
-4. **Canvas Standard (1080×1920 @ 60 FPS)**: Vertical 9:16 FHD at 60 FPS with full-bleed environments.
+1. **The Simplicity Doctrine (Jack Butcher / Visualize Value / Naval Ravikant)**:
+   - Simple black and white (`#000000` canvas, `#FFFFFF` geometry, `#888890` metadata).
+   - No visual fuss. No decorative card prisons, no stock photos slapped behind text, no fake gradients.
+   - **Pure Primitives Only**: Every diagram is constructed from pure CSS primitives: circles (`border-radius: 50%`), boxes, straight lines, and progress frames.
+   - Zero complex hand-drawn SVG paths or coordinate rotation bugs that glitch under capture workers.
+2. **Mental-Model-First Hierarchy**: Every shot visually proves a singular psychological truth or mental model. Strip away the unnecessary so that the necessary can speak.
+3. **Voice-First Audio & Meditative Architecture**:
+   - **Voiceover**: 100% upfront, intimate, warm, crystal-clear, mastered to broadcast **-14.0 LUFS**.
+   - **Meditative Ambient Score**: Slow, breathing ambient piano and analog drone sitting gently at **-19.0 dB**, never competing with voice frequencies.
+   - **Prominent Tactile SFX**: Crisp mechanical switch snaps, clean pen clicks on diagram snap-ins, and line draw friction (-10 dB to -13 dB). Zero chaotic drums, zero digital bleeps.
+4. **Canvas Standard (1080×1920 @ 60 FPS)**: Vertical 9:16 FHD at 60 FPS.
 5. **Optical Safe-Zone Captions (`bottom: 480px`)**: Subtitles and core focal action MUST be positioned along the lower third of the 1:1 center square (**`bottom: 480px` / Y = 1350px–1440px**), completely immune to Instagram Reels, TikTok, and YouTube Shorts UI overlays.
 6. **Zero Dead Air & Exact Timestamp Sync**: Timings are measured from the TTS engine with millisecond precision before authoring visuals.
-7. **Date-Prefixed Folder Naming**: Project folders MUST follow the incrementing date format: `projects/YYYY-MM-DD_topic-name/` (e.g. `2026-08-28_predictive-processing`, `2026-08-29_chronostasis`, `2026-08-30_zeigarnik-effect`).
+7. **Date-Prefixed Folder Naming**: Project folders MUST follow the incrementing date format: `projects/YYYY-MM-DD_topic-name/` (e.g. `2026-09-15_emotional-redlining`).
+
 
 ---
 

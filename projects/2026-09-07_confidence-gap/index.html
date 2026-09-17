@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>The Confidence Gap — Jack Butcher Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000000;
+        overflow: hidden;
+      }
+      #root {
+        width: 1080px;
+        height: 1920px;
+        position: relative;
+        overflow: hidden;
+        background: #000000;
+      }
+      .film-shot {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="confidence-gap-main"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="44.26"
+    >
+      <!-- Shot 01: The False Summit (0.00s - 8.66s) -->
+      <div
+        data-hf-id="s01"
+        id="s01"
+        class="clip film-shot"
+        data-composition-id="shot-01-false-summit"
+        data-composition-src="compositions/frames/shot-01-false-summit.html"
+        data-start="0.00"
+        data-duration="8.66"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 02: The Valley of Despair (8.66s - 17.40s) -->
+      <div
+        data-hf-id="s02"
+        id="s02"
+        class="clip film-shot"
+        data-composition-id="shot-02-valley"
+        data-composition-src="compositions/frames/shot-02-valley.html"
+        data-start="8.66"
+        data-duration="8.74"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 03: The Slope of Enlightenment (17.40s - 26.14s) -->
+      <div
+        data-hf-id="s03"
+        id="s03"
+        class="clip film-shot"
+        data-composition-id="shot-03-ascent"
+        data-composition-src="compositions/frames/shot-03-ascent.html"
+        data-start="17.40"
+        data-duration="8.74"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 04: The Plateau of Sustainability (26.14s - 35.52s) -->
+      <div
+        data-hf-id="s04"
+        id="s04"
+        class="clip film-shot"
+        data-composition-id="shot-04-peak"
+        data-composition-src="compositions/frames/shot-04-peak.html"
+        data-start="26.14"
+        data-duration="9.38"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 05: The Knowledge Paradox (35.52s - 44.26s) -->
+      <div
+        data-hf-id="s05"
+        id="s05"
+        class="clip film-shot"
+        data-composition-id="shot-05-synthesis"
+        data-composition-src="compositions/frames/shot-05-synthesis.html"
+        data-start="35.52"
+        data-duration="8.74"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Master 3-Layer Audio Soundtrack -->
+      <audio
+        data-hf-id="audio-master"
+        id="audio-master"
+        src=".temp_audio/master_sound_design.wav"
+        data-start="0"
+        data-duration="44.26"
+        data-track-index="10"
+        data-volume="1.0"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const masterTl = gsap.timeline({ paused: true });
+      window.__timelines["confidence-gap-main"] = masterTl;
+
+      const s01 = document.getElementById("s01");
+      const s02 = document.getElementById("s02");
+      const s03 = document.getElementById("s03");
+      const s04 = document.getElementById("s04");
+      const s05 = document.getElementById("s05");
+
+      // Crisp cuts between mental model diagrams
+      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 8.66);
+      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 17.40);
+      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 26.14);
+      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 35.52);
+    </script>
+  </body>
+</html>

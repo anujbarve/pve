@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Anchoring Bias — Jack Butcher Edition</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 100 900;
+        src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2) format("woff2");
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: #000000;
+        overflow: hidden;
+      }
+      #root {
+        width: 1080px;
+        height: 1920px;
+        position: relative;
+        overflow: hidden;
+        background: #000000;
+      }
+      .film-shot {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      data-hf-id="root"
+      id="root"
+      data-composition-id="anchoring-bias-main"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="44.98"
+    >
+      <!-- Shot 01: The Number Drop (0.00s - 8.90s) -->
+      <div
+        data-hf-id="s01"
+        id="s01"
+        class="clip film-shot"
+        data-composition-id="shot-01-number-drop"
+        data-composition-src="compositions/frames/shot-01-number-drop.html"
+        data-start="0.00"
+        data-duration="8.90"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 02: The Judgment Warp (8.90s - 18.68s) -->
+      <div
+        data-hf-id="s02"
+        id="s02"
+        class="clip film-shot"
+        data-composition-id="shot-02-judgment-warp"
+        data-composition-src="compositions/frames/shot-02-judgment-warp.html"
+        data-start="8.90"
+        data-duration="9.78"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 03: The Neural Mechanism (18.68s - 28.46s) -->
+      <div
+        data-hf-id="s03"
+        id="s03"
+        class="clip film-shot"
+        data-composition-id="shot-03-neural-mechanism"
+        data-composition-src="compositions/frames/shot-03-neural-mechanism.html"
+        data-start="18.68"
+        data-duration="9.78"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 04: The Real-World Damage (28.46s - 37.52s) -->
+      <div
+        data-hf-id="s04"
+        id="s04"
+        class="clip film-shot"
+        data-composition-id="shot-04-real-world"
+        data-composition-src="compositions/frames/shot-04-real-world.html"
+        data-start="28.46"
+        data-duration="9.06"
+        data-track-index="2"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Shot 05: The Liberation (37.52s - 44.98s) -->
+      <div
+        data-hf-id="s05"
+        id="s05"
+        class="clip film-shot"
+        data-composition-id="shot-05-liberation"
+        data-composition-src="compositions/frames/shot-05-liberation.html"
+        data-start="37.52"
+        data-duration="7.46"
+        data-track-index="1"
+        data-layout-allow-overlap
+      ></div>
+
+      <!-- Master 3-Layer Audio Soundtrack -->
+      <audio
+        data-hf-id="audio-master"
+        id="audio-master"
+        src=".temp_audio/master_sound_design.wav"
+        data-start="0"
+        data-duration="44.98"
+        data-track-index="10"
+        data-volume="1.0"
+      ></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const masterTl = gsap.timeline({ paused: true });
+      window.__timelines["anchoring-bias-main"] = masterTl;
+
+      const s01 = document.getElementById("s01");
+      const s02 = document.getElementById("s02");
+      const s03 = document.getElementById("s03");
+      const s04 = document.getElementById("s04");
+      const s05 = document.getElementById("s05");
+
+      // Crisp cuts between mental model diagrams
+      masterTl.fromTo(s02, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 8.90);
+      masterTl.fromTo(s03, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 18.68);
+      masterTl.fromTo(s04, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 28.46);
+      masterTl.fromTo(s05, { opacity: 0 }, { opacity: 1, duration: 0.05 }, 37.52);
+    </script>
+  </body>
+</html>

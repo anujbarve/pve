@@ -1,0 +1,35 @@
+{
+  "total_duration": 44.26,
+  "shots": [
+    {
+      "id": "shot_01",
+      "name": "The False Summit",
+      "start": 0.0,
+      "duration": 8.66
+    },
+    {
+      "id": "shot_02",
+      "name": "The Valley of Despair",
+      "start": 8.66,
+      "duration": 8.74
+    },
+    {
+      "id": "shot_03",
+      "name": "The Slope of Enlightenment",
+      "start": 17.4,
+      "duration": 8.74
+    },
+    {
+      "id": "shot_04",
+      "name": "The Plateau of Sustainability",
+      "start": 26.14,
+      "duration": 9.38
+    },
+    {
+      "id": "shot_05",
+      "name": "The Knowledge Paradox",
+      "start": 35.52,
+      "duration": 8.74
+    }
+  ]
+}
